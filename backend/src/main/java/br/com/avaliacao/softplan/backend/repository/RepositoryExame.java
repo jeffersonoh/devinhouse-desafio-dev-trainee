@@ -11,5 +11,4 @@ import br.com.avaliacao.softplan.backend.entity.Exame;
 public interface RepositoryExame extends JpaRepository<Exame, Long>{
 	Optional<Exame> findByNome(String nome);
 	Optional<Exame> deleteByNome(String nome);
-	Optional<Exame> updateByNome(String nome);
 }
