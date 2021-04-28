@@ -1,4 +1,4 @@
-package br.com.devinhouse.trainee.trainee_devinhouse;
+package br.com.devinhouse.trainee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
