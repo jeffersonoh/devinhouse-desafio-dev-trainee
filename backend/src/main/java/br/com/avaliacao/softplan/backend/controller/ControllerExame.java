@@ -17,7 +17,7 @@ import br.com.avaliacao.softplan.backend.service.ServiceExame;
 
 @RestController
 public class ControllerExame {
-	//TODO: Deverá haver um endpoint para listagem dos exames disponíveis para agendamento, exibindo apenas nome do exame e id;
+	
 	@Autowired
 	ServiceExame service;
 

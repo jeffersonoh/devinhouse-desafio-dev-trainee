@@ -19,11 +19,11 @@ public class ServiceExame {
 	@Autowired
 	RepositoryExame repository;
 	
-	private boolean nomeEstaCadastrado(String nome) {
+	public boolean nomeEstaCadastrado(String nome) {
 		return repository.findByNome(nome).isPresent();
 	}
 	
-	private boolean exameEstaCadastrado(Exame exame) {
+	public boolean exameEstaCadastrado(Exame exame) {
 		return repository.findByNome(exame.getNome()).isPresent();
 	}
 	
