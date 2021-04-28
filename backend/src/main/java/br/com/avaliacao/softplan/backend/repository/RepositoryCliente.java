@@ -3,12 +3,14 @@ package br.com.avaliacao.softplan.backend.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import br.com.avaliacao.softplan.backend.entity.Cliente;
 
-public interface RepositoryCliente extends JpaRepository<Cliente, String>{
+@Repository
+public interface RepositoryCliente extends JpaRepository<Cliente, Long>{
 	//isto vem do jpa, que permite derivar metodos que leem, atualiza e deleta
-	//a ideia disso é reduzir a quantidade de código
+	//a ideia disso ï¿½ reduzir a quantidade de cï¿½digo
 	Optional<Cliente> findByCpf(String cpf);
 	Optional<Cliente> deleteByCpf(String cpf);
 }
