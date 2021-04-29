@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Cliente {
@@ -29,10 +29,8 @@ public class Cliente {
 	private Long cpf;
 
 	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthYear;
-	
-	@Column
-	private LocalDateTime created = LocalDateTime.now();
 	
 	public Cliente () {
 		
@@ -75,14 +73,6 @@ public class Cliente {
 
 	public void setCpf(Long cpf) {
 		this.cpf = cpf;
-	}
-
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
 	}
 
 	public LocalDate getBirthYear() {
