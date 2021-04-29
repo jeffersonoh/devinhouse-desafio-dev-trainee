@@ -11,8 +11,8 @@ public class ExameDTO {
 		
 	}
 	
-	public ExameDTO(Exame obj) {
-		this.nome = obj.getNome();
+	public ExameDTO(Exame exame) {
+		this.nome = exame.getNome();
 	}	
 	
 	public int getId() {
