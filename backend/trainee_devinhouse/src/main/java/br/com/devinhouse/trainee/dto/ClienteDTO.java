@@ -9,18 +9,18 @@ public class ClienteDTO {
 	private int id;
 	private String nome;
 	private String sobrenome;
-	private Long cpf;
+	private String cpf;
 	private LocalDate birthYear;
 	
 	public ClienteDTO() {
 		
 	}
 
-	public ClienteDTO(Cliente cliente) {
-		this.nome = cliente.getNome();
-		this.sobrenome = cliente.getSobrenome();
-		this.cpf = cliente.getCPF();
-		this.birthYear = cliente.getBirthYear();
+	public ClienteDTO(Cliente obj) {
+		this.nome = obj.getNome();
+		this.sobrenome = obj.getSobrenome();
+		this.cpf = obj.getCpf();
+		this.birthYear = obj.getBirthYear();
 	}
 
 	public int getId() {
@@ -47,11 +47,11 @@ public class ClienteDTO {
 		this.sobrenome = sobrenome;
 	}
 
-	public Long getCPF() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCPF(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -62,4 +62,5 @@ public class ClienteDTO {
 	public void setBirthYear(LocalDate birthYear) {
 		this.birthYear = birthYear;
 	}
+	
 }
