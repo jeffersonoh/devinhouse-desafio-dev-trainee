@@ -4,7 +4,10 @@ package br.devin.devtrainee.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.devin.devtrainee.backend.model.Exame;
 import br.devin.devtrainee.backend.repository.ExameRepository;
@@ -21,6 +24,35 @@ public class ExameService {
 	
 	public List<Exame> pegaTodosExames() {
 		return this.examerep.findAll();
+	}
+	
+	public Exame pegaExame(Long id) {
+		return this.examerep.findById(id).orElseThrow(
+				() -> new ResponseStatusException(
+						HttpStatus.BAD_REQUEST, 
+						"Não foi encontrado exame com o ID: "+ id+". \nInforme um novo ID.")
+				);
+	}
+	
+	public ResponseEntity<?> atualizaExame(Long id, Exame novoExame) {
+		if(this.examerep.existsById(id)) {
+			novoExame.setIdExame(id);
+			this.examerep.save(novoExame);
+			return  ResponseEntity.noContent()
+					.build();
+		}
+		return  ResponseEntity.badRequest()
+				.build();
+	}
+	
+	public ResponseEntity<?> deletaExame(Long id) {
+		if(this.examerep.existsById(id)) {
+			this.examerep.deleteById(id);
+			return  ResponseEntity.noContent()
+					.build();
+		}
+		return  ResponseEntity.badRequest()
+				.build();
 	}
 
 }

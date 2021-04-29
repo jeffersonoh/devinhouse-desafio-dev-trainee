@@ -24,33 +24,49 @@ public class Agendamento {
 	@JoinColumn(name = "idExame")
 	private Exame exame;
 	
-	private String dia;
+	private String data;
 	private String hora;
 	
 	public Agendamento() {
 	}
 	
-	public Agendamento(Cliente cliente, Exame exame, String dia, String hora) {
+	public Agendamento(Cliente cliente, Exame exame, String data, String hora) {
 		this.cliente = cliente;
 		this.exame = exame;
-		this.dia=dia;
+		this.data=data;
 		this.hora=hora;
 	}
 
-	public Long getIdgendamento() {
+	public Long getIdAgendamento() {
 		return idAgendamento;
 	}
 
-	public void setId(Long idAgendamento) {
+	public void setIdAgendamento(Long idAgendamento) {
 		this.idAgendamento = idAgendamento;
 	}
 
-	public String getDia() {
-		return dia;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Exame getExame() {
+		return exame;
+	}
+
+	public void setExame(Exame exame) {
+		this.exame = exame;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	public String getHora() {
@@ -59,5 +75,5 @@ public class Agendamento {
 
 	public void setHora(String hora) {
 		this.hora = hora;
-	}
+	}	
 }
