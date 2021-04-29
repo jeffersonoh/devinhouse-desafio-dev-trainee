@@ -1,5 +1,6 @@
 package br.com.devinhouse.trainee.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.com.devinhouse.trainee.entities.Agendamento;
@@ -7,10 +8,11 @@ import br.com.devinhouse.trainee.entities.Cliente;
 import br.com.devinhouse.trainee.entities.Exame;
 
 public class AgendamentoDTO {
-
+	
 	private int id;
 	private Cliente cliente;
 	private Exame exame;
+	private LocalDate data;
 	private LocalDateTime horarioInicio;
 	private LocalDateTime horarioTermino;
 	
@@ -18,11 +20,12 @@ public class AgendamentoDTO {
 		
 	}
 	
-	public AgendamentoDTO(Agendamento obj) {
-		this.cliente = obj.getCliente();
-		this.exame = obj.getExame();
-		this.horarioInicio = obj.getHorarioInicio();
-		this.horarioTermino = obj.getHorarioTermino();
+	public AgendamentoDTO(Agendamento agendamento) {
+		this.cliente = agendamento.getCliente();
+		this.exame = agendamento.getExame();
+		this.data = agendamento.getData();
+		this.horarioInicio =  agendamento.getHorarioInicio();
+		this.horarioTermino = agendamento.getHorarioTermino();
 	}
 
 	public int getId() {
@@ -51,6 +54,14 @@ public class AgendamentoDTO {
 
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
+	}
+	
+	public LocalDate data() {
+		return data;
+	}
+
+	public void setDataAgendamento(LocalDate data) {
+		this.data = data;
 	}
 
 	public void setHorarioInicio(LocalDateTime horarioInicio) {
