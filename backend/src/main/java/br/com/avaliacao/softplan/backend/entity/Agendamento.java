@@ -1,5 +1,6 @@
 package br.com.avaliacao.softplan.backend.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +15,16 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
 	
-	@OneToOne
-	@JoinColumn(name = "idCliente(fk)")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCliente", nullable = true)
 	private Cliente clienteTable;
 	
-	@OneToOne
-	@JoinColumn(name = "idExame(fk)")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idExame", nullable = true)
 	private Exame exameTable;
 	
-	private String dia;
-	private String hora;
+	private String data;
+	private String horario;
 	
 	
 	
@@ -52,19 +53,19 @@ public class Agendamento {
 	}
 
 	public String getDia() {
-		return dia;
+		return data;
 	}
 	
 	public void setDia(String dia) {
-		this.dia = dia;
+		this.data = dia;
 	}
 	
 	public String getHora() {
-		return hora;
+		return horario;
 	}
 	
 	public void setHora(String hora) {
-		this.hora = hora;
+		this.horario = hora;
 	}
 	
 	

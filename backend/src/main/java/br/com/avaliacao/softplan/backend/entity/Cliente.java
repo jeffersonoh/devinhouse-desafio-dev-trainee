@@ -11,7 +11,7 @@ public class Cliente {
 	// nome, cpf, data de nascimento
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idCliente;
+	private Long idCliente;
 	private String cpf;
 	private String nome;
 	private String dataNascimento;

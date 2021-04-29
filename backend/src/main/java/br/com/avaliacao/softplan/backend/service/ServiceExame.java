@@ -17,7 +17,7 @@ import br.com.avaliacao.softplan.backend.repository.RepositoryExame;
 public class ServiceExame {
 	
 	@Autowired
-	RepositoryExame repository;
+	private RepositoryExame repository;
 	
 	public boolean nomeEstaCadastrado(String nome) {
 		return repository.findByNome(nome).isPresent();
