@@ -42,22 +42,21 @@ public class ClienteController {
 	// Deverá haver um endpoint para busca de um cliente baseado no seu cpf;
 	@RequestMapping(value = "/consultar/cpf/{cpf}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public Cliente getByCPF(@PathVariable Long cpf) {
+	public Cliente getByCPF(@PathVariable String cpf) {
 		return clienteServices.getByCPFKey(cpf);
 	}
 		
 	// Deverá haver um endpoint para atualização de um cliente;
-	
 	@RequestMapping(value = "/atualizar/cpf/{cpf}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)	
-	public Cliente updateClient(@PathVariable Long cpf, @RequestBody Cliente obj) {
+	public Cliente updateClient(@PathVariable String cpf, @RequestBody Cliente obj) {
 		return clienteServices.updateClientByCPF(cpf, obj);
 	}
 		
 	// Deverá haver um endpoint para exclusão de um cliente;
 	@RequestMapping(value = "/deletar/cpf/{cpf}", method = DELETE, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public List<Cliente> removeClient(@PathVariable Long cpf) {
+	public List<Cliente> removeClient(@PathVariable String cpf) {
 		return clienteServices.delete(cpf);
 	}
 }
