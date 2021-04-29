@@ -26,31 +26,42 @@ public class ClienteService {
 	}
 	
 	public Cliente procuraPorID(Long id) {
-		return this.clienteRep.findById(id).orElseThrow(
+		return this.clienteRep.findById(id)
+				.orElseThrow(
 				() -> new ResponseStatusException(
-						HttpStatus.BAD_REQUEST, "Não foi encontrado clientes com o ID: "+ id+". \nInforme um novo ID."));
+						HttpStatus.BAD_REQUEST, 
+						"Não foi encontrado clientes com o ID: "+ id+". \nInforme um novo ID.")
+				);
 	}
 	
 	public Cliente procuraPorCPF(String cPF) {
-		return this.clienteRep.findBycPF(cPF).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não foi encontrado clientes com o CPF: "+ cPF +" \nInforme um novo CPF."));
+		return this.clienteRep.findBycPF(cPF)
+				.orElseThrow(
+				() -> new ResponseStatusException(
+						HttpStatus.BAD_REQUEST, 
+						"Não foi encontrado clientes com o CPF: "+ cPF +" \nInforme um novo CPF.")
+				);
 	}
 	
 	public ResponseEntity<?> atualizaCliente(Long id, Cliente novoCliente) {
 		if(this.clienteRep.existsById(id)) {
 			novoCliente.setIdCliente(id);
 			this.clienteRep.save(novoCliente);
-			return  ResponseEntity.noContent().build();
+			return  ResponseEntity.noContent()
+					.build();
 		}
-		return  ResponseEntity.badRequest().build();
+		return  ResponseEntity.badRequest()
+				.build();
 	}
 	
 	public ResponseEntity<?> deletaCliente(Long id) {
 		if(this.clienteRep.existsById(id)) {
 			this.clienteRep.deleteById(id);
-			return  ResponseEntity.noContent().build();
+			return  ResponseEntity.noContent()
+					.build();
 		}
-		return  ResponseEntity.badRequest().build();
+		return  ResponseEntity.badRequest()
+				.build();
 	}
 	
 }
