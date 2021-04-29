@@ -1,5 +1,6 @@
 package br.com.devinhouse.trainee.services;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import br.com.devinhouse.trainee.entities.Exame;
 import br.com.devinhouse.trainee.repositories.ExameRepository;
 
 @Service
-public class ExameServices {
+public class ExameServices implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	private ExameRepository exameRepository;
 	
