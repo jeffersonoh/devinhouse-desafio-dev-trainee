@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import PagesIndex from './index/Index';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import PagesCliente from './cliente/Cliente';
 
 const Root = () => {
     const theme = createMuiTheme({
@@ -20,6 +21,7 @@ const Root = () => {
         <ThemeProvider theme={theme}>
             <Router>
                 <Switch>
+                    <Route path="/cliente" component={PagesCliente} />
                     <Route path="/" component={PagesIndex} />
                 </Switch>
             </Router>

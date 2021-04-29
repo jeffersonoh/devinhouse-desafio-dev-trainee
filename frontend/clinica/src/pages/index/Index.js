@@ -1,8 +1,9 @@
-import { Box, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import MenuTopBar from 'components/menu/TopBar';
 import React, { Fragment } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     buttons: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#e0f2f1",
         height: "100vh"
     }
-  }));
+}));
 
 const PagesIndex = () => {
     const classes = useStyles();
@@ -34,11 +35,13 @@ const PagesIndex = () => {
             <div className={classes.body}>
                 <div className={classes.menu}>
                     <Button variant="contained" color="primary" className={classes.buttons}>
-                    Agendamento
-                </Button>
-                <Button variant="contained" color="primary" className={classes.buttons}> 
-                    Cliente
-                </Button>
+                        Agendamento
+                    </Button>
+                    <Link to="/cliente" style={{ textDecoration: 'none' }}>
+                        <Button variant="contained" color="primary" className={classes.buttons}>
+                            Cliente
+                        </Button>
+                    </Link>
                 </div>
 
             </div>
