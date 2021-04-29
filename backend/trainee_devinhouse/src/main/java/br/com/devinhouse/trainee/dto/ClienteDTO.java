@@ -1,27 +1,26 @@
 package br.com.devinhouse.trainee.dto;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 import br.com.devinhouse.trainee.entities.Cliente;
 
 public class ClienteDTO {
-	
+
 	private int id;
 	private String nome;
 	private String sobrenome;
 	private Long cpf;
-	private String birthYear;
+	private LocalDate birthYear;
 	
 	public ClienteDTO() {
 		
 	}
 
-	public ClienteDTO(Cliente obj) {
-		this.nome = obj.getNome();
-		this.sobrenome = obj.getSobrenome();
-		this.cpf = obj.getCPF();
-		this.birthYear = obj.getBirthYear();
+	public ClienteDTO(Cliente cliente) {
+		this.nome = cliente.getNome();
+		this.sobrenome = cliente.getSobrenome();
+		this.cpf = cliente.getCPF();
+		this.birthYear = cliente.getBirthYear();
 	}
 
 	public int getId() {
@@ -56,11 +55,11 @@ public class ClienteDTO {
 		this.cpf = cpf;
 	}
 
-	public Date getBirthYear() {
+	public LocalDate getBirthYear() {
 		return birthYear;
 	}
 
-	public void setBirthYear(Date birthYear) {
+	public void setBirthYear(LocalDate birthYear) {
 		this.birthYear = birthYear;
 	}
 }
