@@ -1,7 +1,6 @@
 package br.com.devinhouse.trainee.entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ public class Cliente {
 	private String sobrenome;
 
 	@Column(nullable = false, unique = true)
-	private Long cpf;
+	private String cpf; // change to string
 
 	@Column(nullable = false)
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -36,7 +35,7 @@ public class Cliente {
 		
 	}
 
-	public Cliente(String nome, String sobrenome, Long cpf, LocalDate birthYear) {
+	public Cliente(String nome, String sobrenome, String cpf, LocalDate birthYear) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
@@ -67,11 +66,11 @@ public class Cliente {
 		this.sobrenome = sobrenome;
 	}
 
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
