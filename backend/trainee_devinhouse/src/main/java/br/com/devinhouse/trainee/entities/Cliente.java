@@ -25,7 +25,7 @@ public class Cliente {
 	private String sobrenome;
 
 	@Column(nullable = false, unique = true)
-	private String cpf; // change to string
+	private String cpf; 
 
 	@Column(nullable = false)
 	@JsonFormat(pattern = "yyyy-MM-dd")
