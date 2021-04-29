@@ -1,5 +1,6 @@
 package br.com.devinhouse.trainee.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,20 +20,27 @@ public class Agendamento {
 	private int id;
 	
 	@OneToOne
+	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
 	@OneToOne
+	@JoinColumn(name = "exame_id", nullable = false)
 	private Exame exame;
 	
+	@Column
+	private LocalDate data;
+	
+	@Column
 	private LocalDateTime horarioInicio;
 	
+	@Column
 	private LocalDateTime horarioTermino;
 	
 	public Agendamento() {
 		
 	}
 	
-	public Agendamento(Cliente cliente, Exame exame, LocalDateTime horarioInicio, LocalDateTime horarioTermino) {
+	public Agendamento(Cliente cliente, Exame exame, LocalDate data, LocalDateTime horarioInicio, LocalDateTime horarioTermino) {
 		this.cliente = cliente;
 		this.exame = exame;
 		this.horarioInicio =  horarioInicio;
@@ -64,6 +73,14 @@ public class Agendamento {
 
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
+	}
+	
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public void setHorarioInicio(LocalDateTime horarioInicio) {
@@ -99,5 +116,5 @@ public class Agendamento {
 			return false;
 		return true;
 	}
-		
+
 }
