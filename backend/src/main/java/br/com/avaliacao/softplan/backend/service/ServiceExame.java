@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,13 @@ public class ServiceExame {
 		return new ResponseEntity<>("{\n   Exame cadastrado com sucesso\n}", HttpStatus.OK);
 	}
 	
+	public ResponseEntity<?> buscarTodosOsExames() {
+		if (repository.findAll().isEmpty()) {
+			return new ResponseEntity<>("{\n   Nenhuma exame cadastrado\n}", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+	}
+	
 	public ResponseEntity<?> buscarExamePorNome(String nome) {
 		if (nomeEstaCadastrado(nome)) {
 			return new ResponseEntity<>(repository.findByNome(nome), HttpStatus.OK);
@@ -50,14 +59,23 @@ public class ServiceExame {
 		return new ResponseEntity<>("{\n   Exame não cadastrado \n}", HttpStatus.BAD_REQUEST);
 	}
 	
-	public ResponseEntity<?> atualizarExame(String nome, Exame exame) {
-		if (nomeEstaCadastrado(nome)) {
-			Optional<Exame> exameCadastradoValue = repository.findByNome(nome);
-			Exame exameCadastrado = exameCadastradoValue.get();
-			exame.setIdExame(exameCadastrado.getIdExame());
-			repository.save(exame);
-			return new ResponseEntity<>("{\n   Exame atualizado com sucesso\n}", HttpStatus.OK);
+	public ResponseEntity<?> atualizarExame(String nomeSalvo, Exame exame) {
+		if (nomeEstaCadastrado(nomeSalvo)) {
+			repository.atualizarExame(exame.getNome(), nomeSalvo);
+			return new ResponseEntity<>("Atualizado com sucesso", HttpStatus.OK);
 		}
-		return new ResponseEntity<>("{\n   Exame não encontrado, por favor, digite um exame cadastrado\n}", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Não atualizado", HttpStatus.BAD_REQUEST);
 	}
+	
+	/*
+	 * public ResponseEntity<?> atualizarExame(String nome, Exame exame) { if
+	 * (nomeEstaCadastrado(nome)) { Optional<Exame> exameCadastradoValue =
+	 * repository.findByNome(nome); Exame exameCadastrado =
+	 * exameCadastradoValue.get(); //exame.setIdExame(exameCadastrado.getIdExame());
+	 * repository.save(exame); return new
+	 * ResponseEntity<>("{\n   Exame atualizado com sucesso\n}", HttpStatus.OK); }
+	 * return new ResponseEntity<>
+	 * ("{\n   Exame não encontrado, por favor, digite um exame cadastrado\n}",
+	 * HttpStatus.BAD_REQUEST); }
+	 */
 }

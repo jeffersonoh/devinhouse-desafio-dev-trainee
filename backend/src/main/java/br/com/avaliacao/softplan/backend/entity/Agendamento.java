@@ -10,18 +10,18 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Agendamento {
-	//dia, hora, cpf(fk), id(fk)
+	//dia, hora, cliente(fk), exame(fk)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idCliente", nullable = true)
-	private Cliente clienteTable;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idCliente")
+	private Cliente cliente;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idExame", nullable = true)
-	private Exame exameTable;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idExame")
+	private Exame exame;
 	
 	private String data;
 	private String horario;
@@ -36,36 +36,36 @@ public class Agendamento {
 		this.idAgendamento = idAgendamento;
 	}
 
-	public Cliente getClienteTable() {
-		return clienteTable;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setClienteTable(Cliente clienteTable) {
-		this.clienteTable = clienteTable;
+	public void setCliente(Cliente clienteTable) {
+		this.cliente = clienteTable;
 	}
 
-	public Exame getExameTable() {
-		return exameTable;
+	public Exame getExame() {
+		return exame;
 	}
 
-	public void setExameTable(Exame exameTable) {
-		this.exameTable = exameTable;
+	public void setExame(Exame exameTable) {
+		this.exame = exameTable;
 	}
 
-	public String getDia() {
+	public String getData() {
 		return data;
 	}
 	
-	public void setDia(String dia) {
-		this.data = dia;
+	public void setData(String data) {
+		this.data = data;
 	}
 	
-	public String getHora() {
+	public String getHorario() {
 		return horario;
 	}
 	
-	public void setHora(String hora) {
-		this.horario = hora;
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 	
 	

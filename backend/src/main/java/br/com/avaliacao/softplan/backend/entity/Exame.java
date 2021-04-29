@@ -8,18 +8,12 @@ import javax.persistence.Id;
 @Entity
 public class Exame {
 	//id, nome do exame
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idExame;
+	
 	private String nome;
-	
-	public Long getIdExame() {
-		return idExame;
-	}
-	
-	public void setIdExame(Long idExame) {
-		this.idExame = idExame;
-	}
 	
 	public String getNome() {
 		return nome;

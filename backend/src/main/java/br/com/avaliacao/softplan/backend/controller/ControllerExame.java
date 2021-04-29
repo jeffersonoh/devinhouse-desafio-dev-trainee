@@ -31,6 +31,13 @@ public class ControllerExame {
 		return service.buscarExamePorNome(nome);
 	}
 	
+	/*
+	 * @PutMapping(path = "/exame/{nome}", consumes = APPLICATION_JSON_VALUE,
+	 * produces = APPLICATION_JSON_VALUE) public ResponseEntity<?>
+	 * atualizarExame(@PathVariable String nome, @RequestBody Exame exame) { return
+	 * service.atualizarExame(nome, exame); }
+	 */
+	
 	@PutMapping(path = "/exame/{nome}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> atualizarExame(@PathVariable String nome, @RequestBody Exame exame) {
 		return service.atualizarExame(nome, exame);

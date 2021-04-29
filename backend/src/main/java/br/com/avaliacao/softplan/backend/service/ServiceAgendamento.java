@@ -47,46 +47,52 @@ public class ServiceAgendamento {
 		return repositoryAgendamento.findById(agendamento.getIdAgendamento()).isPresent();
 	}
 
-	// {
-	// "idAgendamento": null,
-	// "clienteTable": null,
-	// "exameTable": null,
-	// "dia": null,
-	// "hora": null
-	// }
 	public ResponseEntity<?> agendarAtendimento(Agendamento agendamento) {
 		// checar se cpf esta cadastrado
-		if (!serviceCliente.cpfEstaCadastrado(agendamento.getClienteTable().getCpf())) {
+		if (!serviceCliente.cpfEstaCadastrado(agendamento.getCliente().getCpf())) {
 			return new ResponseEntity<>("{\n Cliente não cadastrado \n}", HttpStatus.BAD_REQUEST);
 		}
 
-		Optional<Cliente> clienteBanco = repositoryCliente.findByCpf(agendamento.getClienteTable().getCpf());
-
+		Optional<Cliente> clienteBanco = repositoryCliente.findByCpf(agendamento.getCliente().getCpf());
 		Cliente clienteAgendamento = clienteBanco.get();
-		agendamento.getClienteTable().setNome(clienteAgendamento.getNome());
-		agendamento.getClienteTable().setDataNascimento(clienteAgendamento.getDataNascimento());
+		agendamento.setCliente(clienteAgendamento);
+		//agendamento.getCliente().setNome(clienteAgendamento.getNome());
+		//agendamento.getCliente().setDataNascimento(clienteAgendamento.getDataNascimento());
 
 		// checar se o exame esta cadastrado
-		if (!serviceExame.exameEstaCadastrado(agendamento.getExameTable())) {
+		if (!serviceExame.exameEstaCadastrado(agendamento.getExame())) {
 			return new ResponseEntity<>("{\n Exame incorreto \n}", HttpStatus.BAD_REQUEST);
 		}
 
-		Optional<Exame> exameBanco = repositoryExame.findByNome(agendamento.getExameTable().getNome());
+		Optional<Exame> exameBanco = repositoryExame.findByNome(agendamento.getExame().getNome());
 		Exame exameAgendamento = exameBanco.get();
-		agendamento.getExameTable().setNome(exameAgendamento.getNome());
-
+		agendamento.setExame(exameAgendamento);
+		//agendamento.getExame().setNome(exameAgendamento.getNome());
+		
 		// checar se existe disponibilidade de hora
-		if (horarioEstaDiponivel(agendamento.getHora())) {
+		if (horarioEstaDiponivel(agendamento.getHorario())) {
 			return new ResponseEntity<>("{\n Horário não disponível \n}", HttpStatus.BAD_REQUEST);
 		}
 
 		// checar se existe disponibilidade de data
-		if (dataEstaDisponivel(agendamento.getDia())) {
+		if (dataEstaDisponivel(agendamento.getData())) {
 			return new ResponseEntity<>("{\n Data não está disponível \n}", HttpStatus.BAD_REQUEST);
 		}
-
+		
 		repositoryAgendamento.save(agendamento);
 		return new ResponseEntity<>("{\n Agendamento realizado com sucesso \n}", HttpStatus.OK);
 	}
-
+	
+	public ResponseEntity<?> atualizarAgendamento(Long id, Agendamento agendamento) {
+		repositoryAgendamento.atualizarAgendamento(agendamento.getData(), agendamento.getHorario(), id);
+		return new ResponseEntity<>("{\n   Agendamento atualizado com sucesso\n}", HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> deletarAgendamento(Long id) {
+		if(repositoryAgendamento.findById(id).isPresent()) {
+			repositoryAgendamento.deleteById(id);
+			return new ResponseEntity<>("{\n   Agendamento deletedado com sucesso \n}", HttpStatus.OK);
+		}
+		return new ResponseEntity<>("{\n   Agendamento não encontrado\n}", HttpStatus.BAD_REQUEST);
+	}
 }
