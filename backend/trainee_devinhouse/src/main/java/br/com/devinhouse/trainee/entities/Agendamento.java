@@ -1,6 +1,6 @@
 package br.com.devinhouse.trainee.entities;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,9 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-public class Agendamento {
+public class Agendamento implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
@@ -28,23 +32,18 @@ public class Agendamento {
 	private Exame exame;
 	
 	@Column
-	private LocalDate data;
-	
-	@Column
-	private LocalDateTime horarioInicio;
-	
-	@Column
-	private LocalDateTime horarioTermino;
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	private LocalDateTime dataAgendamento;
 	
 	public Agendamento() {
 		
 	}
-	
-	public Agendamento(Cliente cliente, Exame exame, LocalDate data, LocalDateTime horarioInicio, LocalDateTime horarioTermino) {
+
+	public Agendamento(int id, Cliente cliente, Exame exame, LocalDateTime dataAgendamento) {
+		this.id = id;
 		this.cliente = cliente;
 		this.exame = exame;
-		this.horarioInicio =  horarioInicio;
-		this.horarioTermino = horarioTermino;
+		this.dataAgendamento = dataAgendamento;
 	}
 
 	public int getId() {
@@ -71,28 +70,12 @@ public class Agendamento {
 		this.exame = exame;
 	}
 
-	public LocalDateTime getHorarioInicio() {
-		return horarioInicio;
-	}
-	
-	public LocalDate getData() {
-		return data;
+	public LocalDateTime getDataAgendamento() {
+		return dataAgendamento;
 	}
 
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public void setHorarioInicio(LocalDateTime horarioInicio) {
-		this.horarioInicio = horarioInicio;
-	}
-
-	public LocalDateTime getHorarioTermino() {
-		return horarioTermino;
-	}
-
-	public void setHorarioTermino(LocalDateTime horarioTermino) {
-		this.horarioTermino = horarioTermino;
+	public void setDataAgendamento(LocalDateTime dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
 	}
 
 	@Override
