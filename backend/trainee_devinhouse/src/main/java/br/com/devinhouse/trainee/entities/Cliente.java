@@ -1,6 +1,7 @@
 package br.com.devinhouse.trainee.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,15 +28,17 @@ public class Cliente {
 	@Column(nullable = false, unique = true)
 	private Long cpf;
 
-	@DateTimeFormat(pattern = "dd-mm-yyyy")
 	@Column(nullable = false)
-	private String birthYear;
+	private LocalDate birthYear;
+	
+	@Column
+	private LocalDateTime created = LocalDateTime.now();
 	
 	public Cliente () {
 		
 	}
 
-	public Cliente(String nome, String sobrenome, Long cpf, Date birthYear) {
+	public Cliente(String nome, String sobrenome, Long cpf, LocalDate birthYear) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
@@ -66,19 +69,27 @@ public class Cliente {
 		this.sobrenome = sobrenome;
 	}
 
-	public Long getCPF() {
+	public Long getCpf() {
 		return cpf;
 	}
 
-	public void setCPF(Long cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 
-	public Date getBirthYear() {
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public LocalDate getBirthYear() {
 		return birthYear;
 	}
 
-	public void setBirthYear(Date birthYear) {
+	public void setBirthYear(LocalDate birthYear) {
 		this.birthYear = birthYear;
 	}
 
