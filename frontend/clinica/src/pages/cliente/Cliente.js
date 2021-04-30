@@ -1,4 +1,4 @@
-import { Box, Button, IconButton } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import MenuTopBar from 'components/menu/TopBar';
 import React, { Fragment } from 'react';
 
@@ -57,8 +57,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         width: '100%',
+        maxWidth: "800px",
         backgroundColor: theme.palette.primary.main,
-        marginTop: 70
+        marginTop: 70,
+        height: "550px",
+        borderRadius: "0 0 5px 5px"
     }
 }));
 
@@ -67,9 +70,13 @@ const PagesCliente = () => {
     const [value, setValue] = React.useState(1);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        if (newValue < 3) {
+            setValue(newValue);
+        } else if (newValue > 2) {
+            alert("Selecione algum cliente da lista para acessar essa função!")
+        }
     };
-
+    console.log("value", value)
     return (
         <Fragment>
             <MenuTopBar />
@@ -88,15 +95,15 @@ const PagesCliente = () => {
                                 <Tab label={<ArrowBackIcon/>} />
                             </Link>
                             
-                            <Tab label="Lista" {...a11yProps(0)} />
-                            <Tab label="Editar" {...a11yProps(1)} />
+                            <Tab label="Lista" {...a11yProps(1)} />
                             <Tab label="Cadastrar" {...a11yProps(2)} />
-                            <Tab label="Excluir" {...a11yProps(3)} />
+                            <Tab label="Editar" {...a11yProps(3)} />
+                            <Tab label="Excluir" {...a11yProps(4)} />
                         </Tabs>
                     </AppBar>
                     
                     <TabPanel value={value} index={1}>
-                        <ClienteLista />
+                        <ClienteLista value={value} setValue={setValue}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         Item Three
