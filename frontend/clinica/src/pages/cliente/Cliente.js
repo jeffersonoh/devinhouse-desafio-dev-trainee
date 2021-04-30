@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
 import ClienteLista from 'components/clientelista/ClienteLista';
+import ClienteCadastro from 'components/clientecadastro/ClienteCadastro'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -103,10 +104,10 @@ const PagesCliente = () => {
                     </AppBar>
                     
                     <TabPanel value={value} index={1}>
-                        <ClienteLista value={value} setValue={setValue}/>
+                        <ClienteLista setValue={setValue}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        Item Three
+                        <ClienteCadastro setValue={setValue}/>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
                         Item Four

@@ -95,7 +95,7 @@ function stableSort(array) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const ClienteLista = ({ setValue, value }) => {
+const ClienteLista = ({ setValue }) => {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
@@ -124,7 +124,7 @@ const ClienteLista = ({ setValue, value }) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} value={value} setValue={setValue} />
+        <EnhancedTableToolbar numSelected={selected.length} setValue={setValue} />
         <TableContainer>
           <Table
             className={classes.table}
