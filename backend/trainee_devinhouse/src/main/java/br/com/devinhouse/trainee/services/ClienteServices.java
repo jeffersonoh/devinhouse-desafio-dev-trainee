@@ -91,7 +91,7 @@ public class ClienteServices {
 				filteredClient.setBirthYear(newObj.getBirthYear());
 			}
 			
-			return filteredClient;
+			return clienteRepository.save(filteredClient);
 		} throw new RuntimeException("Nao foi possivel atualizar o cliente, CPF nao encontrado");		
 	}
 

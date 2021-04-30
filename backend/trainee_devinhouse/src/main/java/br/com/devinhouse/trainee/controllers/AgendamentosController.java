@@ -41,11 +41,11 @@ public class AgendamentosController {
 		return service.getAll();
 	}
 	
-//	// Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados
-//	@RequestMapping(value = "/atualizar/id/{id}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-//	public ResponseEntity<?> updateSchedule(@PathVariable Integer id, Agendamento obj) {
-//		return service.update(id, obj);
-//	}
+	// Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados
+	@RequestMapping(value = "/atualizar/id/{id}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> updateSchedule(@PathVariable Integer id, Agendamento obj) {
+		return service.update(id, obj);
+	}
 	
 	// Deverá haver um endpoint para exclusão de um agendamento realizado
 	@RequestMapping(value = "/deletar/id/{id}")

@@ -23,19 +23,19 @@ import br.com.devinhouse.trainee.services.ExameServices;
 public class AgendamentoServices {
 	
 	@Autowired
-	private AgendamentoRepository service;
+	protected AgendamentoRepository service;
 
 //	@Autowired
 //	private ClienteRepository clienteRepository;
 	
 	@Autowired
-	private ClienteServices clienteServices;
+	protected ClienteServices clienteServices;
 	
 //	@Autowired
 //	private ExameRepository exameRepository;
 	
 	@Autowired
-	private ExameServices exameServices;
+	protected ExameServices exameServices;
 	
 	// FUNCOES
 	// create
@@ -56,6 +56,18 @@ public class AgendamentoServices {
 	}
 	
 	// update
+	public ResponseEntity<?> update(Integer id, Agendamento obj) {
+		Agendamento filteredSchedule = service.findById(id).get();
+	
+		if(obj.getDataAgendamento() != null) {
+			filteredSchedule.setDataAgendamento(obj.getDataAgendamento());
+			service.save(filteredSchedule);
+		}
+		
+		return new ResponseEntity<>("{\n Agendamento editado com sucesso \n}", HttpStatus.OK);
+	}
+	
+	
 	// delete
 	public ResponseEntity<?> delete(Integer id) {
 		Agendamento filteredSchedule = service.findById(id).get();
