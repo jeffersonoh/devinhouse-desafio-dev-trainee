@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import ClienteLista from 'components/clientelista/ClienteLista';
 import ClienteCadastro from 'components/clientecadastro/ClienteCadastro'
 import ClienteEditar from 'components/clienteeditar/ClienteEditar'
+import ClienteExcluir from 'components/clienteexcluir/ClienteExcluir';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -78,7 +79,7 @@ const PagesCliente = () => {
             alert("Selecione algum cliente da lista para acessar essa função!")
         }
     };
-    console.log("value", value)
+    
     return (
         <Fragment>
             <MenuTopBar />
@@ -114,7 +115,7 @@ const PagesCliente = () => {
                     <ClienteEditar setValue={setValue} clienteSelected={clienteSelected}/>
                     </TabPanel>
                     <TabPanel value={value} index={4}>
-                        Item Five
+                    <ClienteExcluir setValue={setValue} clienteSelected={clienteSelected}/>
                     </TabPanel>
                 </div>
             </div>
