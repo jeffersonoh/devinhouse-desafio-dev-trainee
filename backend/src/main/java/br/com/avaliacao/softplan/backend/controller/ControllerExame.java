@@ -19,7 +19,7 @@ import br.com.avaliacao.softplan.backend.service.ServiceExame;
 public class ControllerExame {
 	
 	@Autowired
-	ServiceExame service;
+	private ServiceExame service;
 
 	@PostMapping(path = "/exame", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> cadastrarExame(@RequestBody Exame exame) {

@@ -20,3 +20,8 @@ public interface RepositoryAgendamento extends JpaRepository<Agendamento, Long> 
 	void atualizarAgendamento(@Param("novaData") String dataAtualizada, @Param("novoHorario") String HorarioAtualizado, 
 			@Param("idAgendamento") Long id);
 }
+
+/*
+ * Select horario from agendamento a Left join exame e on e.id_exame =
+ * a.id_agendamento Where a.data = "29/04/2021"
+ */

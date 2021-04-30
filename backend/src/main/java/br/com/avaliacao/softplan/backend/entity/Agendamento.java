@@ -15,11 +15,11 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	@JoinColumn(name = "idExame")
 	private Exame exame;
 	

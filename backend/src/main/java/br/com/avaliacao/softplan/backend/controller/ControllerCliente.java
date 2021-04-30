@@ -28,8 +28,8 @@ public class ControllerCliente {
 	private ServiceCliente service;
 
 	// TODO: Deverá haver um endpoint para criação de um cliente;
-	@PostMapping(path = "/cliente", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(code = HttpStatus.CREATED) // colocar isso no service? aqui ele vai disparar mesmo quando realizar
+	@PostMapping(path = "/cliente", consumes = APPLICATION_JSON_VALUE)
+	//@ResponseStatus(code = HttpStatus.CREATED) // colocar isso no service? aqui ele vai disparar mesmo quando realizar
 												// um
 												// cadastro com cpf repetido
 	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
@@ -39,7 +39,7 @@ public class ControllerCliente {
 	// TODO: Deverá haver um endpoint para atualização de um cliente;
 	// TODO: deverá atualizar tudo ou deverá atualizar apenas os campos
 	// necessários?
-	@PutMapping(path = "/cliente/{cpf}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE) //deixar esse produces?
+	@PutMapping(path = "/cliente/{cpf}", consumes = APPLICATION_JSON_VALUE) //deixar esse produces?
 	public ResponseEntity<?> atualizarCliente(@PathVariable String cpf, @RequestBody Cliente clienteAtualizado) {
 		return service.atualizarCliente(cpf, clienteAtualizado);
 	}
@@ -57,8 +57,13 @@ public class ControllerCliente {
 	
 	// TODO: Deverá haver um endpoint para listagem de todos os clientes cadastrados;
 	@GetMapping(path = "/clientes", produces = APPLICATION_JSON_VALUE)
-	public List<Cliente> listarClientes() {
+	public ResponseEntity<?> listarClientes() {
 		return service.listarClientes();
 	}
+	
+	
+	  @GetMapping(path = "/cliente-teste/{cpf}") public List<Long>
+	  deletarTeste(@PathVariable String cpf) { return service.deletarTeste(cpf); }
+	 
 	
 }

@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ControllerAgendamento {
 
 	@Autowired
-	ServiceAgendamento service;
+	private ServiceAgendamento service;
 	// TODO: Deverá haver um endpoint para listagem dos exames disponíveis para
 	// agendamento, exibindo apenas nome do exame e id;
 

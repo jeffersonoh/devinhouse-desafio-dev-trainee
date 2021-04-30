@@ -46,6 +46,17 @@ public class ServiceAgendamento {
 	public boolean agendamentoEstaDisponivel(Agendamento agendamento) {
 		return repositoryAgendamento.findById(agendamento.getIdAgendamento()).isPresent();
 	}
+	
+	//{
+	//    "cliente": {
+	//        "cpf": "111"
+	//    },
+	//    "exame": {
+	//        "nome": "Cardiologista"
+	//    },
+	//   "data": "12/34/5678",
+	//    "horario": "11:11"
+	//}
 
 	public ResponseEntity<?> agendarAtendimento(Agendamento agendamento) {
 		// checar se cpf esta cadastrado
@@ -70,14 +81,19 @@ public class ServiceAgendamento {
 		//agendamento.getExame().setNome(exameAgendamento.getNome());
 		
 		// checar se existe disponibilidade de hora
-		if (horarioEstaDiponivel(agendamento.getHorario())) {
-			return new ResponseEntity<>("{\n Horário não disponível \n}", HttpStatus.BAD_REQUEST);
-		}
+		//não precisara desse metodo, pois o front limita as opções. O front sera a validacao
+		/*
+		 * if (horarioEstaDiponivel(agendamento.getHorario())) { return new
+		 * ResponseEntity<>("{\n Horário não disponível \n}", HttpStatus.BAD_REQUEST); }
+		 */
 
 		// checar se existe disponibilidade de data
-		if (dataEstaDisponivel(agendamento.getData())) {
-			return new ResponseEntity<>("{\n Data não está disponível \n}", HttpStatus.BAD_REQUEST);
-		}
+		//não precisara desse metodo, pois o front limita as opções. O front sera a validacao
+		/*
+		 * if (dataEstaDisponivel(agendamento.getData())) { return new
+		 * ResponseEntity<>("{\n Data não está disponível \n}", HttpStatus.BAD_REQUEST);
+		 * }
+		 */
 		
 		repositoryAgendamento.save(agendamento);
 		return new ResponseEntity<>("{\n Agendamento realizado com sucesso \n}", HttpStatus.OK);
