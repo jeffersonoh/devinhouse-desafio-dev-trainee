@@ -25,7 +25,7 @@ public class ExameServices implements Serializable {
 		Exame foundExam = new Exame();
 		List<Exame> allExams = findAllExams();
 		
-		for (Exame each : allExams) {
+		for(Exame each : allExams) {
 			if(name.equals(each.getNome())) {
 				foundExam = each;
 			}
@@ -34,9 +34,29 @@ public class ExameServices implements Serializable {
 		return foundExam;
 	}
 	
+	protected boolean validateNewExam(String name) {
+		boolean status = false;
+		List<Exame> allExams = findAllExams();
+		
+		for(Exame each : allExams) {
+			if(name.equals(each.getNome())) {
+				status = true;
+			}
+		}
+		
+		return status;
+	}
+	
 	// Criar exame
 	public Exame create(Exame obj) {
-		return exameRepository.save(obj);
+		Exame exam = new Exame();
+		
+		if(validateNewExam(obj.getNome())) {
+			exameRepository.save(obj);
+			exam = findByName(obj.getNome());
+			
+			return exam;
+		} throw new RuntimeException("O exame: " + obj.getNome() + " ja existe na base de dados");
 	}
 	
 	// Consultar todos os exames
