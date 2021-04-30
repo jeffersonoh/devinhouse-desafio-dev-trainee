@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
 import MenuTopBar from 'components/menu/TopBar';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
 import ClienteLista from 'components/clientelista/ClienteLista';
 import ClienteCadastro from 'components/clientecadastro/ClienteCadastro'
-
+import ClienteEditar from 'components/clienteeditar/ClienteEditar'
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PagesCliente = () => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(1);
+    const [value, setValue] = useState(1);
+    const [clienteSelected, setClienteSelected] = useState([])
 
     const handleChange = (event, newValue) => {
         if (newValue < 3) {
@@ -104,13 +105,13 @@ const PagesCliente = () => {
                     </AppBar>
                     
                     <TabPanel value={value} index={1}>
-                        <ClienteLista setValue={setValue}/>
+                        <ClienteLista setValue={setValue} setClienteSelected={setClienteSelected}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <ClienteCadastro setValue={setValue}/>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        Item Four
+                    <ClienteEditar setValue={setValue} clienteSelected={clienteSelected}/>
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         Item Five

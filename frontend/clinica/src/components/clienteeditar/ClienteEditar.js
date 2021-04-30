@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
-import { cpfMask } from 'utils/mask';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -29,28 +28,21 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const INITIAL_VALUE = {
-    nome: "",
-    cpf: "",
-    ddn: ""
-}
-
-const ClienteCadastro = ({ setValue }) => {
+const ClienteEditar = ({ setValue, clienteSelected }) => {
     const classes = useStyles();
-    const [cadastro, setCadastro] = useState(INITIAL_VALUE);
+    const [editar, setEditar] = useState(clienteSelected);
 
-    const onChangeCadastro = (ev) => {
+    const onChangeEditar = (ev) => {
         const { name, value } = ev.target;
 
-        setCadastro({ ...cadastro, [name]: value });
+        setEditar({ ...editar, [name]: value });
     }
 
-
-    const onChickCadastrar = () => {
-        if (cadastro.nome.length === 0) {return alert("Faltou nome")}
-        if (cadastro.cpf.length != 14) {return alert("Faltou cpf")}
-        if (cadastro.ddn.length != 10) {return alert("Faltou data")}
-        alert("POST")
+    const onChickEditar = () => {
+        if (editar.nome.length === 0) {return alert("Faltou nome")}
+        if (editar.cpf.length != 14) {return alert("Faltou cpf")}
+        if (editar.ddn.length != 10) {return alert("Faltou data")}
+        alert("PUT")
         setValue(1)
     }
 
@@ -63,16 +55,18 @@ const ClienteCadastro = ({ setValue }) => {
                     label="Nome"
                     className={classes.textField}
                     name="nome"
-                    value={cadastro.nome}
-                    onChange={onChangeCadastro}
+                    value={editar.nome}
+                    onChange={onChangeEditar}
                 />
                 <TextField 
                     label="CPF" 
                     className={classes.textField}
                     name="cpf"
                     maxLength='14'
-                    value={cadastro.cpf}
-                    onChange={(e) => { setCadastro({ ...cadastro, cpf: cpfMask(e.target.value) }) }}
+                    value={editar.cpf}
+                    InputProps={{
+                        readOnly: true,
+                      }}
                 />
                 <TextField
                     name="ddn"
@@ -81,14 +75,14 @@ const ClienteCadastro = ({ setValue }) => {
                     maxLength='10'
                     defaultValue={new Date}
                     className={classes.textField}
-                    value={cadastro.ddn}
-                    onChange={onChangeCadastro}
+                    value={editar.ddn}
+                    onChange={onChangeEditar}
                     InputLabelProps={{
                     shrink: true,
                     }}
                 />
-                <Button variant="contained" color="primary" className={classes.button} onClick={onChickCadastrar}>
-                    Cadastrar
+                <Button variant="contained" color="primary" className={classes.button} onClick={onChickEditar}>
+                    Editar
                 </Button>
                 <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setValue(1)}}>
                     Cancelar
@@ -99,4 +93,4 @@ const ClienteCadastro = ({ setValue }) => {
   );
 }
 
-export default ClienteCadastro;
+export default ClienteEditar;

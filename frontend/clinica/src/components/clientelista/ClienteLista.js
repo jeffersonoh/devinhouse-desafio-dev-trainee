@@ -24,25 +24,25 @@ const dataBase = [
     id: 1,
     nome: "Lucas",
     cpf: "123.456.789-10",
-    ddn: "12/01/2021"
+    ddn: "1984-02-24"
   },
   {
     id: 2,
     nome: "Lucas",
     cpf: "123.456.789-11",
-    ddn: "12/01/2021"
+    ddn: "1988-06-18"
   },
   {
     id: 3,
     nome: "Lucas",
     cpf: "123.456.789-12",
-    ddn: "12/01/2021"
+    ddn: "1991-07-11"
   },
   {
     id: 4,
     nome: "Lucas",
     cpf: "123.456.789-13",
-    ddn: "12/01/2021"
+    ddn: "1975-12-30"
   }
 ]
 
@@ -95,7 +95,7 @@ function stableSort(array) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const ClienteLista = ({ setValue }) => {
+const ClienteLista = ({ setValue, setClienteSelected }) => {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
@@ -109,9 +109,15 @@ const ClienteLista = ({ setValue }) => {
     const selectedIndex = selected.indexOf(cpf);
     if (selectedIndex === -1) {
       setSelected(cpf);
+      rows.map((item) => {
+        if (item.cpf === cpf) {
+          setClienteSelected(item)
+        }
+      })
     }
     else if (selectedIndex === 0) {
       setSelected([]);
+      setClienteSelected([])
     }
   };
 
@@ -119,8 +125,7 @@ const ClienteLista = ({ setValue }) => {
     setPage(newPage);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
+  const isSelected = (cpf) => selected.indexOf(cpf) !== -1;
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
