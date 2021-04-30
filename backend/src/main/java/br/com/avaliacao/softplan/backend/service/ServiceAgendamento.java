@@ -1,5 +1,6 @@
 package br.com.avaliacao.softplan.backend.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -46,17 +47,6 @@ public class ServiceAgendamento {
 	public boolean agendamentoEstaDisponivel(Agendamento agendamento) {
 		return repositoryAgendamento.findById(agendamento.getIdAgendamento()).isPresent();
 	}
-	
-	//{
-	//    "cliente": {
-	//        "cpf": "111"
-	//    },
-	//    "exame": {
-	//        "nome": "Cardiologista"
-	//    },
-	//   "data": "12/34/5678",
-	//    "horario": "11:11"
-	//}
 
 	public ResponseEntity<?> agendarAtendimento(Agendamento agendamento) {
 		// checar se cpf esta cadastrado
@@ -110,5 +100,9 @@ public class ServiceAgendamento {
 			return new ResponseEntity<>("{\n   Agendamento deletedado com sucesso \n}", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("{\n   Agendamento não encontrado\n}", HttpStatus.BAD_REQUEST);
+	}
+	
+	public List<String> listarExamesIndisponíveis(String nomeExame, String data) {
+		return repositoryAgendamento.horariosDisponiveis(nomeExame, data);
 	}
 }

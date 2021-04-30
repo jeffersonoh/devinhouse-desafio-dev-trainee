@@ -2,9 +2,12 @@ package br.com.avaliacao.softplan.backend.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,9 +25,13 @@ public class ControllerAgendamento {
 	private ServiceAgendamento service;
 	// TODO: Deverá haver um endpoint para listagem dos exames disponíveis para
 	// agendamento, exibindo apenas nome do exame e id;
-
+	@GetMapping(path = "/agendamento/{nome-exame}/{data}")
+	public List<String> listarExamesIndisponíveis(@PathVariable("nome-exame") String exame, 
+			@PathVariable String data) {
+		return service.listarExamesIndisponíveis(exame, data);
+	}
+	
 	// TODO: Deverá haver um endpoint para adição de um agendamento
-
 	@PostMapping(path = "/agendamento", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> agendarAtendimento(@RequestBody Agendamento agendamento) {
 		return service.agendarAtendimento(agendamento);
