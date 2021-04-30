@@ -1,14 +1,20 @@
 package br.com.softplan.devtrainee.entity;
 
-import java.io.Serializable;
+//import static javax.persistence.CascadeType.ALL;
 
+import java.io.Serializable;
+//import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
 import javax.persistence.Id;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.softplan.devtrainee.dto.ClientDto;
 
@@ -16,44 +22,58 @@ import br.com.softplan.devtrainee.dto.ClientDto;
 @Table(
 		name="CLIENTS", 
 	    uniqueConstraints=
-	        @UniqueConstraint(columnNames={"id","cpf"})
+	        @UniqueConstraint(columnNames={"cpf"})
 	)
 public class ClientEntity implements Serializable{
 
 	private static final long serialVersionUID = -5715156494272798188L;
 //	O cadastro de cliente deverá ter os campos: Nome, CPF e Data de Nascimento;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	private String birth;
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
 	private String name;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate birth;
+	@Id
 	private String cpf;
 	
-	
+//	@OneToMany(cascade = ALL, mappedBy = "client")
+//	private List<ScheduleEntity> schedule;
 	public ClientEntity() {
 		
 	}
 	
-	public ClientEntity(Long id, String birth, String name, String cpf) {
-		super();
-		this.id = id;
-		this.birth = birth;
-		this.name = name;
-		this.cpf = cpf;
+	public ClientEntity(ClientDto client) {
+		this.name = client.getName();
+		this.birth = client.getBirth();
+		this.cpf = client.getCpf();
 	}
 	
-	public Long getId() {
-		return id;
-	}
+public ClientEntity(String name, LocalDate birth, String cpf) {
+	super();
+	this.name = name;
+	this.birth = birth;
+	this.cpf = cpf;
+}
+
+//	public ClientEntity(Long id, LocalDate birth, String name, String cpf) {
+//		super();
+//		this.id = id;
+//		this.birth = birth;
+//		this.name = name;
+//		this.cpf = cpf;
+//	}
 	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getBirth() {
+//	public Long getId() {
+//		return id;
+//	}
+//	
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
+	public LocalDate getBirth() {
 		return birth;
 	}
-	public void setBirth(String birth) {
+	public void setBirth(LocalDate birth) {
 		this.birth = birth;
 	}
 	public String getName() {
@@ -70,7 +90,9 @@ public class ClientEntity implements Serializable{
 	}
 	
 	public ClientEntity converterDto(ClientDto client) {
-	ClientEntity result = new ClientEntity(client.getId(), client.getBirth(), client.getName(), client.getCpf());
+//	ClientEntity result = new ClientEntity(client.getId(), client.getBirth(), client.getName(), client.getCpf());
+		ClientEntity result = new ClientEntity( client.getName(),client.getBirth(), client.getCpf());
+		
 	
 	return result;
 }

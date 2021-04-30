@@ -1,0 +1,6 @@
+2021-04-28 18:59:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" not found; SQL statement:
+select cliententi0_.id as id1_0_, cliententi0_.birth as birth2_0_, cliententi0_.cpf as cpf3_0_, cliententi0_.name as name4_0_ from clients cliententi0_ [42102-200]
+2021-04-28 19:00:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" not found; SQL statement:
+select cliententi0_.id as id1_0_, cliententi0_.birth as birth2_0_, cliententi0_.cpf as cpf3_0_, cliententi0_.name as name4_0_ from clients cliententi0_ [42102-200]
