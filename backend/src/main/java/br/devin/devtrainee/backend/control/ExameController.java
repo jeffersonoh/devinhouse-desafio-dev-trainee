@@ -15,7 +15,7 @@ public class ExameController {
 	@Autowired
 	private ExameService service;
 	
-	@GetMapping(headers="api-version=2021-04-28", path="/v1/exame", produces="application/json")
+	@GetMapping(path="/v1/exame", produces="application/json")
 	public List<Exame> getAllClientes() {
 		return this.service.pegaTodosExames();		
 	}

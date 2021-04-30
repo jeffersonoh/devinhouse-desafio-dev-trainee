@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,30 +25,29 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
-	@PostMapping(headers="api-version=2021-04-28", path="/v1/cliente"
-			, consumes="application/json", produces="application/json")
+	@PostMapping(path="/v1/cliente", consumes="application/json", produces="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente addCliente(@Validated @RequestBody Cliente cliente) {
 		return this.service.adicionaCliente(cliente);
 	}
 	
-	@GetMapping(headers="api-version=2021-04-28", path="/v1/cliente", produces="application/json")
+	@GetMapping(path="/v1/clientes", produces="application/json")
 	public List<Cliente> getAllClientes() {
 		return this.service.procuraTodosClientes();		
 	}
 	
-	@GetMapping(headers="api-version=2021-04-28", path="/v1/cliente", produces="application/json")
-	public Cliente getCliente(String cpf) {
+	@GetMapping(path="/v1/cliente", produces="application/json")
+	public Cliente getCliente(@RequestParam String cpf) {
 		return this.service.procuraPorCPF(cpf);
 	}
 	
-	@PutMapping(headers="api-version=2021-04-28", path="/v1/cliente")
-	public ResponseEntity<?> putCliente(Long id, Cliente novo) {
+	@PutMapping(path="/v1/cliente", consumes="application/json")
+	public ResponseEntity<?> putCliente(@RequestParam Long id, @Validated @RequestBody Cliente novo) {
 		return this.service.atualizaCliente(id, novo);
 	}
 	
-	@DeleteMapping(headers="api-version=2021-04-28", path="/v1/cliente")
-	public ResponseEntity<?> deleteCliente(Long id) {
+	@DeleteMapping(path="/v1/cliente")
+	public ResponseEntity<?> deleteCliente(@RequestParam Long id) {
 		return this.service.deletaCliente(id);
 	}
 
