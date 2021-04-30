@@ -4,6 +4,9 @@ package br.com.devinhouse.trainee.controllers;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -34,8 +37,8 @@ public class AgendamentosController {
 	
 	// Endpoint para consulta de agendamentos realizados
 	@RequestMapping(value = "/consultar", method = GET, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getAllSchedules() {
-		return (ResponseEntity<?>) service.getAll();
+	public List<Agendamento> getAllSchedules() {
+		return service.getAll();
 	}
 	
 //	// Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados
