@@ -32,7 +32,7 @@ public class Agendamento implements Serializable {
 	private Exame exame;
 	
 	@Column
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dataAgendamento;
 	
 	public Agendamento() {
