@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 @Entity
 public class Cliente {
-	// nome, cpf, data de nascimento
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCliente;
@@ -16,6 +15,11 @@ public class Cliente {
 	private String nome;
 	private String dataNascimento;
 	
+	
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
 	public String getNome() {
 		return nome;
 	}

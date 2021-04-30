@@ -39,7 +39,7 @@ public class ServiceExame {
 	
 	public ResponseEntity<?> buscarTodosOsExames() {
 		if (repository.findAll().isEmpty()) {
-			return new ResponseEntity<>("{\n   Nenhuma exame cadastrado\n}", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("{\n   Nenhum exame cadastrado\n}", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}

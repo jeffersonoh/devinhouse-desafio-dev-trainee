@@ -29,9 +29,6 @@ public class ControllerCliente {
 
 	// TODO: Deverá haver um endpoint para criação de um cliente;
 	@PostMapping(path = "/cliente", consumes = APPLICATION_JSON_VALUE)
-	//@ResponseStatus(code = HttpStatus.CREATED) // colocar isso no service? aqui ele vai disparar mesmo quando realizar
-												// um
-												// cadastro com cpf repetido
 	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
 		return service.adicionarCliente(cliente);
 	}
@@ -60,10 +57,4 @@ public class ControllerCliente {
 	public ResponseEntity<?> listarClientes() {
 		return service.listarClientes();
 	}
-	
-	
-	  @GetMapping(path = "/cliente-teste/{cpf}") public List<Long>
-	  deletarTeste(@PathVariable String cpf) { return service.deletarTeste(cpf); }
-	 
-	
 }

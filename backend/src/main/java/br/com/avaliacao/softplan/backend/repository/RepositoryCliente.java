@@ -29,6 +29,6 @@ public interface RepositoryCliente extends JpaRepository<Cliente, Long> {
 	@Query(value = "select  id_agendamento from agendamento a left join cliente c on c.id_cliente = a.id_cliente"
 			+ " where c.cpf = :cpfInformado", nativeQuery = true)
 	@Modifying
-	List<Long> buscaPorAgendamento(@Param("cpfInformado") String cpf);
+	List<Long> buscarPorIdsAgendamento(@Param("cpfInformado") String cpf);
 
 }

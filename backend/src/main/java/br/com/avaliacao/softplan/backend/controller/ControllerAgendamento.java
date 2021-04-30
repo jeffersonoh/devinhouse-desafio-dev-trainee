@@ -23,8 +23,8 @@ public class ControllerAgendamento {
 
 	@Autowired
 	private ServiceAgendamento service;
-	// TODO: Deverá haver um endpoint para listagem dos exames disponíveis para
-	// agendamento, exibindo apenas nome do exame e id;
+	
+	//Lista os horarios indisponiveis para bloquear eles no front
 	@GetMapping(path = "/agendamento/{nome-exame}/{data}")
 	public List<String> listarExamesIndisponíveis(@PathVariable("nome-exame") String exame, 
 			@PathVariable String data) {

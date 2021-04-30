@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Agendamento {
-	//dia, hora, cliente(fk), exame(fk)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
@@ -27,13 +26,8 @@ public class Agendamento {
 	private String horario;
 	
 	
-	
 	public Long getIdAgendamento() {
 		return idAgendamento;
-	}
-
-	public void setIdAgendamento(Long idAgendamento) {
-		this.idAgendamento = idAgendamento;
 	}
 
 	public Cliente getCliente() {

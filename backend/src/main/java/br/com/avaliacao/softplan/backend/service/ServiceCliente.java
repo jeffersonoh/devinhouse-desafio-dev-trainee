@@ -24,7 +24,7 @@ public class ServiceCliente {
 	private RepositoryCliente repository;
 	
 	@Autowired
-	private RepositoryAgendamento agendamento;
+	private RepositoryAgendamento repositoryAgendamento;
 	
 	public boolean clienteEstaCadastrado(Cliente cliente) {
 		return repository.findByCpf(cliente.getCpf()).isPresent();
@@ -57,23 +57,17 @@ public class ServiceCliente {
 	
 	public ResponseEntity<?> deletarCliente(String cpf) {
 		if(cpfEstaCadastrado(cpf)) {
-			if(!repository.buscaPorAgendamento(cpf).isEmpty()) {
-				List<Long> ids = repository.buscaPorAgendamento(cpf);
+			if(!repository.buscarPorIdsAgendamento(cpf).isEmpty()) {
+				List<Long> ids = repository.buscarPorIdsAgendamento(cpf);
 				for (int i = 0; i < ids.size(); i++) {
-					agendamento.deleteById(ids.get(i));
+					repositoryAgendamento.deleteById(ids.get(i));
 				}
 			}
-			//repository.deletarCliente(cpf);
 			repository.deleteByCpf(cpf);
 			return new ResponseEntity<>("{\n   Cliente deletado com sucesso\n}", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("{\n   CPF nao encontrado, por favor, digite um CPF cadastrado\n}", HttpStatus.BAD_REQUEST);
 	}
-	
-	
-	  public List<Long> deletarTeste(String cpf) { return
-	  repository.buscaPorAgendamento(cpf); }
-	 
 	
 	public ResponseEntity<?> buscarClientePorCpf(String cpf) {
 		if (cpfEstaCadastrado(cpf)) {

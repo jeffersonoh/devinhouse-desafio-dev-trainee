@@ -19,5 +19,4 @@ public interface RepositoryExame extends JpaRepository<Exame, Long>{
 	@Query(value = "UPDATE exame SET nome = :nomeAtualizado WHERE nome = :nomeAntigo", nativeQuery = true)
 	@Modifying
 	void atualizarExame(@Param("nomeAtualizado") String novoNome, @Param("nomeAntigo") String nomeAntigo);
-
 }

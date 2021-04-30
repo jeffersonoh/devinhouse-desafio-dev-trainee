@@ -30,60 +30,14 @@ public class ServiceAgendamento {
 	@Autowired
 	private RepositoryExame repositoryExame;
 
-	@Autowired
-	ServiceExame serviceExame;
-
-	@Autowired
-	ServiceCliente serviceCliente;
-
-	public boolean horarioEstaDiponivel(String horario) {
-		return repositoryAgendamento.findByHorario(horario).isPresent();
-	}
-
-	public boolean dataEstaDisponivel(String data) {
-		return repositoryAgendamento.findByData(data).isPresent();
-	}
-
-	public boolean agendamentoEstaDisponivel(Agendamento agendamento) {
-		return repositoryAgendamento.findById(agendamento.getIdAgendamento()).isPresent();
-	}
-
 	public ResponseEntity<?> agendarAtendimento(Agendamento agendamento) {
-		// checar se cpf esta cadastrado
-		if (!serviceCliente.cpfEstaCadastrado(agendamento.getCliente().getCpf())) {
-			return new ResponseEntity<>("{\n Cliente não cadastrado \n}", HttpStatus.BAD_REQUEST);
-		}
-
 		Optional<Cliente> clienteBanco = repositoryCliente.findByCpf(agendamento.getCliente().getCpf());
 		Cliente clienteAgendamento = clienteBanco.get();
 		agendamento.setCliente(clienteAgendamento);
-		//agendamento.getCliente().setNome(clienteAgendamento.getNome());
-		//agendamento.getCliente().setDataNascimento(clienteAgendamento.getDataNascimento());
-
-		// checar se o exame esta cadastrado
-		if (!serviceExame.exameEstaCadastrado(agendamento.getExame())) {
-			return new ResponseEntity<>("{\n Exame incorreto \n}", HttpStatus.BAD_REQUEST);
-		}
 
 		Optional<Exame> exameBanco = repositoryExame.findByNome(agendamento.getExame().getNome());
 		Exame exameAgendamento = exameBanco.get();
 		agendamento.setExame(exameAgendamento);
-		//agendamento.getExame().setNome(exameAgendamento.getNome());
-		
-		// checar se existe disponibilidade de hora
-		//não precisara desse metodo, pois o front limita as opções. O front sera a validacao
-		/*
-		 * if (horarioEstaDiponivel(agendamento.getHorario())) { return new
-		 * ResponseEntity<>("{\n Horário não disponível \n}", HttpStatus.BAD_REQUEST); }
-		 */
-
-		// checar se existe disponibilidade de data
-		//não precisara desse metodo, pois o front limita as opções. O front sera a validacao
-		/*
-		 * if (dataEstaDisponivel(agendamento.getData())) { return new
-		 * ResponseEntity<>("{\n Data não está disponível \n}", HttpStatus.BAD_REQUEST);
-		 * }
-		 */
 		
 		repositoryAgendamento.save(agendamento);
 		return new ResponseEntity<>("{\n Agendamento realizado com sucesso \n}", HttpStatus.OK);
