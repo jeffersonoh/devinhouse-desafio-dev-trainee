@@ -21,6 +21,19 @@ public class ExameServices implements Serializable {
 		return exameRepository.findAll();
 	}
 	
+	protected Exame findByName(String name) {
+		Exame foundExam = new Exame();
+		List<Exame> allExams = findAllExams();
+		
+		for (Exame each : allExams) {
+			if(name.equals(each.getNome())) {
+				foundExam = each;
+			}
+		}
+		
+		return foundExam;
+	}
+	
 	// Criar exame
 	public Exame create(Exame obj) {
 		return exameRepository.save(obj);
