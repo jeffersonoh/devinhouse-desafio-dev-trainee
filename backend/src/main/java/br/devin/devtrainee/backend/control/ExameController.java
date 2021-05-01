@@ -16,8 +16,8 @@ public class ExameController {
 	private ExameService service;
 	
 	@GetMapping(path="/v1/exame", produces="application/json")
-	public List<Exame> getAllClientes() {
-		return this.service.pegaTodosExames();		
+	public List<Exame> buscarTodosExames() {
+		return this.service.buscaTodosExames();		
 	}
 
 }

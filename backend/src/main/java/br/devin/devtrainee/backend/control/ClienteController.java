@@ -27,28 +27,28 @@ public class ClienteController {
 	
 	@PostMapping(path="/v1/cliente", consumes="application/json", produces="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente addCliente(@Validated @RequestBody Cliente cliente) {
-		return this.service.adicionaCliente(cliente);
+	public Cliente cadastraCliente(@Validated @RequestBody Cliente cliente) {
+		return this.service.cadastrarCliente(cliente);
 	}
 	
 	@GetMapping(path="/v1/clientes", produces="application/json")
-	public List<Cliente> getAllClientes() {
-		return this.service.procuraTodosClientes();		
+	public List<Cliente> buscaTodosClientes() {
+		return this.service.buscarTodosClientes();		
 	}
 	
 	@GetMapping(path="/v1/cliente", produces="application/json")
-	public Cliente getCliente(@RequestParam String cpf) {
-		return this.service.procuraPorCPF(cpf);
+	public Cliente buscaCliente(@RequestParam String cpf) {
+		return this.service.buscarClientePorCPF(cpf);
 	}
 	
 	@PutMapping(path="/v1/cliente", consumes="application/json")
-	public ResponseEntity<?> putCliente(@RequestParam Long id, @Validated @RequestBody Cliente novo) {
-		return this.service.atualizaCliente(id, novo);
+	public ResponseEntity<?> atualizaCliente(@RequestParam Long id, @Validated @RequestBody Cliente novo) {
+		return this.service.atualizarCliente(id, novo);
 	}
 	
 	@DeleteMapping(path="/v1/cliente")
-	public ResponseEntity<?> deleteCliente(@RequestParam Long id) {
-		return this.service.deletaCliente(id);
+	public ResponseEntity<?> deletaCliente(@RequestParam Long id) {
+		return this.service.deletarCliente(id);
 	}
 
 }

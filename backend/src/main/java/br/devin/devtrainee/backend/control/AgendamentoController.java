@@ -28,28 +28,28 @@ public class AgendamentoController {
 	
 	@PostMapping(path="/v1/agendamento", consumes="application/json", produces="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Agendamento addAgendamento(@Validated @RequestBody Agendamento agendamento) {
-		return this.service.adicionaAgendamento(agendamento);
+	public Agendamento cadastraAgendamento(@Validated @RequestBody Agendamento agendamento) {
+		return this.service.cadastrarAgendamento(agendamento);
 	}
 	
 	@GetMapping(path="/v1/agendamento-exame", consumes="application/json", produces="application/json")
-	public List<Agendamento> getAllAgendamentoPorExameEData(@Validated @RequestBody Exame exame, @RequestParam String data) {
-		return this.service.pegaAgendamentoPorExameEData(exame, data);
+	public List<Agendamento> buscaTodosAgendamentoPorExameEData(@Validated @RequestBody Exame exame, @RequestParam String data) {
+		return this.service.buscarTodosAgendamentoPorExameEData(exame, data);
 	}
 	
 	@GetMapping(path="/v1/agendamento-cliente", consumes="application/json", produces="application/json")
-	public List<Agendamento> getAllAgendamentoPorCliente(@Validated @RequestBody Cliente cliente) {
-		return this.service.pegaAgendamentoPorCliente(cliente);
+	public List<Agendamento> buscaTodosAgendamentoPorCliente(@Validated @RequestBody Cliente cliente) {
+		return this.service.buscarTodosAgendamentoPorCliente(cliente);
 	}
 	
 	@PutMapping(path="/v1/agendamento", consumes="application/json")
-	public ResponseEntity<?> putAgendamento(@RequestParam Long id, @Validated @RequestBody Agendamento novo){
-		return this.service.atualizaAgendamento(id, novo);
+	public ResponseEntity<?> atualizaAgendamento(@RequestParam Long id, @Validated @RequestBody Agendamento novo){
+		return this.service.atualizarAgendamento(id, novo);
 	}
 	
 	@DeleteMapping(path="/v1/agendamento")
-	public ResponseEntity<?> deleteAgendamento(@RequestParam Long id) {
-		return this.service.deletaAgendamento(id);
+	public ResponseEntity<?> deletaAgendamento(@RequestParam Long id) {
+		return this.service.deletarAgendamento(id);
 	}
 
 }
