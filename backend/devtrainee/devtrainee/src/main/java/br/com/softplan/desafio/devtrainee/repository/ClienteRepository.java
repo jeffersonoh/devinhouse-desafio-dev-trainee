@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository
         extends JpaRepository<Cliente, Long> {
+    Optional<Cliente> findByCPF(String cpf);
 
-    @Query("SELECT c FROM Cliente c WHERE c.CPF = ?1")
-    Optional<Cliente> findClienteByCPF(String CPF);
+    Optional<Cliente> findClienteByCPF(String cpf);
 }

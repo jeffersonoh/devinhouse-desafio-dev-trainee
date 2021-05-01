@@ -4,6 +4,9 @@ import br.com.softplan.desafio.devtrainee.dto.AgendamentoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,17 +23,23 @@ public class Agendamento implements Serializable {
     private Long id;
     @OneToOne
     @JoinColumn(name = "cliente_id")
-    @Column(nullable = false)
     private Cliente cliente;
     @OneToOne
     @JoinColumn(name = "exame_id")
-    @Column(nullable = false)
     private Exame exame;
 
-    @JsonFormat(pattern = "dd/MM/yyyy@HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataEHoraDoAgendamento;
 
-    public Agendamento() {
+    public LocalDateTime getDataEHoraDoAgendamento() {
+		return dataEHoraDoAgendamento;
+	}
+
+	public void setDataEHoraDoAgendamento(LocalDateTime dataEHoraDoAgendamento) {
+		this.dataEHoraDoAgendamento = dataEHoraDoAgendamento;
+	}
+
+	public Agendamento() {
     }
 
     public Agendamento(Cliente cliente, Exame exame) {

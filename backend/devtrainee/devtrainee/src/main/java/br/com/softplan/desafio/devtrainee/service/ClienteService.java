@@ -11,93 +11,51 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
-    @Autowired
-    ClienteRepository clienteRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
 
-    public List<Cliente> getCliente() {
-        return clienteRepository.findAll();
-    }
+	public List<Cliente> getCliente() {
+		return clienteRepository.findAll();
+	}
 
-    public void novoCliente(Cliente cliente){
-        Optional<Cliente> clienteByCPF = clienteRepository
-                .findClienteByCPF(cliente.getCPF());
-        if (clienteByCPF.isPresent()) {
-            throw new IllegalStateException("CPF já cadastrado");
-        }
-        clienteRepository.save(cliente);
-    }
+	public Cliente getClienteById(Long id) {
+		return clienteRepository.findById(id).get();
+	}
 
-    public Optional<Cliente> getClienteById(Long id) {
-        return clienteRepository.findById(id);
-    }
+	public Cliente getClienteByCPF(String cpf) {
+		return clienteRepository.findClienteByCPF(cpf).get();
+	}
 
+	public void novoCliente(Cliente cliente) {
+		Optional<Cliente> clienteByCPF = clienteRepository.findClienteByCPF(cliente.getCPF());
+		if (clienteByCPF.isPresent()) {
+			throw new IllegalStateException("CPF já cadastrado");
+		}
+		clienteRepository.save(cliente);
+	}
 
-    public void deletarCliente(Long id) {
-        boolean existe = clienteRepository.existsById(id);
-        if(!existe) {
-            throw new IllegalStateException("O cliente com id " + id + " não existe");
-        }
-        clienteRepository.deleteById(id);
-    }
+	public Cliente atualizarCliente(Long id, Cliente cliente) {    
+	
+		Cliente attCliente = clienteRepository.findById(id).get();
+		atualizar(cliente, attCliente);
+		return clienteRepository.save(attCliente);
+		
+	}
 
-//    @Transactional
-//    public void atualizarCliente(Long id, String nome, String cpf) {
-//        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new IllegalStateException(
-//                "O cliente com id " + id + " não existe"
-//        ));
-//        if (nome != null
-//                && nome.length() > 0
-//                && !Objects.equals(cliente.getNome(), nome)
-//        ) {
-//            cliente.setNome(nome);
-//        }
-//        if (cpf != null
-//                && cpf.length() > 0
-//                && !Objects.equals(cliente.getCPF(), cpf)
-//        ) {
-//            Optional<Cliente> clienteOptional = clienteRepository
-//                    .findClienteByCPF(cpf);
-//            if (clienteOptional.isPresent()) {
-//                throw new  IllegalStateException("CPF atualizado");
-//            }
-//            cliente.setCPF(cpf);
-//        }
-//    }
+	public void deletarCliente(Long id) {
+		clienteRepository.deleteById(id);
+	}
+	
+	private void atualizar(Cliente cliente, Cliente novoCliente) {
+		if(novoCliente.getCPF() != null) {
+			novoCliente.setCPF(cliente.getCPF());
+		}
+		if(novoCliente.getDataDeNascimento() != null) {
+			novoCliente.setDataDeNascimento(cliente.getDataDeNascimento());
+		}
+		if(novoCliente.getNome() != null) {
+			novoCliente.setNome(cliente.getNome());
+		}
+	}
 
-    public List<Cliente> atualizarCliente(Long id, Cliente cliente) {
-        Cliente cliente1 = clienteRepository.findById(id).orElseThrow(() -> new IllegalStateException(
-                "O cliente com id " + id + " não existe"));
-        List<Cliente> clientes = clienteRepository.findAll();
-
-        for (Cliente clienteLista : clientes) {
-
-            if (id.equals(clienteLista.getId())) {
-                if (cliente.getNome() != null) {
-                    clienteLista.setNome(cliente.getNome());
-                }
-                if (cliente.getCPF() != null) {
-                    clienteLista.setCPF(cliente.getCPF());
-                }
-            }
-
-
-        }
-
-
-        return clientes;
-    }
-
-    public Cliente getClienteByCPF(String cpf) {
-        List<Cliente> clientes = clienteRepository.findAll();
-
-        Cliente cliente = new Cliente();
-
-        for (Cliente lista : clientes){
-            if (cpf.equals(lista.getCPF())) {
-                cliente  = lista;
-            }
-        }
-        return cliente;
-    }
 }
-
