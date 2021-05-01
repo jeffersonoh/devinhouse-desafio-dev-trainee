@@ -21,6 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,6 +44,7 @@ public class ClienteTests {
     @BeforeClass
     public static void initialization() {
 	mapper = new ObjectMapper();
+	mapper.registerModule(new JavaTimeModule());
     }
 
     @Test
@@ -63,7 +65,7 @@ public class ClienteTests {
     }
     
     @Test
-    @Ignore("@Transactional seems to hold the first post; making it so there's no conflict.")
+    @Ignore("@Transactional seems to hold the first post, making it so there's no conflict.")
     public void wontCreateClientWithAlreadyRegisteredCpf() throws Exception {
 	
 	String clienteJsonA = "{"
@@ -88,6 +90,35 @@ public class ClienteTests {
 		    .contentType(APPLICATION_JSON)
 		    .content(clienteJsonB))
 	    .andExpect(status().isBadRequest());
+    }
+    
+    @Test
+    public void getClienteById() throws Exception {
+	
+    	String clienteJson = "{"
+    	    + "\"nome\": \"Muad\","
+    	    + "\"sobrenome\": \"'dib\","
+    	    + "\"dataDeNascimento\": \"2021-04-01\","
+    	    + "\"cpf\": \"99999999999\""
+    	    + "}";
+	
+    	String createdClienteJson = mvc.perform(post("/clientes")
+    						.contentType(APPLICATION_JSON)
+    						.content(clienteJson))
+    	    .andReturn().getResponse().getContentAsString();
+	
+    	System.out.println(createdClienteJson);
+	
+	ClienteOutputDTO cliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
+	
+	mvc.perform(get("/clientes/" + cliente.getId()))
+	   .andExpect(status().isOk());
+    }
+
+    @Test
+    public void inexistentIdIsNotFound() throws Exception {
+	mvc.perform(get("/clientes/99999"))
+	    .andExpect(status().isNotFound());
     }
     
 }

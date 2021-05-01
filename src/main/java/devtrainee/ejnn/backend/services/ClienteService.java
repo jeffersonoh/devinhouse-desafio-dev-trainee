@@ -2,6 +2,8 @@ package devtrainee.ejnn.backend.services;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,8 @@ import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
 
 import devtrainee.ejnn.backend.repositories.ClienteRepository;
 
+import devtrainee.ejnn.backend.exceptions.ClienteInexistenteException;
+
 
 @Service
 @AllArgsConstructor
@@ -23,9 +27,23 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     private ModelMapper mapper;
 
+    private ClienteOutputDTO sanitize(Cliente cliente) {
+	return mapper.map(cliente, ClienteOutputDTO.class);
+    }
     public ClienteOutputDTO create(ClienteInputDTO clienteInput) {
 	Cliente createdClient = clienteRepository.save(mapper.map(clienteInput, Cliente.class));
-	return mapper.map(createdClient, ClienteOutputDTO.class);
+	return sanitize(createdClient);
+    }
+
+    public ClienteOutputDTO findById(long id) {
+
+	Optional<Cliente> cliente = clienteRepository.findById(id);
+
+	if (cliente.isEmpty()) {
+	    throw new ClienteInexistenteException();
+	}
+
+	return sanitize(cliente.get());
     }
 
 }
