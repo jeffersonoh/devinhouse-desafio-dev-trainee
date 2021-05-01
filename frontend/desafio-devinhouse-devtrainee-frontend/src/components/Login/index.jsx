@@ -4,15 +4,15 @@ import ContainerModel from "../ContainerModel";
 import Input from "../Input";
 import EyeButton from "../EyeButton";
 
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { NewButton, Wrapper } from "./styles";
 
 import Button from "../Button";
 
 function Login() {
-  let history = useHistory();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <ContainerModel
       title="Login"
@@ -46,10 +46,9 @@ function Login() {
             />
             <Button
               handleClick={() => {
-                history.push("/");
+                navigate("/exames");
               }}
               buttonName="logar"
-              children={<Link to="/" />}
             />
           </NewButton>
         </>

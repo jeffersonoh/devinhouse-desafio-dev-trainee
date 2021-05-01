@@ -1,12 +1,13 @@
 import { Container, BackIcon } from "./styles";
-import { useHistory } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 function BackButton() {
-  let history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <Container>
-      <button onClick={history.goBack}>
+      <button onClick={() => navigate("/")}>
         <BackIcon />
       </button>
     </Container>

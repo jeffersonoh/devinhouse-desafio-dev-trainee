@@ -27,7 +27,11 @@ export const InputData = styled.div`
   }
 
   > input[type="date"] {
-    text-align: end;
+    //text-align: end;
+  }
+
+  > input[type="time"] {
+    // text-align: end;
   }
 
   > input:focus ~ label,
@@ -47,6 +51,7 @@ export const InputData = styled.div`
   }
 
   > label {
+    background: white;
     position: absolute;
     bottom: 10px;
     left: 0;

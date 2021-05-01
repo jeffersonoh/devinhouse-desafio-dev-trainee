@@ -1,14 +1,14 @@
 import Button from "../../components/Button";
 import DividingLine from "../../components/DividingLine";
 
-import { Link, useHistory } from "react-router-dom";
-
 import { NewButton } from "./styles";
 
 import { Container, Title, SubTitle } from "./styles";
 
+import { useNavigate } from "react-router-dom";
+
 export default function InitialPage() {
-  let history = useHistory();
+  const navigate = useNavigate();
   return (
     <>
       <Container>
@@ -17,18 +17,16 @@ export default function InitialPage() {
         <SubTitle>Agende agora sua consulta</SubTitle>
         <NewButton>
           <Button
-            handleClick={() => {
-              history.push("cadastro");
-            }}
             buttonName="cadastrar"
-            children={<Link to="cadastro" />}
+            handleClick={() => {
+              navigate("cadastro");
+            }}
           />
           <Button
             handleClick={() => {
-              history.push("login");
+              navigate("login");
             }}
             buttonName="Fazer login"
-            children={<Link to="login" />}
           />
         </NewButton>
       </Container>

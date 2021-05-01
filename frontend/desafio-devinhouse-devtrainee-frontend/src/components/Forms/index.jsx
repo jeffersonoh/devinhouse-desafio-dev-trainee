@@ -2,10 +2,10 @@ import Input from "../Input";
 import ContainerModel from "../ContainerModel";
 import Button from "../Button";
 import { NewButton } from "./styles";
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Forms() {
-  let history = useHistory();
+  const navigate = useNavigate();
   return (
     <ContainerModel
       title="Cadastrar"
@@ -18,6 +18,7 @@ function Forms() {
             type="date"
             id="dataDeNascimentoDoPaciente"
           />
+          <br />
           <NewButton>
             <Button
               handleClick={() => {
@@ -34,10 +35,9 @@ function Forms() {
             />
             <Button
               handleClick={() => {
-                history.push("/");
+                navigate("/");
               }}
               buttonName="cadastrar"
-              children={<Link to="/" />}
             />
           </NewButton>
         </>

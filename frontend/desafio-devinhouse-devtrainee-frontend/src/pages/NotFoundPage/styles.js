@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
+  color: whitesmoke;
+  font-size: xx-large;
 `;
 
 export const Wrapper = styled.div`
-  width: 100%;
-  position: relative;
-  top: 50%;
+  height: 100vh;
+  margin-top: 10%;
+  text-align: center;
 `;

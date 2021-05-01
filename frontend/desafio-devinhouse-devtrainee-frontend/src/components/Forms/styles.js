@@ -3,14 +3,12 @@ import styled from "styled-components";
 export const NewButton = styled.div`
   > div .cadastrar {
     color: #fff;
-    right: 33%;
+    right: 31%;
     border: 3px solid darkblue;
     background-color: darkblue;
   }
 
-  > div .cadastrar a {
-    height: 100%;
-    width: 100%;
+  > div .cadastrar {
     color: #fff;
     text-decoration: none;
   }
@@ -22,7 +20,7 @@ export const NewButton = styled.div`
   > div .limpar {
     color: #fff;
     border: 3px solid red;
-    left: 33%;
+    left: 31%;
     background-color: red;
   }
 
