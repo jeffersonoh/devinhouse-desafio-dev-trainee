@@ -4,6 +4,7 @@ import devtrainee.ejnn.backend.tests.integration.IntegrationTests;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
+import devtrainee.ejnn.backend.dtos.ClienteInputDTO;
 
 
 @Category({IntegrationTests.class})
@@ -119,7 +121,6 @@ public class ClienteTests {
 
 	String responseBody = mvc.perform(get("/clientes?cpf=99999999999"))
 	    .andReturn().getResponse().getContentAsString();
-	System.out.println(responseBody);
 
 	ClienteOutputDTO[] clientes = mapper.readValue(responseBody, ClienteOutputDTO[].class);
 	ClienteOutputDTO createdCliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
@@ -127,5 +128,26 @@ public class ClienteTests {
 
 	assertEquals(createdCliente, clienteFound);
     }
-    
+
+    @Test
+    public void listEveryCliente() throws Exception {
+
+	ClienteInputDTO mockedCliente = ClienteInputDTO.builder().cpf("0").build();
+	final int CLIENTES_CREATED = 3;
+
+	for (int i = 0; i < CLIENTES_CREATED; i++) {
+	    mockedCliente.setCpf(mockedCliente.getCpf() + i);
+	    mvc.perform(post("/clientes")
+			.contentType(APPLICATION_JSON)
+			.content(mapper.writeValueAsString(mockedCliente)))
+		.andReturn().getResponse().getContentAsString();
+	}
+
+	String clientesJson = mvc.perform(get("/clientes"))
+	    .andReturn().getResponse().getContentAsString();
+
+	ClienteOutputDTO[] clientes = mapper.readValue(clientesJson, ClienteOutputDTO[].class);
+	assertEquals(clientes.length, CLIENTES_CREATED);
+    }
+
 }

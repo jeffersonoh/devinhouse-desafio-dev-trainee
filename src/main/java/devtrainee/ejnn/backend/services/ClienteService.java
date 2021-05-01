@@ -53,4 +53,9 @@ public class ClienteService {
 	return searchResults.stream().map(this::sanitize).collect(Collectors.toList());
     }
 
+    public List<ClienteOutputDTO> findAll() {
+	List<Cliente> clientes = clienteRepository.findAll();
+	return clientes.stream().map(this::sanitize).collect(Collectors.toList());
+    }
+
 }

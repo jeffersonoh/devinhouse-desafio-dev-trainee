@@ -3,6 +3,7 @@ package devtrainee.ejnn.backend.controllers;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<ClienteOutputDTO> searchByCpf(@RequestParam String cpf) {
-	return clienteService.searchByCpf(cpf);
+    public List<ClienteOutputDTO> searchByCpf(@RequestParam Optional<String> cpf) {
+
+	if (cpf.isPresent()) {
+	    return clienteService.searchByCpf(cpf.get());
+	}
+
+	return clienteService.findAll();
     }
 }
