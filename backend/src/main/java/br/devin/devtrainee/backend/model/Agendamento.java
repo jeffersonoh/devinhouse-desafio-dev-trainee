@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="Agendamento_table")
@@ -14,18 +16,18 @@ public class Agendamento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idAgendamento;
+	@Getter @Setter private Long idAgendamento;
 	
 	@OneToOne
 	@JoinColumn(name = "idCliente")
-	private Cliente cliente;
+	@Getter @Setter private Cliente cliente;
 	
 	@OneToOne
 	@JoinColumn(name = "idExame")
-	private Exame exame;
+	@Getter @Setter private Exame exame;
 	
-	private String data;
-	private String hora;
+	@Getter @Setter private String data;
+	@Getter @Setter private String hora;
 	
 	public Agendamento() {
 	}
@@ -36,44 +38,4 @@ public class Agendamento {
 		this.data=data;
 		this.hora=hora;
 	}
-
-	public Long getIdAgendamento() {
-		return idAgendamento;
-	}
-
-	public void setIdAgendamento(Long idAgendamento) {
-		this.idAgendamento = idAgendamento;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Exame getExame() {
-		return exame;
-	}
-
-	public void setExame(Exame exame) {
-		this.exame = exame;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}	
 }
