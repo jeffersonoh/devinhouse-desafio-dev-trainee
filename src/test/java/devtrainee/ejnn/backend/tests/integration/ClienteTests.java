@@ -2,6 +2,9 @@ package devtrainee.ejnn.backend.tests.integration;
 
 import devtrainee.ejnn.backend.tests.integration.IntegrationTests;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -37,29 +41,29 @@ import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
 @AutoConfigureMockMvc
 public class ClienteTests {
     
+    public static ObjectMapper mapper;
+    public static String mockedClienteJson;
+
     @Autowired
     public MockMvc mvc;
-    public static ObjectMapper mapper;
 
     @BeforeClass
     public static void initialization() {
 	mapper = new ObjectMapper();
 	mapper.registerModule(new JavaTimeModule());
-    }
-
-    @Test
-    public void postCreatesResource() throws Exception {
-
-	String clienteJson = "{"
+	mockedClienteJson = "{"
 	    + "\"nome\": \"Muad\","
 	    + "\"sobrenome\": \"'dib\","
 	    + "\"dataDeNascimento\": \"2021-04-01\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
+    }
 
+    @Test
+    public void postCreatesResource() throws Exception {
 	mvc.perform(post("/clientes")
 		    .contentType(APPLICATION_JSON)
-		    .content(clienteJson)
+		    .content(mockedClienteJson)
 		    )
 	    .andExpect(status().isCreated());
     }
@@ -68,46 +72,30 @@ public class ClienteTests {
     @Ignore("@Transactional seems to hold the first post, making it so there's no conflict.")
     public void wontCreateClientWithAlreadyRegisteredCpf() throws Exception {
 	
-	String clienteJsonA = "{"
-	    + "\"nome\": \"Muad\","
-	    + "\"sobrenome\": \"'dib\","
-	    + "\"dataDeNascimento\": \"2021-04-01\","
-	    + "\"cpf\": \"99999999999\""
-	    + "}";
-
-	String clienteJsonB = "{"
+	String mockedClienteJsonB = "{"
 	    + "\"nome\": \"Paul\","
 	    + "\"sobrenome\": \"Atreides\","
-	    + "\"dataDeNascimento\": \"2021-04-01\","
+	    + "\"dataDeNascimento\": \"2021-01-04\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
 	
 	mvc.perform(post("/clientes")
 		    .contentType(APPLICATION_JSON)
-		    .content(clienteJsonA));
+		    .content(mockedClienteJson));
 	
 	mvc.perform(post("/clientes")
 		    .contentType(APPLICATION_JSON)
-		    .content(clienteJsonB))
+		    .content(mockedClienteJsonB))
 	    .andExpect(status().isBadRequest());
     }
     
     @Test
     public void getClienteById() throws Exception {
 	
-    	String clienteJson = "{"
-    	    + "\"nome\": \"Muad\","
-    	    + "\"sobrenome\": \"'dib\","
-    	    + "\"dataDeNascimento\": \"2021-04-01\","
-    	    + "\"cpf\": \"99999999999\""
-    	    + "}";
-	
     	String createdClienteJson = mvc.perform(post("/clientes")
     						.contentType(APPLICATION_JSON)
-    						.content(clienteJson))
+    						.content(mockedClienteJson))
     	    .andReturn().getResponse().getContentAsString();
-	
-    	System.out.println(createdClienteJson);
 	
 	ClienteOutputDTO cliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
 	
@@ -119,6 +107,25 @@ public class ClienteTests {
     public void inexistentIdIsNotFound() throws Exception {
 	mvc.perform(get("/clientes/99999"))
 	    .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void searchByCpf() throws Exception {
+
+	String createdClienteJson = mvc.perform(post("/clientes")
+						.contentType(APPLICATION_JSON)
+						.content(mockedClienteJson))
+	    .andReturn().getResponse().getContentAsString();
+
+	String responseBody = mvc.perform(get("/clientes?cpf=99999999999"))
+	    .andReturn().getResponse().getContentAsString();
+	System.out.println(responseBody);
+
+	ClienteOutputDTO[] clientes = mapper.readValue(responseBody, ClienteOutputDTO[].class);
+	ClienteOutputDTO createdCliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
+	ClienteOutputDTO clienteFound = clientes[0];
+
+	assertEquals(createdCliente, clienteFound);
     }
     
 }

@@ -3,6 +3,8 @@ package devtrainee.ejnn.backend.services;
 import lombok.AllArgsConstructor;
 
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,11 @@ public class ClienteService {
 	}
 
 	return sanitize(cliente.get());
+    }
+
+    public List<ClienteOutputDTO> searchByCpf(String cpf) {
+	List<Cliente> searchResults = clienteRepository.findClienteByCpfLike(cpf);
+	return searchResults.stream().map(this::sanitize).collect(Collectors.toList());
     }
 
 }
