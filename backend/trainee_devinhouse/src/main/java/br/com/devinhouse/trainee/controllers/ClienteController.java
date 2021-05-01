@@ -36,7 +36,7 @@ public class ClienteController {
 	@RequestMapping(value = "/consultar", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public List<Cliente> getAllClients() {
-		return clienteServices.getAll();
+		return clienteServices.getAllClients();
 	}
 	
 	// Deverá haver um endpoint para busca de um cliente baseado no seu cpf;

@@ -14,11 +14,6 @@ public class ClienteServices {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	// Todos os clientes
-	protected List<Cliente> findAllClients(){
-		return clienteRepository.findAll();
-	}
-	
 	// Validar quantidade de digitos do CPF
 	protected boolean validateCPF(String cpf) {
 		boolean isValid = cpf.length() == 11;
@@ -29,7 +24,7 @@ public class ClienteServices {
 	// Localizar cliente atraves do CPF
 	protected Cliente foundClientByCPF(String cpf) {
 		Cliente foundClient = new Cliente();
-		List<Cliente> allClients = findAllClients();
+		List<Cliente> allClients = clienteRepository.findAll();
 		
 		for(Cliente each : allClients) {
 			if(cpf.equals(each.getCpf())) {
@@ -54,19 +49,17 @@ public class ClienteServices {
 	
 	// Cadastra cliente;
 	public Cliente create(Cliente obj) {
-		Cliente clientObj = new Cliente();
-		
 		if(validateCPF(obj.getCpf())) {
-			clienteRepository.save(obj);
-			clientObj = foundClientByCPF(obj.getCpf());
-			
-			return clientObj;
-		} throw new RuntimeException("Verifique a quantidade de digitos do CPF");
+			if(!cpfIsActive(obj.getCpf()) ) {		
+
+				return clienteRepository.save(obj);	
+			} throw new RuntimeException("CPF ja cadastrado");			
+		} throw new RuntimeException("Tamanho do CPF nao e valido");
 	}
 	
 	// Busca todos os clientes;
-	public List<Cliente> getAll(){
-		return findAllClients();
+	public List<Cliente> getAllClients(){
+		return clienteRepository.findAll();
 	}
 	
 	// Busca um cliente baseado no seu CPF
@@ -94,14 +87,14 @@ public class ClienteServices {
 			return clienteRepository.save(filteredClient);
 		} throw new RuntimeException("Nao foi possivel atualizar o cliente, CPF nao encontrado");		
 	}
-
+		
 	// Remove um cliente baseado no seu CPF
 	public List<Cliente> delete(String cpf) {
 		if (cpfIsActive(cpf)) {
 			Cliente filteredClient = foundClientByCPF(cpf);
 			clienteRepository.delete(filteredClient);
 			
-			return findAllClients();		
+			return clienteRepository.findAll();		
 		} throw new RuntimeException("Nao foi possivel remover o cliente, CPF nao encontrado");
 	}
 }

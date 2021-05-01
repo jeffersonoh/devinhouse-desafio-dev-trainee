@@ -5,18 +5,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.devinhouse.trainee.entities.Exame;
-//import br.com.devinhouse.trainee.repositories.ClienteRepository;
 import br.com.devinhouse.trainee.repositories.ExameRepository;
 
 @Configuration
 public class InitializationMock implements CommandLineRunner {
 	
-//	@Autowired
-//	private ClienteRepository clienteRepository;
-	
 	@Autowired
-	private ExameRepository exameRepository;
-
+	protected ExameRepository exameRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		String[] listExamNames = new String[6];
@@ -28,9 +24,10 @@ public class InitializationMock implements CommandLineRunner {
 		listExamNames[5] = "Radiografia";
 
 		for(int i = 0; i < listExamNames.length; i++) {
-			Exame exame = new Exame();
-			exame.setNome(listExamNames[i]);
-			exameRepository.save(exame);
+			Exame exam = new Exame();
+			exam.setNome(listExamNames[i]);
+			
+			exameRepository.save(exam);
 		}
 	}
 }

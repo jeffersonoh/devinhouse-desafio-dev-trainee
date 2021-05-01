@@ -12,66 +12,82 @@ import br.com.devinhouse.trainee.entities.Exame;
 import br.com.devinhouse.trainee.entities.Cliente;
 
 import br.com.devinhouse.trainee.repositories.AgendamentoRepository;
-import br.com.devinhouse.trainee.repositories.ClienteRepository;
-import br.com.devinhouse.trainee.repositories.ExameRepository;
 
-import br.com.devinhouse.trainee.services.ClienteServices;
-import br.com.devinhouse.trainee.services.ExameServices;
-
-@SuppressWarnings("unused")
 @Service
 public class AgendamentoServices {
 	
 	@Autowired
-	protected AgendamentoRepository service;
+	protected AgendamentoRepository agendamentoRepository;
 
-//	@Autowired
-//	private ClienteRepository clienteRepository;
-	
 	@Autowired
 	protected ClienteServices clienteServices;
-	
-//	@Autowired
-//	private ExameRepository exameRepository;
 	
 	@Autowired
 	protected ExameServices exameServices;
 	
-	// FUNCOES
-	// create
+	// Encontrar o agendamento
+	protected Agendamento findScheduleById(Integer id) {
+		List<Agendamento> allSchedules = agendamentoRepository.findAll();
+		Agendamento foundSchedule = new Agendamento();
+		
+		for(Agendamento each : allSchedules) {
+			if(id.equals(each.getId())) {
+				foundSchedule = each;
+			}
+		}
+		
+		return foundSchedule;
+	}
+	
+	// Verificar se o agendamento existe
+	protected boolean verifyExistSchedule(Integer id) {
+		List<Agendamento> allSchedules = agendamentoRepository.findAll();
+		boolean status = false;
+		
+		for(Agendamento each : allSchedules) {
+			if(id.equals(each.getId())) {
+				status = true;
+			}
+		}
+		
+		return status;
+	}
+	
+	// Criar agendamento
 	public ResponseEntity<?> create(Agendamento obj) {
 		Cliente client = clienteServices.getByCPFKey(obj.getCliente().getCpf());
 		obj.setCliente(client);
 		
-		Exame exam = exameServices.findByName(obj.getExame().getNome());
+		Exame exam = exameServices.findByNome(obj.getExame().getNome());
 		obj.setExame(exam);
 		
-		service.save(obj);
+		agendamentoRepository.save(obj);
 		return new ResponseEntity<>("Agendamento realizado com sucesso", HttpStatus.CREATED);
 	}
 	
-	// getAll
-	public List<Agendamento> getAll() {
-		return service.findAll();
+	// Pesquisar todos os agendamentos
+	public List<Agendamento> getAllSchedules() {
+		return agendamentoRepository.findAll();
 	}
 	
-	// update
-	public ResponseEntity<?> update(Integer id, Agendamento obj) {
-		Agendamento filteredSchedule = service.findById(id).get();
-	
-		if(obj.getDataAgendamento() != null) {
-			filteredSchedule.setDataAgendamento(obj.getDataAgendamento());
-			service.save(filteredSchedule);
+	// Atualizar um agendamento
+	public Agendamento updateSchedule(Integer id, Agendamento novoAgendamento) {
+		if(verifyExistSchedule(id)) {
+			Agendamento foundSchedule = agendamentoRepository.findById(id).get();
+			
+			if(novoAgendamento.getDataAgendamento() != null) {
+				foundSchedule.setDataAgendamento(novoAgendamento.getDataAgendamento());
+			}
+			
+			return agendamentoRepository.save(foundSchedule);
 		}
+		 throw new RuntimeException("Nao foi possivel encontrar o agendamento");
+	}	
 		
-		return new ResponseEntity<>("{\n Agendamento editado com sucesso \n}", HttpStatus.OK);
-	}
-	
-	
-	// delete
+	// Deletar um agendamento
 	public ResponseEntity<?> delete(Integer id) {
-		Agendamento filteredSchedule = service.findById(id).get();
-		service.delete(filteredSchedule);
+		Agendamento filteredSchedule = agendamentoRepository.findById(id).get();
+		agendamentoRepository.delete(filteredSchedule);
 		
 		return new ResponseEntity<>("{\n Agendamento removido com sucesso \n}", HttpStatus.OK);
 	}

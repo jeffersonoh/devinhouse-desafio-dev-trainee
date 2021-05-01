@@ -1,6 +1,5 @@
 package br.com.devinhouse.trainee.services;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +9,17 @@ import br.com.devinhouse.trainee.entities.Exame;
 import br.com.devinhouse.trainee.repositories.ExameRepository;
 
 @Service
-public class ExameServices implements Serializable {
+public class ExameServices {
 
-	private static final long serialVersionUID = 1L;
-	
 	@Autowired
 	private ExameRepository exameRepository;
 	
-	protected List<Exame> findAllExams(){
-		return exameRepository.findAll();
-	}
-	
-	protected Exame findByName(String name) {
+	protected Exame findByNome(String nome) {
+		List<Exame> allExams = exameRepository.findAll();
 		Exame foundExam = new Exame();
-		List<Exame> allExams = findAllExams();
 		
 		for(Exame each : allExams) {
-			if(name.equals(each.getNome())) {
+			if(nome.equals(each.getNome())) {
 				foundExam = each;
 			}
 		}
@@ -36,7 +29,7 @@ public class ExameServices implements Serializable {
 	
 	protected boolean validateNewExam(String name) {
 		boolean status = false;
-		List<Exame> allExams = findAllExams();
+		List<Exame> allExams = exameRepository.findAll();
 		
 		for(Exame each : allExams) {
 			if(name.equals(each.getNome())) {
@@ -51,9 +44,9 @@ public class ExameServices implements Serializable {
 	public Exame create(Exame obj) {
 		Exame exam = new Exame();
 		
-		if(validateNewExam(obj.getNome())) {
+		if(!validateNewExam(obj.getNome())) {
 			exameRepository.save(obj);
-			exam = findByName(obj.getNome());
+			exam = findByNome(obj.getNome());
 			
 			return exam;
 		} throw new RuntimeException("O exame: " + obj.getNome() + " ja existe na base de dados");
@@ -66,11 +59,9 @@ public class ExameServices implements Serializable {
 	
 	// Exclusao de exame
 	public List<Exame> delete(Integer id){
-		Exame filteredExam = exameRepository.findById(id).get();
-		exameRepository.delete(filteredExam);
+		Exame foundExam = exameRepository.findById(id).get();
+		exameRepository.delete(foundExam);
 		
-		return findAllExams();
+		return exameRepository.findAll();
 	}
-	
-	
 }
