@@ -76,4 +76,10 @@ public class ClienteService {
 	return create(update);
     }
 
+    public void deleteById(long id) {
+	if (existsById(id)) {
+	    clienteRepository.deleteById(id);
+	}
+    }
+
 }

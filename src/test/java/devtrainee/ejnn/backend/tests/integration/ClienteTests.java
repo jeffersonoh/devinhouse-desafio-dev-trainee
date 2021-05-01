@@ -176,4 +176,20 @@ public class ClienteTests {
 	assertEquals(expectedCliente, updatedCliente);
     }
 
+    @Test
+    public void deleteCliente() throws Exception {
+
+	String createdClienteJson = mvc.perform(put("/clientes/1")
+						.contentType(APPLICATION_JSON)
+						.content(mockedClienteJson))
+	    .andExpect(status().isCreated())
+	    .andReturn().getResponse().getContentAsString();
+	ClienteOutputDTO createdCliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
+
+	mvc.perform(delete("/clientes/" + createdCliente.getId()))
+	    .andExpect(status().isAccepted());
+	mvc.perform(delete("/clientes/" + createdCliente.getId()))
+	    .andExpect(status().isAccepted());
+    }
+
 }

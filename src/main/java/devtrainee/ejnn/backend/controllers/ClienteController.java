@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import devtrainee.ejnn.backend.dtos.ClienteInputDTO;
@@ -66,5 +68,11 @@ public class ClienteController {
 
 	res.setStatus(CREATED.value());
 	return clienteService.create(cliente);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(ACCEPTED)
+    public void delete(@PathVariable long id) {
+	clienteService.deleteById(id);
     }
 }
