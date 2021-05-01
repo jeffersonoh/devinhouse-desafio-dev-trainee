@@ -65,8 +65,7 @@ public class ClienteTests {
     public void postCreatesResource() throws Exception {
 	mvc.perform(post("/clientes")
 		    .contentType(APPLICATION_JSON)
-		    .content(mockedClienteJson)
-		    )
+		    .content(mockedClienteJson))
 	    .andExpect(status().isCreated());
     }
     
@@ -148,6 +147,33 @@ public class ClienteTests {
 
 	ClienteOutputDTO[] clientes = mapper.readValue(clientesJson, ClienteOutputDTO[].class);
 	assertEquals(clientes.length, CLIENTES_CREATED);
+    }
+
+    @Test
+    public void clienteUpdates() throws Exception {
+	
+	// inexistent id's won't be honored
+	String createdClienteJson = mvc.perform(put("/clientes/1")
+						.contentType(APPLICATION_JSON)
+						.content(mockedClienteJson))
+	    .andExpect(status().isCreated())
+	    .andReturn().getResponse().getContentAsString();
+	ClienteOutputDTO createdCliente = mapper.readValue(createdClienteJson, ClienteOutputDTO.class);
+
+	createdCliente.setCpf("1");
+	String updatedClienteJson = mvc.perform(put("/clientes/" + createdCliente.getId())
+						.contentType(APPLICATION_JSON)
+						.content(mapper.writeValueAsString(createdCliente)))
+	    .andExpect(status().isOk())
+	    .andReturn().getResponse().getContentAsString();
+	ClienteOutputDTO updatedCliente = mapper.readValue(updatedClienteJson, ClienteOutputDTO.class);
+
+	String expectedClienteJson = mvc.perform(get("/clientes/" + createdCliente.getId()))
+	    .andReturn().getResponse().getContentAsString();
+
+	ClienteOutputDTO expectedCliente = mapper.readValue(expectedClienteJson, ClienteOutputDTO.class);
+
+	assertEquals(expectedCliente, updatedCliente);
     }
 
 }

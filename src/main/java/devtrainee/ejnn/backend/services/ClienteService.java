@@ -58,4 +58,22 @@ public class ClienteService {
 	return clientes.stream().map(this::sanitize).collect(Collectors.toList());
     }
 
+    public boolean existsById(long id) {
+	return clienteRepository.existsById(id);
+    }
+
+    public ClienteOutputDTO update(long id, ClienteInputDTO update) {
+
+	Optional<Cliente> optUpdateCandidate = clienteRepository.findById(id);
+
+	if (optUpdateCandidate.isPresent()) {
+	    Cliente updateCandidate = optUpdateCandidate.get();
+	    mapper.map(update, updateCandidate);
+	    Cliente ret = clienteRepository.save(updateCandidate);
+	    return sanitize(ret);
+	}
+
+	return create(update);
+    }
+
 }
