@@ -9,7 +9,8 @@ export default createGlobalStyle`
   
   html {
     min-height: 100%;
-    background-color: var(--background);
+    background-color: #ECECEC;
+    /* background-color: var(--background); */
   }
 
   h1, h2, span, p, a, button, input {
