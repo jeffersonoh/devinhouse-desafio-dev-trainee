@@ -1,19 +1,49 @@
-import { Box } from '@material-ui/core';
+import { AppBar, Box, makeStyles, Tab, Tabs, Typography } from '@material-ui/core';
 import MenuTopBar from 'components/menu/TopBar';
 import React, { Fragment, useState } from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import ClienteLista from 'components/cliente/clientelista/ClienteLista';
-import ClienteCadastro from 'components/cliente/clientecadastro/ClienteCadastro'
-import ClienteEditar from 'components/cliente/clienteeditar/ClienteEditar'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import PropTypes from 'prop-types';
 import ClienteExcluir from 'components/cliente/clienteexcluir/ClienteExcluir';
+import ClienteEditar from 'components/cliente/clienteeditar/ClienteEditar';
+import ClienteCadastro from 'components/cliente/clientecadastro/ClienteCadastro';
+import ClienteLista from 'components/cliente/clientelista/ClienteLista';
+
+const useStyles = makeStyles((theme) => ({
+    body: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        paddingTop: 30,
+        padding: 8,
+        backgroundColor: "#e0f2f1",
+        height: "100vh",
+        
+    },
+    childrenBody: {
+        backgroundColor: theme.palette.primary.main,
+        width: "100%",
+        maxWidth: "900px"
+    },
+    menu: {
+        width: "100%",
+        maxWidth: "900px"
+    }
+}));
+
+function a11yProps(index) {
+    return {
+        id: `full-width-tab-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`,
+    };
+}
+
+    TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -34,77 +64,43 @@ function TabPanel(props) {
     );
 }
 
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `scrollable-auto-tab-${index}`,
-        'aria-controls': `scrollable-auto-tabpanel-${index}`,
-    };
-}
-
-const useStyles = makeStyles((theme) => ({
-    body: {
-        display: "flex",
-        alignItems: "top",
-        justifyContent: "center",
-        padding: 8,
-        backgroundColor: "#e0f2f1",
-        height: "100vh"
-    },
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        maxWidth: "800px",
-        backgroundColor: theme.palette.primary.main,
-        marginTop: 70,
-        height: "550px",
-        borderRadius: "0 0 5px 5px"
-    }
-}));
-
 const PagesCliente = () => {
     const classes = useStyles();
     const [value, setValue] = useState(1);
     const [clienteSelected, setClienteSelected] = useState([])
 
-    const handleChange = (event, newValue) => {
+    const trocaDeAba = (event, newValue) => {
         if (newValue < 3) {
             setValue(newValue);
         } else if (newValue > 2) {
             alert("Selecione algum cliente da lista para acessar essa função!")
         }
     };
-    
+
     return (
         <Fragment>
             <MenuTopBar />
             <div className={classes.body}>
-                <div className={classes.root}>
-                    <AppBar position="static" color="default">
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            variant="scrollable"
-                            scrollButtons="auto"
-                        >
-                            <Link to="/">
-                                <Tab label={<ArrowBackIcon/>} />
-                            </Link>
-                            
-                            <Tab label="Lista" {...a11yProps(1)} />
-                            <Tab label="Cadastrar" {...a11yProps(2)} />
-                            <Tab label="Editar" {...a11yProps(3)} />
-                            <Tab label="Excluir" {...a11yProps(4)} />
-                        </Tabs>
-                    </AppBar>
-                    
+                <AppBar position="static" color="default" className={classes.menu}>
+                    <Tabs
+                        value={value}
+                        onChange={trocaDeAba} 
+                        indicatorColor="primary"
+                        textColor="primary"
+                        variant="scrollable"
+                        scrollButtons="auto"
+                    >
+                        <Link to="/">
+                            <Tab label={<ArrowBackIosIcon/>} />
+                        </Link>
+                        
+                        <Tab label="Lista" {...a11yProps(1)} />
+                        <Tab label="Cadastrar" {...a11yProps(2)} />
+                        <Tab label="Editar" {...a11yProps(3)} />
+                        <Tab label="Excluir" {...a11yProps(4)} />
+                    </Tabs>
+                </AppBar>
+                <div className={classes.childrenBody}>
                     <TabPanel value={value} index={1}>
                         <ClienteLista setValue={setValue} setClienteSelected={setClienteSelected}/>
                     </TabPanel>
@@ -112,13 +108,14 @@ const PagesCliente = () => {
                         <ClienteCadastro setValue={setValue}/>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                    <ClienteEditar setValue={setValue} clienteSelected={clienteSelected}/>
+                        <ClienteEditar setValue={setValue} clienteSelected={clienteSelected}/>
                     </TabPanel>
                     <TabPanel value={value} index={4}>
-                    <ClienteExcluir setValue={setValue} clienteSelected={clienteSelected}/>
+                        <ClienteExcluir setValue={setValue} clienteSelected={clienteSelected}/>
                     </TabPanel>
-                </div>
+                </div>               
             </div>
+            
         </Fragment>
     )
 }

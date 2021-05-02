@@ -64,7 +64,43 @@ const lista = [
     exame: "Tomografia do coração e vasos",
     pacienteNome: "Lucas",
     cpf: "123.456.789-12"
+  },
+  {
+    id: 7,
+    data: "2021-02-21T19:00",
+    exame: "Tomografia do coração e vasos",
+    pacienteNome: "Lucas",
+    cpf: "123.456.789-12"
+  },
+  {
+    id: 8,
+    data: "2021-02-21T19:00",
+    exame: "Tomografia do coração e vasos",
+    pacienteNome: "Lucas",
+    cpf: "123.456.789-12"
+  },
+  {
+    id: 9,
+    data: "2021-02-21T19:00",
+    exame: "Tomografia do coração e vasos",
+    pacienteNome: "Lucas",
+    cpf: "123.456.789-12"
+  },
+  {
+    id: 10,
+    data: "2021-02-21T19:00",
+    exame: "Tomografia do coração e vasos",
+    pacienteNome: "Lucas",
+    cpf: "123.456.789-12"
+  },
+  {
+    id: 11,
+    data: "2021-02-21T19:00",
+    exame: "Tomografia do coração e vasos",
+    pacienteNome: "Lucas",
+    cpf: "123.456.789-12"
   }
+  
 ]
 const useStyles = makeStyles((theme) => ({
     divPesquisa: {
@@ -157,6 +193,16 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
             }
         })
     }
+
+    const clickExcluir = () => {
+        setAgendaSelected([]);
+        lista.map((item) => {
+            if (linhaSelecionada === item.id) {
+                setAgendaSelected(item);
+                setValue(4)
+            }
+        })
+    }
     
     useEffect(() => {
         formatarDados()
@@ -190,7 +236,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title="Excluir">
-                                        <IconButton aria-label="Excluir" onClick={() => {setValue(4)}}>
+                                        <IconButton aria-label="Excluir" onClick={clickExcluir}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </Tooltip>
@@ -242,19 +288,28 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
                     </Table>
                 </TableContainer>
                 <Toolbar className={classes.contadorDePagina}>
-                  <Tooltip title="Página anterior">
-                    <IconButton aria-label="Página anterior" onClick={() => {paginaAnterior()}}>
-                        <ArrowBackIosIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Typography>
-                    {(pagina === 1 ? 1 : (pagina - 1) * 5 + 1) + " de " + (lista.length)}
-                  </Typography>
-                  <Tooltip title="Proxíma página">
-                      <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>
-                          <ArrowForwardIosIcon />
-                      </IconButton>
-                  </Tooltip>
+                    <Tooltip title="Página anterior">
+                        <IconButton aria-label="Página anterior" onClick={() => {paginaAnterior()}}>
+                            <ArrowBackIosIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Typography>
+                        {(pagina === 1 
+                            ? 1 
+                            : (pagina - 1) * 5 + 1) 
+                        + "-" + 
+                        (pagina * 5 > lista.length && pagina > 1 
+                            ? lista.length 
+                            : lista.length < 5 
+                                ? lista.length 
+                                : pagina * 5) 
+                            + " de " + (lista.length)}
+                    </Typography>
+                    <Tooltip title="Proxíma página">
+                        <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>
+                            <ArrowForwardIosIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Toolbar>
             </Paper>
         </Fragment>

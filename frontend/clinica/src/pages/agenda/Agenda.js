@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import AgendaLista from 'components/agenda/agendalista/AgendaLista';
 import AgendaCadastro from 'components/agenda/agendacadastro/AgendaCadastro';
 import AgendaEditar from 'components/agenda/agendaeditar/AgendaEditar';
+import AgendaExcluir from 'components/agenda/agendaexcluir/AgendaExcluir';
 
 const exames = [
     {id: 1, exame: "Hemograma"},
@@ -123,7 +124,7 @@ const PagesAgenda = () => {
                         <AgendaEditar setValue={setValue} agendaSelected={agendaSelected} />
                     </TabPanel>
                     <TabPanel value={value} index={4}>
-                    four
+                        <AgendaExcluir setValue={setValue} agendaSelected={agendaSelected} />
                     </TabPanel>
                 </div>               
             </div>

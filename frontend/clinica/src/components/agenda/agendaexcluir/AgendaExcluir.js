@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
-import { horaMask } from 'utils/mask';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -33,27 +32,20 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const AgendaEditar = ({ setValue, agendaSelected }) => {
+const AgendaExcluir = ({ setValue, agendaSelected }) => {
     const classes = useStyles();
-    const [editar, setEditar] = useState(agendaSelected);
+    const [excluir, setExcluir] = useState(agendaSelected);
     const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
 
     useEffect(()=>{
-        const splitStringTotal = editar.data.split("T");
+        console.log("excluir", excluir);
+        console.log("agendaSelected", agendaSelected);
+        const splitStringTotal = excluir.data.split("T");
         setDataHora({data: splitStringTotal[0], hora: splitStringTotal[1]});
     },[])
 
-    useEffect(()=>{
-        setEditar({ ...editar, data: dataHora.data + "T" + dataHora.hora});
-    },[dataHora])
-
-    const onClickEditar = () => {
-        const validarHora = dataHora.hora.split(":");
-        if (dataHora.data.length !== 10) {return alert("Faltou data")}
-        if (dataHora.hora.length !== 5) {return alert("Faltou hora")}
-        if (validarHora[0] >= 24 || validarHora[0] < 0) {return alert("verifique as horas informada")}
-        if (validarHora[1] >= 60 || validarHora[1] < 0) {return alert("verifique os minutos informada")}
-        alert("PUT")
+    const onClickExcluir = () => {
+        alert("DELETE")
         setValue(1)
     }
 
@@ -66,7 +58,7 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
                         label="Nome"
                         className={classes.textField}
                         name="pacienteNome"
-                        value={editar.pacienteNome}
+                        value={excluir.pacienteNome}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -76,7 +68,7 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
                         className={classes.textField}
                         name="cpf"
                         maxLength='14'
-                        value={editar.cpf}
+                        value={excluir.cpf}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -85,14 +77,14 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
                         name="data"
                         label="Data do exame"
                         type="date"
-                        maxLength='10'
-                        defaultValue={new Date}
                         className={classes.textField}
                         value={dataHora.data}
-                        onChange={(e) => { setDataHora({ ...dataHora, data: e.target.value })}}
                         InputLabelProps={{
                         shrink: true,
                         }}
+                        InputProps={{
+                            readOnly: true,
+                          }}
                     />
                     <TextField
                         name="hora"
@@ -100,19 +92,21 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
                         maxLength='5'
                         className={classes.textField}
                         value={dataHora.hora}
-                        onChange={(e) => { setDataHora({ ...dataHora, hora: horaMask(e.target.value) })}}
+                        InputProps={{
+                            readOnly: true,
+                          }}
                     />
                      <TextField
                         name="exame"
                         label="Exames ofertados"
                         className={classes.textField}
-                        value={editar.exame}
+                        value={excluir.exame}
                         InputProps={{
                             readOnly: true,
                           }}
                     />
-                    <Button variant="contained" color="primary" className={classes.button} onClick={onClickEditar}>
-                        Editar
+                    <Button variant="contained" color="primary" className={classes.button} onClick={onClickExcluir}>
+                        Excluir
                     </Button>
                     <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setValue(1)}}>
                         Cancelar
@@ -123,4 +117,4 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
   );
 }
 
-export default AgendaEditar;
+export default AgendaExcluir;
