@@ -1,61 +1,28 @@
+import { useState, useEffect } from "react";
+
 import { Container, Wrapper } from "./styles";
 
 import Header from "../../components/Header";
 import ListItemModel from "../../components/ListItemModel";
 import Footer from "../../components/Footer";
 import LightDivindingLine from "../../components/LightDividingLine";
+import ExamesAPI from "../../services/exames";
+import Loading from "../../components/Loading";
 
 function ExamListPage() {
-  let exames = [
-    {
-      id: 1,
-      nome: "Endoscopia",
-    },
-    {
-      id: 2,
-      nome: "Eletrocardiograma",
-    },
-    {
-      id: 3,
-      nome: "Raio X",
-    },
-    {
-      id: 4,
-      nome: "Hemograma",
-    },
-    {
-      id: 5,
-      nome: "Endoscopia",
-    },
-    {
-      id: 6,
-      nome: "Endoscopia",
-    },
-    {
-      id: 7,
-      nome: "Endoscopia",
-    },
-    {
-      id: 8,
-      nome: "Endoscopia",
-    },
-    {
-      id: 9,
-      nome: "Endoscopia",
-    },
-    {
-      id: 10,
-      nome: "Endoscopia",
-    },
-    {
-      id: 11,
-      nome: "Endoscopia",
-    },
-    {
-      id: 12,
-      nome: "Endoscopia",
-    },
-  ];
+  const [loaded, setLoaded] = useState(false);
+
+  const [exames, setExames] = useState([]);
+
+  const carregarExames = async () => {
+    const exames = await ExamesAPI.buscarExames();
+    setExames(exames);
+  };
+
+  useEffect(() => {
+    carregarExames();
+  }, []);
+
   return (
     <>
       <Container>
@@ -63,15 +30,15 @@ function ExamListPage() {
         <h1> Lista de Exames</h1>
         <LightDivindingLine />
         <Wrapper>
-          {exames.map((exam, position) => {
-            return (
-              <ListItemModel
-                key={exam.id + position}
-                id={exam.id}
-                examName={exam.nome}
-              />
-            );
-          })}
+          {loaded === false && setTimeout(() => setLoaded(true), 4000) && (
+            <Loading />
+          )}
+          {loaded === true &&
+            exames.map((exam, index) => {
+              return (
+                <ListItemModel key={index} id={exam.id} examName={exam.nome} />
+              );
+            })}
         </Wrapper>
         <Footer />
       </Container>

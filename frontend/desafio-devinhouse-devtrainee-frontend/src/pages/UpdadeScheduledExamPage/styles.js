@@ -2,14 +2,25 @@ import styled, { css } from "styled-components";
 
 import { IoIosArrowBack } from "react-icons/io";
 
+export const Container = styled.div`
+  > h1 {
+    margin-top: 1%;
+    text-align: center;
+    color: whitesmoke;
+    margin-bottom: 1%;
+  }
+`;
+
 export const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: auto;
+  width: 50%;
 `;
 
 export const Button = styled.div`
-  width: 15%;
+  width: 40%;
 
   > button {
     color: whitesmoke;
@@ -28,14 +39,6 @@ export const Button = styled.div`
 
     &:hover {
       background: blue;
-    }
-  }
-
-  > button.limpar {
-    background: darkred;
-
-    &:hover {
-      background: red;
     }
   }
 

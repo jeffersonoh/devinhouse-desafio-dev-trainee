@@ -12,8 +12,3 @@ export const Container = styled.div`
     margin-bottom: 2%;
   }
 `;
-
-export const Wrapper = styled.div`
-  height: 100%;
-  margin-top: 2%;
-`;

@@ -24,11 +24,3 @@ export const Wrapper = styled.div`
     margin-bottom: 2%;
   }
 `;
-
-export const Forms = styled.form`
-  width: 70%;
-  margin: auto;
-  padding: 1rem;
-  background: white;
-  border-radius: 5px;
-`;

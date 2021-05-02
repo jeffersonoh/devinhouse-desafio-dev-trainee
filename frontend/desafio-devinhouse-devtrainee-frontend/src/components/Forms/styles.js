@@ -28,3 +28,10 @@ export const NewButton = styled.div`
     background-color: greenyellow;
   }
 `;
+
+export const Wrapper = styled.div`
+  position: relative;
+
+  width: 20px;
+  height: 20px;
+`;

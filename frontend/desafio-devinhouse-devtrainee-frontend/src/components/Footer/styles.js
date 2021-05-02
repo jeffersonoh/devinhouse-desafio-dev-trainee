@@ -9,7 +9,7 @@ export const Container = styled.div`
   background-color: darkgreen;
   color: whitesmoke;
   text-align: end;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   right: 0;
   left: 0;

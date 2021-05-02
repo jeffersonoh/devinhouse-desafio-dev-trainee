@@ -7,6 +7,11 @@ import ExamListPage from "../pages/ExamListPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import ScheduleExamPage from "../pages/ScheduleExamPage";
 import RegisterPatientsPage from "../pages/RegisterPatientsPage";
+import ListScheduledExamsPage from "../pages/ListScheduledExamsPage";
+import PatientsListPage from "../pages/PatientsListPage";
+import UpdatePatientPage from "../pages/UpdatePatientPage";
+import UpdadeScheduledExamPage from "../pages/UpdadeScheduledExamPage";
+import Loading from "../components/Loading";
 
 export const Router = () => {
   return (
@@ -21,6 +26,18 @@ export const Router = () => {
           element={<ScheduleExamPage />}
         />
         <Route path="/paciente/cadastrar" element={<RegisterPatientsPage />} />
+        <Route
+          path="/agendamento/listar"
+          element={<ListScheduledExamsPage />}
+        />
+        <Route path="/paciente/listar" element={<PatientsListPage />} />
+        <Route path="/paciente/atualizar" element={<UpdatePatientPage />} />
+        <Route
+          path="/agendamento/atualizar"
+          element={<UpdadeScheduledExamPage />}
+        />
+
+        <Route path="loading" element={<Loading />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

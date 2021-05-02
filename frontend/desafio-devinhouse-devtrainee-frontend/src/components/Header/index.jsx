@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <Container>
       <h1>Clínica DEVinHouse</h1>
@@ -28,7 +27,9 @@ function Header() {
         Listar Agendamentos
       </button>
       <button
-        className="option"
+        className={
+          location.pathname === "/paciente/listar" ? "selected" : "option"
+        }
         onClick={() => {
           navigate("/paciente/listar");
         }}

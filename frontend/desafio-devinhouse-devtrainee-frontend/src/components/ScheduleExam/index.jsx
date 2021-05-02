@@ -1,10 +1,9 @@
 import { Container, Wrapper, ExamName, ExamId } from "./styles";
 
 import Input from "../../components/Input";
-import RegisterButtons from "../../components/RegisterButtons";
 
 function ScheduleExam(props) {
-  const { examName, examId } = props;
+  const { examName, examId, children } = props;
   return (
     <Container>
       <Wrapper>
@@ -23,20 +22,7 @@ function ScheduleExam(props) {
         <Input type="text" name="patientCpf" id="cpf" label="CPF do paciente" />
         <Input type="date" name="examDate" id="date" label="Data do exame" />
         <Input type="time" name="examTime" id="time" label="Horário do exame" />
-        <RegisterButtons
-          buttonName="Agendar"
-          handleClick={(e) => {
-            const name = document.getElementById("name");
-            const cpf = document.getElementById("cpf");
-            const date = document.getElementById("date");
-            const time = document.getElementById("time");
-            name.value = "";
-            cpf.value = "";
-            date.value = "";
-            time.value = "";
-            e.preventDefault();
-          }}
-        />
+        {children}
       </Wrapper>
     </Container>
   );

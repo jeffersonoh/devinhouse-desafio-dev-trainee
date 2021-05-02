@@ -10,7 +10,7 @@ export const Container = styled.div`
   margin: auto;
   width: 50%;
   margin-bottom: 25px;
-  padding: 10px 20px;
+  padding: 25px 50px;
   display: flex;
   flex-direction: row;
 `;

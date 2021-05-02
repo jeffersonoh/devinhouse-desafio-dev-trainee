@@ -1,7 +1,7 @@
-import { Container, Wrapper, Forms } from "./styles";
+import { Container, Wrapper } from "./styles";
 
-import Input from "../../components/Input";
 import LightDivindingLine from "../../components/LightDividingLine";
+import PatientForms from "../../components/PatientForms";
 import RegisterButtons from "../../components/RegisterButtons";
 
 function RegisterPatientsPage() {
@@ -10,29 +10,24 @@ function RegisterPatientsPage() {
       <Wrapper>
         <h1>Cadastrar paciente</h1>
         <LightDivindingLine />
-        <Forms>
-          <Input label="Nome" type="text" id="nomeDoPaciente" />
-          <Input label="CPF" type="text" id="cpfDoPaciente" />
-          <Input
-            label="Data de nascimento"
-            type="date"
-            id="dataDeNascimentoDoPaciente"
-          />
-          <RegisterButtons
-            buttonName="Cadastrar"
-            handleClick={(e) => {
-              const name = document.getElementById("nomeDoPaciente");
-              const cpf = document.getElementById("cpfDoPaciente");
-              const date = document.getElementById(
-                "dataDeNascimentoDoPaciente"
-              );
-              name.value = "";
-              cpf.value = "";
-              date.value = "";
-              e.preventDefault();
-            }}
-          />
-        </Forms>
+        <PatientForms
+          children={
+            <RegisterButtons
+              buttonName="Cadastrar"
+              handleClick={(e) => {
+                const name = document.getElementById("nomeDoPaciente");
+                const cpf = document.getElementById("cpfDoPaciente");
+                const date = document.getElementById(
+                  "dataDeNascimentoDoPaciente"
+                );
+                name.value = "";
+                cpf.value = "";
+                date.value = "";
+                e.preventDefault();
+              }}
+            />
+          }
+        />
       </Wrapper>
     </Container>
   );
