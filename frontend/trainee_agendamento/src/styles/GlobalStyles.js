@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   * {
@@ -11,18 +11,23 @@ export default createGlobalStyle`
     min-height: 100%;
     background-color: var(--background);
   }
-  
+
   h1, h2, span, p, a, button, input {
     border: 0;
     background: none;
     font-family: "Roboto", sans-serif;
     color: var(--text);
   }
-  
+
+  header {
+    background-color: --primary;
+    color: #FFF; 
+  }
+
   ul {
     list-style: none;
   }
-  
+
   :root {
     --primary: #133991;
     --secondary: #0591E8;
