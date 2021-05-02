@@ -1,18 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
-import Box from "@material-ui/core/Box";
 
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import DescriptionIcon from "@material-ui/icons/Description";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 
 import ListItemLink from "./ListItemLink";
 
@@ -35,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuDrawer = ({ open, logoutAction }) => {
+const MenuDrawer = ({ open }) => {
   const classes = useStyles();
 
   return (
@@ -49,31 +44,30 @@ const MenuDrawer = ({ open, logoutAction }) => {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
-          <ListItemLink icon={<HomeIcon />} to="/painel" primary="Home" />
+          <ListItemLink
+            icon={<HomeIcon />}
+            to="/painel"
+            name="Home"
+          />
 
           <ListItemLink
-            icon={<PictureAsPdfIcon />}
-            to="/registros"
-            primary="Documentos"
+            icon={<DescriptionIcon />}
+            to="/exames"
+            name="Exames"
           />
 
           <ListItemLink
             icon={<PeopleAltIcon />}
-            to="/usuarios"
-            primary="Usuários"
+            to="/clientes"
+            name="Clientes"
+          />
+
+          <ListItemLink
+            icon={<ScheduleIcon />}
+            to="/agendamentos"
+            name="Agendamentos"
           />
         </List>
-        <Box>
-          <Divider />
-          <List>
-            <ListItem button onClick={logoutAction}>
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sair" />
-            </ListItem>
-          </List>
-        </Box>
       </div>
     </Drawer>
   );

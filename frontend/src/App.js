@@ -1,15 +1,27 @@
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, makeStyles } from '@material-ui/core';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './routes/AppRouter';
 import GlobalThemeProvider from './styles/GlobalStyleProvider';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    [theme.breakpoints.up('md')]: {
+      display: "flex",
+    },
+  },
+}));
+
 function App() {
+  const classes = useStyles();
+
   return (
     <GlobalThemeProvider>
       <CssBaseline />
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <div className={classes.root}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </div>
     </GlobalThemeProvider>
   );
 }

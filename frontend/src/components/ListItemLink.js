@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-export default function ListItemLink({ icon, primary, to }) {
+export default function ListItemLink({ icon, name, to }) {
   const CustomLink = useMemo(
     () => forwardRef((props, ref) => <Link ref={ref} to={to} {...props} />),
     [to]
@@ -15,7 +15,7 @@ export default function ListItemLink({ icon, primary, to }) {
     <li>
       <ListItem button component={CustomLink}>
         <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={primary} />
+        <ListItemText primary={name} />
       </ListItem>
     </li>
   );
