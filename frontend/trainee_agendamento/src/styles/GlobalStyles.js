@@ -54,6 +54,66 @@ export default createGlobalStyle`
     font-weight: 500;
   }
 
+  /* Modal */
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.modal-box {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 30%;
+  width: 60%;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  z-index: 101;
+  padding-top:15px;
+  padding-bottom:15px;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+.modal-header {
+  display: flex;
+  width: 100%;
+}
+
+.modal-title {
+  width: 100%;
+}
+
+.closeModal {
+  display: flex;
+  width: 100%;
+}
+
+.close-button {
+  margin-left: auto;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.dp-none {
+  display: none;
+}
+
   @media screen and (max-width: 575px) {
     h1 {
       font-size: 24px;

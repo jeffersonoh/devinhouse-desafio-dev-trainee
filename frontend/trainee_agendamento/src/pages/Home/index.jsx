@@ -1,10 +1,16 @@
-// import Header from "../../components/Header";
 import Main from "../../components/Main";
 import Card from "../../components/Card";
 import "../../styles/home.css";
 import Button from "../../components/Button";
+import Modal from "../../components/Modal";
 
 function Home() {
+  const modalRef() = React.useRef();
+
+  const openModal = () => {
+    modalRef.current.openModal();
+  };
+
   return (
     <>
       <Main>
@@ -75,6 +81,12 @@ function Home() {
           </div>
         </div>
       </Main>
+
+      <Modal ref={modalRef} title="Cadastrar Cliente">
+        {/* Formulario desejado */}
+        {/* comando de chamada: onClick={() => modalRef.current.openModal()} */}
+      </Modal>
+
     </>
   )
 };
