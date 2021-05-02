@@ -1,6 +1,6 @@
 package devtrainee.ejnn.backend.tests.integration;
 
-import devtrainee.ejnn.backend.tests.integration.IntegrationTests;
+import devtrainee.ejnn.backend.tests.categories.IntegrationTests;
 
 import java.util.List;
 import java.util.ArrayList;

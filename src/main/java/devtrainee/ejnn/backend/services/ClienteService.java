@@ -29,12 +29,13 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     private ModelMapper mapper;
 
-    private ClienteOutputDTO sanitize(Cliente cliente) {
+    private ClienteOutputDTO mapToOutputDTO(Cliente cliente) {
 	return mapper.map(cliente, ClienteOutputDTO.class);
     }
+
     public ClienteOutputDTO create(ClienteInputDTO clienteInput) {
 	Cliente createdClient = clienteRepository.save(mapper.map(clienteInput, Cliente.class));
-	return sanitize(createdClient);
+	return mapToOutputDTO(createdClient);
     }
 
     public ClienteOutputDTO findById(long id) {
@@ -45,17 +46,17 @@ public class ClienteService {
 	    throw new ClienteInexistenteException();
 	}
 
-	return sanitize(cliente.get());
+	return mapToOutputDTO(cliente.get());
     }
 
     public List<ClienteOutputDTO> searchByCpf(String cpf) {
 	List<Cliente> searchResults = clienteRepository.findClienteByCpfLike(cpf);
-	return searchResults.stream().map(this::sanitize).collect(Collectors.toList());
+	return searchResults.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
 
     public List<ClienteOutputDTO> findAll() {
 	List<Cliente> clientes = clienteRepository.findAll();
-	return clientes.stream().map(this::sanitize).collect(Collectors.toList());
+	return clientes.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
 
     public boolean existsById(long id) {
@@ -70,7 +71,7 @@ public class ClienteService {
 	    Cliente updateCandidate = optUpdateCandidate.get();
 	    mapper.map(update, updateCandidate);
 	    Cliente ret = clienteRepository.save(updateCandidate);
-	    return sanitize(ret);
+	    return mapToOutputDTO(ret);
 	}
 
 	return create(update);
