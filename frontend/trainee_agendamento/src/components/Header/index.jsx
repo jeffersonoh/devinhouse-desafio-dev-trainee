@@ -1,4 +1,4 @@
-import Navbar from "../Menu";
+import Navbar from "../Navbar";
 
 function Header() {
   return (
