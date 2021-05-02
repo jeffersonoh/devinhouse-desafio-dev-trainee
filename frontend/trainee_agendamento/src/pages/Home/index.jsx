@@ -1,3 +1,4 @@
+import React from "react";
 import Main from "../../components/Main";
 import Card from "../../components/Card";
 import "../../styles/home.css";
@@ -5,7 +6,7 @@ import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 
 function Home() {
-  const modalRef() = React.useRef();
+  const modalRef = React.useRef();
 
   const openModal = () => {
     modalRef.current.openModal();

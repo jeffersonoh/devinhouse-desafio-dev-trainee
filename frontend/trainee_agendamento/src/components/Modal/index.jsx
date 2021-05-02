@@ -1,3 +1,4 @@
+import React from "react";
 import { forwardRef, useImperativeHandle } from "react";
 import ReactDOM from "react-dom";
 import { IoCloseOutline } from "react-icons/io5";
