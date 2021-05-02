@@ -8,6 +8,6 @@ import br.com.devtrainee.desafiodev.model.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long>{
   
-  Optional<Client> findBycpf(String cpf);
+  Optional<Client> findByCpf(String cpf);
   
 }
