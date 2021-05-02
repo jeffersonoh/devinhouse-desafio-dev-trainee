@@ -32,11 +32,21 @@ export default createGlobalStyle`
     --primary: #133991;
     --secondary: #0591E8;
     --text: #666666;
-    --background: #DFDFDF;
+    --background: #FFF;
   }
 
   h1 {
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  h2 {
     font-size: 36px;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 24px;
     font-weight: 500;
   }
 

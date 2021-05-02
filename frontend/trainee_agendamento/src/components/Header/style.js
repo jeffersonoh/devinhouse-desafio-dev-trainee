@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
-export const HeaderStyle = styled.header`
+const HeaderStyle = styled.header`
   background-color: #133991;
-  color: #fff;
-`;
+  
+  .header-background {
+    display: flex;
+  };
+  
+  h1 {
+    color: #FFFFFF;
+  };
+
+`; 
+
+export default HeaderStyle;
