@@ -15,7 +15,7 @@ class ApiService {
 	}
 	
 	searchClientes(query) {
-		return axios.get(`${BASE_URL}?q=${query}`)
+		return axios.get(`${BASE_URL}?busca=${query}`)
 			.then(response => response.data)
 						.catch(error => {
 				throw error;

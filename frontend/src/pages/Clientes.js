@@ -16,12 +16,25 @@ const Clientes = () => {
     getClientes();
   }, [])
 
-  console.log(clientes)
+  const buscaClientes = async (termoBusca) => {
+
+    console.log(termoBusca)
+    const result = await apiCliente.searchClientes(termoBusca);
+
+    console.log(result)
+
+    setClientes(result)
+  };
 
   return (
     <>
       <PageHeader titulo="Clientes" tituloBotao="Novo Cliente" />
-      <Busca titulo="Filtrar documentos" label="Buscar cliente" id="cliente" />
+      <Busca
+        titulo="Filtrar documentos"
+        label="Buscar cliente"
+        id="cliente"
+        onClick={buscaClientes}
+      />
       <Tabela dados={clientes} titulo="cliente" />
     </>
   );

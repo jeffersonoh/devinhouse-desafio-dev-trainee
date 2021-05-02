@@ -1,5 +1,6 @@
 import { Box, FormGroup, IconButton, InputAdornment, makeStyles, TextField, Typography } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
+import { useState } from "react";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -13,8 +14,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Busca = ({ titulo, label, id }) => {
+const Busca = ({ titulo, label, id, onClick }) => {
   const classes = useStyles();
+  const [termoBusca, setTermoBusca] = useState('');
 
   return (
     <>
@@ -34,10 +36,17 @@ const Busca = ({ titulo, label, id }) => {
             label={label}
             variant="outlined"
             color="secondary"
+            value={termoBusca}
+            onChange={(e) => setTermoBusca(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment>
-                  <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                  <IconButton
+                    type="submit"
+                    className={classes.iconButton}
+                    aria-label="search"
+                    onClick={() => onClick(termoBusca)}
+                  >
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
