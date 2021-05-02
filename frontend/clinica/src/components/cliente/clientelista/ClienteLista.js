@@ -155,6 +155,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
   };
 
   const isSelected = (cpf) => selected.indexOf(cpf) !== -1;
+  
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>

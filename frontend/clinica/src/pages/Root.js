@@ -7,6 +7,7 @@ import {
 import PagesIndex from './index/Index';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import PagesCliente from './cliente/Cliente';
+import PagesAgenda from './agenda/Agenda';
 
 const Root = () => {
     const theme = createMuiTheme({
@@ -21,6 +22,7 @@ const Root = () => {
         <ThemeProvider theme={theme}>
             <Router>
                 <Switch>
+                    <Route path="/agenda" component={PagesAgenda} />
                     <Route path="/cliente" component={PagesCliente} />
                     <Route path="/" component={PagesIndex} />
                 </Switch>

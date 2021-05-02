@@ -34,9 +34,11 @@ const PagesIndex = () => {
             <MenuTopBar />
             <div className={classes.body}>
                 <div className={classes.menu}>
+                <Link to="/agenda" style={{ textDecoration: 'none' }}>
                     <Button variant="contained" color="primary" className={classes.buttons}>
                         Agendamento
                     </Button>
+                    </Link>
                     <Link to="/cliente" style={{ textDecoration: 'none' }}>
                         <Button variant="contained" color="primary" className={classes.buttons}>
                             Cliente

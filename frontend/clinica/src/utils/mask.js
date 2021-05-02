@@ -6,3 +6,10 @@ export const cpfMask = value => {
       .replace(/(\d{3})(\d{1,2})/, '$1-$2')
       .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
   }
+
+  export const horaMask = value => {
+    return value
+      .replace(/\D/g, '') 
+      .replace(/(\d{2})(\d)/, '$1:$2')
+      .replace(/(:\d{2})\d+?$/, '$1')
+  }

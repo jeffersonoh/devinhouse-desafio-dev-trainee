@@ -40,8 +40,8 @@ const ClienteEditar = ({ setValue, clienteSelected }) => {
 
     const onChickEditar = () => {
         if (editar.nome.length === 0) {return alert("Faltou nome")}
-        if (editar.cpf.length != 14) {return alert("Faltou cpf")}
-        if (editar.ddn.length != 10) {return alert("Faltou data")}
+        if (editar.cpf.length !== 14) {return alert("Faltou cpf")}
+        if (editar.ddn.length !== 10) {return alert("Faltou data")}
         alert("PUT")
         setValue(1)
     }
@@ -69,11 +69,11 @@ const ClienteEditar = ({ setValue, clienteSelected }) => {
                       }}
                 />
                 <TextField
-                    name="ddn"
+                    name="ddn"cl
                     label="Data de nacimento"
                     type="date"
                     maxLength='10'
-                    defaultValue={new Date}
+                    defaultValue={new Date()}
                     className={classes.textField}
                     value={editar.ddn}
                     onChange={onChangeEditar}

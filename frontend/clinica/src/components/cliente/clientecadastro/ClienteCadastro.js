@@ -45,11 +45,10 @@ const ClienteCadastro = ({ setValue }) => {
         setCadastro({ ...cadastro, [name]: value });
     }
 
-
     const onChickCadastrar = () => {
         if (cadastro.nome.length === 0) {return alert("Faltou nome")}
-        if (cadastro.cpf.length != 14) {return alert("Faltou cpf")}
-        if (cadastro.ddn.length != 10) {return alert("Faltou data")}
+        if (cadastro.cpf.length !== 14) {return alert("Faltou cpf")}
+        if (cadastro.ddn.length !== 10) {return alert("Faltou data")}
         alert("POST")
         setValue(1)
     }

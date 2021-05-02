@@ -24,6 +24,8 @@ public class AgendaDTO {
     private String exame;
     @Column(nullable = false)
     private String pacienteNome;
+    @Column(nullable = false)
+    private String cpf;
 
     public static AgendaDTO converter(AgendaDTO a){
         var agenda = new AgendaDTO();
@@ -32,6 +34,7 @@ public class AgendaDTO {
         agenda.setData(a.getData());
         agenda.setExame(a.getExame());
         agenda.setPacienteNome(a.getPacienteNome());
+        agenda.setCpf(a.getCpf());
 
         return agenda;
     }

@@ -10,10 +10,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
-import ClienteLista from 'components/clientelista/ClienteLista';
-import ClienteCadastro from 'components/clientecadastro/ClienteCadastro'
-import ClienteEditar from 'components/clienteeditar/ClienteEditar'
-import ClienteExcluir from 'components/clienteexcluir/ClienteExcluir';
+import ClienteLista from 'components/cliente/clientelista/ClienteLista';
+import ClienteCadastro from 'components/cliente/clientecadastro/ClienteCadastro'
+import ClienteEditar from 'components/cliente/clienteeditar/ClienteEditar'
+import ClienteExcluir from 'components/cliente/clienteexcluir/ClienteExcluir';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
