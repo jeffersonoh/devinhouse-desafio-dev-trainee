@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from "@material-ui/core";
+import { IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, withStyles } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -35,16 +35,27 @@ function formataCPF(cpf){
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
-const Tabela = ({ dados }) => {
+const Tabela = ({ dados, titulo }) => {
   const classes = useStyles();
   const [colunas, setColunas] = useState([]);
 
   useEffect(() => {
-    if (dados) {
-      setColunas(Object.keys(dados[0]));
+    if (dados.length !== 0) {
+      const getColunas = Object.keys(dados[0]);
+
+      getColunas.splice(0, 1);
+      
+      setColunas(getColunas);
     }
   }, [dados]);
 
+  if (dados.length === 0) {
+    return (
+      <Typography align="center">
+        {`Nenhum ${titulo} cadastrado.`}
+      </Typography>
+    );
+  }
   return (
     <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
@@ -59,7 +70,7 @@ const Tabela = ({ dados }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dados.map((linha) => (
+            {dados?.map((linha) => (
               <StyledTableRow key={linha.nome}>
                 <StyledTableCell component="th" scope="row">
                   {linha.nome}
