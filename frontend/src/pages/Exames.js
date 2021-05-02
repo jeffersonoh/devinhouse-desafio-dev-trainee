@@ -5,13 +5,13 @@ import Tabela from '../components/Tabela';
 import apiExame from '../services/apiExame';
 
 const Exames = () => {
-  const [clientes, setClientes] = useState([]);
+  const [exames, setExames] = useState([]);
 
   useEffect(() => {
     const getExames = async () => {
       const result = await apiExame.findAllExames();
 
-      setClientes(result);
+      setExames(result);
     }
     getExames();
   }, [])
@@ -23,7 +23,7 @@ const Exames = () => {
 
     console.log(result)
 
-    setClientes(result)
+    setExames(result)
   };
 
   return (
@@ -35,7 +35,7 @@ const Exames = () => {
         id="exame"
         onClick={buscaExames}
       />
-      <Tabela dados={clientes} titulo="exame" />
+      <Tabela dados={exames} titulo="exame" />
     </>
   );
 };

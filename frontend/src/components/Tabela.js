@@ -44,6 +44,8 @@ const Tabela = ({ dados, titulo }) => {
       const getColunas = Object.keys(dados[0]);
 
       //getColunas.splice(0, 1);
+
+      console.log(getColunas)
       
       setColunas(getColunas);
     }
@@ -74,7 +76,8 @@ const Tabela = ({ dados, titulo }) => {
               <StyledTableRow key={index}>
                 {colunas?.map((coluna, index) => (
                   <StyledTableCell key={coluna}>
-                    {coluna === "cpf" ? formataCPF(linha[coluna]) : linha[coluna]} 
+                    {coluna === "cpf" && formataCPF(linha[coluna])}
+                    {coluna === "cliente" || coluna === "exame" ? linha[coluna].nome : linha[coluna]}
                   </StyledTableCell>
                 ))}
                 <StyledTableCell align="right">
