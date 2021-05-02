@@ -43,7 +43,7 @@ const Tabela = ({ dados, titulo }) => {
     if (dados.length !== 0) {
       const getColunas = Object.keys(dados[0]);
 
-      getColunas.splice(0, 1);
+      //getColunas.splice(0, 1);
       
       setColunas(getColunas);
     }
@@ -66,18 +66,18 @@ const Tabela = ({ dados, titulo }) => {
                   {coluna === "dataNascimento" ? "DATA DE NASCIMENTO" : coluna.toUpperCase()}
                 </StyledTableCell>
               ))}
-              <StyledTableCell align="left">GERENCIAR</StyledTableCell>
+              <StyledTableCell align="right">GERENCIAR</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {dados?.map((linha) => (
-              <StyledTableRow key={linha.nome}>
-                <StyledTableCell component="th" scope="row">
-                  {linha.nome}
-                </StyledTableCell>
-                <StyledTableCell align="left">{formataCPF(linha.cpf)}</StyledTableCell>
-                <StyledTableCell align="left">{linha.dataNascimento}</StyledTableCell>
-                <StyledTableCell>
+            {dados?.map((linha, index) => (
+              <StyledTableRow key={index}>
+                {colunas?.map((coluna, index) => (
+                  <StyledTableCell key={coluna}>
+                    {coluna === "cpf" ? formataCPF(linha[coluna]) : linha[coluna]} 
+                  </StyledTableCell>
+                ))}
+                <StyledTableCell align="right">
                   <IconButton
                     size="small"
                     className={classes.button}

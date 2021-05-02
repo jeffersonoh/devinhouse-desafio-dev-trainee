@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 import Header from "../components/Header";
 import MenuDrawer from "../components/MenuDrawer";
 import Clientes from "../pages/Clientes";
+import Exames from "../pages/Exames";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -31,6 +32,7 @@ const AppRouter = () => {
         <Toolbar />
         <Switch>
           <Route path="/clientes" component={Clientes} />
+          <Route path="/exames" component={Exames} />
         </Switch>
       </div>
     </>
