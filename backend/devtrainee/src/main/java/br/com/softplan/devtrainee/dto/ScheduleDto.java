@@ -1,13 +1,16 @@
 package br.com.softplan.devtrainee.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.softplan.devtrainee.entity.ClientEntity;
 import br.com.softplan.devtrainee.entity.MedicalExamEntity;
+import br.com.softplan.devtrainee.entity.ScheduleEntity;
 
 public class ScheduleDto implements Serializable {
 
@@ -15,39 +18,36 @@ public class ScheduleDto implements Serializable {
 	Long id;
 	ClientEntity client;
 	MedicalExamEntity medicalExam;
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate scheduledDate;
-	@JsonFormat(pattern = "hh:mm:ss a")
-	private LocalTime scheduleTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime scheduledDateTime;
 
 	public ScheduleDto() {
 
 	}
 
-	public ScheduleDto(Long id, ClientEntity client,
-			MedicalExamEntity medicalExam, LocalDate scheduledDate, LocalTime scheduleTime) {
+	public ScheduleDto(Long id, ClientEntity client, MedicalExamEntity medicalExam, LocalDateTime scheduledDateTime) {
 		super();
 		this.id = id;
 		this.client = client;
 		this.medicalExam = medicalExam;
-		this.scheduledDate = scheduledDate;
-		this.scheduleTime = scheduleTime;
+		this.scheduledDateTime = scheduledDateTime;
 	}
 
-	public LocalDate getScheduledDate() {
-		return scheduledDate;
+	public ScheduleDto(ScheduleEntity schedule) {
+		this.id = schedule.getId();
+		this.client = schedule.getClient();
+		this.medicalExam = schedule.getExam();
+		this.scheduledDateTime = schedule.getScheduledDateTime();
+
 	}
 
-	public void setScheduledDate(LocalDate scheduledDate) {
-		this.scheduledDate = scheduledDate;
+	public LocalDateTime getScheduledDateTime() {
+		return scheduledDateTime;
 	}
 
-	public LocalTime getScheduleTime() {
-		return scheduleTime;
-	}
-
-	public void setScheduleTime(LocalTime scheduleTime) {
-		this.scheduleTime = scheduleTime;
+	public void setScheduledDateTime(LocalDateTime scheduledDateTime) {
+		this.scheduledDateTime = scheduledDateTime;
 	}
 
 	public Long getId() {

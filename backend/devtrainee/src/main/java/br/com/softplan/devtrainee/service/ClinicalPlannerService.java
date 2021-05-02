@@ -3,14 +3,18 @@ package br.com.softplan.devtrainee.service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.softplan.devtrainee.dto.ClientDto;
+import br.com.softplan.devtrainee.dto.ScheduleDto;
 import br.com.softplan.devtrainee.entity.ClientEntity;
 import br.com.softplan.devtrainee.entity.MedicalExamEntity;
+import br.com.softplan.devtrainee.entity.ScheduleEntity;
 import br.com.softplan.devtrainee.repository.ClientRepository;
 import br.com.softplan.devtrainee.repository.MedicalExamRepository;
+import br.com.softplan.devtrainee.repository.ScheduleRepository;
 
 @Service
 public class ClinicalPlannerService {
@@ -18,6 +22,9 @@ public class ClinicalPlannerService {
 	private ClientRepository repository;
 	@Autowired
 	private MedicalExamRepository repositoryExam;
+	@Autowired 
+	ScheduleRepository repositorySchedule;
+	
 
 	public void registerClient(ClientDto client) {
 		repository.saveAndFlush(new ClientEntity(client));
@@ -103,6 +110,21 @@ public class ClinicalPlannerService {
 			examsList.add(exam);
 		}
 		return examsList;
+		
+	}
+
+	public ScheduleDto updateSchedule(Long id, ScheduleDto scheduledDatetime) {
+		ScheduleEntity scheduleToUpdate = repositorySchedule.getOne(id);
+		scheduleToUpdate.setScheduledDateTime(scheduledDatetime.getScheduledDateTime());
+		this.repositorySchedule.saveAndFlush(scheduleToUpdate);
+
+		return new ScheduleDto(scheduleToUpdate);
+	}
+
+	public void deleteSchedule(Long id) {
+		repositorySchedule.deleteById(id);
+		
+		// TODO Auto-generated method stub
 		
 	}
 	

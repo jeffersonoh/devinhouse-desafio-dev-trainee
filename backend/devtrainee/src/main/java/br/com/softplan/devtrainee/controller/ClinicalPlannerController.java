@@ -9,19 +9,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import br.com.softplan.devtrainee.dto.ClientDto;
 import br.com.softplan.devtrainee.dto.MedicalExamDto;
+import br.com.softplan.devtrainee.dto.ScheduleDto;
 import br.com.softplan.devtrainee.entity.ClientEntity;
 import br.com.softplan.devtrainee.entity.MedicalExamEntity;
 import br.com.softplan.devtrainee.service.ClinicalPlannerService;
@@ -32,8 +31,6 @@ public class ClinicalPlannerController {
 
 	@Autowired
 	private ClinicalPlannerService service;
-//	Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados;
-//	Deverá haver um endpoint para exclusão de um agendamento realizado;
 
 	// Deverá haver um endpoint para listagem de todos os clientes cadastrados;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
@@ -89,10 +86,12 @@ public class ClinicalPlannerController {
 	}
 
 //	Deverá haver um endpoint para exclusão de um cliente;
+//	TODO tratar a exceção no banco para cliente vinculado a consulta:
+	
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/excluir/cliente", method = DELETE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<ClientDto> exclusaoProcesso(@RequestBody ClientDto client) {
+	public ResponseEntity<ClientDto> exclusaoCliente(@RequestBody ClientDto client) {
 		if (!(service.findCpf(client))) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -116,5 +115,28 @@ public class ClinicalPlannerController {
 		
 		return examsViewer;
 	}
+	
+//	Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados;
+
+	@RequestMapping(headers = "api-version=v1", value = "/v1"
+			+ "/update/agenda/{id}", method = PUT, produces = APPLICATION_JSON_VALUE)
+	@ResponseBody
+	 public ScheduleDto atualizarInfoAgenda(@PathVariable Long id, @RequestBody ScheduleDto scheduledDateTime) {
+		return service.updateSchedule(id, scheduledDateTime);
+	}
+	
+
+//	Deverá haver um endpoint para exclusão de um agendamento realizado;
+
+	@RequestMapping(headers = "api-version=v1", value = "/v1"
+			+ "/excluir/agenda/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public void exclusaoAgenda(@PathVariable Long  id) {
+		service.deleteSchedule(id);
+		//return service.deleteSchedule(id)
+	}
+
 
 }
+
+
