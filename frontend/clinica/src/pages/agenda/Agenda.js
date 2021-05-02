@@ -6,6 +6,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PropTypes from 'prop-types';
 import AgendaLista from 'components/agenda/agendalista/AgendaLista';
 import AgendaCadastro from 'components/agenda/agendacadastro/AgendaCadastro';
+import AgendaEditar from 'components/agenda/agendaeditar/AgendaEditar';
 
 const exames = [
     {id: 1, exame: "Hemograma"},
@@ -78,6 +79,7 @@ function TabPanel(props) {
 const PagesAgenda = () => {
     const classes = useStyles();
     const [value, setValue] = useState(1);
+    const [agendaSelected, setAgendaSelected] = useState([])
 
     const trocaDeAba = (event, newValue) => {
         if (newValue < 3) {
@@ -112,13 +114,13 @@ const PagesAgenda = () => {
                 </AppBar>
                 <div className={classes.childrenBody}>
                     <TabPanel value={value} index={1}>
-                        <AgendaLista setValue={setValue}/>
+                        <AgendaLista setValue={setValue} setAgendaSelected={setAgendaSelected}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <AgendaCadastro setValue={setValue} examesOfertados={exames}/>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        three
+                        <AgendaEditar setValue={setValue} agendaSelected={agendaSelected} />
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                     four

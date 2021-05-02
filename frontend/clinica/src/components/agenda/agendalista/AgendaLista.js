@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let pagina = 1;
-const AgendaLista = ({ setValue }) => {
+const AgendaLista = ({ setValue, setAgendaSelected }) => {
     const classes = useStyles();
     const cabecalhoTabela = [
         {id: "pacienteNome", coluna: "Clientes"}, 
@@ -147,6 +147,16 @@ const AgendaLista = ({ setValue }) => {
         })
         setDados(dadosProvisorios);
     }
+
+    const clickEditar = () => {
+        setAgendaSelected([]);
+        lista.map((item) => {
+            if (linhaSelecionada === item.id) {
+                setAgendaSelected(item);
+                setValue(3)
+            }
+        })
+    }
     
     useEffect(() => {
         formatarDados()
@@ -175,7 +185,7 @@ const AgendaLista = ({ setValue }) => {
                             ? //--------------------------------------
                                 <div style={{display:"flex", flexDirection:"row"}}>
                                     <Tooltip title="Editar">
-                                        <IconButton aria-label="Editar" onClick={() => {setValue(3)}}>
+                                        <IconButton aria-label="Editar" onClick={clickEditar}>
                                             <EditIcon />
                                         </IconButton>
                                     </Tooltip>
