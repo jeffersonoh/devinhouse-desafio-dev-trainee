@@ -1,15 +1,15 @@
-import Header from "../../components/Header";
+// import Header from "../../components/Header";
 import Main from "../../components/Main";
 import Card from "../../components/Card";
 import "../../styles/home.css";
+import Button from "../../components/Button";
 
 function Home() {
   return (
     <>
-      <Header />
       <Main>
         <div className="schedules-resume">
-          <div className="schedules-title">
+          <div className="container-title">
             <h2>Agendamentos Realizados</h2>
           </div>
 
@@ -37,6 +37,41 @@ function Home() {
               hora = "11:00"
               nome = "Jose da Silva"
               exame = "Ressonancia Magnetica" />
+          </div>
+        </div>
+
+        <div className="right-content">
+          <div className="shortcuts-buttons">
+            <div className="container-title">
+              <h2>Acesso Rápido</h2>
+            </div>
+            <div className="container-buttons">
+              <Button 
+                name = "Cadastrar Cliente" />
+              <Button 
+                name = "Cadastrar Exame" />
+              <Button 
+                name = "Agendar Exame" />
+            </div>
+          </div>
+
+          <div className="basic-information">
+            <div className="container-title">
+              <h2>Informações Básicas</h2>
+            </div>
+            <div className="container-info">
+              <ul>
+                <li>
+                  <p className="container-info-description">Para realizar um agendamento é necessário cadastrar ao menos um cliente e o exame será realizado.</p>
+                </li>
+                <li>
+                  <p className="container-info-description">Todas as informações solicitadas são obrigatórias para o correto funcionamento da plataforma.</p>
+                </li>
+                <li>
+                  <p className="container-info-description">Somente é possível reagendar o dia e horário do exame, a troca de cliente e exame enseja na criação de um novo agendamento.</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </Main>

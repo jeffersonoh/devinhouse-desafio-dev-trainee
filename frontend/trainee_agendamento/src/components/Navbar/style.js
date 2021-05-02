@@ -13,11 +13,6 @@ export const HeaderMenu = styled.div`
     margin-left: 25px;
     margin-right: auto;
   };
-
-  .right-nav {
-    margin-left: auto;
-    margin-right: 25px;
-  };
 `;
 
 export const NavbarStyle = styled.nav`
@@ -42,4 +37,8 @@ export const NavbarStyle = styled.nav`
   ul li a:hover {
     border-bottom: 4px solid var(--primary);    
   };
-`;
+
+  .active {
+    border-bottom: 4px solid var(--primary);    
+  };  
+`; 
