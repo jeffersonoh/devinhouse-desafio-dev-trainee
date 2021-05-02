@@ -1,27 +1,12 @@
 package br.com.devtrainee.desafiodev.model;
 
-import java.time.LocalDate;
+public enum ExamEnum {
+  DESINTOMETRIA, 
+  RESSONANCIA_MAGNETICA,
+  TOMOGRAFIA, 
+  ULTRASONOGRAFIA, 
+  ECOGRAFIA;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import lombok.Builder;
-import lombok.Data;
-
-@Builder
-@Data
-@Entity
-public class Client {
-
-  @Id
-  @GeneratedValue
-  private Long id;
-  private String name;
-  private String cpf;
-  private LocalDate birthDate;
-
-  
   // CONSULTA("Consulta", 1),
   // DESINTOMETRIA("Desintometria", 2), 
   // RESSONANCIA_MAGNETICA("Ressonancia Magnetica", 3),
@@ -51,5 +36,4 @@ public class Client {
   // public Stream<AppointmentType> getAllAppointments() {
   //   return 
   // }
-  
 }
