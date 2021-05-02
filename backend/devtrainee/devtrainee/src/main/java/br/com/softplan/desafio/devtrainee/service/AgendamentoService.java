@@ -10,7 +10,6 @@ import br.com.softplan.desafio.devtrainee.repository.ExameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,9 +43,9 @@ public class AgendamentoService {
         agendamentoRepository.save(agendamento);
     }
     
-    public Agendamento atualizarExame(Long id, LocalDateTime localDateTime) {
+    public Agendamento atualizarExame(Long id, AgendamentoDTO dataAgendamento) {
 		Agendamento agendamentoAtual = agendamentoRepository.findById(id).get();
-		agendamentoAtual.setDataEHoraDoAgendamento(localDateTime);;
+		agendamentoAtual.setDataEHoraDoAgendamento(dataAgendamento.getDataEHoraDoAgendamento());
 		return agendamentoRepository.save(agendamentoAtual);
 	}
 

@@ -1,11 +1,9 @@
 package br.com.softplan.desafio.devtrainee.entity;
 
-import br.com.softplan.desafio.devtrainee.dto.AgendamentoDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,10 +19,10 @@ public class Agendamento implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "exame_id")
     private Exame exame;
 
@@ -42,6 +40,8 @@ public class Agendamento implements Serializable {
 	public Agendamento() {
     }
 
+	
+	
     public Agendamento(Cliente cliente, Exame exame) {
         this.cliente = cliente;
         this.exame = exame;

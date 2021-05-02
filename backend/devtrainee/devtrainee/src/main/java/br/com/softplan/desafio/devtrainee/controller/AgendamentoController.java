@@ -5,18 +5,16 @@ import br.com.softplan.desafio.devtrainee.entity.Agendamento;
 
 import br.com.softplan.desafio.devtrainee.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "api/v1/agendamento")
+@RequestMapping(path = "api/v1/agendamentos")
 public class AgendamentoController {
 
     @Autowired
@@ -43,8 +41,8 @@ public class AgendamentoController {
     @PutMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarAgendamento(@PathVariable Long id,
-    								 @RequestBody LocalDateTime localDateTime) {
-    	agendamentoService.atualizarExame(id, localDateTime);
+    								 @RequestBody AgendamentoDTO dataAgendamento) {
+    	agendamentoService.atualizarExame(id, dataAgendamento);
     }
     
     @DeleteMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)

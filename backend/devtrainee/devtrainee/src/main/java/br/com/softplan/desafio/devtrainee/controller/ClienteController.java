@@ -5,14 +5,13 @@ import br.com.softplan.desafio.devtrainee.entity.Cliente;
 import br.com.softplan.desafio.devtrainee.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/api/v1/soft-client")
+@RequestMapping(path = "/api/v1/clientes")
 public class ClienteController {
 
     @Autowired

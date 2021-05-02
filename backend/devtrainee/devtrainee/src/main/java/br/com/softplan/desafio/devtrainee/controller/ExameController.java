@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/soft-exams")
+@RequestMapping("api/v1/exames")
 public class ExameController {
 
 	@Autowired
