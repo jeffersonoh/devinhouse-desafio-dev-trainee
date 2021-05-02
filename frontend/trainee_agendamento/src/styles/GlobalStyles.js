@@ -9,8 +9,7 @@ export default createGlobalStyle`
   
   html {
     min-height: 100%;
-    background-color: #ECECEC;
-    /* background-color: var(--background); */
+    background-color: var(--background);
   }
 
   h1, h2, span, p, a, button, input {
@@ -33,7 +32,11 @@ export default createGlobalStyle`
     --primary: #133991;
     --secondary: #0591E8;
     --text: #666666;
-    --background: #FFF;
+    --background: #FFFFFF;
+  }
+
+  #root {
+    background-color: var(--background);
   }
 
   h1 {
@@ -42,12 +45,12 @@ export default createGlobalStyle`
   }
 
   h2 {
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 500;
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
   }
 

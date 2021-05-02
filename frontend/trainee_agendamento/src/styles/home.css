@@ -1,0 +1,32 @@
+.schedules-resume {
+  width: 55%;
+  height: 100%;
+
+  border: 1px solid #EFEFEF;
+}
+
+.schedules-title {
+  background-color: #EFEFEF;
+  margin-bottom: 25px;
+}
+
+.schedules-title h2 {
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-left: 10%;
+
+  font-size: 24px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.schedule-cart {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 25px;
+}

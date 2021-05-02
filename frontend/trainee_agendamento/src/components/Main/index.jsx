@@ -1,6 +1,10 @@
-function Main() {
+import { MainStyle } from "./style";
+
+function Main(props) {
   return (
-    <h2>Main</h2>
+    <MainStyle>
+      {props.children}
+    </MainStyle>
   )
 };
 
