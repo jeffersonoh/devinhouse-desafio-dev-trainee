@@ -156,7 +156,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
     }
     
     const proximaPagina = () => {
-        if (lista.length >= pagina * 5) {
+        if (lista.length > pagina * 5) {
             pagina++;
         setPaginaLista();
       }
@@ -174,7 +174,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
         lista.map((item) => {
             if (linhaSelecionada === item.id) {
                 setAgendaSelected(item);
-                setValue(3)
+                setValue(4)
             }
         })
     }
@@ -184,7 +184,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
         lista.map((item) => {
             if (linhaSelecionada === item.id) {
                 setAgendaSelected(item);
-                setValue(4)
+                setValue(5)
             }
         })
     }
@@ -230,7 +230,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
                                 </div>
                             : //--------------------------------------
                                 <Tooltip title="Cadastrar">
-                                    <IconButton aria-label="Cadastrar" onClick={() => {setValue(2)}}>
+                                    <IconButton aria-label="Cadastrar" onClick={() => {setValue(3)}}>
                                         <AddCircleOutlineIcon />
                                     </IconButton>
                                 </Tooltip>
@@ -245,7 +245,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
                                     cabecalhoTabela.map((linha) => {
                                         return (
                                             <TableCell key={linha.id} align="center">
-                                                <TableContainer>{linha.coluna}</TableContainer>
+                                                <TableContainer><b>{linha.coluna}</b></TableContainer>
                                             </TableCell>
                                         )
                                     })

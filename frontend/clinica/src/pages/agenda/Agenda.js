@@ -12,6 +12,7 @@ import DialogoOPEditar from 'components/dialogo/DialogoOPEditar';
 import DialogoOPExcluir from 'components/dialogo/DialogoOPExcluir';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AgendaExames from 'components/agenda/agendaexames/AgendaExames';
 
 const exames = [
     {id: 1, exame: "Hemograma"},
@@ -149,24 +150,28 @@ const PagesAgenda = () => {
                         <Link to="/">
                             <Tab label={<ArrowBackIosIcon/>} />
                         </Link>
-                        
-                        <Tab label="Marcações" {...a11yProps(1)} />
-                        <Tab label="Cadastrar" {...a11yProps(2)} />
-                        <Tab label="Editar" {...a11yProps(3)} />
-                        <Tab label="Excluir" {...a11yProps(4)} />
+
+                        <Tab label="Exames" {...a11yProps(1)} />
+                        <Tab label="Marcações" {...a11yProps(2)} />
+                        <Tab label="Cadastrar" {...a11yProps(3)} />
+                        <Tab label="Editar" {...a11yProps(4)} />
+                        <Tab label="Excluir" {...a11yProps(5)} />
                     </Tabs>
                 </AppBar>
                 <div className={classes.childrenBody}>
                     <TabPanel value={value} index={1}>
-                        <AgendaLista setValue={setValue} setAgendaSelected={setAgendaSelected} setRetorno={setRetorno}/>
+                        <AgendaExames examesOfertados={exames}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <AgendaCadastro setValue={setValue} examesOfertados={exames} setRetorno={setRetorno}/>
+                        <AgendaLista setValue={setValue} setAgendaSelected={setAgendaSelected} setRetorno={setRetorno}/>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <AgendaEditar setValue={setValue} agendaSelected={agendaSelected} setRetorno={setRetorno}/>
+                        <AgendaCadastro setValue={setValue} examesOfertados={exames} setRetorno={setRetorno}/>
                     </TabPanel>
                     <TabPanel value={value} index={4}>
+                        <AgendaEditar setValue={setValue} agendaSelected={agendaSelected} setRetorno={setRetorno}/>
+                    </TabPanel>
+                    <TabPanel value={value} index={5}>
                         <AgendaExcluir setValue={setValue} agendaSelected={agendaSelected} setRetorno={setRetorno}/>
                     </TabPanel>
                 </div>               

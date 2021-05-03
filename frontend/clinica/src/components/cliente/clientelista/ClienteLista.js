@@ -122,7 +122,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
     }
     
     const proximaPagina = () => {
-        if (lista.length >= pagina * 5) {
+        if (lista.length > pagina * 5) {
             pagina++;
         setPaginaLista();
       }
@@ -211,7 +211,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
                                     cabecalhoTabela.map((linha) => {
                                         return (
                                             <TableCell key={linha.id} align="center">
-                                                <TableContainer>{linha.coluna}</TableContainer>
+                                                <TableContainer><b>{linha.coluna}</b></TableContainer>
                                             </TableCell>
                                         )
                                     })

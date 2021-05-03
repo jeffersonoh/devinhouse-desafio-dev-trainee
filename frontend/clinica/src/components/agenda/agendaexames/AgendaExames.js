@@ -1,0 +1,151 @@
+import React, { Fragment, useEffect, useState } from 'react';
+
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Toolbar,
+    Typography,
+    Paper,
+    IconButton,
+    Tooltip,
+    InputBase,
+    makeStyles
+} from '@material-ui/core';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { cpfMask } from 'utils/mask';
+import moment from 'moment';
+
+const useStyles = makeStyles((theme) => ({
+    divPesquisa: {
+        padding: "8px",
+        display:"flex", 
+        flexDirection:"row"
+    },
+    pesquisa: {
+        marginLeft: "5px"
+    },
+    toolbar: {
+        display: "flex",
+        justifyContent: "space-between",
+    },
+    contadorDePagina: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-end"
+    }
+}));
+
+let pagina = 1;
+const AgendaExames = ({ examesOfertados }) => {
+    const classes = useStyles();
+    const cabecalhoTabela = [
+        {id: "id", coluna: "ID"}, 
+        {id: "exame", coluna: "Exames"} 
+    ];
+    const [itemPagina, setItempagina] = useState([]);
+    
+    const setPaginaLista = () => {
+        const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
+        const limiteLinhaPagina = pagina * 5;
+        let paginaProvisoria = [];
+        let linhaAtual = 1;
+
+        examesOfertados.map((linha) => {
+            if (linhaAtual <= limiteLinhaPagina){
+                if (linhaAtual >= offSetLinhaPagina){
+                    paginaProvisoria.push(linha);
+                }
+            }
+            linhaAtual++;
+        })
+
+        setItempagina(paginaProvisoria);
+    }
+    
+    const proximaPagina = () => {
+        if (examesOfertados.length > pagina * 5) {
+            pagina++;
+        setPaginaLista();
+      }
+    }
+
+    const paginaAnterior = () => {
+        if (pagina > 1) {
+        pagina--;
+        setPaginaLista();
+      }
+    }
+
+    useEffect(()=>{
+        setPaginaLista();
+    },[])
+
+    return (
+        <Fragment>
+            <Paper>
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                {
+                                    cabecalhoTabela.map((linha) => {
+                                        return (
+                                            <TableCell key={linha.id} align="center">
+                                                <TableContainer><b>{linha.coluna}</b></TableContainer>
+                                            </TableCell>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                itemPagina.map((linha) => (
+                                    <TableRow key={linha.id}>
+                                        <TableCell align="center" component="th" scope="row">{linha.id}</TableCell>
+                                        <TableCell align="center">{linha.exame}</TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <Toolbar className={classes.contadorDePagina}>
+                    <Tooltip title="Página anterior">
+                        <IconButton aria-label="Página anterior" onClick={() => {paginaAnterior()}}>
+                            <ArrowBackIosIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Typography>
+                        {(pagina === 1 
+                            ? 1 
+                            : (pagina - 1) * 5 + 1) 
+                        + "-" + 
+                        (pagina * 5 > examesOfertados.length && pagina > 1 
+                            ? examesOfertados.length 
+                            : examesOfertados.length < 5 
+                                ? examesOfertados.length 
+                                : pagina * 5) 
+                            + " de " + (examesOfertados.length)}
+                    </Typography>
+                    <Tooltip title="Proxíma página">
+                        <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>
+                            <ArrowForwardIosIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Toolbar>
+            </Paper>
+        </Fragment>
+    )
+}
+
+export default AgendaExames;
