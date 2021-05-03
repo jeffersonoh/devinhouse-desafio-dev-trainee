@@ -94,4 +94,20 @@ public class AgendamentoTests {
 	assertEquals(expectedAgendamento, updatedAgendamento);
     }
 
+    @Test
+    @Ignore("db must be seeded for this test to work with the current mvp")
+    public void deleteAgendamento() throws Exception {
+
+	String agendamentosJson = mvc.perform(get("/agendamentos"))
+	    .andExpect(status().isOk())
+	    .andReturn().getResponse().getContentAsString();
+
+	AgendamentoOutputDTO[] agendamentos = mapper.readValue(agendamentosJson, AgendamentoOutputDTO[].class);
+
+	AgendamentoOutputDTO agendamento = agendamentos[0];
+
+	mvc.perform(delete("/agendamentos/" + agendamento.getId()))
+	    .andExpect(status().isAccepted());
+    }
+
 }

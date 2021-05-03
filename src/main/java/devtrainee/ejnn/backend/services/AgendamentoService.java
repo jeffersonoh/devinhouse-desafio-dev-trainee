@@ -57,4 +57,10 @@ public class AgendamentoService {
 
 	return mapToOutputDTO(updatedAgendamento);
     }
+
+    public void delete(long id) {
+	if (agendamentoRepository.existsById(id)) {
+	    agendamentoRepository.deleteById(id);
+	}
+    }
 }
