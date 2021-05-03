@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -32,20 +33,17 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const AgendaExcluir = ({ setValue, agendaSelected }) => {
+const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
     const classes = useStyles();
-    const [excluir, setExcluir] = useState(agendaSelected);
     const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
 
     useEffect(()=>{
-        console.log("excluir", excluir);
-        console.log("agendaSelected", agendaSelected);
-        const splitStringTotal = excluir.data.split("T");
-        setDataHora({data: splitStringTotal[0], hora: splitStringTotal[1]});
+        setDataHora({data: moment(agendaSelected.data).format("yyyy-MM-DD"), 
+                    hora: moment(agendaSelected.data).format("HH:mm")});
     },[])
 
     const onClickExcluir = () => {
-        alert("DELETE")
+        setRetorno(203)
         setValue(1)
     }
 
@@ -58,7 +56,7 @@ const AgendaExcluir = ({ setValue, agendaSelected }) => {
                         label="Nome"
                         className={classes.textField}
                         name="pacienteNome"
-                        value={excluir.pacienteNome}
+                        value={agendaSelected.pacienteNome}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -68,7 +66,7 @@ const AgendaExcluir = ({ setValue, agendaSelected }) => {
                         className={classes.textField}
                         name="cpf"
                         maxLength='14'
-                        value={excluir.cpf}
+                        value={agendaSelected.cpf}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -100,7 +98,7 @@ const AgendaExcluir = ({ setValue, agendaSelected }) => {
                         name="exame"
                         label="Exames ofertados"
                         className={classes.textField}
-                        value={excluir.exame}
+                        value={agendaSelected.exame}
                         InputProps={{
                             readOnly: true,
                           }}

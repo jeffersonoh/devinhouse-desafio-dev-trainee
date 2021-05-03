@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
 import { cpfMask } from 'utils/mask';
 
+
 const useStyles = makeStyles((theme) => ({
     control: {
         padding: theme.spacing(2),
@@ -33,9 +34,9 @@ const INITIAL_VALUE = {
     nome: "",
     cpf: "",
     ddn: ""
-}
+};
 
-const ClienteCadastro = ({ setValue }) => {
+const ClienteCadastro = ({ setValue, setRetorno }) => {
     const classes = useStyles();
     const [cadastro, setCadastro] = useState(INITIAL_VALUE);
 
@@ -46,11 +47,11 @@ const ClienteCadastro = ({ setValue }) => {
     }
 
     const onChickCadastrar = () => {
-        if (cadastro.nome.length === 0) {return alert("Faltou nome")}
-        if (cadastro.cpf.length !== 14) {return alert("Faltou cpf")}
-        if (cadastro.ddn.length !== 10) {return alert("Faltou data")}
-        alert("POST")
-        setValue(1)
+        if (cadastro.nome.length === 0) {return alert("Faltou nome");}
+        if (cadastro.cpf.length !== 14) {return alert("Faltou cpf");}
+        if (cadastro.ddn.length !== 10) {return alert("Faltou data");}
+        setRetorno(201);
+        setValue(1);
     }
 
   return (
@@ -94,6 +95,7 @@ const ClienteCadastro = ({ setValue }) => {
                 </Button>
           </form>
         </Paper>
+        
     </Fragment>
   );
 }

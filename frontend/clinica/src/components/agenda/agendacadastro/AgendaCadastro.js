@@ -40,7 +40,7 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const AgendaCadastro = ({ setValue, examesOfertados }) => {
+const AgendaCadastro = ({ setValue, examesOfertados, setRetorno }) => {
     const classes = useStyles();
     const [cadastro, setCadastro] = useState(INITIAL_VALUE);
     const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
@@ -64,7 +64,7 @@ const AgendaCadastro = ({ setValue, examesOfertados }) => {
         if (validarHora[0] >= 24 || validarHora[0] < 0) {return alert("verifique as horas informada")}
         if (validarHora[1] >= 60 || validarHora[1] < 0) {return alert("verifique os minutos informada")}
         if (cadastro.exame.length === 0) {return alert("Faltou exame")}
-        alert("POST")
+        setRetorno(201)
         setValue(1)
     }
 

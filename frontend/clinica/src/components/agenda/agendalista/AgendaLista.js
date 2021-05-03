@@ -21,6 +21,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { cpfMask } from 'utils/mask';
+import moment from 'moment';
 
 const lista = [
   {
@@ -95,7 +97,7 @@ const lista = [
   },
   {
     id: 11,
-    data: "2021-02-21T19:00",
+    data: "2021-02-21T19:30",
     exame: "Tomografia do coração e vasos",
     pacienteNome: "Lucas",
     cpf: "123.456.789-12"
@@ -133,7 +135,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
     ];
     const [linhaSelecionada, setLinhaSelecionada] = useState(0);
     const [itemPagina, setItempagina] = useState([]);
-    const [dados, setDados] = useState([]);
+    const [pesquisa, setPesquisa] = useState("");
     
     const setPaginaLista = () => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
@@ -141,7 +143,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
         let paginaProvisoria = [];
         let linhaAtual = 1;
 
-        dados.map((linha) => {
+        lista.map((linha) => {
             if (linhaAtual <= limiteLinhaPagina){
                 if (linhaAtual >= offSetLinhaPagina){
                     paginaProvisoria.push(linha);
@@ -167,23 +169,6 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
       }
     }
 
-    const formatarDados = () => {
-        let dadosProvisorios = [];
-
-        lista.map((item) => {
-            var splitStringTotal = item.data.split("T");
-            var splitStringData = splitStringTotal[0].split("-");
-            dadosProvisorios.push({
-                id: item.id,
-                data: splitStringData[2]+"/"+splitStringData[1]+"/"+splitStringData[0]+" - "+ splitStringTotal[1],
-                exame: item.exame,
-                pacienteNome: item.pacienteNome,
-                cpf: item.cpf
-            })
-        })
-        setDados(dadosProvisorios);
-    }
-
     const clickEditar = () => {
         setAgendaSelected([]);
         lista.map((item) => {
@@ -203,21 +188,23 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
             }
         })
     }
-    
-    useEffect(() => {
-        formatarDados()
+ 
+    useEffect(()=>{
+        setPaginaLista();
     },[])
-
-    useEffect(() => {
-        setPaginaLista()
-    },[dados])
 
     return (
         <Fragment>
             <Paper>
                 <div className={classes.divPesquisa}>
                     <SearchIcon />
-                    <InputBase placeholder="Pesquisar" className={classes.pesquisa}/>
+                    <InputBase 
+                      placeholder="Pesquisar" 
+                      className={classes.pesquisa}
+                      title={"Apenas por CPF"}
+                      value={pesquisa}
+                      onChange={(e) => {setPesquisa(cpfMask(e.target.value))}}
+                    />
                 </div>
                 <Toolbar className={classes.toolbar} style={{backgroundColor: linhaSelecionada !== 0 ? "#ff8a80" : "#fff"}}>
                     <div>
@@ -279,7 +266,7 @@ const AgendaLista = ({ setValue, setAgendaSelected }) => {
                                     >
                                         <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>
                                         <TableCell align="center">{linha.cpf}</TableCell>
-                                        <TableCell align="center">{linha.data}</TableCell>
+                                        <TableCell align="center">{moment(linha.data).format("DD/MM/yyyy - HH:mm")}</TableCell>
                                         <TableCell align="center">{linha.exame}</TableCell>
                                     </TableRow>
                                 ))

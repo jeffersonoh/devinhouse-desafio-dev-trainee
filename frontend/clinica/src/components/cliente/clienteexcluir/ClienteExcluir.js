@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ClienteExcluir = ({ setValue, clienteSelected }) => {
+const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
     const classes = useStyles();
 
     const onChickExcluir = () => {
-        alert("DELETE")
+        setRetorno(203);
         setValue(1)
     }
 

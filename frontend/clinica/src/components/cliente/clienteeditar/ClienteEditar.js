@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ClienteEditar = ({ setValue, clienteSelected }) => {
+const ClienteEditar = ({ setValue, clienteSelected, setRetorno }) => {
     const classes = useStyles();
     const [editar, setEditar] = useState(clienteSelected);
 
@@ -42,7 +42,7 @@ const ClienteEditar = ({ setValue, clienteSelected }) => {
         if (editar.nome.length === 0) {return alert("Faltou nome")}
         if (editar.cpf.length !== 14) {return alert("Faltou cpf")}
         if (editar.ddn.length !== 10) {return alert("Faltou data")}
-        alert("PUT")
+        setRetorno(202);
         setValue(1)
     }
 

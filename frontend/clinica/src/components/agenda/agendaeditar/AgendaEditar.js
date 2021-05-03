@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
 import { horaMask } from 'utils/mask';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -33,14 +34,13 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const AgendaEditar = ({ setValue, agendaSelected }) => {
+const AgendaEditar = ({ setValue, agendaSelected, setRetorno }) => {
     const classes = useStyles();
     const [editar, setEditar] = useState(agendaSelected);
     const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
 
     useEffect(()=>{
-        const splitStringTotal = editar.data.split("T");
-        setDataHora({data: splitStringTotal[0], hora: splitStringTotal[1]});
+        setDataHora({data: moment(editar.data).format("yyyy-MM-DD"), hora: moment(editar.data).format("HH:mm")});
     },[])
 
     useEffect(()=>{
@@ -53,7 +53,7 @@ const AgendaEditar = ({ setValue, agendaSelected }) => {
         if (dataHora.hora.length !== 5) {return alert("Faltou hora")}
         if (validarHora[0] >= 24 || validarHora[0] < 0) {return alert("verifique as horas informada")}
         if (validarHora[1] >= 60 || validarHora[1] < 0) {return alert("verifique os minutos informada")}
-        alert("PUT")
+        setRetorno(202)
         setValue(1)
     }
 
