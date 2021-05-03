@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderMenu = styled.div`
   display: flex;
   width: 100%;
-  height: 66px;
+  height: 65px;
   background-color: var(--background);
   -webkit-box-shadow: 0px 12px 36px -20px rgb(0 0 0 / 29%); 
   box-shadow: 0px 12px 36px -20px rgb(0 0 0 / 29%);
@@ -35,10 +35,10 @@ export const NavbarStyle = styled.nav`
   };
 
   ul li a:hover {
-    border-bottom: 4px solid var(--primary);    
+    border-bottom: 3px solid var(--primary);    
   };
 
   .active {
-    border-bottom: 4px solid var(--primary);    
+    border-bottom: 3px solid var(--primary);    
   };  
 `; 
