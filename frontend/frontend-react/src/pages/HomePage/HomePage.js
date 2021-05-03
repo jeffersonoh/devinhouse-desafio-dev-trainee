@@ -12,7 +12,7 @@ export default function HomePage() {
       setLista(listaExames);
     };
     handleLista();
-  }, [lista]);
+  },[]);
   return (
     <div>
       <BarraPrincipal />
