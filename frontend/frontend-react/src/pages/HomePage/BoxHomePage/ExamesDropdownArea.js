@@ -30,7 +30,7 @@ export default function ExamesDropdownArea(props) {
                 <InputLabel shrink={true}>Selecione um exame</InputLabel>
                 <NativeSelect className={classes.select}>
                     {listaExames?.map((listaExames) => (
-                        <option>{listaExames.nome}</option>
+                        <option key={listaExames.idExame}>{listaExames.nome}</option>
                     ))} 
 {/*                     <option>Opção 1</option>
                     <option>Opção 2</option>
