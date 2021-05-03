@@ -4,13 +4,13 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-import devtrainee.ejnn.backend.domain.Cliente;
-import devtrainee.ejnn.backend.domain.Exame;
+import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
+import devtrainee.ejnn.backend.dtos.ExameOutputDTO;
 
 @Data
 public class AgendamentoOutputDTO {
     private long id;
     private LocalDateTime timestamp;
-    private Cliente cliente;
-    private Exame exame;
+    private ClienteOutputDTO cliente;
+    private ExameOutputDTO exame;
 }
