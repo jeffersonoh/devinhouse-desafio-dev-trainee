@@ -119,6 +119,7 @@ public class ClienteTests {
 	    .andReturn().getResponse().getContentAsString();
 
 	String responseBody = mvc.perform(get("/clientes?cpf=99999999999"))
+	    .andDo(print())
 	    .andReturn().getResponse().getContentAsString();
 
 	ClienteOutputDTO[] clientes = mapper.readValue(responseBody, ClienteOutputDTO[].class);
@@ -146,14 +147,14 @@ public class ClienteTests {
 	    .andReturn().getResponse().getContentAsString();
 
 	ClienteOutputDTO[] clientes = mapper.readValue(clientesJson, ClienteOutputDTO[].class);
-	assertEquals(clientes.length, CLIENTES_CREATED);
+	assertTrue(clientes.length >= CLIENTES_CREATED);
     }
 
     @Test
     public void clienteUpdates() throws Exception {
 	
 	// inexistent id's won't be honored
-	String createdClienteJson = mvc.perform(put("/clientes/1")
+	String createdClienteJson = mvc.perform(put("/clientes/-1")
 						.contentType(APPLICATION_JSON)
 						.content(mockedClienteJson))
 	    .andExpect(status().isCreated())
@@ -179,7 +180,7 @@ public class ClienteTests {
     @Test
     public void deleteCliente() throws Exception {
 
-	String createdClienteJson = mvc.perform(put("/clientes/1")
+	String createdClienteJson = mvc.perform(post("/clientes")
 						.contentType(APPLICATION_JSON)
 						.content(mockedClienteJson))
 	    .andExpect(status().isCreated())

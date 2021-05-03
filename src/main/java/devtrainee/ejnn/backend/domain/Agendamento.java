@@ -19,7 +19,6 @@ public class Agendamento {
     @Id
     @GeneratedValue
     private long id;
-    @Column(unique = true)
     private LocalDateTime timestamp;
     @ManyToOne
     private Cliente cliente;
