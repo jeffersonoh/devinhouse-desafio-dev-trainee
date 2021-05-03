@@ -4,17 +4,17 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { BsListTask } from "react-icons/bs";
 
 
-function Card(props) {
-  const {data, hora, nome, exame} = props;
+function ScheduleCard(props) {
+  const {titulo, nome, exame, data, hora} = props;
   
 
   return (
     <CardStyle>
-      <div className="cart">
-        <div className="cart-header">
-          <div className="cart-header-schedule-icon">
-            <BsListTask className="cart-header-icon"/>
-            <h3>AGENDAMENTO</h3>
+      <div className="card">
+        <div className="card-header">
+          <div className="card-header-schedule-icon">
+            <BsListTask className="card-header-icon"/>
+            <h3>{titulo}</h3>
           </div>
           <div className="schedule-date-info">
             <div className="schedule-date">
@@ -37,20 +37,20 @@ function Card(props) {
           </div>
         </div>
 
-        <div className="cart-content">
-          <div className="cart-content-schedule-client">
-            <div className="cart-content-schedule-client-icon">
+        <div className="card-content">
+          <div className="card-content-schedule-client">
+            <div className="card-content-schedule-client-icon">
               <AiOutlineUser />
             </div>
-            <div className="cart-content-schedule-client-name">
-              <p className="cart-content-schedule-cliente-name-title">Cliente: </p>
-              <p className="cart-content-schedule-cliente-name-resume">{nome}</p>
+            <div className="card-content-schedule-client-name">
+              <p className="card-content-schedule-cliente-name-title">Cliente: </p>
+              <p className="card-content-schedule-cliente-name-resume">{nome}</p>
             </div>
           </div>
-          <div className="cart-content-schedule-exam">
-            <div className="cart-content-schedule-exam-name">
-              <p className="cart-content-schedule-exam-name-title">Exame: </p>
-              <p className="cart-content-schedule-exam-name-name">{exame}</p>
+          <div className="card-content-schedule-exam">
+            <div className="card-content-schedule-exam-name">
+              <p className="card-content-schedule-exam-name-title">Exame: </p>
+              <p className="card-content-schedule-exam-name-name">{exame}</p>
             </div>
           </div>
         </div>
@@ -59,4 +59,4 @@ function Card(props) {
   )
 };
 
-export default Card;
+export default ScheduleCard;

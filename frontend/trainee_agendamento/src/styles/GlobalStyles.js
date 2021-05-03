@@ -114,6 +114,155 @@ export default createGlobalStyle`
   display: none;
 }
 
+.schedules-resume,
+.clients-resume {
+  width: 55%;
+  height: 100%;
+
+  border: 1px solid #EFEFEF;
+}
+
+.container-title {
+  background-color: #EFEFEF;
+  margin-bottom: 25px;
+}
+
+.container-title h2 {
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-left: 10%;
+
+  font-size: 24px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.schedule-card,
+.clients-card {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 25px;
+}
+
+.right-content {
+  width: 37%;
+  height: 100%;
+}
+
+.shortcuts-buttons {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #EFEFEF;
+  margin-bottom: 25px;
+}
+
+.basic-information {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #EFEFEF;
+  margin-bottom: 25px;
+}
+
+.container-info {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-info-description {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+  text-align: justify;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media screen and (max-width: 575px) {
     h1 {
       font-size: 24px;

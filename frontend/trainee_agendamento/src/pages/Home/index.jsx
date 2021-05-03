@@ -1,7 +1,6 @@
 import React from "react";
 import Main from "../../components/Main";
-import Card from "../../components/Card";
-import "../../styles/home.css";
+import ScheduleCard from "../../components/ScheduleCard";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 
@@ -11,7 +10,7 @@ function Home() {
   const openModal = () => {
     modalRef.current.openModal();
   };
-
+ 
   return (
     <>
       <Main>
@@ -20,26 +19,30 @@ function Home() {
             <h2>Agendamentos Realizados</h2>
           </div>
 
-          <div className="schedule-cart">
-              <Card 
+          <div className="schedule-card">
+              <ScheduleCard 
+              titulo = "Agendamento"
               data = "20/05/2021"
               hora = "08:00"
               nome = "Jose da Silva"
               exame = "Raio X" />
 
-              <Card 
+              <ScheduleCard 
+              titulo = "Agendamento"
               data = "21/05/2021"
               hora = "09:00"
               nome = "Jose da Silva"
               exame = "Ressonancia Magnetica" />
 
-              <Card 
+              <ScheduleCard 
+              titulo = "Agendamento"
               data = "22/05/2021"
               hora = "10:00"
               nome = "Jose da Silva"
               exame = "Raio X" />
 
-              <Card 
+              <ScheduleCard 
+              titulo = "Agendamento"
               data = "22/05/2021"
               hora = "11:00"
               nome = "Jose da Silva"
