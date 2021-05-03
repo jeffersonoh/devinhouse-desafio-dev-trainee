@@ -1,16 +1,32 @@
-import React from "react";
+import React, {useState} from "react";
+import BotaoLogo from "./BotoesHeader/BotaoLogo";
+import {
+  AppBar,
+  Toolbar,
+  Menu,
+  MenuItem,
+  Box,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuIcon from '@material-ui/icons/Menu';
 
-import Botao from "../Button/Botao";
-import BotaoLogo from "../Button/BotaoLogo";
-import TemaCores from "../CustomTheme/TemaCores";
-import useStyles from "./BarraPrincipal.style";
-import { AppBar, Toolbar, Menu, MenuItem, Box, Paper } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/styles";
+import Botao from "./BotoesHeader/Botao";
+import theme from "./BarraPrincipal.style";
 
-export default function BarraPrincipal() {
-  //const classes = useStyles();
-  const [dropDown, setDropDown] = React.useState(null);
+const useStyles = makeStyles({
+  buttonBackground: {
+    backgroundColor: theme.colors.corDeFundo,
+  },
+  logoButton: {
+    flexGrow: 1
+  }
+})
 
+export default function BarraPrincipal(props) {
+  const {drawyerEvent} = props;
+  const classes = useStyles();
+
+  const [dropDown, setDropDown] = useState(null);
   const handleOpenMenu = (event) => {
     setDropDown(event.currentTarget);
   };
@@ -18,35 +34,36 @@ export default function BarraPrincipal() {
   const handleCloseMenu = () => {
     setDropDown(null);
   };
-  return (
-    <ThemeProvider theme={useStyles.root}>
-      <AppBar position="static">
-        <Toolbar variant="regular">
-          <Box>
-            <BotaoLogo />
-          </Box>
 
+  return (
+      <AppBar className={classes.buttonBackground} position="static">
+        <Toolbar variant="regular">
+
+        <Box className={classes.logoButton}>
+          <BotaoLogo />
+        </Box>
+
+          <Botao
+            variante="contained"
+            text="Minha Conta"
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onclick={handleOpenMenu}
+          />
+
+          <Menu
+            id="simple-menu"
+            open={Boolean(dropDown)}
+            onClose={handleCloseMenu}
+            anchorEl={dropDown}
+          >
+            <MenuItem>Realizar Login</MenuItem>
+            <MenuItem>Cadastrar</MenuItem>
+          </Menu>
           <Box>
-            <Botao
-              variante="contained"
-              cor="primary"
-              text="Minha Conta"
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onclick={handleOpenMenu}
-            />
-            <Menu
-              id="simple-menu"
-              open={Boolean(dropDown)}
-              onClose={handleCloseMenu}
-              anchorEl={dropDown}
-            >
-              <MenuItem>Login Cliente</MenuItem>
-              <MenuItem>Login Funcionário</MenuItem>
-            </Menu>
+          <Botao icone={<MenuIcon />} tamanho="medium" variante="contained" onclick={drawyerEvent}/>
           </Box>
         </Toolbar>
       </AppBar>
-    </ThemeProvider>
   );
 }

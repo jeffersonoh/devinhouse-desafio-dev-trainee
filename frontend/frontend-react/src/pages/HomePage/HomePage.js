@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 
-import BarraPrincipal from '../../components/Header/BarraPrincipal';
-import ExamesDropdownArea from './BoxHomePage/ExamesDropdownArea';
+import BarraPrincipal from "../../components/Header/BarraPrincipal";
+import ExamesDropdownArea from "./BoxHomePage/ExamesDropdownArea";
+import RequestBackend from "../../utils/api";
+
 export default function HomePage() {
-    return (
-        <div>
-            <BarraPrincipal />
-            <ExamesDropdownArea />
-        </div>
-    )
+  const [lista, setLista] = useState([]);
+  useEffect(() => {
+    const handleLista = async () => {
+      const listaExames = await RequestBackend.getTodosExames();
+      setLista(listaExames);
+    };
+    handleLista();
+  }, [lista]);
+  return (
+    <div>
+      <BarraPrincipal />
+      <ExamesDropdownArea listaExames={lista}/>
+    </div>
+  );
 }
