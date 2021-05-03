@@ -2,7 +2,6 @@ const theme = {
   boxSpacing: {
     "display": "flex",
     "flex-direction": "column",
-    "flex-wrap": "wrap",
     "align-items": "center",
     "margin-top": "5rem",
     "width": "100%"

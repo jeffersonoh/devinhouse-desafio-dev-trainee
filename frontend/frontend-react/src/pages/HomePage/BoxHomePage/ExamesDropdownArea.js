@@ -32,10 +32,6 @@ export default function ExamesDropdownArea(props) {
                     {listaExames?.map((listaExames) => (
                         <option key={listaExames.idExame}>{listaExames.nome}</option>
                     ))} 
-{/*                     <option>Opção 1</option>
-                    <option>Opção 2</option>
-                    <option>Opção 3</option>
-                    <option>Opção 4</option> */}
                 </NativeSelect> 
             </FormControl>
             <Botao text="Buscar" variante="contained" tamanho="small"/>

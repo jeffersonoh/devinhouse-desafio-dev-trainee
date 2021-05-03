@@ -21,7 +21,7 @@ export default function Botao(props) {
   const { icone, text, variante, tamanho, onclick, cor } = props;
   return (
 
-      <Button className={cor == "menuLateral" ? classes.menuLateral : classes.botaoBackground} 
+      <Button className={cor === "menuLateral" ? classes.menuLateral : classes.botaoBackground} 
       startIcon={icone} variant={variante} size={tamanho} onClick = {onclick}>
         <Typography>
           {text}
