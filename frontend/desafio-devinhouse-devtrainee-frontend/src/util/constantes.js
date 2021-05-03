@@ -54,12 +54,6 @@ export const exames = [
   },
 ];
 
-export const agendamentos = [
-  {
-    examName: "HEMOGRAMA",
-    examId: "1",
-    patientName: "Rosi (Linda) Simon",
-    examDate: "32/04/2021",
-    examTime: "24:00",
-  },
-];
+export const agendamentos = [];
+
+export const pacientes = [];

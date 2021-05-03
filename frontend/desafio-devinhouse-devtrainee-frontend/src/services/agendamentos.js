@@ -1,5 +1,4 @@
 import axios from "axios";
-//import * as baseendpoints from "./baseendpoints";
 
 const BASE_URL = `/agendamento`;
 
@@ -16,6 +15,26 @@ class AgendamentosService {
         console.log("Oi");
         throw error;
       });
+  }
+
+  salvarAgendamento(agendamento) {
+    const url = BASE_URL + "/cadastrar";
+    return axios
+      .post(url, agendamento)
+      .then((response) => {
+        console.log("salvarAgendamento");
+        console.log("response", response.data);
+      })
+      .catch((error) => {
+        console.log("ERRO!!!");
+        throw error;
+      });
+  }
+
+  deletarAgendamento(id) {
+    return axios.delete(`${BASE_URL}/${id}`).catch((error) => {
+      throw error;
+    });
   }
 
   /* 

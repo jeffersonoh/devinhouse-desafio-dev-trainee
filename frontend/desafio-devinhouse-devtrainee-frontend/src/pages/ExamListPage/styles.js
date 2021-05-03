@@ -11,6 +11,14 @@ export const Container = styled.div`
     text-align: center;
     margin-bottom: 2%;
   }
+
+  h2 {
+    text-align: center;
+    color: whitesmoke;
+    font-size: xx-large;
+    font-weight: 900;
+    text-decoration: underline;
+  }
 `;
 
 export const Wrapper = styled.div`

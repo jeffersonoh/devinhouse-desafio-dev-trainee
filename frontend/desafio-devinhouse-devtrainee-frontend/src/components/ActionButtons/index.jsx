@@ -7,7 +7,7 @@ import {
 } from "./styles";
 
 function ActionButtons(props) {
-  const { handleClick } = props;
+  const { handleClick, handleDelete } = props;
   return (
     <Container>
       <EditButton>
@@ -16,7 +16,7 @@ function ActionButtons(props) {
         </button>
       </EditButton>
       <DeleteButton>
-        <button>
+        <button onClick={handleDelete}>
           <DeleteButtonIcon />
         </button>
       </DeleteButton>

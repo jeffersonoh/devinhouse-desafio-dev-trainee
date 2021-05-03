@@ -30,15 +30,19 @@ function ExamListPage() {
         <h1> Lista de Exames</h1>
         <LightDivindingLine />
         <Wrapper>
-          {loaded === false && setTimeout(() => setLoaded(true), 4000) && (
+          {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
             <Loading />
           )}
           {loaded === true &&
+            exames.length !== 0 &&
             exames.map((exam, index) => {
               return (
                 <ListItemModel key={index} id={exam.id} examName={exam.nome} />
               );
             })}
+          {loaded === true && exames.length === 0 && (
+            <h2>Não há exames para serem exibidos!</h2>
+          )}
         </Wrapper>
         <Footer />
       </Container>

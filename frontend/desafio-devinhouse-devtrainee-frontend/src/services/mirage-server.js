@@ -1,6 +1,9 @@
-import { exames, agendamentos } from "../util/constantes";
+import { exames, agendamentos, pacientes } from "../util/constantes";
 import { createServer, Model } from "miragejs";
 //import * as baseendpoints from "./baseendpoints";
+
+let patientCounter = pacientes.length;
+let schedeludedExamsCounter = agendamentos.length;
 
 export function criarServidor({ environment = "test" } = {}) {
   const server = createServer({
@@ -8,6 +11,7 @@ export function criarServidor({ environment = "test" } = {}) {
     models: {
       exame: Model,
       agendamento: Model,
+      paciente: Model,
     },
 
     seeds(server) {
@@ -15,6 +19,7 @@ export function criarServidor({ environment = "test" } = {}) {
       agendamentos.forEach((agendamento) =>
         server.create("agendamento", agendamento)
       );
+      pacientes.forEach((paciente) => server.create("paciente", paciente));
     },
 
     routes() {
@@ -28,6 +33,45 @@ export function criarServidor({ environment = "test" } = {}) {
       this.get("/agendamento/listar", (schema, request) => {
         return schema.agendamentos.all().models;
       });
+
+      this.post("/agendamento/cadastrar", (schema, request) => {
+        const attrs = JSON.parse(request.requestBody);
+        attrs.id = schedeludedExamsCounter;
+        schedeludedExamsCounter++;
+        console.log("attrs", attrs);
+        return schema.agendamentos.create(attrs);
+      });
+
+      this.delete("/agendamento/:id", (schema, request) => {
+        const id = request.params.id;
+        return schema.agendamentos.find(id).destroy();
+      });
+
+      this.get("/paciente/listar", (schema, request) => {
+        const cpf = request.queryParams.cpf;
+        console.log("cpf", cpf);
+        if (cpf !== undefined) {
+          console.log("requisição de busca com parâmetros");
+          return schema.pacientes.where((paciente) =>
+            paciente.patientCpf.includes(cpf)
+          ).models;
+        }
+        return schema.pacientes.all().models;
+      });
+
+      this.post("/paciente/cadastrar", (schema, request) => {
+        const attrs = JSON.parse(request.requestBody);
+        attrs.id = patientCounter;
+        patientCounter++;
+        console.log("attrs", attrs);
+        return schema.pacientes.create(attrs);
+      });
+
+      this.delete("/paciente/:id", (schema, request) => {
+        const id = request.params.id;
+        return schema.pacientes.find(id).destroy();
+      });
+
       /*
       this.get("/processo", (schema, request) => {
         const q = request.queryParams.q;

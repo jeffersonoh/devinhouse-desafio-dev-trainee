@@ -20,6 +20,7 @@ function ListScheduledExamsItemModel(props) {
     examDate,
     examTime,
     handleClick,
+    handleDelete,
   } = props;
   return (
     <Container>
@@ -37,7 +38,7 @@ function ListScheduledExamsItemModel(props) {
             <ExamTime>Horário: {examTime}</ExamTime>
           </ExamInformation>
         </Content>
-        <ActionButtons handleClick={handleClick} />
+        <ActionButtons handleClick={handleClick} handleDelete={handleDelete} />
       </Wrapper>
     </Container>
   );

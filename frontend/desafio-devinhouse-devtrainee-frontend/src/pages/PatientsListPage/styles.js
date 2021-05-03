@@ -10,4 +10,13 @@ export const Container = styled.div`
     margin-top: 1%;
     margin-bottom: 1%;
   }
+
+  h2 {
+    text-align: center;
+    color: whitesmoke;
+    font-size: xx-large;
+    font-weight: 900;
+    text-decoration: underline;
+    margin-top: 2%;
+  }
 `;

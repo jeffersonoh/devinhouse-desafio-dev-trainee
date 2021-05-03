@@ -10,7 +10,13 @@ import {
 import ActionButtons from "../../components/ActionButtons";
 
 function ListPatientItemModel(props) {
-  const { patientName, patientCpf, patientBornDate, handleClick } = props;
+  const {
+    patientName,
+    patientCpf,
+    patientBornDate,
+    handleClick,
+    handleDelete,
+  } = props;
 
   return (
     <Wrapper>
@@ -27,7 +33,7 @@ function ListPatientItemModel(props) {
           </PatientBornDate>
         </PatientInformation>
       </Content>
-      <ActionButtons handleClick={handleClick} />
+      <ActionButtons handleClick={handleClick} handleDelete={handleDelete} />
     </Wrapper>
   );
 }

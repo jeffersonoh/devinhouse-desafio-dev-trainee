@@ -26,6 +26,10 @@ export const InputData = styled.div`
     border-bottom: 2px solid silver;
   }
 
+  .invalid {
+    border-bottom: red;
+  }
+
   > input[type="date"] {
     //text-align: end;
   }

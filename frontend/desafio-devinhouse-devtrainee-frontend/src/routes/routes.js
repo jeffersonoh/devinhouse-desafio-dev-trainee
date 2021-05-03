@@ -11,7 +11,6 @@ import ListScheduledExamsPage from "../pages/ListScheduledExamsPage";
 import PatientsListPage from "../pages/PatientsListPage";
 import UpdatePatientPage from "../pages/UpdatePatientPage";
 import UpdadeScheduledExamPage from "../pages/UpdadeScheduledExamPage";
-import Loading from "../components/Loading";
 
 export const Router = () => {
   return (
@@ -36,8 +35,6 @@ export const Router = () => {
           path="/agendamento/atualizar"
           element={<UpdadeScheduledExamPage />}
         />
-
-        <Route path="loading" element={<Loading />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

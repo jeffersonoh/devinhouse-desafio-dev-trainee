@@ -3,7 +3,7 @@ import { Buttons, Button, BackButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 function RegisterButtons(props) {
-  const { buttonName, handleClick } = props;
+  const { buttonName, handleClick, handleSubmit } = props;
   const navigate = useNavigate();
 
   return (
@@ -24,7 +24,7 @@ function RegisterButtons(props) {
           type="submit"
           className="register"
           onClick={(e) => {
-            navigate("/exames");
+            handleSubmit();
             e.preventDefault();
           }}
         >
