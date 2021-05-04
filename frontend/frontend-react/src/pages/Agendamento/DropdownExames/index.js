@@ -1,26 +1,24 @@
 import React from "react";
-import { FormControl, InputLabel, NativeSelect } from '@material-ui/core'
+import { FormControl, NativeSelect } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import theme from "./DropdownExames.style";
 const useStyles = makeStyles({
-    dropDowncenter: {
-        ...theme.dropDownSpacing
-    }
-})
+  dropDownwidth: {
+    ...theme.dropDownwidth,
+  },
+});
 
 export function DropdownExames(props) {
-  const { listaExames } = props;
+  const { listaExames, onchange } = props;
   const classes = useStyles();
   return (
-    <div>
-      <FormControl className={classes.dropDowncenter}>
-        <NativeSelect>
-          {listaExames?.map((listaExames) => (
-            <option key={listaExames.idExame}>{listaExames.nome}</option>
-          ))}
-        </NativeSelect>
-      </FormControl>
-    </div>
+    <FormControl className={classes.dropDownwidth}>
+      <NativeSelect onChange={onchange}>
+        {listaExames?.map((listaExames) => (
+          <option key={listaExames.idExame}>{listaExames.nome}</option>
+        ))}
+      </NativeSelect>
+    </FormControl>
   );
 }
