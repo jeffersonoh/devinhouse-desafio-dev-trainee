@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
 import { horaMask } from 'utils/mask';
 import moment from 'moment';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -49,13 +51,23 @@ const AgendaEditar = ({ setValue, agendaSelected, setRetorno }) => {
 
     const onClickEditar = () => {
         const validarHora = dataHora.hora.split(":");
-        if (dataHora.data.length !== 10) {return alert("Faltou data")}
-        if (dataHora.hora.length !== 5) {return alert("Faltou hora")}
-        if (validarHora[0] >= 24 || validarHora[0] < 0) {return alert("verifique as horas informada")}
-        if (validarHora[1] >= 60 || validarHora[1] < 0) {return alert("verifique os minutos informada")}
+        if (dataHora.data.length !== 10) {return missing("Data não é valida!")}
+        if (dataHora.hora.length !== 5) {return missing("Horário não é valido!")}
+        if (validarHora[0] >= 24 || validarHora[0] < 0) {return missing("Hora não é valida!")}
+        if (validarHora[1] >= 60 || validarHora[1] < 0) {return missing("Minuto não é valido!")}
         setRetorno(202)
         setValue(1)
     }
+
+    const missing = (msg) => toast.error(msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
 
   return (
     <Fragment>

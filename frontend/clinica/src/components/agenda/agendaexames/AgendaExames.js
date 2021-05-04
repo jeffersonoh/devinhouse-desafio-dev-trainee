@@ -12,17 +12,11 @@ import {
     Paper,
     IconButton,
     Tooltip,
-    InputBase,
     makeStyles
 } from '@material-ui/core';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import SearchIcon from '@material-ui/icons/Search';
+
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { cpfMask } from 'utils/mask';
-import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     divPesquisa: {

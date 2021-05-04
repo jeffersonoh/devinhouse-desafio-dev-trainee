@@ -14,6 +14,135 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AgendaExames from 'components/agenda/agendaexames/AgendaExames';
 
+const lista = [
+    {
+      id: 1,
+      data: "2021-02-24T12:00",
+      exame: "Teste de Ergométrico (Teste de Esforço)",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-10"
+    },
+    {
+      id: 2,
+      data: "2021-02-24T13:00",
+      exame: "Ressonância Magnética (RM)",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-10"
+    },
+    {
+      id: 3,
+      data: "2021-02-25T12:00",
+      exame: "Teste de Ergométrico (Teste de Esforço)",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-11"
+    },
+    {
+      id: 4,
+      data: "2021-02-26T06:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-11"
+    },
+    {
+      id: 5,
+      data: "2021-02-22T15:00",
+      exame: "Ressonância Magnética (RM)",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-11"
+    },
+    {
+      id: 6,
+      data: "2021-02-21T19:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    },
+    {
+      id: 7,
+      data: "2021-02-21T19:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    },
+    {
+      id: 8,
+      data: "2021-02-21T19:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    },
+    {
+      id: 9,
+      data: "2021-02-21T19:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    },
+    {
+      id: 10,
+      data: "2021-02-21T19:00",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    },
+    {
+      id: 11,
+      data: "2021-02-21T19:30",
+      exame: "Tomografia do coração e vasos",
+      pacienteNome: "Lucas",
+      cpf: "123.456.789-12"
+    }
+    
+  ]
+
+  const listaCliente = [
+    {
+      id: 1,
+      nome: "Lucas",
+      cpf: "123.456.789-10",
+      ddn: "1984-02-24"
+    },
+    {
+      id: 2,
+      nome: "Lucas",
+      cpf: "123.456.789-11",
+      ddn: "1988-06-18"
+    },
+    {
+      id: 3,
+      nome: "Lucas",
+      cpf: "123.456.789-12",
+      ddn: "1991-07-11"
+    },
+    {
+      id: 4,
+      nome: "Lucas",
+      cpf: "123.456.789-13",
+      ddn: "1975-12-30"
+    }
+    ,
+    {
+      id: 5,
+      nome: "Lucas",
+      cpf: "123.456.789-13",
+      ddn: "1975-12-30"
+    }
+    ,
+    {
+      id: 6,
+      nome: "Lucas",
+      cpf: "123.456.789-13",
+      ddn: "1975-12-30"
+    }
+    ,
+    {
+      id: 7,
+      nome: "Lucas",
+      cpf: "123.456.789-13",
+      ddn: "1975-12-30"
+    }
+  ]
+
 const exames = [
     {id: 1, exame: "Hemograma"},
     {id: 2, exame: "Colesterol"},
@@ -108,17 +237,18 @@ const PagesAgenda = () => {
     const [retorno, setRetorno] = useState(0);
 
     const trocaDeAba = (event, newValue) => {
-        if (newValue <= 2) {
+        if (newValue <= 3) {
             setValue(newValue);
         } 
-        else if( newValue === 3){setValue(991);}
-        else if( newValue === 4){setValue(992);}
+        else if( newValue === 4){setValue(991);}
+        else if( newValue === 5){setValue(992);}
     };
 
     useEffect(()=> {
         if (retorno === 201){OK200("Marcação foi cadastrada!");}
         if (retorno === 202){OK200("Marcação foi editada!");}
         if (retorno === 203){OK200("Marcação foi excluida!");}
+        if (retorno === 204){OK200("Cliente foi cadastrado!");}
         if (retorno === 401){BAD400("Marcação não foi cadastrada!");}
         if (retorno === 402){BAD400("Marcação não foi editada!");}
         if (retorno === 403){BAD400("Marcação não foi excluida!");}
@@ -163,10 +293,20 @@ const PagesAgenda = () => {
                         <AgendaExames examesOfertados={exames}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <AgendaLista setValue={setValue} setAgendaSelected={setAgendaSelected} setRetorno={setRetorno}/>
+                        <AgendaLista 
+                            setValue={setValue} 
+                            setAgendaSelected={setAgendaSelected} 
+                            setRetorno={setRetorno}
+                            lista={lista}
+                        />
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <AgendaCadastro setValue={setValue} examesOfertados={exames} setRetorno={setRetorno}/>
+                        <AgendaCadastro 
+                            setValue={setValue} 
+                            examesOfertados={exames} 
+                            setRetorno={setRetorno}
+                            listaCliente={listaCliente}
+                        />
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         <AgendaEditar setValue={setValue} agendaSelected={agendaSelected} setRetorno={setRetorno}/>

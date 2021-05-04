@@ -2,7 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { cpfMask, horaMask } from 'utils/mask';
+import { horaMask } from 'utils/mask';
+import AgendaCombobox from './AgendaCombobox';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -40,10 +43,21 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const AgendaCadastro = ({ setValue, examesOfertados, setRetorno }) => {
+const missing = (msg) => toast.error(msg, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+
+const AgendaCadastro = ({ setValue, examesOfertados, setRetorno, listaCliente }) => {
     const classes = useStyles();
     const [cadastro, setCadastro] = useState(INITIAL_VALUE);
-    const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
+    const [dataHora, setDataHora] = useState(INITIAL_DATAHORA);
+    const [clienteSelecionado, setClienteSelecionado] = useState({});
 
     const onChangeCadastro = (ev) => {
         const { name, value } = ev.target;
@@ -57,36 +71,37 @@ const AgendaCadastro = ({ setValue, examesOfertados, setRetorno }) => {
 
     const onChickCadastrar = () => {
         const validarHora = dataHora.hora.split(":");
-        if (cadastro.pacienteNome.length === 0) {return alert("Faltou nome")}
-        if (cadastro.cpf.length !== 14) {return alert("Faltou cpf")}
-        if (dataHora.data.length !== 10) {return alert("Faltou data")}
-        if (dataHora.hora.length !== 5) {return alert("Faltou hora")}
-        if (validarHora[0] >= 24 || validarHora[0] < 0) {return alert("verifique as horas informada")}
-        if (validarHora[1] >= 60 || validarHora[1] < 0) {return alert("verifique os minutos informada")}
-        if (cadastro.exame.length === 0) {return alert("Faltou exame")}
+        if (!clienteSelecionado.nome) {return missing("Cliente não é valido!")}
+        if (dataHora.data.length !== 10) {return missing("Data não é valida!")}
+        if (dataHora.hora.length !== 5) {return missing("Horário não é valido!")}
+        if (validarHora[0] >= 24 || validarHora[0] < 0) {return missing("Hora não é valida!")}
+        if (validarHora[1] >= 60 || validarHora[1] < 0) {return missing("Minuto não é valido!")}
+        if (cadastro.exame.length === 0) {return missing("Exame não é valido!")}
         setRetorno(201)
-        setValue(1)
+        setValue(2)
     }
 
   return (
     <Fragment>
         <Paper className={classes.control}>
             <form className={classes.form} noValidate autoComplete="off">
-                    <TextField 
-                        id="outlined-basic"
-                        label="Nome"
-                        className={classes.textField}
-                        name="pacienteNome"
-                        value={cadastro.pacienteNome}
-                        onChange={onChangeCadastro}
+                    <AgendaCombobox 
+                        listaCliente={listaCliente}
+                        setClienteSelecionado={setClienteSelecionado}
+                        setRetorno={setRetorno}
                     />
-                    <TextField 
-                        label="CPF" 
+                    <TextField
                         className={classes.textField}
                         name="cpf"
                         maxLength='14'
-                        value={cadastro.cpf}
-                        onChange={(e) => { setCadastro({ ...cadastro, cpf: cpfMask(e.target.value) }) }}
+                        value={clienteSelecionado !== null && clienteSelecionado.cpf 
+                            ? clienteSelecionado.cpf 
+                            : "000.000.000-00"
+                        }
+                        InputProps={{
+                            readOnly: true,
+                          }}
+                        
                     />
                     <TextField
                         name="data"

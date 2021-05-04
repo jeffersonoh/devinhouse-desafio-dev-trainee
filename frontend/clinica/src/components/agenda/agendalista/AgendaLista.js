@@ -24,86 +24,6 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
 
-const lista = [
-  {
-    id: 1,
-    data: "2021-02-24T12:00",
-    exame: "Teste de Ergométrico (Teste de Esforço)",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-10"
-  },
-  {
-    id: 2,
-    data: "2021-02-24T13:00",
-    exame: "Ressonância Magnética (RM)",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-10"
-  },
-  {
-    id: 3,
-    data: "2021-02-25T12:00",
-    exame: "Teste de Ergométrico (Teste de Esforço)",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-11"
-  },
-  {
-    id: 4,
-    data: "2021-02-26T06:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-11"
-  },
-  {
-    id: 5,
-    data: "2021-02-22T15:00",
-    exame: "Ressonância Magnética (RM)",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-11"
-  },
-  {
-    id: 6,
-    data: "2021-02-21T19:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  },
-  {
-    id: 7,
-    data: "2021-02-21T19:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  },
-  {
-    id: 8,
-    data: "2021-02-21T19:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  },
-  {
-    id: 9,
-    data: "2021-02-21T19:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  },
-  {
-    id: 10,
-    data: "2021-02-21T19:00",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  },
-  {
-    id: 11,
-    data: "2021-02-21T19:30",
-    exame: "Tomografia do coração e vasos",
-    pacienteNome: "Lucas",
-    cpf: "123.456.789-12"
-  }
-  
-]
 const useStyles = makeStyles((theme) => ({
     divPesquisa: {
         padding: "8px",
@@ -125,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let pagina = 1;
-const AgendaLista = ({ setValue, setAgendaSelected }) => {
+const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
     const classes = useStyles();
     const cabecalhoTabela = [
         {id: "pacienteNome", coluna: "Clientes"}, 

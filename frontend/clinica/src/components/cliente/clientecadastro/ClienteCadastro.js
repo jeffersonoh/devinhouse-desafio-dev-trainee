@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
 import { cpfMask } from 'utils/mask';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -36,6 +37,16 @@ const INITIAL_VALUE = {
     ddn: ""
 };
 
+const missing = (msg) => toast.error(msg, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+
 const ClienteCadastro = ({ setValue, setRetorno }) => {
     const classes = useStyles();
     const [cadastro, setCadastro] = useState(INITIAL_VALUE);
@@ -47,9 +58,9 @@ const ClienteCadastro = ({ setValue, setRetorno }) => {
     }
 
     const onChickCadastrar = () => {
-        if (cadastro.nome.length === 0) {return alert("Faltou nome");}
-        if (cadastro.cpf.length !== 14) {return alert("Faltou cpf");}
-        if (cadastro.ddn.length !== 10) {return alert("Faltou data");}
+        if (cadastro.nome.length === 0) {return missing("Nome do cliente não é valido!");}
+        if (cadastro.cpf.length !== 14) {return missing("CPF do cliente não é valido!");}
+        if (cadastro.ddn.length !== 10) {return missing("Data de nascimento do cliente não é valido!");}
         setRetorno(201);
         setValue(1);
     }
