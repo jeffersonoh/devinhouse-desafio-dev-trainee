@@ -8,6 +8,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { useAuth } from 'providers/auth';
 
 const styles = (theme) => ({
   root: {
@@ -49,12 +50,14 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function DialogoOPEditar({ chamado, setValue }) {
-  const [open, setOpen] = useState(chamado);
+export default function DialogoOPEditar() {
+  const { index, setIndex,setDialogo } = useAuth();
+  const [open, setOpen] = useState(true);
 
   const handleClose = () => {
+    setDialogo(false)
+    if (index < 5) {setIndex(1);}
     setOpen(false);
-    setValue(2);
   };
 
   return (

@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { cpfMask } from 'utils/mask';
 import { makeStyles } from '@material-ui/core';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from 'providers/auth';
 
 const filter = createFilterOptions();
 
@@ -25,17 +24,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const missing = (msg) => toast.error(msg, {
-  position: "top-right",
-  autoClose: 3000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  });
-
 export default function AgendaCombobox({ listaCliente, setClienteSelecionado, setRetorno }) {
+  const { setResposta } = useAuth();
   const classes = useStyles();
   const [value, setValue] = useState(null);
   const [open, toggleOpen] = useState(false);
@@ -58,20 +48,18 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (cliente.nome.length === 0){return missing("Informe o nome do cliente.");}
-    if (cliente.cpf.length !== 14){return missing("Informe o CPF do cliente.");}
-    if (cliente.ddn.length !== 10){return missing("Informe a data de nascimento do cliente.");}
+    if (cliente.nome.length === 0) { return setResposta(907); }
+    if (cliente.cpf.length !== 14) { return setResposta(908); }
+    if (cliente.ddn.length !== 10) { return setResposta(909); }
     setValue({
       nome: cliente.nome,
       cpf: cliente.cpf,
       ddn: cliente.ddn
     });
-    setRetorno(204);
-    
+    setResposta(204);
+
     handleClose();
   };
-  console.log("value", value);
-    console.log("cliente", cliente);
   return (
     <React.Fragment>
       <Autocomplete

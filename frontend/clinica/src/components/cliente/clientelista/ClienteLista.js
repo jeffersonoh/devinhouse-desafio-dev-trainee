@@ -23,54 +23,10 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
+import { useAuth } from 'providers/auth';
+import { cabecalhoTabela } from 'api/apiTeste';
 
-const lista = [
-  {
-    id: 1,
-    nome: "Lucas",
-    cpf: "123.456.789-10",
-    ddn: "1984-02-24"
-  },
-  {
-    id: 2,
-    nome: "Lucas",
-    cpf: "123.456.789-11",
-    ddn: "1988-06-18"
-  },
-  {
-    id: 3,
-    nome: "Lucas",
-    cpf: "123.456.789-12",
-    ddn: "1991-07-11"
-  },
-  {
-    id: 4,
-    nome: "Lucas",
-    cpf: "123.456.789-13",
-    ddn: "1975-12-30"
-  }
-  ,
-  {
-    id: 5,
-    nome: "Lucas",
-    cpf: "123.456.789-13",
-    ddn: "1975-12-30"
-  }
-  ,
-  {
-    id: 6,
-    nome: "Lucas",
-    cpf: "123.456.789-13",
-    ddn: "1975-12-30"
-  }
-  ,
-  {
-    id: 7,
-    nome: "Lucas",
-    cpf: "123.456.789-13",
-    ddn: "1975-12-30"
-  }
-]
+
 const useStyles = makeStyles((theme) => ({
     divPesquisa: {
         padding: "8px",
@@ -92,14 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let pagina = 1;
-const ClienteLista = ({ setValue, setClienteSelected }) => {
+const ClienteLista = ({ setValue, setClienteSelected, setIndex }) => {
+    const { clientes, linhaSelecionada, setLinhaSelecionada } = useAuth();
     const classes = useStyles();
-    const cabecalhoTabela = [
-        {id: "name", coluna: "Clientes"}, 
-        {id: "cpf", coluna: "CPF"}, 
-        {id: "ddn", coluna: "Data de nascimento"}
-    ];
-    const [linhaSelecionada, setLinhaSelecionada] = useState(0);
     const [itemPagina, setItempagina] = useState([]);
     const [pesquisa, setPesquisa] = useState("");
     
@@ -109,7 +60,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
         let paginaProvisoria = [];
         let linhaAtual = 1;
 
-        lista.map((linha) => {
+        clientes.map((linha) => {
             if (linhaAtual <= limiteLinhaPagina){
                 if (linhaAtual >= offSetLinhaPagina){
                     paginaProvisoria.push(linha);
@@ -122,7 +73,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
     }
     
     const proximaPagina = () => {
-        if (lista.length > pagina * 5) {
+        if (clientes.length > pagina * 5) {
             pagina++;
         setPaginaLista();
       }
@@ -137,8 +88,8 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
 
     const clickEditar = () => {
         setClienteSelected([]);
-        lista.map((item) => {
-            if (linhaSelecionada === item.id) {
+        clientes.map((item) => {
+            if (linhaSelecionada.id === item.id) {
                 setClienteSelected(item);
                 setValue(3)
             }
@@ -147,8 +98,8 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
 
     const clickExcluir = () => {
         setClienteSelected([]);
-        lista.map((item) => {
-            if (linhaSelecionada === item.id) {
+        clientes.map((item) => {
+            if (linhaSelecionada.id === item.id) {
                 setClienteSelected(item);
                 setValue(4)
             }
@@ -158,7 +109,7 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
     useEffect(() => {
       setPaginaLista()
     },[])
-
+    console.log("linhaSelecionada",linhaSelecionada);
     return (
         <Fragment>
             <Paper>
@@ -172,15 +123,15 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
                       onChange={(e) => {setPesquisa(cpfMask(e.target.value))}}
                     />
                 </div>
-                <Toolbar className={classes.toolbar} style={{backgroundColor: linhaSelecionada !== 0 ? "#ff8a80" : "#fff"}}>
+                <Toolbar className={classes.toolbar} style={{backgroundColor: linhaSelecionada.id !== 0 ? "#ff8a80" : "#fff"}}>
                     <div>
-                        {linhaSelecionada !== 0 
+                        {linhaSelecionada.id !== 0 
                             ? <Typography>Selecionado</Typography>
                             : <Typography>Lista de clientes</Typography>
                         }
                     </div>
                     <div>
-                        {linhaSelecionada !== 0 
+                        {linhaSelecionada.id !== 0
                             ? //--------------------------------------
                                 <div style={{display:"flex", flexDirection:"row"}}>
                                     <Tooltip title="Editar">
@@ -223,11 +174,11 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
                                 itemPagina.map((linha) => (
                                     <TableRow 
                                         key={linha.id}
-                                        onClick={() => linha.id === linhaSelecionada 
-                                            ? setLinhaSelecionada(0) 
-                                            : setLinhaSelecionada(linha.id)}
+                                        onClick={() => linha.id === linhaSelecionada.id 
+                                            ? setLinhaSelecionada({...linhaSelecionada, id:0}) 
+                                            : setLinhaSelecionada(linha)}
                                         style={{
-                                            backgroundColor: linhaSelecionada === linha.id ? "#ff8a80" : "#fff"
+                                            backgroundColor: linhaSelecionada.id === linha.id ? "#ff8a80" : "#fff"
                                         }}
                                     >
                                         <TableCell align="center" component="th" scope="row">{linha.nome}</TableCell>
@@ -250,12 +201,12 @@ const ClienteLista = ({ setValue, setClienteSelected }) => {
                             ? 1 
                             : (pagina - 1) * 5 + 1) 
                         + "-" + 
-                        (pagina * 5 > lista.length && pagina > 1 
-                            ? lista.length 
-                            : lista.length < 5 
-                                ? lista.length 
+                        (pagina * 5 > clientes.length && pagina > 1 
+                            ? clientes.length 
+                            : clientes.length < 5 
+                                ? clientes.length 
                                 : pagina * 5) 
-                            + " de " + (lista.length)}
+                            + " de " + (clientes.length)}
                     </Typography>
                     <Tooltip title="Proxíma página">
                         <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>

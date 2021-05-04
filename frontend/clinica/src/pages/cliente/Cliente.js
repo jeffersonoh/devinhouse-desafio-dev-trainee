@@ -10,8 +10,7 @@ import ClienteCadastro from 'components/cliente/clientecadastro/ClienteCadastro'
 import ClienteLista from 'components/cliente/clientelista/ClienteLista';
 import DialogoOPEditar from 'components/dialogo/DialogoOPEditar';
 import DialogoOPExcluir from 'components/dialogo/DialogoOPExcluir';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from 'providers/auth';
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -68,66 +67,30 @@ function TabPanel(props) {
     );
 }
 
-const OK200 = (msg) => toast.info(msg, {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    });
-const BAD400 = (msg) => toast.error(msg, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
-
 const PagesCliente = () => {
+    const { index, setIndex, setDialogo } = useAuth()
     const classes = useStyles();
-    const [value, setValue] = useState(1);
-    const [clienteSelected, setClienteSelected] = useState([])
-    const [retorno, setRetorno] = useState(0);
-
-    const trocaDeAba = (event, newValue) => {
-        if (newValue <= 2) {
-            setValue(newValue);
-        } 
-        else if( newValue === 3){setValue(991);}
-        else if( newValue === 4){setValue(992);}
-    };
 
     useEffect(()=> {
-        if (retorno === 201){OK200("Cliente foi cadastrado!");}
-        if (retorno === 202){OK200("Cliente foi editado!");}
-        if (retorno === 203){OK200("Cliente foi excluido!");}
-        if (retorno === 401){BAD400("Cliente não foi cadastrado!");}
-        if (retorno === 402){BAD400("Cliente não foi editado!");}
-        if (retorno === 403){BAD400("Cliente não foi excluido!");}
-        setRetorno(0);
-    },[retorno])
+        setIndex(1);
+    },[])
 
+    const onChangeTab = (e,tab) => {
+        if (tab < 3) {setIndex(tab)}
+        else {
+            setIndex(tab);
+            setDialogo(true);
+        }
+    }
+    console.log("index", index);
     return (
         <Fragment>
-            <ToastContainer />
-            {value === 991 
-                &&
-                <DialogoOPEditar chamado={true} setValue={setValue}/>
-            }
-            {value === 992 
-                &&
-                <DialogoOPExcluir chamado={true} setValue={setValue}/>
-            }
             <MenuTopBar />
             <div className={classes.body}>
                 <AppBar position="static" color="default" className={classes.menu}>
                     <Tabs
-                        value={value}
-                        onChange={trocaDeAba} 
+                        value={index}
+                        onChange={onChangeTab} 
                         indicatorColor="primary"
                         textColor="primary"
                         variant="scrollable"
@@ -144,17 +107,17 @@ const PagesCliente = () => {
                     </Tabs>
                 </AppBar>
                 <div className={classes.childrenBody}>
-                    <TabPanel value={value} index={1}>
-                        <ClienteLista setValue={setValue} setClienteSelected={setClienteSelected} setRetorno={setRetorno}/>
+                    <TabPanel value={index} index={1}>
+                        <ClienteLista />
                     </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        <ClienteCadastro setValue={setValue} setRetorno={setRetorno}/>
+                    <TabPanel value={index} index={2}>
+                        <ClienteCadastro />
                     </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        <ClienteEditar setValue={setValue} clienteSelected={clienteSelected} setRetorno={setRetorno}/>
+                    <TabPanel value={index} index={3}>
+                     {/*    <ClienteEditar /> */}
                     </TabPanel>
-                    <TabPanel value={value} index={4}>
-                        <ClienteExcluir setValue={setValue} clienteSelected={clienteSelected} setRetorno={setRetorno}/>
+                    <TabPanel value={index} index={4}>
+                       {/*  <ClienteExcluir /> */}
                     </TabPanel>
                 </div>               
             </div>

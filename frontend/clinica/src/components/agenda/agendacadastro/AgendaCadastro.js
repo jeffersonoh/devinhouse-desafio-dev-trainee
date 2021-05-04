@@ -4,8 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { TextField, Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { horaMask } from 'utils/mask';
 import AgendaCombobox from './AgendaCombobox';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from 'providers/auth';
 
 const useStyles = makeStyles((theme) => ({
     control: {
@@ -43,17 +42,8 @@ const INITIAL_DATAHORA = {
     hora: ""
 }
 
-const missing = (msg) => toast.error(msg, {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    });
-
 const AgendaCadastro = ({ setValue, examesOfertados, setRetorno, listaCliente }) => {
+    const { setResposta } = useAuth();
     const classes = useStyles();
     const [cadastro, setCadastro] = useState(INITIAL_VALUE);
     const [dataHora, setDataHora] = useState(INITIAL_DATAHORA);
@@ -71,13 +61,13 @@ const AgendaCadastro = ({ setValue, examesOfertados, setRetorno, listaCliente })
 
     const onChickCadastrar = () => {
         const validarHora = dataHora.hora.split(":");
-        if (!clienteSelecionado.nome) {return missing("Cliente não é valido!")}
-        if (dataHora.data.length !== 10) {return missing("Data não é valida!")}
-        if (dataHora.hora.length !== 5) {return missing("Horário não é valido!")}
-        if (validarHora[0] >= 24 || validarHora[0] < 0) {return missing("Hora não é valida!")}
-        if (validarHora[1] >= 60 || validarHora[1] < 0) {return missing("Minuto não é valido!")}
-        if (cadastro.exame.length === 0) {return missing("Exame não é valido!")}
-        setRetorno(201)
+        if (!clienteSelecionado.nome) {return setResposta(901);}
+        if (dataHora.data.length !== 10) {return setResposta(902);}
+        if (dataHora.hora.length !== 5) {return setResposta(903);}
+        if (validarHora[0] >= 24 || validarHora[0] < 0) {return setResposta(904);}
+        if (validarHora[1] >= 60 || validarHora[1] < 0) {return setResposta(905);}
+        if (cadastro.exame.length === 0) {return setResposta(906);}
+        setResposta(201);
         setValue(2)
     }
 
