@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PageHeader = ({ titulo, tituloBotao }) => {
+const PageHeader = ({ titulo, tituloBotao, abreNovo }) => {
   const classes = useStyles();
 
   return (
@@ -19,6 +19,7 @@ const PageHeader = ({ titulo, tituloBotao }) => {
         <Button 
           variant="contained"
           color="secondary"
+          onClick={abreNovo}
         >
           {tituloBotao}
         </Button>

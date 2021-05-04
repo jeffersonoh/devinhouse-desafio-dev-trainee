@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, withStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -28,14 +29,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 function formataCPF(cpf){
-  //retira os caracteres indesejados...
   cpf = cpf.replace(/[^\d]/g, "");
 
-  //realiza a formatação...
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
-const Tabela = ({ dados, titulo }) => {
+const Tabela = ({ dados, titulo, endpoint, abreUpdate }) => {
   const classes = useStyles();
   const [colunas, setColunas] = useState([]);
 
@@ -44,8 +43,6 @@ const Tabela = ({ dados, titulo }) => {
       const getColunas = Object.keys(dados[0]);
 
       //getColunas.splice(0, 1);
-
-      console.log(getColunas)
       
       setColunas(getColunas);
     }
@@ -76,17 +73,39 @@ const Tabela = ({ dados, titulo }) => {
               <StyledTableRow key={index}>
                 {colunas?.map((coluna, index) => (
                   <StyledTableCell key={coluna}>
-                    {coluna === "cpf" && formataCPF(linha[coluna])}
-                    {coluna === "cliente" || coluna === "exame" ? linha[coluna].nome : linha[coluna]}
+                    {coluna === "cpf" 
+                      ? formataCPF(linha[coluna])
+                      : coluna === "cliente" || coluna === "exame" 
+                      ? linha[coluna].nome 
+                      : linha[coluna]
+                    }
                   </StyledTableCell>
                 ))}
                 <StyledTableCell align="right">
-                  <IconButton
-                    size="small"
-                    className={classes.button}
-                  >
-                    <EditIcon />
-                  </IconButton>
+                  {endpoint === "clientes" || endpoint === "exames"
+                    ? (
+                      <IconButton 
+                        size="small"
+                        className={classes.button}
+                        onClick={() => abreUpdate(linha)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    )
+                    : (
+                      <IconButton
+                        size="small"
+                        className={classes.button}
+                        component={Link}
+                        to={{
+                          pathname: linha.cpf ? `${endpoint}/${linha.cpf}/editar` : `${endpoint}/${linha.id}/editar`,
+                          state: { dados: linha },
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    )
+                  }   
                   <IconButton size="small" className={classes.button}>
                     <DeleteIcon />
                   </IconButton>
