@@ -24,27 +24,22 @@ public class ControllerAgendamento {
 	@Autowired
 	private ServiceAgendamento service;
 	
-	//Lista os horarios indisponiveis para bloquear eles no front
 	@GetMapping(path = "/agendamento/{nome-exame}/{data}")
 	public List<String> listarExamesIndisponíveis(@PathVariable("nome-exame") String exame, 
 			@PathVariable String data) {
 		return service.listarExamesIndisponíveis(exame, data);
 	}
 	
-	// TODO: Deverá haver um endpoint para adição de um agendamento
 	@PostMapping(path = "/agendamento", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> agendarAtendimento(@RequestBody Agendamento agendamento) {
 		return service.agendarAtendimento(agendamento);
 	}
 
-	// TODO: Deverá haver um endpoint para edição de um agendamento realizado,
-	// apenas dia e hora poderão ser editados;
 	@PutMapping(path = "agendamento/{id}", consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> atualizarAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamento){
 		return service.atualizarAgendamento(id, agendamento);
 	}
 
-	// TODO: Deverá haver um endpoint para exclusão de um agendamento realizado;
 	@DeleteMapping(path = "agendamento/{id}")
 	public ResponseEntity<?> deletarAgendamento(@PathVariable Long id) {
 		return service.deletarAgendamento(id);

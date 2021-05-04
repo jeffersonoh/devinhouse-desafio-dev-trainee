@@ -7,7 +7,7 @@ const theme = {
         "margin-top": "10rem",
     },
     boxInterior: {
-        "width": "60%",
+        "width": "40%",
         "text-align": "center",
         "display": "flex",
         "flex-direction": "column",
