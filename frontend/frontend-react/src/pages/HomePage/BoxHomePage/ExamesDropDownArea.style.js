@@ -15,6 +15,10 @@ const theme = {
   dropDownSpacing: {
     "width": "25%"
   },
+  buttonHeight: {
+    "margin-top": "14px",
+    "margin-left": "1rem",
+  }
 }
 
 export default theme;

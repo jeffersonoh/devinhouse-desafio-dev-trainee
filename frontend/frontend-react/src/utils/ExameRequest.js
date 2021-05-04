@@ -1,7 +1,7 @@
 import axios from "axios";
 const URL = "http://localhost:9090/backend";
 
-class RequestBackend {
+class RequestBackendExame {
     getTodosExames() {
         return axios.get(`${URL}/exames`)
         .then(response => response.data)
@@ -10,36 +10,34 @@ class RequestBackend {
         })
     }
 
-    postProcesso(processo) {
-        return axios.post(URL, processo)
+    postExame(exame) {
+        return axios.post(`${URL}/exame`, exame)
         .catch(error => {
             throw error
         })
     }
 
-    getID(id) {
-        return axios.get(`${URL}/${id}`)
+    getExamePorNome(nomeExame) {
+        return axios.get(`${URL}/${nomeExame}`)
         .then(response => response.data)
         .catch(error => {
             throw error;
         })
     }
 
-    getAssunto(assunto) {
-        return axios.get(`${URL}?q=${assunto}`)
-        .then(response => response.data)
+    putExame(exameAtualizado) {
+        return axios.put(`${URL}/exame`, exameAtualizado)
         .catch(error => {
-            throw error;
-        }) 
+            throw error
+        })
     }
 
-    deletePorID(id) {
-        return axios.delete(`${URL}/${id}`)
+    deleteExamePorNome(nomeExame) {
+        return axios.delete(`${URL}/exame/${nomeExame}`)
         .catch(error => {
             throw error;
         })
     }
-
 }
 
-export default new RequestBackend();
+export default new RequestBackendExame();

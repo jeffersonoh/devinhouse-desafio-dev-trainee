@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     dropDowncenter: {
         ...theme.dropDownSpacing
     },
+    botaoHeight: {
+        ...theme.buttonHeight,
+    }
   })
 
   
@@ -34,7 +37,9 @@ export default function ExamesDropdownArea(props) {
                     ))} 
                 </NativeSelect> 
             </FormControl>
-            <Botao text="Buscar" variante="contained" tamanho="small"/>
+            <Box className={classes.botaoHeight}><Botao text="Buscar" variante="contained" tamanho="small"/></Box>
+
+            
             </Box>
         </Box>
     )

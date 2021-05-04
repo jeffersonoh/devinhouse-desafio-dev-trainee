@@ -57,4 +57,9 @@ public class ControllerCliente {
 	public ResponseEntity<?> listarClientes() {
 		return service.listarClientes();
 	}
+	
+	@GetMapping(path="cliente-agendamento/{cpf}", produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> listarTodosAgendamentosCliente(@PathVariable String cpf) {
+		return service.listarTodosAgendamentosCliente(cpf);
+	}
 }

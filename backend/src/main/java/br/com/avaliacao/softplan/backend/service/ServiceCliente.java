@@ -1,5 +1,6 @@
 package br.com.avaliacao.softplan.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.com.avaliacao.softplan.backend.entity.Agendamento;
 import br.com.avaliacao.softplan.backend.entity.Cliente;
 import br.com.avaliacao.softplan.backend.repository.RepositoryAgendamento;
 import br.com.avaliacao.softplan.backend.repository.RepositoryCliente;
@@ -74,5 +76,18 @@ public class ServiceCliente {
 			return new ResponseEntity<>(repository.findByCpf(cpf), HttpStatus.OK);
 		}
 		return new ResponseEntity<>("{\n   CPF nao encontrado, por favor, digite um CPF cadastrado\n}", HttpStatus.BAD_REQUEST);
+	}
+	
+	public ResponseEntity<?> listarTodosAgendamentosCliente(String cpf) {
+		if (cpfEstaCadastrado(cpf)) {
+			List<Long> ids = repository.buscarPorIdsAgendamento(cpf);
+			List<Optional<Agendamento>> listaAgendamento = new ArrayList<>();
+			for (int i = 0; i < ids.size(); i++) {
+				listaAgendamento.add(repositoryAgendamento.findById(ids.get(i)));
+			}
+			return new ResponseEntity<>(listaAgendamento, HttpStatus.OK);
+		}
+		return new ResponseEntity<>("{\n   CPF nao encontrado, por favor, digite um CPF cadastrado\n}", HttpStatus.BAD_REQUEST);
+	
 	}
 }
