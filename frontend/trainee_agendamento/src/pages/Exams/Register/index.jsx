@@ -21,7 +21,8 @@ function ExamsRegister() {
             <button type="submit" className="form-data-button">Cadastrar</button>
           </form>
         </div>
-      </div>    </RegisterExamStyle>
+      </div>   
+    </RegisterExamStyle>
   )
 };
 
