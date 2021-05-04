@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 import { Container } from "./styles";
 
 import Header from "../../components/Header";
@@ -13,24 +15,36 @@ import SearchBar from "../../components/SearchBar";
 import ListPatientItemModel from "../../components/ListPatientItemModel";
 import Loading from "../../components/Loading";
 
-import PacietesAPI from "../../services/pacientes";
+import PacientesAPI from "../../services/pacientes";
+import AgendamentosAPI from "../../services/agendamentos";
 
-function PatientsListPage(props) {
+function PatientsListPage() {
   const [patients, setPatients] = useState([]);
+  const [agendamentos, setAgendamentos] = useState([]);
+
+  const carregarAgendamentos = async () => {
+    const agendamentos = await AgendamentosAPI.buscarAgendamentos();
+    setAgendamentos(agendamentos);
+  };
 
   const carregarPacientes = async (cpf) => {
-    console.log("CpF", cpf);
-    const patients = await PacietesAPI.buscarPacientes(cpf);
+    const patients = await PacientesAPI.buscarPacientes(cpf);
     setPatients(patients);
   };
 
-  const deletarPaciente = (id) => {
-    PacietesAPI.deletarPaciente(id);
+  const deletarPaciente = (id, cpf) => {
+    PacientesAPI.deletarPaciente(id);
+    agendamentos.forEach((agendamento) => {
+      if (agendamento.patientCpf === cpf) {
+        AgendamentosAPI.deletarAgendamento(agendamento.id);
+      }
+    });
     carregarPacientes();
   };
 
   useEffect(() => {
     carregarPacientes();
+    carregarAgendamentos();
   }, []);
 
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +60,7 @@ function PatientsListPage(props) {
         handleClick={(cpf) => {
           console.log("CPF", cpf);
           carregarPacientes(cpf);
+          console.log(patients);
         }}
       />
       <LightDividingLine />
@@ -59,10 +74,19 @@ function PatientsListPage(props) {
             <ListPatientItemModel
               key={index}
               handleClick={() => {
-                navigate("/paciente/atualizar");
+                console.log(patient.id);
+                navigate("/paciente/atualizar/" + patient.id);
               }}
               handleDelete={() => {
-                deletarPaciente(patient.id);
+                const userConfirmation = window.confirm(
+                  "Deseja realmente remover esse paciente?!\nEssa ação não poderá ser desfeita!"
+                );
+                if (userConfirmation === true) {
+                  deletarPaciente(patient.id, patient.patientCpf);
+                  toast.success("O paciente foi removido!");
+                } else {
+                  toast.warning("O paciente será mantido!");
+                }
               }}
               patientName={patient.patientName}
               patientCpf={patient.patientCpf}

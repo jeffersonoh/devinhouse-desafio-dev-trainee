@@ -30,14 +30,28 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.exames.all().models;
       });
 
-      this.get("/agendamento/listar", (schema, request) => {
+      this.get("/agendamento", (schema, request) => {
         return schema.agendamentos.all().models;
       });
 
-      this.post("/agendamento/cadastrar", (schema, request) => {
+      this.get("/agendamento/:id", (schema, request) => {
+        const id = request.params.id;
+        return schema.agendamentos.find(id).attrs;
+      });
+
+      this.post("/agendamento", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         attrs.id = schedeludedExamsCounter;
         schedeludedExamsCounter++;
+        console.log("attrs", attrs);
+        return schema.agendamentos.create(attrs);
+      });
+
+      this.put("/agendamento/:id", (schema, request) => {
+        const id = request.params.id;
+        console.log("id", id);
+        const attrs = JSON.parse(request.requestBody);
+        attrs.id = id;
         console.log("attrs", attrs);
         return schema.agendamentos.create(attrs);
       });
@@ -47,7 +61,7 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.agendamentos.find(id).destroy();
       });
 
-      this.get("/paciente/listar", (schema, request) => {
+      this.get("/paciente", (schema, request) => {
         const cpf = request.queryParams.cpf;
         console.log("cpf", cpf);
         if (cpf !== undefined) {
@@ -59,11 +73,23 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.pacientes.all().models;
       });
 
-      this.post("/paciente/cadastrar", (schema, request) => {
+      this.get("/paciente/:id", (schema, request) => {
+        const id = request.params.id;
+        return schema.pacientes.find(id).attrs;
+      });
+
+      this.post("/paciente", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         attrs.id = patientCounter;
         patientCounter++;
         console.log("attrs", attrs);
+        return schema.pacientes.create(attrs);
+      });
+
+      this.put("/paciente/:id", (schema, request) => {
+        const id = request.params.id;
+        const attrs = JSON.parse(request.requestBody);
+        attrs.id = id;
         return schema.pacientes.create(attrs);
       });
 

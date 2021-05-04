@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Container, Wrapper } from "./styles";
 
 import { toast } from "react-toastify";
@@ -16,9 +18,38 @@ import RegisterButtons from "../../components/RegisterButtons";
 import PacientesAPI from "../../services/pacientes";
 
 function RegisterPatientsPage() {
+  const [patients, setPatients] = useState([]);
+
   const salvarPaciente = (paciente) => {
-    PacientesAPI.salvarPaciente(paciente);
+    console.log("patients", patients);
+    let cpfJaExiste = false;
+    if (patients.length > 0) {
+      patients.forEach((patient) => {
+        console.log("Entrou no forEach");
+        if (patient.patientCpf === paciente.patientCpf) {
+          cpfJaExiste = true;
+        }
+      });
+    }
+
+    if (cpfJaExiste === true) {
+      toast.error(
+        "O CPF informado já está cadastrado!\nPor obséquio, informe outro!"
+      );
+    } else {
+      PacientesAPI.salvarPaciente(paciente);
+      navigate("/paciente/listar");
+    }
   };
+
+  const carregarPacientes = async (cpf) => {
+    const patients = await PacientesAPI.buscarPacientes(cpf);
+    setPatients(patients);
+  };
+
+  useEffect(() => {
+    carregarPacientes();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -53,8 +84,6 @@ function RegisterPatientsPage() {
                   };
 
                   salvarPaciente(patient);
-
-                  navigate("/paciente/listar");
                 }
               }}
               buttonName="Cadastrar"

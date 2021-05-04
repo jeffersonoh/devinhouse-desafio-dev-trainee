@@ -30,9 +30,9 @@ export const Router = () => {
           element={<ListScheduledExamsPage />}
         />
         <Route path="/paciente/listar" element={<PatientsListPage />} />
-        <Route path="/paciente/atualizar" element={<UpdatePatientPage />} />
+        <Route path="/paciente/atualizar/:id" element={<UpdatePatientPage />} />
         <Route
-          path="/agendamento/atualizar"
+          path="/agendamento/atualizar/:id"
           element={<UpdadeScheduledExamPage />}
         />
         <Route path="*" element={<NotFoundPage />} />

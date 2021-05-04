@@ -4,7 +4,7 @@ const BASE_URL = `/agendamento`;
 
 class AgendamentosService {
   buscarAgendamentos() {
-    const url = BASE_URL + "/listar";
+    const url = BASE_URL;
     return axios
       .get(url)
       .then((response) => {
@@ -18,7 +18,7 @@ class AgendamentosService {
   }
 
   salvarAgendamento(agendamento) {
-    const url = BASE_URL + "/cadastrar";
+    const url = BASE_URL;
     return axios
       .post(url, agendamento)
       .then((response) => {
@@ -35,6 +35,30 @@ class AgendamentosService {
     return axios.delete(`${BASE_URL}/${id}`).catch((error) => {
       throw error;
     });
+  }
+
+  updateScheduledExam(scheduledExam, id) {
+    const url = `${BASE_URL}/${id}`;
+    return axios
+      .put(url, scheduledExam)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  procurarAgendamento(id) {
+    const url = `${BASE_URL}/${id}`;
+    return axios
+      .get(url)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   /* 

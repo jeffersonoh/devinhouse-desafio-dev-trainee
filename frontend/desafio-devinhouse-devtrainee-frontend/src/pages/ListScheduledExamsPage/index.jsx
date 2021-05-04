@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { Container } from "./styles";
 
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Header from "../../components/Header";
 import LightDividingLine from "../../components/LightDividingLine";
@@ -47,10 +49,18 @@ function ListScheduledExamsPage() {
             <ListScheduledExamsItemModel
               key={index}
               handleClick={() => {
-                navigate("/agendamento/atualizar");
+                navigate("/agendamento/atualizar/" + exam.id);
               }}
               handleDelete={() => {
-                deletarAgendamento(exam.id);
+                const userConfirmation = window.confirm(
+                  "Deseja realmente remover esse agendamento?!\nEssa ação não poderá ser desfeita!"
+                );
+                if (userConfirmation === true) {
+                  deletarAgendamento(exam.id);
+                  toast.success("O agendamento foi removido!");
+                } else {
+                  toast.warning("O agendamento será mantido!");
+                }
               }}
               examId={exam.examId}
               examName={exam.examName}

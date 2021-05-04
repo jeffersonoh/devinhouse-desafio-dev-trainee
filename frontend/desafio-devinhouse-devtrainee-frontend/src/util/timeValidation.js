@@ -23,9 +23,6 @@ export const validateTime = (date, time) => {
   const actualHour = dataAtual.getHours();
   const actualMinutes = dataAtual.getMinutes();
 
-  console.log(typeof actualHour);
-  console.log(typeof informedHour);
-
   if (
     actualDay == informedDay &&
     actualMonth == informedMonth &&

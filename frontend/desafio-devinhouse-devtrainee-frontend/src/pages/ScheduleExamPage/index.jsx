@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { useParams, useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
@@ -15,13 +17,48 @@ import LightDividingLine from "../../components/LightDividingLine";
 import RegisterButtons from "../../components/RegisterButtons";
 
 import AgendamentosAPI from "../../services/agendamentos";
+import PacientesAPI from "../../services/pacientes";
 
 function ScheduleExamPage() {
   const navigate = useNavigate();
 
-  const agendar = (agendamento) => {
-    AgendamentosAPI.salvarAgendamento(agendamento);
+  const [pacientes, setPacientes] = useState([]);
+
+  const carregarPacientes = async (cpf) => {
+    const patients = await PacientesAPI.buscarPacientes(cpf);
+    setPacientes(patients);
   };
+
+  const agendar = (agendamento) => {
+    if (pacientes.length > 0) {
+      let encontrou = false;
+      let dadosConferem = false;
+      pacientes.forEach((paciente) => {
+        if (paciente.patientCpf === agendamento.patientCpf) {
+          encontrou = true;
+          if (paciente.patientName === agendamento.patientName) {
+            dadosConferem = true;
+            AgendamentosAPI.salvarAgendamento(agendamento);
+            navigate("/agendamento/listar");
+          }
+        }
+      });
+      if (encontrou === false) {
+        toast.error("O CPF informado não consta em nossa base de dados!");
+      }
+      carregarPacientes();
+      if (dadosConferem === false && encontrou === true) {
+        toast.error(
+          "Os dados de Nome e CPF não conferem!" +
+            "\nPor obséquio, vrefique a grafia e tente novamente!"
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    carregarPacientes();
+  }, []);
 
   const { id, name } = useParams();
   return (
@@ -34,35 +71,28 @@ function ScheduleExamPage() {
         children={
           <RegisterButtons
             handleSubmit={() => {
-              const nome = document.getElementById("name");
-              const cpf = document.getElementById("cpf");
-              const date = document.getElementById("date");
-              const time = document.getElementById("time");
+              const nome = document.getElementById("name").value;
+              const cpf = document.getElementById("cpf").value;
+              const date = document.getElementById("date").value;
+              const time = document.getElementById("time").value;
 
-              if (
-                (validateName(nome.value) === false ? "" : nome.value) === ""
-              ) {
+              if ((validateName(nome) === false ? "" : nome) === "") {
                 toast.error("Informe um nome válido!");
-              } else if (
-                (testCpf(cpf.value) === false ? "" : cpf.value) === ""
-              ) {
+              } else if ((testCpf(cpf) === false ? "" : cpf) === "") {
                 toast.error("Informe um CPF válido!");
               } else if (
-                (validateExamDate(date.value) === false ? "" : date.value) ===
-                ""
+                (validateExamDate(date) === false ? "" : date) === ""
               ) {
                 toast.error("Informe uma data válida!");
               } else if (
-                (validateTime(date.value, time.value) === false
-                  ? ""
-                  : time.value) === ""
+                (validateTime(date, time) === false ? "" : time) === ""
               ) {
                 toast.error("Informe um horário válido!");
               } else {
-                const patientName = nome.value;
-                const patientCpf = cpf.value;
-                const examDate = formatterDate(date.value);
-                const examTime = time.value;
+                const patientName = nome;
+                const patientCpf = cpf;
+                const examDate = formatterDate(date);
+                const examTime = time;
 
                 const agendamento = {
                   examName: name,
@@ -72,10 +102,7 @@ function ScheduleExamPage() {
                   examDate: examDate,
                   examTime: examTime,
                 };
-
                 agendar(agendamento);
-
-                navigate("/agendamento/listar");
               }
             }}
             buttonName="Agendar"

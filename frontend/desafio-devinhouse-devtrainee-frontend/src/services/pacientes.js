@@ -4,10 +4,7 @@ const BASE_URL = `/paciente`;
 
 class PacientesService {
   buscarPacientes(cpf) {
-    const url =
-      cpf === undefined
-        ? BASE_URL + "/listar"
-        : BASE_URL + "/listar?cpf=" + cpf;
+    const url = cpf === undefined ? BASE_URL : BASE_URL + "/?cpf=" + cpf;
     return axios
       .get(url)
       .then((response) => {
@@ -20,8 +17,20 @@ class PacientesService {
       });
   }
 
+  procurarPaciente(id) {
+    const url = `${BASE_URL}/${id}`;
+    return axios
+      .get(url)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
+
   salvarPaciente(paciente) {
-    const url = BASE_URL + "/cadastrar";
+    const url = BASE_URL;
     return axios
       .post(url, paciente)
       .then((response) => {
@@ -30,6 +39,18 @@ class PacientesService {
       })
       .catch((error) => {
         console.log("ERRO!!!");
+        throw error;
+      });
+  }
+
+  updatePatient(patient, id) {
+    const url = BASE_URL + "/" + id;
+    return axios
+      .put(url, patient)
+      .then((response) => {
+        console.log("atualizarPaciente");
+      })
+      .catch((error) => {
         throw error;
       });
   }
