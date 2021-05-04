@@ -4,16 +4,32 @@ import {
     Route
 } from "react-router-dom";
 
-function App() {
+import Exames from "components/Exames";
+
+const App = () => {
     return (
-	<Router>
-	    <Switch>
-		<Route>
-		    <div>huzzah!</div>
-		</Route>
-	    </Switch>
-	</Router>
+	<>
+	    <Router>
+		<Switch>
+
+		    <Route path="/clientes">
+		    </Route>
+
+		    <Route path="/agendamentos">
+		    </Route>
+
+		    <Route path="/exames">
+			<Exames/>
+		    </Route>
+
+		    <Route>
+			<div>~fallback page~</div>
+		    </Route>
+
+		</Switch>
+	    </Router>
+	</>
     );
-}
+};
 
 export default App;
