@@ -54,6 +54,7 @@ function Exams() {
           </div>
           <div className="container-buttons">
           <Button 
+              path = "/exames/cadastrar"
               name = "Cadastrar Exame" />
           </div>
         </div>

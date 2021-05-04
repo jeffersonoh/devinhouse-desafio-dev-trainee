@@ -48,7 +48,8 @@ function Schedules() {
           </div>
           <div className="container-buttons">
             <Button 
-              name = "Agendar Exame" />
+              path = "/agendamentos/cadastrar"
+              name = "Cadastrar Agendamento" />
           </div>
         </div>
       </div>

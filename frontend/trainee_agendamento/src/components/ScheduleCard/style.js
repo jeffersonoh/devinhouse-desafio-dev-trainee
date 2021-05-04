@@ -54,7 +54,7 @@ const CardStyle = styled.div`
 
   .schedule-date-info-data {
     margin-left: 5px;
-    color: #0591E8;
+    color: var(--primary);
     font-weight: 600;
   }
 
@@ -82,7 +82,7 @@ const CardStyle = styled.div`
   .schedule-action-delete {
     width: 20px;
     height: 20px;
-    color: #0591E8;
+    color: var(--primary);
     margin-top: 4px;
     margin-left: 4px;
   }

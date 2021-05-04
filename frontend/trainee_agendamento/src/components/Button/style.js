@@ -11,7 +11,7 @@ const ButtonStyled = styled.button`
 
   font-size: 18px;
 
-  background-color: #0591E8;
+  background-color: var(--primary);
   color: #FFFFFF;
 
   cursor: pointer;

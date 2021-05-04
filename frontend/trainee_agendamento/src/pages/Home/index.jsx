@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+// import { useHistory } from "react-router-dom";
 import Main from "../../components/Main";
 import ScheduleCard from "../../components/ScheduleCard";
 import Button from "../../components/Button";
-import Modal from "../../components/Modal";
+// import action from "../../services/api";
+// import { toast } from "react-toastify";
 
 function Home() {
-  const modalRef = React.useRef();
+  // const [scheduleDetails, setScheduleDetails] = useState({});
+  // const history = useHistory();
 
-  const openModal = () => {
-    modalRef.current.openModal();
-  };
- 
+  // const handleDeleteSchedule = () => {
+  //   const id = scheduleDetails.id;
+
+  //   const response = action.removeSchedule(id);
+  //   history.push("/");
+  //   toast.success(`Agendamento ${scheduleDetails.id} removido com sucesso`, {
+  //     position: "top-right";
+  //     autoClose: 4000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
+  // };
+
   return (
     <>
       <Main>
@@ -57,11 +72,14 @@ function Home() {
             </div>
             <div className="container-buttons">
               <Button 
+                path = "/clientes/cadastrar"
                 name = "Cadastrar Cliente" />
               <Button 
+                path = "/exames/cadastrar"
                 name = "Cadastrar Exame" />
               <Button 
-                name = "Agendar Exame" />
+                path = "/agendamentos/cadastrar"
+                name = "Cadastrar Agendamento" />
             </div>
           </div>
 
@@ -85,12 +103,6 @@ function Home() {
           </div>
         </div>
       </Main>
-
-      <Modal ref={modalRef} title="Cadastrar Cliente">
-        {/* Formulario desejado */}
-        {/* comando de chamada: onClick={() => modalRef.current.openModal()} */}
-      </Modal>
-
     </>
   )
 };

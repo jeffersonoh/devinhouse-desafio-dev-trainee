@@ -3,7 +3,6 @@ import { NavbarStyle, HeaderMenu } from "./style";
 
 function Navbar(){
   const location = useLocation();
-  let active = "active";
 
   console.log({location});
 
@@ -17,13 +16,13 @@ function Navbar(){
                 <Link to="/" className={location.pathname === "/" ? "active" : ""}>INICIO</Link>
               </li>
               <li>
-                <Link to="/agendamentos" className={location.pathname === "/agendamentos" ? "active" : ""}>AGENDAMENTOS</Link>
+                <Link to="/agendamentos" className={location.pathname === "/agendamentos" || location.pathname === "/agendamentos/cadastrar" ? "active" : ""}>AGENDAMENTOS</Link>
               </li>
               <li>
-                <Link to="/clientes" className={location.pathname === "/clientes" ? "active" : ""}>CLIENTES</Link>
+                <Link to="/clientes" className={location.pathname === "/clientes" || location.pathname === "/clientes/cadastrar" ? "active" : ""}>CLIENTES</Link>
               </li>
               <li>
-                <Link to="/exames" className={location.pathname === "/exames" ? "active" : ""}>EXAMES</Link>
+                <Link to="/exames" className={location.pathname === "/exames" || location.pathname === "/exames/cadastrar" ? "active" : ""}>EXAMES</Link>
               </li>
             </ul>
           </NavbarStyle>

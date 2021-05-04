@@ -1,7 +1,7 @@
 import Main from "../../components/Main";
 import ClientCard from "../../components/ClientCard";
 import Button from "../../components/Button";
-
+ 
 function Clients() {
   return (
     <Main>
@@ -44,9 +44,11 @@ function Clients() {
           </div>
           <div className="container-buttons">
               <Button 
+              path = "/clientes/cadastrar"
               name = "Cadastrar Cliente" />
 
               <Button 
+              path = "#"
               name = "Consultar CPF" />
           </div>
         </div>

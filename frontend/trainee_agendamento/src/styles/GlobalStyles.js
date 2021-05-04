@@ -28,6 +28,10 @@ export default createGlobalStyle`
     list-style: none;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   :root {
     --primary: #133991;
     --secondary: #0591E8;
@@ -180,88 +184,6 @@ h3 {
   font-size: 16px;
   text-align: justify;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   @media screen and (max-width: 575px) {
     h1 {

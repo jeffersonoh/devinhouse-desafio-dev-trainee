@@ -70,7 +70,7 @@ const ExamStyle = styled.div`
   .schedule-action-delete {
     width: 20px;
     height: 20px;
-    color: #0591E8;
+    color: var(--primary);
     margin-top: 4px;
     margin-left: 4px;
   }
