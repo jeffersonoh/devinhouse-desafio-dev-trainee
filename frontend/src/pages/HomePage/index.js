@@ -1,6 +1,8 @@
-import { Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles} from "@material-ui/core";
+import { useLoginContext } from "../../utils/login.context";
 
-import { useEffect, useState } from "react";
+import ExameList from "../../components/ExameList";
+
 
 const useStyle = makeStyles((theme) => ({
   flex: {
@@ -12,12 +14,18 @@ const useStyle = makeStyles((theme) => ({
 
 const HomePage = ({}) => {
   const classes = useStyle();
-
+  const {
+    login: { state },
+  } = useLoginContext();
   return (
     <div className={classes.flex}>
+      { state === "waiting" ?
       <Typography variant="h4">
         Bem Vindo, efetue o Login ou Cadastro para continuar.
       </Typography>
+      :
+        <ExameList/>
+      }
     </div>
   );
 };
