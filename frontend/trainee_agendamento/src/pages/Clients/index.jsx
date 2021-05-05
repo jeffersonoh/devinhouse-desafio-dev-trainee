@@ -2,7 +2,6 @@ import Main from "../../components/Main";
 import ClientCard from "../../components/ClientCard";
 import Button from "../../components/Button";
 import { useState, useEffect } from "react";
-import Actions from "../../services/api"
 import axios from "axios"; 
 
 function Clients() {
@@ -17,7 +16,7 @@ function Clients() {
     instance.get(`/clientes/v1/consultar`)
       .then((res) => {
         setClientesList(res.data);
-      });
+      });    
   }
 
   useEffect(() => {
@@ -32,7 +31,6 @@ function Clients() {
         </div>
 
         <div className="clients-card">
-
           { clientesList.length > 0 ? clientesList.map((data) => {
             return (
               <ClientCard 

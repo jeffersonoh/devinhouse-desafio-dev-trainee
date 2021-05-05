@@ -1,9 +1,29 @@
 import Main from "../../components/Main";
 import ExamCard from "../../components/ExamCard";
 import Button from "../../components/Button";
-
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 function Exams() {
+  const [examesList, setExamesList] = useState([]);
+
+  const instance = axios.create({
+    baseURL: 'http://localhost:8080/backend',
+    headers: {'api-version' : '1'}
+  });
+
+  function findExamList() {
+    instance.get(`/exames/v1/consultar`)
+      .then((res) => {
+        setExamesList(res.data);
+      });
+  }
+
+  useEffect(() => {
+    findExamList();
+  }, []);
+
   return (
     <Main>
       <div className="clients-resume">
@@ -12,37 +32,18 @@ function Exams() {
         </div>
 
         <div className="clients-card">
-          <ExamCard 
-            titulo = "Exame"
-            id = "1"
-            nome = "Raio X" />
-
-            <ExamCard 
-            titulo = "Exame"
-            id = "2"
-            nome = "Raio X" />
-
-            <ExamCard 
-            titulo = "Exame"
-            id = "3"
-            nome = "Raio X" />
-
-            <ExamCard 
-            titulo = "Exame"
-            id = "4"
-            nome = "Raio X" />
-
-            <ExamCard 
-            titulo = "Exame"
-            id = "5"
-            nome = "Raio X" />
-
-            <ExamCard 
-            titulo = "Exame"
-            id = "6"
-            nome = "Raio X" />
-
-
+          { examesList.length > 0 ? examesList.map((data) => {
+            return (
+              <ExamCard 
+                titulo = "Exame"
+                key = {data.id}
+                nome = {data.nome} />
+              )
+            })
+        
+           : "Nenhum exame cadastrado"
+          }
+        
         </div>
       </div>
 
