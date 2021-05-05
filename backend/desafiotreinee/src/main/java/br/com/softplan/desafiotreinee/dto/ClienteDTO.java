@@ -4,19 +4,20 @@ public class ClienteDTO {
 
 	private static final long serialVersionUID = 7887343820631112092L;
 
-	private Integer cpf;
-	private Integer id;
+	private String cpf;
+
 	private String nome;
 	private String sobrenome;
 	private String dataNascimento;
-	
 
-	public Integer getId() {
-		return id;
+	public ClienteDTO() {
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public ClienteDTO(String cpf, String nome, String sobrenome, String dataNascimento) {
+		this.cpf = cpf;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getNome() {
@@ -43,12 +44,23 @@ public class ClienteDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
-		this.cpf = cpf;
+	public void setCpf(String cpf) {
+		int limite = 11;
+		if (cpf != null && cpf.length() == limite) {
+			this.cpf = cpf;
+		} else {
+			System.out.println("CPF Inválido");
+		}
+
 	}
 
 }
+/*
+ * public String limitaString(String testes, int tamanho){ if(testes != null &&
+ * testes.length() > tamanho){ return testes.substring(0, tamanho+1) + "..."; }
+ * else { return testes; } }
+ */

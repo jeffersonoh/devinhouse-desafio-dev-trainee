@@ -15,7 +15,7 @@ public class AgendaRepository {
 	@Autowired
 	private AgendaMock agendaMock;
 	
-	private List<AgendaDTO> findAllAgenda(){
+	public List<AgendaDTO> findAllAgenda(){
 		return agendaMock.getAllAgendas();
 	}
 	

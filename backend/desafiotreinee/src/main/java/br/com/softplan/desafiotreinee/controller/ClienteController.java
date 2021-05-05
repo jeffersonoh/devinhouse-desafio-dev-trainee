@@ -32,7 +32,7 @@ public class ClienteController {
 			+ "/deletar/cpf/{cpf}", method = DELETE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public List<ClienteDTO> apagarCliente(@PathVariable Integer cpf) {
+	public List<ClienteDTO> apagarCliente(@PathVariable String cpf) {
 		return service.apagarCliente(cpf);
 	}
 
@@ -41,7 +41,7 @@ public class ClienteController {
 			+ "/consulta/cpf/{cpf}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public List<ClienteDTO> recuperarClientesMocados(@PathVariable int cpf) {
+	public List<ClienteDTO> recuperarClientesMocados(@PathVariable String cpf) {
 		return service.recuperarClientesMocados(cpf);
 	}
 
@@ -68,7 +68,7 @@ public class ClienteController {
 			+ "/atualizar/cliente/{cpf}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public List<ClienteDTO> atualizarCliente(@PathVariable int cpf, @RequestBody ClienteDTO newCliente) {
+	public List<ClienteDTO> atualizarCliente(@PathVariable String cpf, @RequestBody ClienteDTO newCliente) {
 
 		return service.atualizarCliente(cpf, newCliente);
 	}

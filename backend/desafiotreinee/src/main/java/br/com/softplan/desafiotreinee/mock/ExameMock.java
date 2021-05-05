@@ -14,14 +14,18 @@ public class ExameMock {
 	
 	
 	
-	private static final String exames[] = new String[5];
+	private static final String exames[] = new String[8];
 	
 	public void addExames() {
-		exames[0] = "exame 1";
-		exames[1] = "exame 2";
-		exames[2] = "exame 3";
-		exames[3] = "exame 4";
-		exames[4] = "exame 5";
+		exames[0] = "HEMOGRAMA";
+		exames[1] = "GLICEMIA EM JEJUM";
+		exames[2] = "COLESTEROL E TRIGLICERÍDEOS";
+		exames[3] = "UREIA E CREATINA";
+		exames[4] = "TGO (AST) E TGP (ALT)";
+		exames[5] = "TSH E T4 LIVRE";
+		exames[6] = "ELETROCARDIOGRAMA";
+		exames[7] = "ECOCARDIOGRAMA";
+		
 	}
 	
 	

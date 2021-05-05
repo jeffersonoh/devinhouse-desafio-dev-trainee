@@ -25,12 +25,12 @@ public class ClienteService {
 	}
 
 	// Deverá haver um endpoint para busca de um cliente baseado no seu cpf;
-	public List<ClienteDTO> recuperarClientesMocados(Integer cpf) {
+	public List<ClienteDTO> recuperarClientesMocados(String cpf) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
 		List<ClienteDTO> listClienteFiltrado = new ArrayList<ClienteDTO>();
 
 		for (ClienteDTO clienteDTO : todosClientes) {
-			if (cpf == (clienteDTO.getCpf())) {
+			if (cpf.equals(clienteDTO.getCpf())) {
 				listClienteFiltrado.add(clienteDTO);
 			}
 		}
@@ -41,23 +41,30 @@ public class ClienteService {
 	// Deverá haver um endpoint para criação de um cliente;
 	public List<ClienteDTO> cadastrarCliente(ClienteDTO cliente) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
-
 		
-		if (todosClientes.size() != 0) {
-			int id = todosClientes.size();
-			id += 1;
-			cliente.setId(id);
-			todosClientes.add(cliente);
+		todosClientes.add(cliente);
+
+		for (ClienteDTO clienteDTO : todosClientes) {
+
+			if (cliente.getCpf().equals(clienteDTO.getCpf())) {
+				System.out.println("CPF já cadastrado!!");
+				todosClientes.remove(cliente);
+				return todosClientes;
+
+			}else {
+				return todosClientes;
+			}
+
 		}
 		return todosClientes;
 	}
 
 	// Deverá haver um endpoint para atualização de um cliente;
-	public List<ClienteDTO> atualizarCliente(Integer cpf, ClienteDTO newCliente) {
+	public List<ClienteDTO> atualizarCliente(String cpf, ClienteDTO newCliente) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
 
 		for (ClienteDTO clienteDTO : todosClientes) {
-			if (cpf == clienteDTO.getCpf()) {
+			if (cpf.equals(clienteDTO.getCpf())) {
 				if (clienteDTO.getCpf() != null) {
 					clienteDTO.setCpf(newCliente.getCpf());
 				}
@@ -88,11 +95,12 @@ public class ClienteService {
 	}
 
 	// Deverá haver um endpoint para exclusão de um cliente;
-	public List<ClienteDTO> apagarCliente(Integer cpf) {
+	public List<ClienteDTO> apagarCliente(String cpf) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
 
+		
 		for (int i = 0; i < todosClientes.size(); i++) {
-			if (cpf == todosClientes.get(i).getCpf()) {
+			if (cpf.equals(todosClientes.get(i).getCpf())) {
 				todosClientes.remove(i);
 			}
 		}
