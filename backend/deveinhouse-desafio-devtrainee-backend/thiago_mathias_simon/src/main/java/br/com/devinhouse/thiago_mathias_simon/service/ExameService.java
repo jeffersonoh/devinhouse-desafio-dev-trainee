@@ -11,7 +11,6 @@ public class ExameService {
     @Autowired
     private ExameRepository repository;
 
-
     public Iterable<ExameEntity> listarExames() {
         return  repository.findAll();
     }

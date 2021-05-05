@@ -18,28 +18,6 @@ import br.com.devinhouse.thiago_mathias_simon.ErrorDTO.ExceptionResponse;
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(value = { ProcessAlreadyExistException.class })
-	public final ResponseEntity<Object> handleExceptionEntity(ProcessAlreadyExistException paee, WebRequest request)
-			throws Exception {
-
-		ExceptionResponse exceptionResponse = new ExceptionResponse(paee.getMessage(),
-				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
-
-		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
-
-	}
-
-	@ExceptionHandler(value = { NullProcessException.class })
-	public final ResponseEntity<Object> handleExceptionEntity(NullProcessException npe, WebRequest request)
-			throws Exception {
-
-		ExceptionResponse exceptionResponse = new ExceptionResponse(npe.getMessage(),
-				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
-
-		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
-
-	}
-
 	@ExceptionHandler(value = { NoSuchElementException.class })
 	public final ResponseEntity<Object> handleExceptionEntity(NoSuchElementException nsee, WebRequest request)
 			throws Exception {
@@ -105,4 +83,75 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
 
 	}
+
+	@ExceptionHandler(value = {InvalidBornDateException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidBornDateException ibde, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(ibde.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {InvalidExamDateException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidExamDateException iede, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(iede.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {InvalidExamTimeException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidExamTimeException iete, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(iete.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {InvalidExamDataException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidExamDataException iede, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(iede.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {InvalidPatientNameException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidPatientNameException ipne, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(ipne.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {MissingValuesException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(MissingValuesException mve, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(mve.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = {ScheduledExamNotFoundException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(ScheduledExamNotFoundException senf, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(senf.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
 }

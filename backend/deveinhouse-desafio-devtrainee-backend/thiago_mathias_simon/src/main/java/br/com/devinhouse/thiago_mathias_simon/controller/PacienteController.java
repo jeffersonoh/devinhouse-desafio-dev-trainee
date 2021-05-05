@@ -1,16 +1,10 @@
 package br.com.devinhouse.thiago_mathias_simon.controller;
 
 import br.com.devinhouse.thiago_mathias_simon.dto.PacienteDTO;
-import br.com.devinhouse.thiago_mathias_simon.dto.ProcessoCriadoDTO;
-import br.com.devinhouse.thiago_mathias_simon.dto.ProcessoRemovidoDTO;
 import br.com.devinhouse.thiago_mathias_simon.entity.PacienteEntity;
-import br.com.devinhouse.thiago_mathias_simon.entity.ProcessoEntity;
 import br.com.devinhouse.thiago_mathias_simon.service.PacienteService;
-import br.com.devinhouse.thiago_mathias_simon.service.ProcessoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -54,4 +48,5 @@ public class PacienteController {
     public PacienteDTO deletarPaciente(@PathVariable long id) {
         return service.deletarPaciente(id);
     }
+
 }

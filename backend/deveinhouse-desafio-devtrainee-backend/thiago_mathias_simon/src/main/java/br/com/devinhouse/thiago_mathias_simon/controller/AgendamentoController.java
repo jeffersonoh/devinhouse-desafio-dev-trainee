@@ -1,16 +1,10 @@
 package br.com.devinhouse.thiago_mathias_simon.controller;
 
-
 import br.com.devinhouse.thiago_mathias_simon.dto.AgendamentoDTO;
-import br.com.devinhouse.thiago_mathias_simon.dto.ProcessoCriadoDTO;
-import br.com.devinhouse.thiago_mathias_simon.dto.ProcessoRemovidoDTO;
 import br.com.devinhouse.thiago_mathias_simon.entity.AgendamentoEntity;
-import br.com.devinhouse.thiago_mathias_simon.entity.ProcessoEntity;
 import br.com.devinhouse.thiago_mathias_simon.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -48,6 +42,5 @@ public class AgendamentoController {
     public AgendamentoDTO deletarAgendamento(@PathVariable long id) {
         return service.deletarAgendamento(id);
     }
-
 
 }
