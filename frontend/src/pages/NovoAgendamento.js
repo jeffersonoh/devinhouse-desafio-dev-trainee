@@ -1,9 +1,15 @@
-import { Button, Grid, makeStyles, TextField, Typography } from "@material-ui/core";
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import { Button, Grid, makeStyles, Typography, TextField as MuiTextField } from "@material-ui/core";
+import { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import { Autocomplete } from "formik-material-ui-lab";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import * as Yup from 'yup';
+
 import ClienteDialog from "../components/ClienteDialog";
+import ExameDialog from "../components/ExameDialog";
 import formataCPF from "../helpers/formataCPF";
 import apiAgendamento from "../services/apiAgendamento";
 import apiCliente from "../services/apiCliente";
@@ -11,7 +17,9 @@ import apiExame from "../services/apiExame";
 
 const useStyles = makeStyles(() => ({
   input: {
-    backgroundColor: "#FFF",
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: "#FFF",
+    }
   },
   grid: {
     marginBottom: 10,
@@ -29,23 +37,32 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.cpf ? option.nome + option.cpf : option.nome,
 });
 
+const yupSchema = Yup.object().shape({
+  data: Yup.string().required('Campo data é obrigatório'),
+  horario: Yup.string().required('Campo horário é obrigatório'),
+  cliente: Yup.object().nullable().required('Campo cliente é obrigatório'),
+  exame: Yup.object().nullable().required('Campo exame é obrigatório'),
+});
+
 const NovoAgendamento = () => {
   const classes = useStyles();
-  const [agendamento, setAgendamento] = useState({});
   const [clientes, setClientes] = useState([]);
-  const [cliente, setCliente] = useState({});
-  const [exame, setExame] = useState({});
   const [exames, setExames] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [openNovoCLiente, setOpenNovoCliente] = useState(false);
+  const [openNovoExame, setOpenNovoExame] = useState(false);
+  const [clienteInputValue, setClienteinputValue] = useState('');
+  const [exameInputValue, setExameinputValue] = useState('');
+
+  let history = useHistory();
 
   const handleClose = () => {
-    setOpen(false);
-
-    setCliente({});
+    openNovoCLiente && setOpenNovoCliente(false);
+    openNovoExame && setOpenNovoExame(false);
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (dialog) => {
+    dialog === 'cliente' && setOpenNovoCliente(true);
+    dialog === 'exame' && setOpenNovoExame(true);
   };
 
   const location = useLocation();
@@ -65,210 +82,283 @@ const NovoAgendamento = () => {
   useEffect(() => {
     getClientes();
     getExames();
+  }, []);
+
+  const handleInitialValues = () => {
     if (location.state?.dados) {
-      setAgendamento(location.state.dados);
-      setCliente(location.state.dados.cliente);
-      setExame(location.state.dados.exame)
-    }
-  }, [location]);
-
-  const handleSave = async (agendamento, cliente, exame) => {
-    const data = {
-      data: agendamento.data,
-      horario: agendamento.horario,
-      clienteId: cliente.id,
-      exameId: exame.id
-    }
-
-    if (agendamento.id) {
-      data.id = agendamento.id;
-      await apiAgendamento.updateAgendamento(data.id, data);
+      return {
+        id: location.state?.dados.id,
+        data: location.state?.dados.data.split('/').reverse().join('-'),
+        horario: location.state?.dados.horario,
+        cliente: location.state?.dados.cliente,
+        exame: location.state?.dados.exame,
+      };
     } else {
-      await apiAgendamento.createAgendamento(data);
+      return {
+        id: 0,
+        data: '',
+        horario: '',
+        cliente: undefined,
+        exame: undefined,
+      }
     }
   };
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const data = {
+      data: values.data.split('-').reverse().join('/'),
+      horario: values.horario,
+      clienteId: values.cliente.id,
+      exameId: values.exame.id
+    }
+
+    if (values.id === 0) {
+      await apiAgendamento.createAgendamento(data);
+    } else {
+      data.id = values.id;
+      await apiAgendamento.updateAgendamento(data.id, data);
+    }
+
+    setSubmitting(false);
+
+    history.goBack();
+  }
+
+  console.log(clienteInputValue)
 
   return (
     <>
       <Typography variant="h3" component="h1" paragraph>
-        Cadastro de agendamento
+        {handleInitialValues().id === 0 ? 'Cadastro de agendamento' : 'Editar agendamento'}
       </Typography>
-      <Grid container spacing={2} className={classes.grid}>
-        <Grid item xs={12} md={6}>
-          <TextField
-            className={classes.input}
-            label="Data"
-            value={agendamento?.data?.split('/').reverse().join('-')}
-            variant="outlined"
-            color="secondary"
-            type="date"
-            margin="normal"
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            className={classes.input}
-            label="Horário"
-            value={agendamento?.horario}
-            color="secondary"
-            variant="outlined"
-            type="time"
-            margin="normal"
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Autocomplete
-            id="cliente"
-            options={clientes}
-            getOptionLabel={
-              (option) => option.nome ? option.nome : ""
-            }
-            value={cliente}
-            onChange={(event, newValue) => {
-              console.log(newValue?.nome)
-              if (newValue?.nome === "Adicionar novo cliente") {
-                return handleClickOpen();
-              } else if (newValue) {
-                setCliente(newValue);
-              } else {
-                setCliente({})
-              }
-            }}
-            filterOptions={(options, params) => {
-              const filtrado = filterOptions(options, params);
-
-              if (params.inputValue !== '') {
-                filtrado.push({
-                  inputValue: params.inputValue,
-                  nome: `Adicionar novo cliente`,
-                });
-              }
-
-              return filtrado;
-            }}
-            freeSolo
-            fullWidth
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                className={classes.input}
-                label="Cliente"
-                variant="outlined"
-                color="secondary"
-                margin="normal"
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Autocomplete
-            id="exame"
-            options={exames}
-            getOptionLabel={(option) => option.nome ? option.nome : ""}
-            value={exame}
-            onChange={(event, newValue) => {
-              newValue ? setExame(newValue) : setExame({});
-            }}
-            filterOptions={filterOptions}
-            fullWidth
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                className={classes.input}
-                label="Exame"
-                variant="outlined"
-                color="secondary"
-                margin="normal"
-              />
-            )}
-          />
-        </Grid>
-      </Grid>
-      <Typography variant="h5" paragraph>
-        Detalhes do cliente
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            label="Nome"
-            value={cliente?.nome || ""}
-            variant="outlined"
-            color="secondary"
-            margin="normal"
-            fullWidth
-            disabled
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            label="CPF"
-            value={cliente?.cpf ? formataCPF(cliente.cpf) : ""}
-            variant="outlined"
-            color="secondary"
-            margin="normal"
-            fullWidth
-            disabled
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            label="Data de nascimento"
-            value={cliente?.dataNascimento?.split('/').reverse().join('-') || ""}
-            color="secondary"
-            variant="outlined"
-            type="date"
-            margin="normal"
-            fullWidth
-            disabled
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        justify="flex-end"
-        className={classes.footer}
+      <Formik
+        initialValues={handleInitialValues()}
+        validationSchema={yupSchema}
+        onSubmit={handleSubmit}
       >
-        <Button
-          variant="outlined"
-          className={classes.cancelarButton}
-          component={Link}
-          to="/agendamentos"
-        >
-          cancelar
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          disableElevation
-          onClick={() => handleSave(agendamento, cliente, exame)}
-        >
-          salvar
-        </Button>
-      </Grid>
-      <ClienteDialog
-        open={open}
-        onClose={handleClose}
-        //onSave={handleCreate}
-        cliente={cliente}
-        setCliente={setCliente}
-      />
+        {({ submitForm, isSubmitting, setFieldValue, values, errors, touched }) => (
+          <Form>
+            <Grid container spacing={2} className={classes.grid}>
+              <Grid item xs={12} md={6}>
+                <Field
+                  component={TextField}
+                  className={classes.input}
+                  name="data"
+                  label="Data"
+                  type="date"
+                  //value={agendamento?.data?.split('/').reverse().join('-')}
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Field
+                  component={TextField}
+                  className={classes.input}
+                  name="horario"
+                  label="Horário"
+                  type="time"
+                  //value={agendamento?.horario}
+                  color="secondary"
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  component={Autocomplete}
+                  name="cliente"
+                  id="cliente"
+                  options={clientes}
+                  inputValue={clienteInputValue}
+                  onInputChange={(e, value) => setClienteinputValue(value)}
+                  getOptionLabel={
+                    (option) => option.nome ? option.nome : ""
+                  }
+                  onChange={(event, newValue) => {
+                    console.log(newValue?.nome)
+                    if (newValue?.nome === "Adicionar novo cliente") {
+                      setClienteinputValue('');
+                      return handleClickOpen('cliente');
+                    } else {
+                      setFieldValue("cliente", newValue);
+                    }
+                  }}
+                  filterOptions={(options, params) => {
+                    const filtrado = filterOptions(options, params);
+      
+                    if (params.inputValue !== '') {
+                      filtrado.push({
+                        inputValue: params.inputValue,
+                        nome: `Adicionar novo cliente`,
+                      });
+                    }
+      
+                    return filtrado;
+                  }}
+                  freeSolo
+                  fullWidth
+                  renderInput={(params) => (
+                    <MuiTextField
+                      {...params}
+                      error={touched['cliente'] && !!errors['cliente']}
+                      helperText={
+                        touched['cliente'] && errors['cliente']
+                      }
+                      className={classes.input}
+                      label="Cliente"
+                      variant="outlined"
+                      color="secondary"
+                      margin="normal"
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Field
+                  component={Autocomplete}
+                  name="exame"
+                  id="exame"
+                  options={exames}
+                  inputValue={exameInputValue}
+                  onInputChange={(e, value) => setExameinputValue(value)}
+                  getOptionLabel={(option) => option.nome ? option.nome : ""}
+                  onChange={(event, newValue) => {
+                    if (newValue?.nome === "Adicionar novo exame") {
+                      setExameinputValue('');
+                      return handleClickOpen('exame');
+                    } else {
+                      setFieldValue("exame", newValue);
+                    }
+                  }}
+                  filterOptions={(options, params) => {
+                    const filtrado = filterOptions(options, params);
+      
+                    if (params.inputValue !== '') {
+                      filtrado.push({
+                        inputValue: params.inputValue,
+                        nome: `Adicionar novo exame`,
+                      });
+                    }
+      
+                    return filtrado;
+                  }}
+                  freeSolo
+                  fullWidth
+                  renderInput={(params) => (
+                    <MuiTextField
+                      {...params}
+                      error={touched['exame'] && !!errors['exame']}
+                      helperText={
+                        touched['exame'] && errors['exame']
+                      }
+                      className={classes.input}
+                      label="Exame"
+                      variant="outlined"
+                      color="secondary"
+                      margin="normal"
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+            <Typography variant="h5" paragraph>
+              Detalhes do cliente
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <MuiTextField
+                  label="Nome"
+                  value={values.cliente?.nome || ""}
+                  //value={cliente?.nome || ""}
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                  disabled
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <MuiTextField
+                  label="CPF"
+                  value={values.cliente?.cpf ? formataCPF(values.cliente.cpf) : ""}
+                  //value={cliente?.cpf ? formataCPF(cliente.cpf) : ""}
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                  disabled
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <MuiTextField
+                  label="Data de nascimento"
+                  value={values.cliente?.dataNascimento?.split('/').reverse().join('-') || ""}
+                  //value={cliente?.dataNascimento?.split('/').reverse().join('-') || ""}
+                  color="secondary"
+                  variant="outlined"
+                  type="date"
+                  margin="normal"
+                  fullWidth
+                  disabled
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              justify="flex-end"
+              className={classes.footer}
+            >
+              <Button
+                variant="outlined"
+                className={classes.cancelarButton}
+                component={Link}
+                to="/agendamentos"
+              >
+                cancelar
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                disableElevation
+                disabled={isSubmitting}
+                onClick={submitForm}
+                //onClick={() => handleSave(agendamento, cliente, exame)}
+              >
+                salvar
+              </Button>
+            </Grid>
+            <ClienteDialog
+              open={openNovoCLiente}
+              onClose={handleClose}
+              //onSave={handleCreate}
+            />
+            <ExameDialog
+              open={openNovoExame}
+              onClose={handleClose}
+              //onSave={handleCreate}
+            />
+          </Form>
+        )}
+      </Formik>
     </>
   );
 }
