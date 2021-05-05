@@ -16,8 +16,8 @@ const filter = createFilterOptions();
 
 let fecharDialogo = false;
 const AgendaCombobox = () => {
-  const { clientes, novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox, 
-          novaMarcacao, setNovaMarcacao, setChamadoHTTP } = useAuth();
+  const { clientes, novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox,
+    novaMarcacao, setNovaMarcacao, setChamadoHTTP } = useAuth();
   const classes = useStyles();
   const [value, setValue] = useState(null);
   const [open, toggleOpen] = useState(false);
@@ -35,27 +35,23 @@ const AgendaCombobox = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setChamadoHTTP("POST_NOVOCLIENTE")
-  
-    if (fecharDialogo) {
-      setValue({
-        nome: novoCliente.nome,
-        cpf: novoCliente.cpf,
-        ddn: novoCliente.ddn
-      });
-      setNovaMarcacao({...novaMarcacao, cpf: novoCliente.cpf, pacienteNome: novoCliente.nome});
-      handleClose();
-    }
+    setValue({
+      nome: novoCliente.nome,
+      cpf: novoCliente.cpf,
+      ddn: novoCliente.ddn
+    });
+    setNovaMarcacao({ ...novaMarcacao, cpf: novoCliente.cpf, pacienteNome: novoCliente.nome });
   };
 
-  useEffect(()=> {
-    if (clienteCriadoComboBox) {fecharDialogo = true};
-  },[clienteCriadoComboBox])
+  useEffect(() => {
+    if (!clienteCriadoComboBox) { handleClose(); }
+  }, [clienteCriadoComboBox])
 
-  useEffect(()=> {
+  useEffect(() => {
     setClienteCriadoComboBox(true);
-  },[])
+  }, [])
 
-  
+
   return (
     <React.Fragment>
       <Autocomplete
@@ -66,21 +62,21 @@ const AgendaCombobox = () => {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
               toggleOpen(true);
-              setNovoCliente({ ...novoCliente, nome: newValue});
+              setNovoCliente({ ...novoCliente, nome: newValue });
             });
           } else if (newValue && newValue.inputValue) {
             toggleOpen(true);
-            setNovoCliente({ ...novoCliente, nome: newValue.inputValue});
+            setNovoCliente({ ...novoCliente, nome: newValue.inputValue });
           } else {
             setValue(newValue);
             clientes.map((item) => {
               if (item.id === newValue.id) {
-                setNovaMarcacao({...novaMarcacao, cpf: item.cpf, pacienteNome: item.nome});
+                setNovaMarcacao({ ...novaMarcacao, cpf: item.cpf, pacienteNome: item.nome });
               }
             })
           }
         }}
-        
+
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 
