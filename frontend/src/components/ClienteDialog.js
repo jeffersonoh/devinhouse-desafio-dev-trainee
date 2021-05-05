@@ -1,6 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, TextField, Typography, withStyles } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import * as Yup from 'yup';
 
 const styles = (theme) => ({
   root: {
@@ -29,16 +32,36 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
+const yupSchema = Yup.object().shape({
+  nome: Yup.string().required('Campo nome é obrigatório'),
+  cpf: Yup.string().required('Campo cpf é obrigatório'),
+  dataNascimento: Yup.string().required('Campo data de nascimento é obrigatório'),
+});
+
 const ClienteDialog = (props) => {
-  const { onClose, selectedValue, open, onSave, cliente, setCliente } = props;
+  const { onClose, selectedValue, open, onSave, cliente } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleSave = () => {
-    onSave(cliente);
-  }
+  const handleInitialValues = () => {
+    if (cliente) {
+      return {
+        id: cliente.id,
+        nome: cliente.nome,
+        cpf: cliente.cpf,
+        dataNascimento: cliente.dataNascimento.split('/').reverse().join('-'),
+      };
+    } else {
+      return {
+        id: 0,
+        nome: '',
+        cpf: '',
+        dataNascimento: '',
+      }
+    }
+  };
 
   return (
     <Dialog
@@ -48,70 +71,68 @@ const ClienteDialog = (props) => {
       maxWidth="lg"
     >
       <DialogTitle id="simple-dialog-title" onClose={handleClose}>Cadastro de Cliente</DialogTitle>
-      <DialogContent>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Nome"
-              variant="outlined"
+      <Formik 
+        initialValues={handleInitialValues()}
+        validationSchema={yupSchema}
+        onSubmit={onSave}
+      >
+        <Form>
+          <DialogContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Field
+                  component={TextField}
+                  name="nome"
+                  label="Nome"
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Field
+                  component={TextField}
+                  name="cpf"
+                  label="CPF"
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Field
+                  component={TextField}
+                  name="dataNascimento"
+                  label="Data de nascimento"
+                  color="secondary"
+                  variant="outlined"
+                  type="date"
+                  margin="normal"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} variant="outlined">
+              cancelar
+            </Button>
+            <Button
+              type="submit"
               color="secondary"
-              margin="normal"
-              value={cliente?.nome}
-              onChange={e => setCliente({
-                ...cliente,
-                nome: e.target.value
-              })}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="CPF"
-              variant="outlined"
-              color="secondary"
-              margin="normal"
-              value={cliente?.cpf}
-              onChange={e => setCliente({
-                ...cliente,
-                cpf: e.target.value
-              })}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="Data de nascimento"
-              color="secondary"
-              variant="outlined"
-              type="date"
-              margin="normal"
-              value={cliente?.dataNascimento?.split('/').reverse().join('-')}
-              onChange={e => setCliente({
-                ...cliente,
-                dataNascimento: e.target.value.split('-').reverse().join('/')
-              })}
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
-          cancelar
-        </Button>
-        <Button
-          onClick={handleSave}
-          color="secondary"
-          autoFocus
-          variant="contained"
-          disableElevation
-        >
-          salvar
-        </Button>
-      </DialogActions>
+              variant="contained"
+              disableElevation
+            >
+              salvar
+            </Button>
+          </DialogActions>
+        </Form>
+      </Formik>    
     </Dialog>
   );
 }

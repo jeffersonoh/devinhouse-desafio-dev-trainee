@@ -7,7 +7,7 @@ import apiCliente from '../services/apiCliente';
 
 const Clientes = () => {
   const [open, setOpen] = useState(false);
-  const [cliente, setCliente] = useState({});
+  const [cliente, setCliente] = useState(undefined);
   const [clientes, setClientes] = useState([]);
 
   const getClientes = async () => {
@@ -33,19 +33,25 @@ const Clientes = () => {
   const handleClose = () => {
     setOpen(false);
 
-    setCliente({});
+    setCliente(undefined);
   };
 
   const handleCreate = async (cliente) => {
-    if (cliente.id) {
-      await apiCliente.updateCliente(cliente.id, cliente);
+    const data = {
+      ...cliente,
+      dataNascimento: cliente.dataNascimento.split('-').reverse().join('/')
+    };
+
+    if (cliente.id === 0) {
+      await apiCliente.createCliente(data);
     } else {
-      await apiCliente.createCliente(cliente);
+      data.id = cliente.id;
+      await apiCliente.updateCliente(data.id, data);
     }
 
     setOpen(false);
 
-    setCliente({});
+    setCliente(undefined);
 
     getClientes();
   };
@@ -81,7 +87,6 @@ const Clientes = () => {
         onClose={handleClose}
         onSave={handleCreate}
         cliente={cliente}
-        setCliente={setCliente}
       />
     </>
   );
