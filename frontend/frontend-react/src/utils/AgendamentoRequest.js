@@ -25,7 +25,7 @@ class RequestBackendAgendamento {
     }
 
     getAgendamentosIndisponiveis(nomeExame, data) {
-        return axios.get(`${URL}/agendamento/${nomeExame}/${data}`)
+        return axios.get(`${URL}/agendamento/${nomeExame}?data=${data}`)
         .then(response => response.data)
         .catch(error => {
             throw error;
