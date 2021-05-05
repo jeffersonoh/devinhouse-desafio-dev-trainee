@@ -29,7 +29,8 @@ const useStyles = makeStyles({
   },
 });
 
-export function Agendamento() {
+export function Agendamento(props) {
+  const {titulo} = props
   const classes = useStyles();
   const [nomeExame, setNomeExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
@@ -79,8 +80,6 @@ export function Agendamento() {
   }
 
   return (
-    <>
-      <BarraPrincipal />
       <Box className={classes.boxExterior}>
         <Paper className={classes.boxPaper}>
           <Box className={classes.boxTitle}>
@@ -117,6 +116,5 @@ export function Agendamento() {
           </Box>
         </Paper>
       </Box>
-    </>
   );
 }
