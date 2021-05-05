@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {cpfMask} from "./maks";
+import { cpfMask } from "./maks";
 
 import { InputText } from "../../components/InputText";
 import Botao from "../../components/Button/Botao";
@@ -24,54 +24,96 @@ const useStyles = makeStyles({
   },
 });
 
-export const CadastroCliente = () => {
+export const CadastroCliente = (props) => {
+  const {
+    titulo,
+    labelNome,
+    labelCpf,
+    labelNascimento,
+    valueCpf,
+    valueNome,
+    valueNascimento,
+    showDeleteButton,
+  } = props;
   const classes = useStyles();
-  const [cpf, setCpf] = useState("");
+  const [stateCpf, setStateCpf] = useState("");
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  
-  const handlePost = () => {
+
+  const handlePost = async () => {
     const [ano, mes, dia] = dataNascimento.split("-");
 
-    RequestBackendCliente.postCliente({
-      cpf: cpf,
+    await RequestBackendCliente.postCliente({
+      cpf: stateCpf,
       nome: nome,
       dataNascimento: `${dia}/${mes}/${ano}`,
-    });  
-    setCpf("");
+    });
+    setStateCpf("");
+    setNome("");
+    setDataNascimento("");
+  };
+
+  const handlePut = async (cpf) => {
+    
+    await RequestBackendCliente.putCliente("555",{
+      cpf: stateCpf,
+      nome: nome,
+      dataNascimento: dataNascimento
+    });
+    setStateCpf("");
+    setNome("");
+    setDataNascimento("");
+  };
+
+  const handleDelete = async (cpf) => {
+    await RequestBackendCliente.deleteClientePorCpf("555");
+    setStateCpf("");
     setNome("");
     setDataNascimento("");
   };
 
   const handleCpf = (e) => {
     const { value } = e.target;
-    setCpf(cpfMask(value))
+    setStateCpf(cpfMask(value));
   };
+
+  useEffect(() => {
+    setStateCpf(valueCpf);
+    setNome(valueNome);
+    setDataNascimento(valueNascimento);
+  }, []);
 
   return (
     <Box className={classes.boxExterior}>
       <Box className={classes.boxInterior} component={Paper} elevation={2}>
-        <Typography variant="h6">Cadastro de Cliente</Typography>
+        <Typography variant="h6">{titulo}</Typography>
         <Box className={classes.boxForms}>
-        <InputText
-            label="Digite seu CPF"
-            value={cpf}
+          <InputText
+            label={labelCpf}
+            value={stateCpf}
             handlefunction={(e) => handleCpf(e)}
           />
           <InputText
-            label="Digite seu nome"
+            label={labelNome}
             value={nome}
             handlefunction={(e) => setNome(e.target.value)}
           />
           <InputText
-            label="Sua data de nascimento"
+            label={labelNascimento}
             value={dataNascimento}
             handlefunction={(e) => setDataNascimento(e.target.value)}
             type="date"
           />
         </Box>
         <Box className={classes.botao}>
-          <Botao text="Enviar" onclick={() => handlePost()} />
+          {showDeleteButton === true ? (
+            <>
+              <Botao text="Atualizar" onclick={() => handlePut()} />{" "}
+              <Botao text="Deletar Perfil" onclick={() => handleDelete()} />{" "}
+            </>
+          ) : (
+            <Botao text="Enviar" onclick={() => handlePost()} />
+          )}
         </Box>
       </Box>
     </Box>

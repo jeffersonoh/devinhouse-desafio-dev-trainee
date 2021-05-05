@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@material-ui/core';
 
 export function InputText(props) {
-    const {label, handlefunction, value, type} = props;
+    const {label, handlefunction, value, type, disable} = props;
     return (
         <TextField 
             variant="standard"
@@ -14,6 +14,8 @@ export function InputText(props) {
                 shrink: true,
               }}
             onChange={handlefunction}
+            disabled={disable}
+            style={{color: "black"}}
         />
     )
 }

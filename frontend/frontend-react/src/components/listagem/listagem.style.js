@@ -10,6 +10,6 @@ const theme = {
     gridItem: {
         "margin-left": "1rem",
         "margin-right": "1rem"
-    }
+    },
 }
 export default theme;

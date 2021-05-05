@@ -25,8 +25,8 @@ class RequestBackendCliente {
         })
     }
 
-    putCliente(clienteAtualizado) {
-        return axios.put(`${URL}/cliente`, clienteAtualizado)
+    putCliente(cpf, clienteAtualizado) {
+        return axios.put(`${URL}/cliente/${cpf}`, clienteAtualizado)
         .catch(error => {
             throw error
         })

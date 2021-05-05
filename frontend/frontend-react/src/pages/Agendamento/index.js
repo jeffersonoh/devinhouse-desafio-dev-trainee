@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import RequestBackendExame from "../../utils/ExameRequest";
 import RequestBackendAgendamento from "../../utils/AgendamentoRequest";
-import BarraPrincipal from "../../components/Header/BarraPrincipal";
 import { DropdownExames } from "./DropdownExames";
 import theme from "./Agendamento.style";
 import { InputText } from "../../components/InputText";
@@ -30,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 export function Agendamento(props) {
-  const {titulo} = props
+  const {titulo, valueExame, valueData, valueHorario, labelExame, labelData, labelHorario, showDeleteButton} = props
   const classes = useStyles();
   const [nomeExame, setNomeExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
@@ -83,11 +82,11 @@ export function Agendamento(props) {
       <Box className={classes.boxExterior}>
         <Paper className={classes.boxPaper}>
           <Box className={classes.boxTitle}>
-            <Typography variant="h6">Realizar Agendamento</Typography>
+            <Typography variant="h6">{titulo}</Typography>
             <Box className={classes.boxInterior}>
               <Box>
                 <Typography variant="body1" style={{ marginBottom: "1rem" }}>
-                  Selecione um exame
+                  {labelExame}
                 </Typography>
                 <DropdownExames
                   listaExames={listaExames}
@@ -96,13 +95,13 @@ export function Agendamento(props) {
               </Box>
 
               <Box>
-                <Typography variant="body1">Selecione uma data</Typography>
+                <Typography variant="body1">{labelData}</Typography>
                 <InputText type="date" handlefunction={(e) => handleData(e)} />
               </Box>
 
               <Box>
                 <Typography variant="body1" style={{ marginBottom: "1rem" }}>
-                  Selecione um horário disponível
+                  {labelHorario}
                 </Typography>
                 <DropdownHorario
                   listaHorario={listaHorariosIndisponiveis}
@@ -112,7 +111,10 @@ export function Agendamento(props) {
             </Box>
           </Box>
           <Box className={classes.buttonAgendamento}>
-            <Botao text="Realizar Agendamento" onclick={() => handlePost()}/>
+            {showDeleteButton === true 
+            ? <> <Botao text="Editar Agendamento" onclick={() => handlePost()}/> <Botao text="Deletar Agendamento" onclick={() => handlePost()}/></>
+            : <Botao text="Realizar Agendamento" onclick={() => handlePost()}/>}
+            
           </Box>
         </Paper>
       </Box>

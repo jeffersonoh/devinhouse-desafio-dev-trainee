@@ -1,6 +1,6 @@
 const theme = {
     boxExterior: {
-        "margin-top": "2rem",
+        "margin-top": "1rem",
         "display": "flex",
         "justify-content": "center",
     },
