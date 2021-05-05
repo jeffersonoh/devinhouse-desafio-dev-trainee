@@ -1,7 +1,6 @@
 package br.com.devinhouse.thiago_mathias_simon.ErrorDTO;
 
 import java.time.Instant;
-import java.util.Date;
 
 public class ExceptionResponse {
 	private String httpCodeMessage;
