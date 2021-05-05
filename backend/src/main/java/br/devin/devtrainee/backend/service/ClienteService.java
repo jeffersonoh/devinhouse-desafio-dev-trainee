@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.devin.devtrainee.backend.model.Agendamento;
 import br.devin.devtrainee.backend.model.Cliente;
 import br.devin.devtrainee.backend.repository.ClienteRepository;
 
@@ -18,6 +19,9 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRep;
+	
+	@Autowired
+	private AgendamentoService agendamentoService;
 	
 	public Cliente cadastrarCliente(Cliente cliente) {
 		return this.clienteRep.save(cliente);
@@ -58,6 +62,10 @@ public class ClienteService {
 	
 	public ResponseEntity<?> deletarCliente(Long id) {
 		if(this.clienteRep.existsById(id)) {
+			List<Agendamento> lista = this.agendamentoService.buscarTodosAgendamentoPorCliente(clienteRep.findById(id).get());
+			for(Agendamento agendamento : lista) {
+				this.agendamentoService.deletarAgendamento(agendamento.getIdAgendamento());
+			}
 			this.clienteRep.deleteById(id);
 			return  ResponseEntity.noContent()
 					.build();
