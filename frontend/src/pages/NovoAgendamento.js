@@ -47,14 +47,18 @@ const yupSchema = Yup.object().shape({
 const NovoAgendamento = () => {
   const [clientes, setClientes] = useState([]);
   const [exames, setExames] = useState([]);
+  const [cliente, setCliente] = useState(undefined);
+  const [exame, setExame] = useState(undefined);
   const [openNovoCLiente, setOpenNovoCliente] = useState(false);
   const [openNovoExame, setOpenNovoExame] = useState(false);
-  const [clienteInputValue, setClienteinputValue] = useState('');
-  const [exameInputValue, setExameinputValue] = useState('');
+  const [clienteInputValue, setClienteInputValue] = useState('');
+  const [exameInputValue, setExameInputValue] = useState('');
   
   const classes = useStyles();
-  
+
   let history = useHistory();
+
+  const location = useLocation();
 
   const handleClose = () => {
     openNovoCLiente && setOpenNovoCliente(false);
@@ -62,11 +66,9 @@ const NovoAgendamento = () => {
   };
 
   const handleClickOpen = (dialog) => {
-    dialog === 'cliente' && setOpenNovoCliente(true);
     dialog === 'exame' && setOpenNovoExame(true);
+    dialog === 'cliente' && setOpenNovoCliente(true);
   };
-
-  const location = useLocation();
 
   const getClientes = async () => {
     const result = await apiCliente.findAllClientes();
@@ -125,6 +127,40 @@ const NovoAgendamento = () => {
     history.goBack();
   }
 
+  const handleCreateCliente = async (cliente) => {
+    const data = {
+      ...cliente,
+      dataNascimento: cliente.dataNascimento.split('-').reverse().join('/')
+    };
+
+    if (cliente.id === 0) {
+      await apiCliente.createCliente(data);
+    } else {
+      data.id = cliente.id;
+      await apiCliente.updateCliente(data.id, data);
+    }
+
+    setOpenNovoCliente(false);
+
+    setCliente(undefined);
+
+    getClientes();
+  };
+
+  const handleCreateExame = async (exame) => {
+    if (exame.id === 0) {
+      await apiExame.createExame(exame);
+    } else {
+      await apiExame.updateExame(exame.id, exame);
+    }
+
+    setOpenNovoExame(false);
+
+    setExame(undefined);
+
+    getExames();
+  };
+
   console.log(clienteInputValue)
 
   return (
@@ -147,7 +183,6 @@ const NovoAgendamento = () => {
                   name="data"
                   label="Data"
                   type="date"
-                  //value={agendamento?.data?.split('/').reverse().join('-')}
                   variant="outlined"
                   color="secondary"
                   margin="normal"
@@ -164,7 +199,6 @@ const NovoAgendamento = () => {
                   name="horario"
                   label="Horário"
                   type="time"
-                  //value={agendamento?.horario}
                   color="secondary"
                   variant="outlined"
                   margin="normal"
@@ -181,14 +215,18 @@ const NovoAgendamento = () => {
                   id="cliente"
                   options={clientes}
                   inputValue={clienteInputValue}
-                  onInputChange={(e, value) => setClienteinputValue(value)}
+                  onInputChange={(e, value) => {
+                    if (value === "Adicionar novo cliente") {
+                      setClienteInputValue('');
+                    } else {
+                      setClienteInputValue(value)
+                    }
+                  }}
                   getOptionLabel={
                     (option) => option.nome ? option.nome : ""
                   }
                   onChange={(event, newValue) => {
-                    console.log(newValue?.nome)
                     if (newValue?.nome === "Adicionar novo cliente") {
-                      setClienteinputValue('');
                       return handleClickOpen('cliente');
                     } else {
                       setFieldValue("cliente", newValue);
@@ -231,11 +269,17 @@ const NovoAgendamento = () => {
                   id="exame"
                   options={exames}
                   inputValue={exameInputValue}
-                  onInputChange={(e, value) => setExameinputValue(value)}
+                  onInputChange={(e, value) => {
+                    if (value === "Adicionar novo exame") {
+                      setExameInputValue('');
+                    } else {
+                      setExameInputValue(value)
+                    }
+                  }}
                   getOptionLabel={(option) => option.nome ? option.nome : ""}
                   onChange={(event, newValue) => {
                     if (newValue?.nome === "Adicionar novo exame") {
-                      setExameinputValue('');
+                      setExameInputValue('');
                       return handleClickOpen('exame');
                     } else {
                       setFieldValue("exame", newValue);
@@ -280,7 +324,6 @@ const NovoAgendamento = () => {
                 <MuiTextField
                   label="Nome"
                   value={values.cliente?.nome || ""}
-                  //value={cliente?.nome || ""}
                   variant="outlined"
                   color="secondary"
                   margin="normal"
@@ -295,7 +338,6 @@ const NovoAgendamento = () => {
                 <MuiTextField
                   label="CPF"
                   value={values.cliente?.cpf ? formataCPF(values.cliente.cpf) : ""}
-                  //value={cliente?.cpf ? formataCPF(cliente.cpf) : ""}
                   variant="outlined"
                   color="secondary"
                   margin="normal"
@@ -310,7 +352,6 @@ const NovoAgendamento = () => {
                 <MuiTextField
                   label="Data de nascimento"
                   value={values.cliente?.dataNascimento?.split('/').reverse().join('-') || ""}
-                  //value={cliente?.dataNascimento?.split('/').reverse().join('-') || ""}
                   color="secondary"
                   variant="outlined"
                   type="date"
@@ -342,7 +383,6 @@ const NovoAgendamento = () => {
                 disableElevation
                 disabled={isSubmitting}
                 onClick={submitForm}
-                //onClick={() => handleSave(agendamento, cliente, exame)}
               >
                 salvar
               </Button>
@@ -350,12 +390,14 @@ const NovoAgendamento = () => {
             <ClienteDialog
               open={openNovoCLiente}
               onClose={handleClose}
-              //onSave={handleCreate}
+              onSave={handleCreateCliente}
+              cliente={cliente}
             />
             <ExameDialog
               open={openNovoExame}
               onClose={handleClose}
-              //onSave={handleCreate}
+              onSave={handleCreateExame}
+              exame={exame}
             />
           </Form>
         )}
