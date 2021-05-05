@@ -45,14 +45,15 @@ const yupSchema = Yup.object().shape({
 });
 
 const NovoAgendamento = () => {
-  const classes = useStyles();
   const [clientes, setClientes] = useState([]);
   const [exames, setExames] = useState([]);
   const [openNovoCLiente, setOpenNovoCliente] = useState(false);
   const [openNovoExame, setOpenNovoExame] = useState(false);
   const [clienteInputValue, setClienteinputValue] = useState('');
   const [exameInputValue, setExameinputValue] = useState('');
-
+  
+  const classes = useStyles();
+  
   let history = useHistory();
 
   const handleClose = () => {

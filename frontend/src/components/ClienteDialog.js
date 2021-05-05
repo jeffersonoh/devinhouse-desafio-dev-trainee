@@ -1,9 +1,15 @@
-import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, makeStyles, Typography, withStyles } from "@material-ui/core";
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import * as Yup from 'yup';
+
+const useStyles = makeStyles(() => ({
+  gridContainer: {
+    marginBottom: 20,
+  }
+}));
 
 const styles = (theme) => ({
   root: {
@@ -40,6 +46,8 @@ const yupSchema = Yup.object().shape({
 
 const ClienteDialog = (props) => {
   const { onClose, selectedValue, open, onSave, cliente } = props;
+
+  const classes = useStyles();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -78,7 +86,7 @@ const ClienteDialog = (props) => {
       >
         <Form>
           <DialogContent>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className={classes.gridContainer}>
               <Grid item xs={12}>
                 <Field
                   component={TextField}

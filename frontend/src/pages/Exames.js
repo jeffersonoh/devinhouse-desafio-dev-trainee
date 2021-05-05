@@ -7,7 +7,7 @@ import apiExame from '../services/apiExame';
 
 const Exames = () => {
   const [open, setOpen] = useState(false);
-  const [exame, setExame] = useState({});
+  const [exame, setExame] = useState(undefined);
   const [exames, setExames] = useState([]);
 
   const getExames = async () => {
@@ -33,27 +33,25 @@ const Exames = () => {
   const handleClose = () => {
     setOpen(false);
 
-    setExame({});
+    setExame(undefined);
   };
 
-  const handleCreate = async (cliente) => {
-    if (cliente.id) {
-      await apiExame.updateExame(cliente.id, cliente);
+  const handleCreate = async (exame) => {
+    if (exame.id === 0) {
+      await apiExame.createExame(exame);
     } else {
-      await apiExame.createExame(cliente);
+      await apiExame.updateExame(exame.id, exame);
     }
 
     setOpen(false);
 
-    setExame({});
+    setExame(undefined);
 
     getExames();
   };
 
   const handleUpdate = async (exame) => {
     setExame(exame);
-
-    console.log(exame)
 
     setOpen(true);
   }
@@ -83,7 +81,6 @@ const Exames = () => {
         onClose={handleClose}
         onSave={handleCreate}
         exame={exame}
-        setExame={setExame}
       />
     </>
   );

@@ -1,6 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, TextField, Typography, withStyles } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import * as Yup from 'yup';
 
 const styles = (theme) => ({
   root: {
@@ -29,16 +32,30 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
+const yupSchema = Yup.object().shape({
+  nome: Yup.string().required('Campo nome é obrigatório'),
+});
+
 const ExameDialog = (props) => {
-  const { onClose, selectedValue, open, onSave, exame, setExane } = props;
+  const { onClose, selectedValue, open, onSave, exame } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleSave = () => {
-    onSave(exame);
-  }
+  const handleInitialValues = () => {
+    if (exame) {
+      return {
+        id: exame.id,
+        nome: exame.nome,
+      };
+    } else {
+      return {
+        id: 0,
+        nome: '',
+      }
+    }
+  };
 
   return (
     <Dialog
@@ -49,38 +66,42 @@ const ExameDialog = (props) => {
       fullWidth
     >
       <DialogTitle id="simple-dialog-title" onClose={handleClose}>Cadastro de Exames</DialogTitle>
-      <DialogContent>
-        <Grid container>
-          <Grid item xs={12}>
-            <TextField
-              label="Nome"
-              variant="outlined"
+      <Formik
+        initialValues={handleInitialValues()}
+        validationSchema={yupSchema}
+        onSubmit={onSave}
+      >
+        <Form>
+          <DialogContent>
+            <Grid container>
+              <Grid item xs={12}>
+                <Field
+                  component={TextField}
+                  name="nome"
+                  label="Nome"
+                  variant="outlined"
+                  color="secondary"
+                  margin="normal"
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} variant="outlined">
+              cancelar
+            </Button>
+            <Button
+              type="submit"
               color="secondary"
-              margin="normal"
-              value={exame?.nome}
-              onChange={e => setExane({
-                ...exame,
-                nome: e.target.value
-              })}
-              fullWidth
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
-          cancelar
-        </Button>
-        <Button
-          onClick={handleSave}
-          color="secondary"
-          autoFocus
-          variant="contained"
-          disableElevation
-        >
-          salvar
-        </Button>
-      </DialogActions>
+              variant="contained"
+              disableElevation
+            >
+              salvar
+            </Button>
+          </DialogActions>
+        </Form>
+      </Formik>
     </Dialog>
   );
 }
