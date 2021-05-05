@@ -26,7 +26,7 @@ export default function Header() {
   let history = useHistory();
   const {
     login: { state },
-    logar,
+    conectar,
     deslogar,
   } = useLoginContext();
   const classes = useStyle();
@@ -36,6 +36,10 @@ export default function Header() {
   }
   function atualizarCliente() {
     history.replace("/cliente");
+  }
+
+  function logarCliente() {
+    conectar("0123456789");
   }
 
   return (
@@ -51,7 +55,7 @@ export default function Header() {
         </Typography>
         {state === "waiting" ? (
           <>
-            <Button className={classes.button} onClick={logar}>Login</Button>
+            <Button className={classes.button} onClick={logarCliente}>Login</Button>
             <Button className={classes.button} onClick={cadastrarCliente} >Cadastro</Button>
           </>
         ) : (

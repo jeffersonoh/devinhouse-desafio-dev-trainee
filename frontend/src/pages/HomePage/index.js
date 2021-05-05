@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
 export default function HomePage() {
   const classes = useStyle();
   const {
-    login: { state },
+    login: {state },
   } = useLoginContext();
   return (
     <div className={classes.flex}>

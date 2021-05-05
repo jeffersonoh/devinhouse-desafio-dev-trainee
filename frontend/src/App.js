@@ -1,12 +1,11 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { LoginProvider } from "./utils/login.context";
 import { ExameProvider } from "./utils/exameSelect.context";
 
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import CadastrarCliente from "./pages/Cliente/CadastrarCliente";
-
-import { Typography } from "@material-ui/core";
+import AtualizarCliente from "./pages/Cliente/AtualizarCliente";
 
 function App() {
   return (
@@ -23,7 +22,10 @@ function App() {
               <CadastrarCliente />
             </Route>
             <Route exact path="/cliente">
-              <Typography>Teste</Typography>
+              <AtualizarCliente/>
+            </Route>
+            <Route>
+              <Redirect to="/"/>
             </Route>
           </Switch>
           
