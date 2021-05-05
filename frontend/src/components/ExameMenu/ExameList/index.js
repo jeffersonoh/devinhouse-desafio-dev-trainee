@@ -7,12 +7,11 @@ import {
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
 
-import ExameAPI from "../../service/exameAPI";
+import ExameAPI from "../../../service/exameAPI";
 
 const useStyle = makeStyles((theme) => ({
   item: {
-    width: 500,
-    textAlign: "center",
+    width: 400,
   },
 }));
 
@@ -28,8 +27,6 @@ export default function ExameList() {
   }, []);
 
   return (
-    <>
-      <Typography variant="h3"> Escolha um tipo de exame: </Typography>
       <List>
         {exames?.map((exames) => (
           <ListItem
@@ -40,11 +37,10 @@ export default function ExameList() {
           >
             <ListItemText
               disableTypography
-              primary={<Typography variant="h4"> {exames.nome} </Typography>}
+              primary={<Typography variant="h4"> {exames.idExame}: {exames.nome} </Typography>}
             />
           </ListItem>
         ))}
       </List>
-    </>
   );
 }

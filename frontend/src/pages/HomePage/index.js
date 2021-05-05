@@ -1,8 +1,7 @@
 import { Typography, makeStyles} from "@material-ui/core";
 import { useLoginContext } from "../../utils/login.context";
 
-import ExameList from "../../components/ExameList";
-
+import ExameMenu from "../../components/ExameMenu";
 
 const useStyle = makeStyles((theme) => ({
   flex: {
@@ -12,7 +11,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = ({}) => {
+export default function HomePage() {
   const classes = useStyle();
   const {
     login: { state },
@@ -24,10 +23,10 @@ const HomePage = ({}) => {
         Bem Vindo, efetue o Login ou Cadastro para continuar.
       </Typography>
       :
-        <ExameList/>
+      <>
+        <ExameMenu/>
+      </>
       }
     </div>
   );
 };
-
-export default HomePage;
