@@ -5,7 +5,7 @@ const instance = axios.create({
   headers: {'api-version' : '1'}
 });
 
-const action = {
+const Actions = {
   createClient : (data) => {
     return instance.post(`/clientes/v1/cadastrar`, data);
   },
@@ -55,4 +55,4 @@ const action = {
   }
 }
 
-export default action;
+export default Actions;

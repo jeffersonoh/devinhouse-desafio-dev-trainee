@@ -1,8 +1,29 @@
 import Main from "../../components/Main";
 import ClientCard from "../../components/ClientCard";
 import Button from "../../components/Button";
- 
+import { useState, useEffect } from "react";
+import Actions from "../../services/api"
+import axios from "axios"; 
+
 function Clients() {
+  const [clientesList, setClientesList] = useState([]);
+
+  const instance = axios.create({
+    baseURL: 'http://localhost:8080/backend',
+    headers: {'api-version' : '1'}
+  });
+ 
+  function findClientList() {
+    instance.get(`/clientes/v1/consultar`)
+      .then((res) => {
+        setClientesList(res.data);
+      });
+  }
+
+  useEffect(() => {
+    findClientList();
+  }, []);
+
   return (
     <Main>
       <div className="clients-resume">
@@ -11,29 +32,20 @@ function Clients() {
         </div>
 
         <div className="clients-card">
-            <ClientCard 
-            titulo = "Cliente"
-            nome = "Jose da Silva"
-            cpf = "12345678998"
-            data_nascimento = "24/09/2020" />
 
-            <ClientCard 
-            titulo = "Cliente"
-            nome = "Jose da Silva"
-            cpf = "12345678998"
-            data_nascimento = "24/09/2020" />
-
-            <ClientCard 
-            titulo = "Cliente"
-            nome = "Jose da Silva"
-            cpf = "12345678998"
-            data_nascimento = "24/09/2020" />
-
-            <ClientCard 
-            titulo = "Cliente"
-            nome = "Jose da Silva"
-            cpf = "12345678998"
-            data_nascimento = "24/09/2020" />
+          { clientesList.length > 0 ? clientesList.map((data) => {
+            return (
+              <ClientCard 
+              titulo = "Cliente"
+              key = {data.id}
+              nome = {data.nome}
+              cpf = {data.cpf}
+              data_nascimento = {data.birthYear} />
+              )
+              })
+    
+             : "Nenhum cliente cadastrado"
+          }
         </div>
       </div>
 

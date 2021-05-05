@@ -3,11 +3,11 @@ import { AiOutlineUser } from "react-icons/ai";
 import { MdEdit, MdDelete } from "react-icons/md";
 
 function ClientCard(props) {
-  const { titulo, nome, cpf, data_nascimento } = props;
+  const { id, titulo, nome, cpf, data_nascimento } = props;
 
   return (
     <CardStyle>
-      <div className="card">
+      <div className="card" key={id}>
         <div className="card-header">
           <div className="card-header-schedule-icon">
             <AiOutlineUser className="card-header-icon"/>
