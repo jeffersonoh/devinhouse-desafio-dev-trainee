@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.izy.dto.ExameDTO;
+import br.com.izy.dto.ExameDTOInput;
 import br.com.izy.entity.Exame;
 import br.com.izy.service.ExameService;
 
@@ -58,7 +59,7 @@ public class ExameController {
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ExameDTO create(@RequestBody ExameDTO body) {
+	public ExameDTO create(@RequestBody ExameDTOInput body) {
 		Exame exame = new Exame();
 		
 		exame = exame.converteExameDTO(body);
@@ -71,7 +72,7 @@ public class ExameController {
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @RequestBody ExameDTO body) {
+	public void update(@PathVariable Long id, @RequestBody ExameDTOInput body) {
 		Exame exame = new Exame();
 		
 		exame = exame.converteExameDTO(body);

@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.com.izy.dto.ExameDTO;
+import br.com.izy.dto.ExameDTOInput;
 
 @Entity
 @Table(name = "exames")
@@ -25,9 +25,8 @@ public class Exame implements Serializable {
 		
 	}
 	
-	public Exame(Long id, String nome) {
+	public Exame(String nome) {
 		super();
-		this.id = id;
 		this.nome = nome;
 	}
 	
@@ -44,8 +43,8 @@ public class Exame implements Serializable {
 		this.nome = nome;
 	}
 	
-	public Exame converteExameDTO(ExameDTO exameDTO) {
-		Exame result = new Exame(exameDTO.getId(), exameDTO.getNome());
+	public Exame converteExameDTO(ExameDTOInput exameDTO) {
+		Exame result = new Exame(exameDTO.getNome());
 		
 		return result;
 	}
