@@ -29,8 +29,20 @@ const useStyles = makeStyles({
 });
 
 export function Agendamento(props) {
-  const {titulo, valueExame, valueData, valueHorario, labelExame, labelData, labelHorario, showDeleteButton} = props
+  const {
+    titulo,
+    valueIdAgendamento,
+    valueExame,
+    valueData,
+    valueHorario,
+    labelExame,
+    labelData,
+    labelHorario,
+    agendamentoPut,
+    showEditButton,
+  } = props;
   const classes = useStyles();
+  const [stateIdAgendamento, setstateIdAgendamento] = useState("");
   const [nomeExame, setNomeExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
@@ -58,65 +70,98 @@ export function Agendamento(props) {
     handleListaHorariosIndisponiveis();
   }, [dataAgendamento]);
 
-  const handleData = (e) => {
-    const { value } = e.target;
-    const [ano, mes, dia] = value.split("-");
-    const data = `${dia}/${mes}/${ano}`;
-    setDataAgendamento(data);
+  const handlePost = async () => {
+    await RequestBackendAgendamento.postAgendamento({
+      cliente: {
+        cpf: "555",
+      },
+      exame: {
+        nome: nomeExame,
+      },
+      data: dataAgendamento,
+      horario: horarioAgendamento,
+    });
+    setNomeExame("");
+    setDataAgendamento("");
+    setHorarioAgendamento("");
   };
 
-  const handlePost = () => {
-    RequestBackendAgendamento.postAgendamento({
+  const handlePut = async () => {
+    console.log("id agendamento: ", stateIdAgendamento)
+    console.log("Exame: ", nomeExame)
+    console.log("data: ", dataAgendamento)
+    console.log("horario: ", horarioAgendamento)
+    await RequestBackendAgendamento.putAgendamento(stateIdAgendamento, {
       cliente: {
-        cpf: "555"
+        cpf: "555",
       },
       exame: {
         nome: nomeExame
       },
       data: dataAgendamento,
       horario: horarioAgendamento
-    })
+    });
   }
 
+  useEffect(() => {
+    setstateIdAgendamento(valueIdAgendamento)
+    setNomeExame(valueExame);
+    if(!dataAgendamento == undefined ) {
+      setDataAgendamento(valueData);
+    }
+    setHorarioAgendamento(valueHorario);
+  }, []);
+
   return (
-      <Box className={classes.boxExterior}>
-        <Paper className={classes.boxPaper}>
-          <Box className={classes.boxTitle}>
-            <Typography variant="h6">{titulo}</Typography>
-            <Box className={classes.boxInterior}>
-              <Box>
-                <Typography variant="body1" style={{ marginBottom: "1rem" }}>
-                  {labelExame}
-                </Typography>
-                <DropdownExames
-                  listaExames={listaExames}
-                  onchange={(e) => setNomeExame(e.target.value)}
-                />
-              </Box>
+    <Box className={classes.boxExterior}>
+      <Paper className={classes.boxPaper}>
+        <Box className={classes.boxTitle}>
+          <Typography variant="h6">{titulo}</Typography>
+          <Box className={classes.boxInterior}>
+            <Box>
+              {agendamentoPut === false && (
+                <>
+                  <Typography variant="body1" style={{ marginBottom: "1rem" }}>
+                    {labelExame}
+                  </Typography>
+                  <DropdownExames
+                    listaExames={listaExames}
+                    value={nomeExame}
+                    onchange={(e) => setNomeExame(e.target.value)}
+                  />
+                </>
+              )}
+            </Box>
 
-              <Box>
-                <Typography variant="body1">{labelData}</Typography>
-                <InputText type="date" handlefunction={(e) => handleData(e)} />
-              </Box>
+            <Box>
+              <Typography variant="body1">{labelData}</Typography>
+              <InputText
+                type="date"
+                handlefunction={(e) => setDataAgendamento(e.target.value)}
+                value={dataAgendamento}
+              />
+            </Box>
 
-              <Box>
-                <Typography variant="body1" style={{ marginBottom: "1rem" }}>
-                  {labelHorario}
-                </Typography>
-                <DropdownHorario
-                  listaHorario={listaHorariosIndisponiveis}
-                  onchange={(e) => setHorarioAgendamento(e.target.value)}
-                />
-              </Box>
+            <Box>
+              <Typography variant="body1" style={{ marginBottom: "1rem" }}>
+                {labelHorario}
+              </Typography>
+              <DropdownHorario
+                listaHorario={listaHorariosIndisponiveis}
+                value={horarioAgendamento}
+                onchange={(e) => setHorarioAgendamento(e.target.value)}
+              />
             </Box>
           </Box>
-          <Box className={classes.buttonAgendamento}>
-            {showDeleteButton === true 
-            ? <> <Botao text="Editar Agendamento" onclick={() => handlePost()}/> <Botao text="Deletar Agendamento" onclick={() => handlePost()}/></>
-            : <Botao text="Realizar Agendamento" onclick={() => handlePost()}/>}
-            
-          </Box>
-        </Paper>
-      </Box>
+        </Box>
+        <Box className={classes.buttonAgendamento}>
+          {showEditButton === true ? (
+            <Botao text="Editar Agendamento" onclick={() => handlePut()} />
+          ) : (
+            <Botao text="Realizar Agendamento" onclick={() => handlePost()} />
+          )}
+        </Box>
+      </Paper>
+    </Box>
   );
 }

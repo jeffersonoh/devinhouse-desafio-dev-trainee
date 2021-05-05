@@ -7,7 +7,6 @@ const theme = {
     },
     modalCliente: {
         "height": "50%",
-        "width": "100%",
         "display": "flex",
         "justify-content": "center"
     },

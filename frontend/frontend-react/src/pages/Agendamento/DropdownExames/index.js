@@ -10,11 +10,11 @@ const useStyles = makeStyles({
 });
 
 export function DropdownExames(props) {
-  const { listaExames, onchange } = props;
+  const { listaExames, onchange, value } = props;
   const classes = useStyles();
   return (
     <FormControl className={classes.dropDownwidth}>
-      <NativeSelect onChange={onchange}>
+      <NativeSelect onChange={onchange} value={value}>
       <option key="0"> </option>
         {listaExames?.map((listaExames) => (
           <option key={listaExames.idExame}>{listaExames.nome}</option>

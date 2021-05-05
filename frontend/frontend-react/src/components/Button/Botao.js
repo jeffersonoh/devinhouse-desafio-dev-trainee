@@ -18,12 +18,13 @@ const useStyles = makeStyles({
 export default function Botao(props) {
   const classes = useStyles();
 
-  const { icone, text, variante, tamanho, onclick, cor } = props;
+  const { icone, text, variante, tamanho, onclick, cor, fontsize } = props;
   return (
 
-      <Button className={cor === "menuLateral" ? classes.menuLateral : classes.botaoBackground} 
+      <Button 
+      className={cor === "menuLateral" ? classes.menuLateral : classes.botaoBackground} 
       startIcon={icone} variant={variante} size={tamanho} onClick = {onclick}>
-        <Typography>
+        <Typography style={{fontSize:fontsize}}>
           {text}
         </Typography>
       </Button>

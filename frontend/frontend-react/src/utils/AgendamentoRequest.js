@@ -10,8 +10,8 @@ class RequestBackendAgendamento {
         })
     }
 
-    putAgendamento(agendamento) {
-        return axios.put(`${URL}/agendamento`, agendamento)
+    putAgendamento(id, agendamento) {
+        return axios.put(`${URL}/agendamento/${id}`, agendamento)
         .catch(error => {
             throw error
         })

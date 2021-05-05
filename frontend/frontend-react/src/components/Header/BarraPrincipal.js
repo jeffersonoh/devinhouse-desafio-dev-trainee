@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 })
 
 export default function BarraPrincipal(props) {
-  const {drawyerEvent} = props;
+  const {drawyerEvent, clickCadastro, clickLogin} = props;
   const classes = useStyles();
 
   const [dropDown, setDropDown] = useState(null);
@@ -57,8 +57,8 @@ export default function BarraPrincipal(props) {
             onClose={handleCloseMenu}
             anchorEl={dropDown}
           >
-            <MenuItem>Realizar Login</MenuItem>
-            <MenuItem>Cadastrar</MenuItem>
+            <MenuItem onClick={clickLogin}>Realizar Login</MenuItem>
+            <MenuItem onClick={clickCadastro}>Cadastrar</MenuItem>
           </Menu>
           <Box>
           <Botao icone={<MenuIcon />} tamanho="medium" variante="contained" onclick={drawyerEvent}/>

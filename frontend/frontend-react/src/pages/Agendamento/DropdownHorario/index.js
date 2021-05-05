@@ -22,10 +22,10 @@ const handleDisponivel = (horariosIndisponiveis, horarioPossivel) => {
 };
 export function DropdownHorario(props) {
   const classes = useStyles();
-  const { listaHorario, onchange } = props;
+  const { listaHorario, onchange, value } = props;
   return (
     <FormControl className={classes.dropDownwidth}>
-      <NativeSelect onChange={onchange}>
+      <NativeSelect onChange={onchange} value={value}>
         {horariosPossiveis.map((horarioPossivel) => (
           <option
             disabled={handleDisponivel(listaHorario, horarioPossivel)}
