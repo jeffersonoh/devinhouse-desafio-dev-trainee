@@ -24,14 +24,22 @@ const Agendamentos = () => {
 
   return (
     <>
-      <PageHeader titulo="Agendamentos" tituloBotao="Novo Agendamento" />
+      <PageHeader
+        titulo="Agendamentos"
+        tituloBotao="Novo Agendamento"
+        endpoint="agendamentos"
+      />
       <Busca
         titulo="Filtrar agendamentos"
         label="Buscar agendamento"
         id="agendamento"
         onClick={buscaAgendamentos}
       />
-      <Tabela dados={agendamentos} titulo="agendamento" />
+      <Tabela
+        dados={agendamentos}
+        titulo="agendamento"
+        endpoint="agendamentos"
+      />
     </>
   );
 };

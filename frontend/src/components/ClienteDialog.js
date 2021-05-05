@@ -102,7 +102,13 @@ const ClienteDialog = (props) => {
         <Button onClick={handleClose} variant="outlined">
           cancelar
         </Button>
-        <Button onClick={handleSave} color="secondary" autoFocus variant="contained">
+        <Button
+          onClick={handleSave}
+          color="secondary"
+          autoFocus
+          variant="contained"
+          disableElevation
+        >
           salvar
         </Button>
       </DialogActions>

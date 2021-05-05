@@ -1,4 +1,5 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -8,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PageHeader = ({ titulo, tituloBotao, abreNovo }) => {
+const PageHeader = ({ titulo, tituloBotao, endpoint, abreNovo }) => {
   const classes = useStyles();
 
   return (
@@ -16,13 +17,30 @@ const PageHeader = ({ titulo, tituloBotao, abreNovo }) => {
         <Typography variant="h3" component="h1">
           {titulo}
         </Typography>
-        <Button 
-          variant="contained"
-          color="secondary"
-          onClick={abreNovo}
-        >
-          {tituloBotao}
-        </Button>
+        {endpoint === "clientes" || endpoint === "exames"
+          ? (
+            <Button 
+              variant="contained"
+              color="secondary"
+              onClick={abreNovo}
+            >
+              {tituloBotao}
+            </Button>
+          )
+          : (
+            <Button 
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to={{
+                pathname: `${endpoint}/criar`,
+              }}
+            >
+              {tituloBotao}
+            </Button>
+          )
+        }
+        
       </div>
   );
 }

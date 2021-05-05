@@ -61,6 +61,7 @@ const Clientes = () => {
       <PageHeader 
         titulo="Clientes"
         tituloBotao="Novo Cliente"
+        endpoint="clientes"
         abreNovo={handleClickOpen}
       />
       <Busca

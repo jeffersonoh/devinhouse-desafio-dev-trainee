@@ -63,6 +63,7 @@ const Exames = () => {
       <PageHeader
         titulo="Exames"
         tituloBotao="Novo Exame"
+        endpoint="exames"
         abreNovo={handleClickOpen}
       />
       <Busca

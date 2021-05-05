@@ -3,6 +3,7 @@ import { IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContai
 import { Link } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import formataCPF from "../helpers/formataCPF";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,12 +28,6 @@ const useStyles = makeStyles(() => ({
     minWidth: 700,
   }
 }));
-
-function formataCPF(cpf){
-  cpf = cpf.replace(/[^\d]/g, "");
-
-  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-}
 
 const Tabela = ({ dados, titulo, endpoint, abreUpdate }) => {
   const classes = useStyles();

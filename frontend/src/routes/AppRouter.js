@@ -6,6 +6,7 @@ import MenuDrawer from "../components/MenuDrawer";
 import Agendamentos from "../pages/Agendamentos";
 import Clientes from "../pages/Clientes";
 import Exames from "../pages/Exames";
+import NovoAgendamento from "../pages/NovoAgendamento";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -34,7 +35,9 @@ const AppRouter = () => {
         <Switch>
           <Route path="/clientes" component={Clientes} />
           <Route path="/exames" component={Exames} />
-          <Route path="/agendamentos" component={Agendamentos} />
+          <Route exact path="/agendamentos" component={Agendamentos} />
+          <Route path="/agendamentos/criar" component={NovoAgendamento} />
+          <Route path="/agendamentos/:id/editar" component={NovoAgendamento} />
         </Switch>
       </div>
     </>
