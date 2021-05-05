@@ -1,6 +1,6 @@
-import { AppBar, Box, makeStyles, Tab, Tabs, Typography } from '@material-ui/core';
+import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
 import MenuTopBar from 'components/menu/TopBar';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PropTypes from 'prop-types';
@@ -8,31 +8,9 @@ import ClienteExcluir from 'components/cliente/clienteexcluir/ClienteExcluir';
 import ClienteEditar from 'components/cliente/clienteeditar/ClienteEditar';
 import ClienteCadastro from 'components/cliente/clientecadastro/ClienteCadastro';
 import ClienteLista from 'components/cliente/clientelista/ClienteLista';
-import DialogoOPEditar from 'components/dialogo/DialogoOPEditar';
-import DialogoOPExcluir from 'components/dialogo/DialogoOPExcluir';
 import { useAuth } from 'providers/auth';
+import { useStyles } from 'style/Style';
 
-const useStyles = makeStyles((theme) => ({
-    body: {
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-        paddingTop: 30,
-        padding: 8,
-        backgroundColor: "#e0f2f1",
-        height: "100vh",
-        
-    },
-    childrenBody: {
-        backgroundColor: theme.palette.primary.main,
-        width: "100%",
-        maxWidth: "900px"
-    },
-    menu: {
-        width: "100%",
-        maxWidth: "900px"
-    }
-}));
 
 function a11yProps(index) {
     return {
@@ -68,11 +46,12 @@ function TabPanel(props) {
 }
 
 const PagesCliente = () => {
-    const { index, setIndex, setDialogo } = useAuth()
+    const { index, setIndex, setDialogo, setLinhaSelecionadaCliente } = useAuth()
     const classes = useStyles();
 
     useEffect(()=> {
         setIndex(1);
+        setLinhaSelecionadaCliente({id: 0})
     },[])
 
     const onChangeTab = (e,tab) => {
@@ -82,7 +61,7 @@ const PagesCliente = () => {
             setDialogo(true);
         }
     }
-    console.log("index", index);
+    
     return (
         <Fragment>
             <MenuTopBar />
@@ -114,10 +93,10 @@ const PagesCliente = () => {
                         <ClienteCadastro />
                     </TabPanel>
                     <TabPanel value={index} index={3}>
-                     {/*    <ClienteEditar /> */}
+                        <ClienteEditar />
                     </TabPanel>
                     <TabPanel value={index} index={4}>
-                       {/*  <ClienteExcluir /> */}
+                       <ClienteExcluir />
                     </TabPanel>
                 </div>               
             </div>

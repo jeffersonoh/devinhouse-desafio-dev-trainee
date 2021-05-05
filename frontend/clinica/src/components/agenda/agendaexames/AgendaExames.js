@@ -1,52 +1,22 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Toolbar,
-    Typography,
-    Paper,
-    IconButton,
-    Tooltip,
-    makeStyles
+    Table, TableBody, TableCell, TableContainer, TableHead,
+    TableRow, Toolbar, Typography, Paper, IconButton, Tooltip,
 } from '@material-ui/core';
-
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { useStyles } from 'style/Style';
+import { cabecalhoTabelaExames } from 'api/apiTeste';
+import { useAuth } from 'providers/auth';
 
-const useStyles = makeStyles((theme) => ({
-    divPesquisa: {
-        padding: "8px",
-        display:"flex", 
-        flexDirection:"row"
-    },
-    pesquisa: {
-        marginLeft: "5px"
-    },
-    toolbar: {
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    contadorDePagina: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "flex-end"
-    }
-}));
 
 let pagina = 1;
-const AgendaExames = ({ examesOfertados }) => {
+const AgendaExames = () => {
     const classes = useStyles();
-    const cabecalhoTabela = [
-        {id: "id", coluna: "ID"}, 
-        {id: "exame", coluna: "Exames"} 
-    ];
+    const { examesOfertados } = useAuth();
     const [itemPagina, setItempagina] = useState([]);
-    
+
     const setPaginaLista = () => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
         const limiteLinhaPagina = pagina * 5;
@@ -54,8 +24,8 @@ const AgendaExames = ({ examesOfertados }) => {
         let linhaAtual = 1;
 
         examesOfertados.map((linha) => {
-            if (linhaAtual <= limiteLinhaPagina){
-                if (linhaAtual >= offSetLinhaPagina){
+            if (linhaAtual <= limiteLinhaPagina) {
+                if (linhaAtual >= offSetLinhaPagina) {
                     paginaProvisoria.push(linha);
                 }
             }
@@ -64,24 +34,24 @@ const AgendaExames = ({ examesOfertados }) => {
 
         setItempagina(paginaProvisoria);
     }
-    
+
     const proximaPagina = () => {
         if (examesOfertados.length > pagina * 5) {
             pagina++;
-        setPaginaLista();
-      }
+            setPaginaLista();
+        }
     }
 
     const paginaAnterior = () => {
         if (pagina > 1) {
-        pagina--;
-        setPaginaLista();
-      }
+            pagina--;
+            setPaginaLista();
+        }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setPaginaLista();
-    },[])
+    }, [])
 
     return (
         <Fragment>
@@ -91,7 +61,7 @@ const AgendaExames = ({ examesOfertados }) => {
                         <TableHead>
                             <TableRow>
                                 {
-                                    cabecalhoTabela.map((linha) => {
+                                    cabecalhoTabelaExames.map((linha) => {
                                         return (
                                             <TableCell key={linha.id} align="center">
                                                 <TableContainer><b>{linha.coluna}</b></TableContainer>
@@ -115,24 +85,24 @@ const AgendaExames = ({ examesOfertados }) => {
                 </TableContainer>
                 <Toolbar className={classes.contadorDePagina}>
                     <Tooltip title="Página anterior">
-                        <IconButton aria-label="Página anterior" onClick={() => {paginaAnterior()}}>
+                        <IconButton aria-label="Página anterior" onClick={() => { paginaAnterior() }}>
                             <ArrowBackIosIcon />
                         </IconButton>
                     </Tooltip>
                     <Typography>
-                        {(pagina === 1 
-                            ? 1 
-                            : (pagina - 1) * 5 + 1) 
-                        + "-" + 
-                        (pagina * 5 > examesOfertados.length && pagina > 1 
-                            ? examesOfertados.length 
-                            : examesOfertados.length < 5 
-                                ? examesOfertados.length 
-                                : pagina * 5) 
+                        {(pagina === 1
+                            ? 1
+                            : (pagina - 1) * 5 + 1)
+                            + "-" +
+                            (pagina * 5 > examesOfertados.length && pagina > 1
+                                ? examesOfertados.length
+                                : examesOfertados.length < 5
+                                    ? examesOfertados.length
+                                    : pagina * 5)
                             + " de " + (examesOfertados.length)}
                     </Typography>
                     <Tooltip title="Proxíma página">
-                        <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>
+                        <IconButton aria-label="Proxíma página" onClick={() => { proximaPagina() }}>
                             <ArrowForwardIosIcon />
                         </IconButton>
                     </Tooltip>

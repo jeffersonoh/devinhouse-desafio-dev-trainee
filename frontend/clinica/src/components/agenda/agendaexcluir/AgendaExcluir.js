@@ -1,51 +1,18 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Fragment, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
 import moment from 'moment';
+import { useStyles } from 'style/Style';
+import { useAuth } from 'providers/auth';
 
-const useStyles = makeStyles((theme) => ({
-    control: {
-        padding: theme.spacing(2)
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(2),
-        width: "100%",
-        maxWidth: "400px"
-    },
-    form: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column"
-    },
-    button: {
-        marginRight: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        width: "150px"
-    }
-}));
-
-const INITIAL_DATAHORA = {
-    data: "",
-    hora: ""
-}
-
-const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
+const AgendaExcluir = () => {
+    const {linhaSelecionadaAgenda, dataAgenda, setDataAgenda, setIndex, setChamadoHTTP} = useAuth();
     const classes = useStyles();
-    const [dataHora, setDataHora] = useState(INITIAL_DATAHORA)
 
     useEffect(()=>{
-        setDataHora({data: moment(agendaSelected.data).format("yyyy-MM-DD"), 
-                    hora: moment(agendaSelected.data).format("HH:mm")});
+        setDataAgenda({...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"), 
+                    hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")});
     },[])
-
-    const onClickExcluir = () => {
-        setRetorno(203)
-        setValue(1)
-    }
 
   return (
     <Fragment>
@@ -56,7 +23,7 @@ const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
                         label="Nome"
                         className={classes.textField}
                         name="pacienteNome"
-                        value={agendaSelected.pacienteNome}
+                        value={linhaSelecionadaAgenda.pacienteNome}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -65,8 +32,7 @@ const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
                         label="CPF" 
                         className={classes.textField}
                         name="cpf"
-                        maxLength='14'
-                        value={agendaSelected.cpf}
+                        value={linhaSelecionadaAgenda.cpf}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -76,7 +42,7 @@ const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
                         label="Data do exame"
                         type="date"
                         className={classes.textField}
-                        value={dataHora.data}
+                        value={dataAgenda.data}
                         InputLabelProps={{
                         shrink: true,
                         }}
@@ -87,9 +53,8 @@ const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
                     <TextField
                         name="hora"
                         label="Hora do exame"
-                        maxLength='5'
                         className={classes.textField}
-                        value={dataHora.hora}
+                        value={dataAgenda.hora}
                         InputProps={{
                             readOnly: true,
                           }}
@@ -98,15 +63,15 @@ const AgendaExcluir = ({ setValue, agendaSelected, setRetorno }) => {
                         name="exame"
                         label="Exames ofertados"
                         className={classes.textField}
-                        value={agendaSelected.exame}
+                        value={linhaSelecionadaAgenda.exame}
                         InputProps={{
                             readOnly: true,
                           }}
                     />
-                    <Button variant="contained" color="primary" className={classes.button} onClick={onClickExcluir}>
+                    <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("DELETE_AGENDA")}>
                         Excluir
                     </Button>
-                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setValue(1)}}>
+                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setIndex(1)}}>
                         Cancelar
                     </Button>
             </form>

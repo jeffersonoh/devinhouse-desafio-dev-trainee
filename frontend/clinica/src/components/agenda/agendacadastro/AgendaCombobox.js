@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -9,29 +9,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { cpfMask } from 'utils/mask';
-import { makeStyles } from '@material-ui/core';
 import { useAuth } from 'providers/auth';
+import { useStyles } from 'style/Style';
 
 const filter = createFilterOptions();
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: "100%",
-    maxWidth: "400px"
-  }
-}));
-
-export default function AgendaCombobox({ listaCliente, setClienteSelecionado, setRetorno }) {
-  const { setResposta } = useAuth();
+let fecharDialogo = false;
+const AgendaCombobox = () => {
+  const { clientes, novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox, 
+          novaMarcacao, setNovaMarcacao, setChamadoHTTP } = useAuth();
   const classes = useStyles();
   const [value, setValue] = useState(null);
   const [open, toggleOpen] = useState(false);
 
   const handleClose = () => {
-    setCliente({
+    setNovoCliente({
       nome: '',
       cpf: '',
       ddn: ''
@@ -40,26 +32,30 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
     toggleOpen(false);
   };
 
-  const [cliente, setCliente] = React.useState({
-    nome: '',
-    cpf: '',
-    ddn: ''
-  });
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (cliente.nome.length === 0) { return setResposta(907); }
-    if (cliente.cpf.length !== 14) { return setResposta(908); }
-    if (cliente.ddn.length !== 10) { return setResposta(909); }
-    setValue({
-      nome: cliente.nome,
-      cpf: cliente.cpf,
-      ddn: cliente.ddn
-    });
-    setResposta(204);
-
-    handleClose();
+    setChamadoHTTP("POST_NOVOCLIENTE")
+  
+    if (fecharDialogo) {
+      setValue({
+        nome: novoCliente.nome,
+        cpf: novoCliente.cpf,
+        ddn: novoCliente.ddn
+      });
+      setNovaMarcacao({...novaMarcacao, cpf: novoCliente.cpf, pacienteNome: novoCliente.nome});
+      handleClose();
+    }
   };
+
+  useEffect(()=> {
+    if (clienteCriadoComboBox) {fecharDialogo = true};
+  },[clienteCriadoComboBox])
+
+  useEffect(()=> {
+    setClienteCriadoComboBox(true);
+  },[])
+
+  
   return (
     <React.Fragment>
       <Autocomplete
@@ -70,24 +66,21 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
               toggleOpen(true);
-              setCliente({
-                nome: newValue,
-                cpf: '',
-                ddn: ''
-              });
+              setNovoCliente({ ...novoCliente, nome: newValue});
             });
           } else if (newValue && newValue.inputValue) {
             toggleOpen(true);
-            setCliente({
-              nome: newValue.inputValue,
-              cpf: '',
-              ddn: ''
-            });
+            setNovoCliente({ ...novoCliente, nome: newValue.inputValue});
           } else {
             setValue(newValue);
-            setClienteSelecionado(newValue);
+            clientes.map((item) => {
+              if (item.id === newValue.id) {
+                setNovaMarcacao({...novaMarcacao, cpf: item.cpf, pacienteNome: item.nome});
+              }
+            })
           }
         }}
+        
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 
@@ -101,7 +94,7 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
           return filtered;
         }}
         id="free-solo-dialog-demo"
-        options={listaCliente}
+        options={clientes}
         getOptionLabel={(option) => {
           // e.g value selected with enter, right from the input
           if (typeof option === 'string') {
@@ -123,10 +116,10 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
       />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-nome">
         <form onSubmit={handleSubmit}>
-          <DialogTitle id="form-dialog-nome">Cadastrar novo cliente</DialogTitle>
+          <DialogTitle id="form-dialog-nome">Cadastrar novo novoCliente</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Não localizamos esse cliente, gostaria de cadastra-lo?
+              Não localizamos esse novoCliente, gostaria de cadastra-lo?
             </DialogContentText>
             <div style={{
               display: "flex",
@@ -138,8 +131,8 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
                 autoFocus
                 margin="dense"
                 id="name"
-                value={cliente.nome}
-                onChange={(event) => setCliente({ ...cliente, nome: event.target.value })}
+                value={novoCliente.nome}
+                onChange={(event) => setNovoCliente({ ...novoCliente, nome: event.target.value })}
                 label="Nome"
                 type="text"
                 className={classes.textField}
@@ -147,8 +140,8 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
               <TextField
                 margin="dense"
                 id="name"
-                value={cliente.cpf}
-                onChange={(event) => setCliente({ ...cliente, cpf: cpfMask(event.target.value) })}
+                value={novoCliente.cpf}
+                onChange={(event) => setNovoCliente({ ...novoCliente, cpf: cpfMask(event.target.value) })}
                 label="CPF"
                 type="text"
                 className={classes.textField}
@@ -158,8 +151,8 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
                 label="Data de nascimento"
                 type="date"
                 defaultValue={new Date}
-                value={cliente.ddn}
-                onChange={(e) => { setCliente({ ...cliente, ddn: e.target.value }) }}
+                value={novoCliente.ddn}
+                onChange={(e) => { setNovoCliente({ ...novoCliente, ddn: e.target.value }) }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -180,3 +173,5 @@ export default function AgendaCombobox({ listaCliente, setClienteSelecionado, se
     </React.Fragment>
   );
 }
+
+export default AgendaCombobox;

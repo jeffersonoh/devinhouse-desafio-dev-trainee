@@ -1,40 +1,12 @@
 import React, { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField, Button } from '@material-ui/core';
+import { useAuth } from 'providers/auth';
+import { useStyles } from 'style/Style';
 
-const useStyles = makeStyles((theme) => ({
-    control: {
-        padding: theme.spacing(2),
-        height: "350px"
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(2),
-        width: "100%",
-        maxWidth: "400px"
-    },
-    form: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column"
-    },
-    button: {
-        marginRight: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        width: "150px"
-    }
-}));
-
-const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
+const ClienteExcluir = () => {
+    const { linhaSelecionadaCliente, setIndex, setChamadoHTTP } = useAuth();
     const classes = useStyles();
-
-    const onChickExcluir = () => {
-        setRetorno(203);
-        setValue(1)
-    }
 
   return (
     <Fragment>
@@ -45,7 +17,7 @@ const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
                     label="Nome"
                     className={classes.textField}
                     name="nome"
-                    value={clienteSelected.nome}
+                    value={linhaSelecionadaCliente.nome}
                     InputProps={{
                         readOnly: true,
                       }}
@@ -55,7 +27,7 @@ const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
                     className={classes.textField}
                     name="cpf"
                     maxLength='14'
-                    value={clienteSelected.cpf}
+                    value={linhaSelecionadaCliente.cpf}
                     InputProps={{
                         readOnly: true,
                       }}
@@ -67,7 +39,7 @@ const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
                     maxLength='10'
                     defaultValue={new Date}
                     className={classes.textField}
-                    value={clienteSelected.ddn}
+                    value={linhaSelecionadaCliente.ddn}
                     InputLabelProps={{
                     shrink: true,
                     }}
@@ -75,10 +47,10 @@ const ClienteExcluir = ({ setValue, clienteSelected, setRetorno }) => {
                         readOnly: true,
                       }}
                 />
-                <Button variant="contained" color="primary" className={classes.button} onClick={onChickExcluir}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("DELETE_CLIENTE")}>
                     Excluir
                 </Button>
-                <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setValue(1)}}>
+                <Button variant="contained" color="secondary" className={classes.button} onClick={() => setIndex(1)}>
                     Cancelar
                 </Button>
           </form>

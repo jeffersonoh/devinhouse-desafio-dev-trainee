@@ -1,19 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Toolbar,
-    Typography,
-    Paper,
-    IconButton,
-    Tooltip,
-    InputBase,
-    makeStyles
+    Table, TableBody, TableCell, TableContainer, TableHead,
+    TableRow, Toolbar, Typography, Paper, IconButton, Tooltip,
+    InputBase
 } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -23,39 +12,17 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
-
-const useStyles = makeStyles((theme) => ({
-    divPesquisa: {
-        padding: "8px",
-        display:"flex", 
-        flexDirection:"row"
-    },
-    pesquisa: {
-        marginLeft: "5px"
-    },
-    toolbar: {
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    contadorDePagina: {
-        width: "100%",
-        display: "flex",
-        justifyContent: "flex-end"
-    }
-}));
+import { useStyles } from 'style/Style';
+import { cabecalhoTabelaAgenda } from 'api/apiTeste';
+import { useAuth } from 'providers/auth';
 
 let pagina = 1;
-const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
+const AgendaLista = () => {
+    const { marcacoes, linhaSelecionadaAgenda, setLinhaSelecionadaAgenda,
+        setIndex, setPesquisaMarcacao, pesquisaMarcacao, setChamadoHTTP } = useAuth();
     const classes = useStyles();
-    const cabecalhoTabela = [
-        {id: "pacienteNome", coluna: "Clientes"}, 
-        {id: "cpf", coluna: "CPF"}, 
-        {id: "data", coluna: "Marcação"}, 
-        {id: "exame", coluna: "Exame"},   
-    ];
-    const [linhaSelecionada, setLinhaSelecionada] = useState(0);
+
     const [itemPagina, setItempagina] = useState([]);
-    const [pesquisa, setPesquisa] = useState("");
     
     const setPaginaLista = () => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
@@ -63,7 +30,7 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
         let paginaProvisoria = [];
         let linhaAtual = 1;
 
-        lista.map((linha) => {
+        marcacoes.map((linha) => {
             if (linhaAtual <= limiteLinhaPagina){
                 if (linhaAtual >= offSetLinhaPagina){
                     paginaProvisoria.push(linha);
@@ -76,7 +43,7 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
     }
     
     const proximaPagina = () => {
-        if (lista.length > pagina * 5) {
+        if (marcacoes.length > pagina * 5) {
             pagina++;
         setPaginaLista();
       }
@@ -89,26 +56,6 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
       }
     }
 
-    const clickEditar = () => {
-        setAgendaSelected([]);
-        lista.map((item) => {
-            if (linhaSelecionada === item.id) {
-                setAgendaSelected(item);
-                setValue(4)
-            }
-        })
-    }
-
-    const clickExcluir = () => {
-        setAgendaSelected([]);
-        lista.map((item) => {
-            if (linhaSelecionada === item.id) {
-                setAgendaSelected(item);
-                setValue(5)
-            }
-        })
-    }
- 
     useEffect(()=>{
         setPaginaLista();
     },[])
@@ -117,40 +64,42 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
         <Fragment>
             <Paper>
                 <div className={classes.divPesquisa}>
-                    <SearchIcon />
+                    <IconButton aria-label="Editar" onClick={() => setChamadoHTTP("FIND_AGENDA")}>
+                        <SearchIcon />
+                    </IconButton>
                     <InputBase 
                       placeholder="Pesquisar" 
                       className={classes.pesquisa}
                       title={"Apenas por CPF"}
-                      value={pesquisa}
-                      onChange={(e) => {setPesquisa(cpfMask(e.target.value))}}
+                      value={pesquisaMarcacao}
+                      onChange={(e) => {setPesquisaMarcacao(cpfMask(e.target.value))}}
                     />
                 </div>
-                <Toolbar className={classes.toolbar} style={{backgroundColor: linhaSelecionada !== 0 ? "#ff8a80" : "#fff"}}>
+                <Toolbar className={classes.toolbar} style={{backgroundColor: linhaSelecionadaAgenda.id !== 0 ? "#ff8a80" : "#fff"}}>
                     <div>
-                        {linhaSelecionada !== 0 
+                        {linhaSelecionadaAgenda.id !== 0 
                             ? <Typography>Selecionado</Typography>
                             : <Typography>Agenda</Typography>
                         }
                     </div>
                     <div>
-                        {linhaSelecionada !== 0 
+                        {linhaSelecionadaAgenda.id !== 0 
                             ? //--------------------------------------
                                 <div style={{display:"flex", flexDirection:"row"}}>
                                     <Tooltip title="Editar">
-                                        <IconButton aria-label="Editar" onClick={clickEditar}>
+                                        <IconButton aria-label="Editar" onClick={() => setIndex(3)}>
                                             <EditIcon />
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title="Excluir">
-                                        <IconButton aria-label="Excluir" onClick={clickExcluir}>
+                                        <IconButton aria-label="Excluir" onClick={() => setIndex(4)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </Tooltip>
                                 </div>
                             : //--------------------------------------
                                 <Tooltip title="Cadastrar">
-                                    <IconButton aria-label="Cadastrar" onClick={() => {setValue(3)}}>
+                                    <IconButton aria-label="Cadastrar" onClick={() => {setIndex(2)}}>
                                         <AddCircleOutlineIcon />
                                     </IconButton>
                                 </Tooltip>
@@ -162,7 +111,7 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
                         <TableHead>
                             <TableRow>
                                 {
-                                    cabecalhoTabela.map((linha) => {
+                                    cabecalhoTabelaAgenda.map((linha) => {
                                         return (
                                             <TableCell key={linha.id} align="center">
                                                 <TableContainer><b>{linha.coluna}</b></TableContainer>
@@ -177,11 +126,11 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
                                 itemPagina.map((linha) => (
                                     <TableRow 
                                         key={linha.id}
-                                        onClick={() => linha.id === linhaSelecionada 
-                                            ? setLinhaSelecionada(0) 
-                                            : setLinhaSelecionada(linha.id)}
+                                        onClick={() => linha.id === linhaSelecionadaAgenda.id 
+                                            ? setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 }) 
+                                            : setLinhaSelecionadaAgenda(linha)}
                                         style={{
-                                            backgroundColor: linhaSelecionada === linha.id ? "#ff8a80" : "#fff"
+                                            backgroundColor: linhaSelecionadaAgenda.id === linha.id ? "#ff8a80" : "#fff"
                                         }}
                                     >
                                         <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>
@@ -205,12 +154,12 @@ const AgendaLista = ({ setValue, setAgendaSelected, lista }) => {
                             ? 1 
                             : (pagina - 1) * 5 + 1) 
                         + "-" + 
-                        (pagina * 5 > lista.length && pagina > 1 
-                            ? lista.length 
-                            : lista.length < 5 
-                                ? lista.length 
+                        (pagina * 5 > marcacoes.length && pagina > 1 
+                            ? marcacoes.length 
+                            : marcacoes.length < 5 
+                                ? marcacoes.length 
                                 : pagina * 5) 
-                            + " de " + (lista.length)}
+                            + " de " + (marcacoes.length)}
                     </Typography>
                     <Tooltip title="Proxíma página">
                         <IconButton aria-label="Proxíma página" onClick={() => {proximaPagina()}}>

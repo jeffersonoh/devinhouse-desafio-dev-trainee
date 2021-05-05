@@ -37,6 +37,7 @@ const Respostas = () => {
         if (resposta === 205) { info("Cliente foi cadastrado!"); }
         if (resposta === 206) { info("Cliente foi editado!"); }
         if (resposta === 207) { info("Cliente foi excluido!"); }
+        if (resposta === 208) { info("Pesquisa concluída!"); }
         if (resposta === 401) { erro("Marcação não foi cadastrada!"); }
         if (resposta === 402) { erro("Marcação não foi editada!"); }
         if (resposta === 403) { erro("Marcação não foi excluida!"); }
@@ -54,7 +55,7 @@ const Respostas = () => {
 
         setResposta(0);
     }, [resposta])
-    console.log("dialogo",dialogo);
+
     return (
         <Fragment>
             {(index === 3 && dialogo) &&
