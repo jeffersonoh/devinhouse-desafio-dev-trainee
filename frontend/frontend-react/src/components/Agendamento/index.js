@@ -60,15 +60,17 @@ export function Agendamento(props) {
     []
   );
   useEffect(() => {
-    const handleListaHorariosIndisponiveis = async () => {
-      const listaHorarios = await RequestBackendAgendamento.getAgendamentosIndisponiveis(
-        nomeExame,
-        dataAgendamento
-      );
-      setListaHorariosIndisponiveis(listaHorarios);
-    };
-    handleListaHorariosIndisponiveis();
-  }, [dataAgendamento]);
+    if(nomeExame !== "" && dataAgendamento !== "") {
+      const handleListaHorariosIndisponiveis = async () => {
+        const listaHorarios = await RequestBackendAgendamento.getAgendamentosIndisponiveis(
+          nomeExame,
+          dataAgendamento
+        );
+        setListaHorariosIndisponiveis(listaHorarios);
+      };
+      handleListaHorariosIndisponiveis();
+    }
+  }, [nomeExame, dataAgendamento]);
 
   const handlePost = async () => {
     await RequestBackendAgendamento.postAgendamento({
@@ -104,13 +106,28 @@ export function Agendamento(props) {
   }
 
   useEffect(() => {
-    setstateIdAgendamento(valueIdAgendamento)
+/*     setstateIdAgendamento(valueIdAgendamento)
     setNomeExame(valueExame);
-    if(!dataAgendamento == undefined ) {
+    if(!dataAgendamento === undefined ) {
       setDataAgendamento(valueData);
     }
-    setHorarioAgendamento(valueHorario);
-  }, []);
+    setHorarioAgendamento(valueHorario); */
+    if(valueIdAgendamento !== undefined ) {
+      setstateIdAgendamento(valueIdAgendamento)
+    }
+
+    if(valueExame !== undefined ) {
+      setNomeExame(valueExame);
+    }
+    
+    if(valueData !== undefined ) {
+      setDataAgendamento(valueData);
+    }
+
+    if(!valueHorario !== undefined ) {
+      setHorarioAgendamento(valueHorario);
+    }
+  }, [valueIdAgendamento, valueExame, valueData, valueHorario] );
 
   return (
     <Box className={classes.boxExterior}>

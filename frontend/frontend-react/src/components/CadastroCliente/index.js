@@ -78,10 +78,16 @@ export const CadastroCliente = (props) => {
   };
 
   useEffect(() => {
-    setStateCpf(valueCpf);
-    setNome(valueNome);
-    setDataNascimento(valueNascimento);
-  }, []);
+    if (valueCpf !== undefined) {
+      setStateCpf(valueCpf);
+    } 
+    if (valueNome !== undefined) {
+      setNome(valueNome);
+    }
+    if (valueNascimento !== undefined) {
+      setDataNascimento(valueNascimento);
+    }
+  }, [valueCpf, valueNome, valueNascimento]);
 
   return (
     <Box className={classes.boxExterior}>

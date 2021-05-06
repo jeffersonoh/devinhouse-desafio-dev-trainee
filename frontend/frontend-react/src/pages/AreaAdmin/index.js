@@ -109,19 +109,19 @@ export function AreaAdmin() {
         <Botao text="Logout" variante="text" cor="menuLateral" />
       </Drawer>
 
-      {showExames == true && (
+      {showExames === true && (
         <>
           <Typography>Listagem de Exames</Typography>
           <ListagemExames listagem={exames} />
         </>
       )}
-      {showListaClientes == true && (
+      {showListaClientes === true && (
         <>
           <Typography>Listagem de clientes</Typography>
           <ListagemClientes listagem={listaClientes} />
         </>
       )}
-      {showCliente == true && (
+      {showCliente === true && (
         <>
           <Typography>Resultado da pesquisa</Typography>
           <CustomModal

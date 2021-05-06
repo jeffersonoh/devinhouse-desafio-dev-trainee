@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {BarraPrincipal} from "../../components/Header";
 import { CustomModal } from "../../components/CustomModal";
@@ -49,7 +49,7 @@ export function HomePage() {
       >
         (Clique no botão minha conta)
       </Typography>
-      {openModalCadastro == true && (
+      {openModalCadastro === true && (
         <CustomModal
           open={openModalCadastro}
           onclose={handleCloseModalCadastro}
@@ -65,7 +65,7 @@ export function HomePage() {
         />
       )}
 
-      {openModalLogin == true && (
+      {openModalLogin === true && (
         <CustomModal
           open={openModalLogin}
           onclose={handleCloseModalLogin}
