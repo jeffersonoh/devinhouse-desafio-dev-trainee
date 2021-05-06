@@ -11,7 +11,7 @@ import br.com.izy.entity.Agendamento;
 
 @Repository
 public interface AgendamentoRepository extends CrudRepository<Agendamento, Long> {
-	Optional<Agendamento> findByClienteId(Long clienteId);
-	Optional<Agendamento> findByExameId(Long exameId);
+	Iterable<Agendamento> findByClienteIdOrExameId(Long clienteId, Long ExameId);
+	Iterable<Agendamento> findByClienteIdAndExameId(Long clienteId, Long ExameId);
 	Optional<Agendamento> findByDataAndHorario(LocalDate data, LocalTime horario);
 }

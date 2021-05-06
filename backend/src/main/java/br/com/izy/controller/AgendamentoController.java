@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,8 +39,8 @@ public class AgendamentoController {
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<AgendamentoDTOOutput> findAll() {
-		List<Agendamento> agendamentos = service.findAll();
+	public List<AgendamentoDTOOutput> findAll(@RequestParam(required = false) Long cliente_id, @RequestParam(required = false) Long exame_id) {
+		List<Agendamento> agendamentos = service.findAll(cliente_id, exame_id);
 		
 		List<AgendamentoDTOOutput> result = new ArrayList<AgendamentoDTOOutput>();
 		

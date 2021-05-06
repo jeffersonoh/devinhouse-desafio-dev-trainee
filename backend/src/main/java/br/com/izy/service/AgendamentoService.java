@@ -31,7 +31,13 @@ public class AgendamentoService {
 	@Autowired
 	private ExameService exameService;
 	
-	public List<Agendamento> findAll() {
+	public List<Agendamento> findAll(Long clienteId, Long exameId) {
+		if (clienteId != null && exameId != null) {
+			return (List<Agendamento>) repository.findByClienteIdAndExameId(clienteId, exameId);
+		} else if (clienteId != null || exameId != null) {
+			return (List<Agendamento>) repository.findByClienteIdOrExameId(clienteId, exameId);
+		}
+		
 		return (List<Agendamento>) repository.findAll();
 	}
 	
