@@ -80,7 +80,6 @@ public class ClienteController {
 		
 		cliente = cliente.converteClienteDTO(body);
 		
-		
 		service.update(id, cliente);
 	}
 	

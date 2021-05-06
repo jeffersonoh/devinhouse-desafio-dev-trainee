@@ -1,13 +1,11 @@
 package br.com.izy.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.br.CPF;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ClienteDTOInput implements Serializable {
 
@@ -18,9 +16,10 @@ public class ClienteDTOInput implements Serializable {
 	@NotNull
 	@CPF
 	private String cpf;
+	@Pattern(regexp = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$",
+      message = "Data precisa seguir o padrão dd/MM/yyyy")
 	@NotNull
-	@JsonFormat(pattern="dd/MM/yyyy")
-	private LocalDate dataNascimento;
+	private String dataNascimento;
 	
 	public ClienteDTOInput() {
 	}
@@ -37,10 +36,10 @@ public class ClienteDTOInput implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public LocalDate getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

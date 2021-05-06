@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import br.com.izy.dto.ClienteDTOInput;
+import br.com.izy.util.StringToLocalDateHandler;
 
 @Entity
 @Table(
@@ -65,9 +66,11 @@ public class Cliente implements Serializable {
 	}
 	
 	public Cliente converteClienteDTO(ClienteDTOInput clienteDTO) {
-		Cliente result = new Cliente(clienteDTO.getNome(), clienteDTO.getCpf(), clienteDTO.getDataNascimento());
+	
+		Cliente result = new Cliente(clienteDTO.getNome(), clienteDTO.getCpf(), StringToLocalDateHandler.ConverteStringToLocalDate(clienteDTO.getDataNascimento()));
 		
 		return result;
+		
 	}
 	
 }
