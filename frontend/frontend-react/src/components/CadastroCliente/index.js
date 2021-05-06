@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { cpfMask } from "./maks";
+import { cpfMask } from "../../utils/cpfMask";
 
 import { InputText } from "../../components/InputText";
 import {Botao} from "../Button";
 import theme from "./CadastroCliente.style";
-import RequestBackendCliente from "../../utils/ClienteRequest";
+import RequestBackendCliente from "../../services/ClienteRequest";
 
 const useStyles = makeStyles({
   boxExterior: {

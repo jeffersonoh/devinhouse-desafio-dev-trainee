@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Box, Drawer, makeStyles, Typography } from "@material-ui/core";
 
-import RequestBackendCliente from "../../utils/ClienteRequest";
-import RequestBasckendAgendamento from "../../utils/AgendamentoRequest";
+import RequestBackendCliente from "../../services/ClienteRequest";
+import RequestBasckendAgendamento from "../../services/AgendamentoRequest";
 import { Listagem } from "./listagem";
 import { CustomModal } from "../../components/CustomModal";
 import {BarraPrincipal} from "../../components/Header";

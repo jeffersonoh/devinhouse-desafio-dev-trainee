@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import RequestBackendExame from "../../utils/ExameRequest";
-import RequestBackendAgendamento from "../../utils/AgendamentoRequest";
+import RequestBackendExame from "../../services/ExameRequest";
+import RequestBackendAgendamento from "../../services/AgendamentoRequest";
 import { DropdownExames } from "./DropdownExames";
 import theme from "./Agendamento.style";
 import { InputText } from "../../components/InputText";

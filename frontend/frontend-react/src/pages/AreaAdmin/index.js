@@ -4,8 +4,8 @@ import { Drawer, Typography } from "@material-ui/core";
 
 import {BarraPrincipal} from "../../components/Header";
 import {Botao}from "../../components/Button";
-import RequestBackendCliente from "../../utils/ClienteRequest";
-import RequestBackendExame from "../../utils/ExameRequest";
+import RequestBackendCliente from "../../services/ExameRequest";
+import RequestBackendExame from "../../services/ExameRequest";
 import ListagemClientes from "./ListagemAdmin/ListagemClientes";
 import ListagemCliente from "./ListagemAdmin/ListagemCliente";
 import ListagemExames from "./ListagemAdmin/ListagemExames";

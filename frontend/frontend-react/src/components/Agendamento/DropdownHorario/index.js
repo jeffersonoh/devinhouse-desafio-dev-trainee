@@ -4,7 +4,7 @@ import { FormControl, NativeSelect } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import theme from "./DropdownHorario.style";
-import horariosPossiveis from "./horariosPossiveis";
+import horariosPossiveis from "../../../utils/horariosPossiveis";
 
 const useStyles = makeStyles({
   dropDownwidth: {
