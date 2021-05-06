@@ -12,7 +12,7 @@ import br.com.izy.entity.Cliente;
 import br.com.izy.entity.Exame;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AgendamentoDTO implements Serializable {
+public class AgendamentoDTOOutput implements Serializable {
 
 	private static final long serialVersionUID = -1365481708890266372L;
 
@@ -26,11 +26,11 @@ public class AgendamentoDTO implements Serializable {
 	private Cliente cliente;
 	private Exame exame;
 	
-	public AgendamentoDTO() {
+	public AgendamentoDTOOutput() {
 		
 	}
 		
-	public AgendamentoDTO(Long id, LocalDate data, LocalTime horario, Long clienteId, Long exameId) {
+	public AgendamentoDTOOutput(Long id, LocalDate data, LocalTime horario, Long clienteId, Long exameId) {
 		this.id = id;
 		this.data = data;
 		this.horario = horario;
@@ -38,7 +38,7 @@ public class AgendamentoDTO implements Serializable {
 		this.exameId = exameId;
 	}
 	
-	public AgendamentoDTO(Agendamento agendamento) {
+	public AgendamentoDTOOutput(Agendamento agendamento) {
 		this.id = agendamento.getId();
 		this.data = agendamento.getData();
 		this.horario = agendamento.getHorario();

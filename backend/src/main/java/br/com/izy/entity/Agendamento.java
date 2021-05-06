@@ -17,7 +17,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.izy.dto.AgendamentoDTO;
+import br.com.izy.dto.AgendamentoDTOInput;
+import br.com.izy.util.StringToLocalDateHandler;
 
 @Entity
 @Table(name = "agendamentos")
@@ -45,8 +46,7 @@ public class Agendamento implements Serializable {
 		
 	}
 	
-	public Agendamento(Long id, LocalDate data, LocalTime horario, Cliente cliente, Exame exame) {
-		this.id = id;
+	public Agendamento(LocalDate data, LocalTime horario, Cliente cliente, Exame exame) {
 		this.data = data;
 		this.horario = horario;
 		this.cliente = cliente;
@@ -84,8 +84,12 @@ public class Agendamento implements Serializable {
 		this.horario = horario;
 	}
 	
-	public Agendamento converteAgendamentoDTO(AgendamentoDTO agendamentoDTO, Cliente cliente, Exame exame) {
-		Agendamento result = new Agendamento(agendamentoDTO.getId(), agendamentoDTO.getData(), agendamentoDTO.getHorario(), cliente, exame);
+	public Agendamento converteAgendamentoDTO(AgendamentoDTOInput agendamentoDTO, Cliente cliente, Exame exame) {
+		Agendamento result = new Agendamento(
+			StringToLocalDateHandler.ConverteStringToLocalDate(agendamentoDTO.getData()),
+			agendamentoDTO.getHorario(),
+			cliente, exame
+		);
 		
 		return result;
 	}

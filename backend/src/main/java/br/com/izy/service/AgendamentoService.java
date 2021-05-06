@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.izy.dto.AgendamentoDTO;
+import br.com.izy.dto.AgendamentoDTOInput;
 import br.com.izy.entity.Agendamento;
 import br.com.izy.entity.Cliente;
 import br.com.izy.entity.Exame;
@@ -36,7 +36,7 @@ public class AgendamentoService {
 		return result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));
 	}
 	
-	public Agendamento create(AgendamentoDTO agendamentoDTO, Long clienteId, Long exameId) {
+	public Agendamento create(AgendamentoDTOInput agendamentoDTO, Long clienteId, Long exameId) {
 		Cliente cliente = clienteService.find(clienteId, null);
 		
 		Exame exame = exameService.find(exameId);
@@ -48,7 +48,7 @@ public class AgendamentoService {
 		return repository.save(agendamento);
 	}
 	
-	public void update(Long id, AgendamentoDTO agendamentoDTO, Long clienteId, Long exameId) {
+	public void update(Long id, AgendamentoDTOInput agendamentoDTO, Long clienteId, Long exameId) {
 		Optional<Agendamento> result = repository.findById(id);
 		
 		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));

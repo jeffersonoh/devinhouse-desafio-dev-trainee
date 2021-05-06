@@ -5,6 +5,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.izy.dto.AgendamentoDTO;
+import br.com.izy.dto.AgendamentoDTOInput;
+import br.com.izy.dto.AgendamentoDTOOutput;
 import br.com.izy.entity.Agendamento;
 import br.com.izy.service.AgendamentoService;
 
@@ -34,13 +37,13 @@ public class AgendamentoController {
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<AgendamentoDTO> findAll() {
+	public List<AgendamentoDTOOutput> findAll() {
 		List<Agendamento> agendamentos = service.findAll();
 		
-		List<AgendamentoDTO> result = new ArrayList<AgendamentoDTO>();
+		List<AgendamentoDTOOutput> result = new ArrayList<AgendamentoDTOOutput>();
 		
 		for (Agendamento agendamento : agendamentos) {
-			result.add(new AgendamentoDTO(agendamento));
+			result.add(new AgendamentoDTOOutput(agendamento));
 		}
 		
 		return result;
@@ -49,25 +52,25 @@ public class AgendamentoController {
 	@GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public AgendamentoDTO find(@PathVariable Long id) {
+	public AgendamentoDTOOutput find(@PathVariable Long id) {
 		Agendamento agendamento = service.find(id);
 		
-		return new AgendamentoDTO(agendamento);
+		return new AgendamentoDTOOutput(agendamento);
 	}
 	
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public AgendamentoDTO create(@RequestBody AgendamentoDTO body) {
+	public AgendamentoDTOOutput create(@Valid @RequestBody AgendamentoDTOInput body) {
 		Agendamento agendamento = service.create(body, body.getClienteId(), body.getExameId());
 		
-		return new AgendamentoDTO(agendamento);
+		return new AgendamentoDTOOutput(agendamento);
 	}
 	
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @RequestBody AgendamentoDTO body) {
+	public void update(@PathVariable Long id, @Valid @RequestBody AgendamentoDTOInput body) {
 		service.update(id, body, body.getClienteId(), body.getExameId());
 	}
 	
