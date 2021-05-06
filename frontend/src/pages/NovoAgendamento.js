@@ -218,6 +218,7 @@ const NovoAgendamento = () => {
               <Grid item xs={6}>
                 <Field
                   component={Autocomplete}
+                  disabled={handleInitialValues().id !== 0}
                   name="cliente"
                   id="cliente"
                   options={clientes}
@@ -258,7 +259,9 @@ const NovoAgendamento = () => {
                       {...params}
                       error={touched['cliente'] && !!errors['cliente']}
                       helperText={
-                        touched['cliente'] && errors['cliente']
+                        touched['cliente'] 
+                          ? errors['cliente']
+                          : handleInitialValues().id === 0 && "Busque um cliente por nome ou cpf"
                       }
                       className={classes.input}
                       label="Cliente"
@@ -272,6 +275,7 @@ const NovoAgendamento = () => {
               <Grid item xs={6}>
                 <Field
                   component={Autocomplete}
+                  disabled={handleInitialValues().id !== 0}
                   name="exame"
                   id="exame"
                   options={exames}
