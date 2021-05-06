@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { Container } from "./styles";
+import { Container, Wrapper } from "./styles";
 
 import { toast } from "react-toastify";
 
@@ -39,40 +39,42 @@ function ListScheduledExamsPage() {
       <Header />
       <h1>Listar exames agendados</h1>
       <LightDividingLine />
-      {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
-        <Loading />
-      )}
-      {loaded === true &&
-        agendamentos.length !== 0 &&
-        agendamentos.map((exam, index) => {
-          return (
-            <ListScheduledExamsItemModel
-              key={index}
-              handleClick={() => {
-                navigate("/agendamento/atualizar/" + exam.id);
-              }}
-              handleDelete={() => {
-                const userConfirmation = window.confirm(
-                  "Deseja realmente remover esse agendamento?!\nEssa ação não poderá ser desfeita!"
-                );
-                if (userConfirmation === true) {
-                  deletarAgendamento(exam.id);
-                  toast.success("O agendamento foi removido!");
-                } else {
-                  toast.warning("O agendamento será mantido!");
-                }
-              }}
-              examId={exam.examId}
-              examName={exam.examName}
-              patientName={exam.patientName}
-              examDate={exam.examDate}
-              examTime={exam.examTime}
-            />
-          );
-        })}
-      {loaded === true && agendamentos.length === 0 && (
-        <h2>Não há exames agendados para serem exibidos!</h2>
-      )}
+      <Wrapper>
+        {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
+          <Loading />
+        )}
+        {loaded === true &&
+          agendamentos.length !== 0 &&
+          agendamentos.map((exam, index) => {
+            return (
+              <ListScheduledExamsItemModel
+                key={index}
+                handleClick={() => {
+                  navigate("/agendamento/atualizar/" + exam.id);
+                }}
+                handleDelete={() => {
+                  const userConfirmation = window.confirm(
+                    "Deseja realmente remover esse agendamento?!\nEssa ação não poderá ser desfeita!"
+                  );
+                  if (userConfirmation === true) {
+                    deletarAgendamento(exam.id);
+                    toast.success("O agendamento foi removido!");
+                  } else {
+                    toast.warning("O agendamento será mantido!");
+                  }
+                }}
+                examId={exam.examId}
+                examName={exam.examName}
+                patientName={exam.patientName}
+                examDate={exam.examDate}
+                examTime={exam.examTime}
+              />
+            );
+          })}
+        {loaded === true && agendamentos.length === 0 && (
+          <h2>Não há exames agendados para serem exibidos!</h2>
+        )}
+      </Wrapper>
       <Footer />
     </Container>
   );

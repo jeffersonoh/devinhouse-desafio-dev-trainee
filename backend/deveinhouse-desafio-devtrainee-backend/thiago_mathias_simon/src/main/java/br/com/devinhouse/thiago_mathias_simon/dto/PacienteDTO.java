@@ -8,6 +8,7 @@ public class PacienteDTO {
     private String patientName;
     private String patientCpf;
     private String patientBornDate;
+    private String password;
     private Instant timestamp = Instant.now();
 
     public long getId() {
@@ -48,5 +49,13 @@ public class PacienteDTO {
 
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

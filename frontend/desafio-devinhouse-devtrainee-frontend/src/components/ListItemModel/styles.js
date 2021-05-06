@@ -13,6 +13,15 @@ export const Container = styled.div`
   padding: 25px 50px;
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 541px) {
+    padding: 2px;
+    font-weight: 300;
+    font-size: small;
+    width: 70%;
+    margin-bottom: 20px;
+    height: 15%;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -29,6 +38,22 @@ export const Id = styled.div`
 
 export const ExamName = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  > div.examName {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 541px) {
+    display: flex;
+    flex-direction: column;
+
+    > div.examName {
+      margin-left: 0px;
+      width: 70%;
+    }
+  }
 `;
 
 export const Button = styled.div`
@@ -46,5 +71,13 @@ export const Button = styled.div`
     width: 100%;
     height: 100%;
     cursor: pointer;
+  }
+
+  @media (max-width: 541px) {
+    width: 70px;
+
+    > button {
+      padding: 0;
+    }
   }
 `;

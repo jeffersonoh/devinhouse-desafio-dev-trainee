@@ -46,6 +46,14 @@ export const Button = styled.div`
       background: green;
     }
   }
+
+  @media (max-width: 541px) {
+    width: 32.5%;
+    > button {
+      font-size: small;
+      padding: 0;
+    }
+  }
 `;
 
 const iconCSS = css`

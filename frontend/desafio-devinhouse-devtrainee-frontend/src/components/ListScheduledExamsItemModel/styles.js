@@ -12,6 +12,11 @@ export const Wrapper = styled.div`
   padding: 5px 6px;
   margin: auto;
   margin-top: 2%;
+
+  @media (max-width: 541px) {
+    height: 50%;
+    width: 85%;
+  }
 `;
 
 export const ExamId = styled.div`
@@ -39,11 +44,19 @@ export const ExamName = styled.div`
   color: black;
   padding: 5px 6px;
   height: 50%;
+
+  @media (max-width: 541px) {
+    font-size: small;
+  }
 `;
 
 export const ExamInformation = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 541px) {
+    flex-direction: column;
+  }
 `;
 
 export const PatientName = styled.div`

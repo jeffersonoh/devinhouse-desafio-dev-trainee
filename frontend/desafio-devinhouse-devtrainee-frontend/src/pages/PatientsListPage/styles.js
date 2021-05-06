@@ -19,4 +19,17 @@ export const Container = styled.div`
     text-decoration: underline;
     margin-top: 2%;
   }
+
+  @media (max-width: 541px) {
+    height: 100%;
+    > h1 {
+      font-size: large;
+    }
+    > h2 {
+      width: 90%;
+      margin: auto;
+      margin-top: 1%;
+      font-size: large;
+    }
+  }
 `;

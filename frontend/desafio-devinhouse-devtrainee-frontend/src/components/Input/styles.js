@@ -5,6 +5,11 @@ export const Container = styled.div`
   background-color: white;
   border: 5px solid #fff;
   padding: 2rem 5rem;
+  @media (max-width: 541px) {
+    padding: 0;
+    padding-bottom: 20px;
+    width: 95%;
+  }
 `;
 
 export const Wrapper = styled.div`

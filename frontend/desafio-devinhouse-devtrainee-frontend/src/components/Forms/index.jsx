@@ -1,7 +1,4 @@
 import { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-
 import { Wrapper, NewButton } from "./styles";
 
 import Input from "../Input";
@@ -9,10 +6,11 @@ import ContainerModel from "../ContainerModel";
 import Button from "../Button";
 import EyeButton from "../EyeButton";
 
-function Forms() {
+function Forms(props) {
+  const { handleSubmit } = props;
+
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
   return (
     <ContainerModel
       title="Cadastrar"
@@ -25,8 +23,12 @@ function Forms() {
             type="date"
             id="dataDeNascimentoDoPaciente"
           />
-          <Input label="Senha" type="password" id="senhaDoPaciente" />
-          <Wrapper>
+          <Wrapper className="wrapper">
+            <Input
+              label="Senha (alfanumérica - 6 a 10 caracteres)"
+              type="password"
+              id="senhaDoPaciente"
+            />
             <EyeButton
               open={open}
               handleClick={() => {
@@ -41,26 +43,23 @@ function Forms() {
             />
           </Wrapper>
           <br />
-          <NewButton>
+          <NewButton className="buttons">
             <Button
               handleClick={() => {
-                let nome = document.getElementById("nomeDoPaciente");
+                const nome = document.getElementById("nomeDoPaciente");
                 nome.value = "";
-                let cpf = document.getElementById("cpfDoPaciente");
+                const cpf = document.getElementById("cpfDoPaciente");
                 cpf.value = "";
-                let dataDeNascimento = document.getElementById(
+                const dataDeNascimento = document.getElementById(
                   "dataDeNascimentoDoPaciente"
                 );
                 dataDeNascimento.value = "";
+                const password = document.getElementById("senhaDoPaciente");
+                password.value = "";
               }}
               buttonName="limpar"
             />
-            <Button
-              handleClick={() => {
-                navigate("/");
-              }}
-              buttonName="cadastrar"
-            />
+            <Button handleClick={handleSubmit} buttonName="cadastrar" />
           </NewButton>
         </>
       }

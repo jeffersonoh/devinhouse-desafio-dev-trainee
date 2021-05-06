@@ -23,4 +23,10 @@ export const Wrapper = styled.div`
     margin-top: 3%;
     margin-bottom: 2%;
   }
+  @media (max-width: 541px) {
+    height: 100%;
+    > h1 {
+      font-size: large;
+    }
+  }
 `;

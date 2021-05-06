@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = `/agendamento`;
+const BASE_URL = `/v1/agendamento`;
 
 class AgendamentosService {
   buscarAgendamentos() {

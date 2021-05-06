@@ -12,6 +12,15 @@ export const Wrapper = styled.div`
   padding: 5px 6px;
   margin: auto;
   margin-top: 2%;
+
+  @media (max-width: 541px) {
+    padding: 2px;
+    font-weight: 300;
+    font-size: small;
+    width: 90%;
+    margin-bottom: 20px;
+    height: 20%;
+  }
 `;
 
 export const Content = styled.div`
@@ -32,6 +41,10 @@ export const PatientName = styled.div`
 export const PatientInformation = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 541px) {
+    flex-direction: column;
+  }
 `;
 
 export const PatientCpf = styled.div`
@@ -45,4 +58,8 @@ export const PatientBornDate = styled.div`
   padding: 5px 6px;
   height: 50%;
   margin-left: 5%;
+
+  @media (max-width: 541px) {
+    margin-left: 0;
+  }
 `;

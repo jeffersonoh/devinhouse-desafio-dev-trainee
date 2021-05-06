@@ -5,7 +5,7 @@ import { Container } from "./styles";
 
 function ContainerModel(props) {
   return (
-    <Container>
+    <Container className="Container">
       <BackButton />
       <h1>{props.title}</h1>
       <DividingLine />

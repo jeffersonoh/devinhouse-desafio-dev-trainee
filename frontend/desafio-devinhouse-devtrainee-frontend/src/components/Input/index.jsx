@@ -4,7 +4,7 @@ function Input(props) {
   const { value, type, label, id, handleChange, readonlyValue } = props;
 
   return (
-    <Container>
+    <Container className="input">
       <Wrapper>
         <InputData>
           <input

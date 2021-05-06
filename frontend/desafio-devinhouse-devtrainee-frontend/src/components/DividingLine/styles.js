@@ -11,4 +11,11 @@ export const Line = styled.div`
   background: linear-gradient(90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: change 5s ease-in-out infinite;
+
+  @media (max-width: 541px) {
+    position: unset;
+    display: flex;
+    width: 100%;
+    margin-left: 50%;
+  }
 `;

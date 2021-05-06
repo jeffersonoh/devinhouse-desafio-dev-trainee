@@ -50,7 +50,7 @@ function ScheduleExamPage() {
       if (dadosConferem === false && encontrou === true) {
         toast.error(
           "Os dados de Nome e CPF não conferem!" +
-            "\nPor obséquio, vrefique a grafia e tente novamente!"
+            "\nPor obséquio, verifique a grafia e tente novamente!"
         );
       }
     }

@@ -9,7 +9,10 @@ function ListItemModel(props) {
     <Container>
       <Wrapper>
         <Id>Id: {props.id}</Id>
-        <ExamName> Nome do exame: {props.examName}</ExamName>
+        <ExamName>
+          <div>Nome do exame: </div>
+          <div className="examName">{props.examName}</div>
+        </ExamName>
       </Wrapper>
       <Button>
         <button

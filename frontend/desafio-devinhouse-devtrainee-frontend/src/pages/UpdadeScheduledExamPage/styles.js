@@ -9,6 +9,12 @@ export const Container = styled.div`
     color: whitesmoke;
     margin-bottom: 1%;
   }
+
+  @media (max-width: 541px) {
+    > h1 {
+      font-size: large;
+    }
+  }
 `;
 
 export const Buttons = styled.div`
@@ -17,6 +23,10 @@ export const Buttons = styled.div`
   justify-content: space-between;
   margin: auto;
   width: 50%;
+  @media (max-width: 541px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 export const Button = styled.div`
@@ -49,6 +59,9 @@ export const Button = styled.div`
       background: green;
     }
   }
+  @media (max-width: 541px) {
+    width: 47%;
+  }
 `;
 
 const iconCSS = css`
@@ -56,6 +69,11 @@ const iconCSS = css`
   width: 30px;
   flex-shrink: 0;
   fill: whitesmoke;
+
+  @media (max-width: 541px) {
+    height: 20px;
+    width: 20px;
+  }
 `;
 
 export const BackButton = styled(IoIosArrowBack)`

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = `/paciente`;
+const BASE_URL = `/v1/paciente`;
 
 class PacientesService {
   buscarPacientes(cpf) {

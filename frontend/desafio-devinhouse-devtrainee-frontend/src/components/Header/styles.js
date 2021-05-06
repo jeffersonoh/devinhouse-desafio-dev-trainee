@@ -51,6 +51,38 @@ export const Container = styled.div`
   > button#exit {
     width: 10%;
   }
+
+  @media (max-width: 541px) {
+    max-width: 100%;
+    justify-content: space-between;
+
+    > h1 {
+      font-size: small;
+      width: 15%;
+      white-space: normal;
+      margin-right: 7%;
+    }
+
+    > button {
+      font-size: small;
+    }
+
+    > button.option {
+      white-space: normal;
+      font-size: xx-small;
+      font-weight: lighter;
+      width: 13%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    > button.selected {
+      font-size: xx-small;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 13%;
+    }
+  }
 `;
 
 const iconCSS = css`
@@ -62,4 +94,8 @@ const iconCSS = css`
 
 export const ExitButton = styled(ImExit)`
   ${iconCSS}
+  @media (max-width: 541px) {
+    height: 10px;
+    width: 10px;
+  }
 `;

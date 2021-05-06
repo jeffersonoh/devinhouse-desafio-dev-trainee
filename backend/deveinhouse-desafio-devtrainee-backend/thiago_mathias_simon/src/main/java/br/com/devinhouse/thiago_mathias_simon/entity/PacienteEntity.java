@@ -14,6 +14,7 @@ public class PacienteEntity {
     private long id;
     private String patientName;
     private String patientCpf;
+    private String password;
     private String patientBornDate;
 
     public long getId() {
@@ -46,5 +47,13 @@ public class PacienteEntity {
 
     public void setPatientBornDate(String patientBornDate) {
         this.patientBornDate = patientBornDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

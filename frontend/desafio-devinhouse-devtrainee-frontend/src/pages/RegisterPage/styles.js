@@ -12,4 +12,8 @@ export const Wrapper = styled.div`
   width: 100%;
   position: relative;
   top: 50%;
+
+  @media (max-width: 541px) {
+    background: black;
+  }
 `;

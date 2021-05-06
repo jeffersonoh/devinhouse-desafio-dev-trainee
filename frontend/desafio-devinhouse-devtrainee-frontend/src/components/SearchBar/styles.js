@@ -52,6 +52,12 @@ export const Input = styled.div`
       }
     }
   }
+  @media (max-width: 541px) {
+    height: 100%;
+    > input::placeholder {
+      font-size: 10.8px;
+    }
+  }
 `;
 
 export const SearchButton = styled.div`

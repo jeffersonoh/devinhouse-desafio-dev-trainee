@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
 export const ButtonModel = styled.div`
+  @media (max-width: 541px) {
+    button {
+      position: unset;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
   > button {
     position: absolute;
     top: 85%;

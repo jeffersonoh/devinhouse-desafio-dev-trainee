@@ -23,11 +23,13 @@ public class PacienteService {
     public PacienteDTO cadastrarPaciente(PacienteEntity novoPaciente) {
         if (novoPaciente.getPatientName() != null
                 && novoPaciente.getPatientCpf() != null
-                && novoPaciente.getPatientBornDate() != null) {
+                && novoPaciente.getPatientBornDate() != null
+                && novoPaciente.getPassword() != null) {
 
             String name = novoPaciente.getPatientName().trim();
             String cpf = novoPaciente.getPatientCpf().trim();
             String bornDate = novoPaciente.getPatientBornDate().trim();
+            String senha = novoPaciente.getPassword();
 
             if (validatePatientName(name)) {
                 if (validarCpf(cpf)) {
@@ -37,6 +39,7 @@ public class PacienteService {
                             novoPaciente.setPatientName(name);
                             novoPaciente.setPatientCpf(cpf);
                             novoPaciente.setPatientBornDate(bornDate);
+                            novoPaciente.setPassword(senha);
                             repository.save(novoPaciente);
                             return generatePatientDTO(novoPaciente);
                         }
@@ -72,20 +75,24 @@ public class PacienteService {
         for (PacienteEntity paciente : pacientes){
             if (paciente.getId() == id){
                 String cpf = paciente.getPatientCpf();
-                String patientName = (pacienteAtualizado.getPatientName() != null)
+                String patientName = ((pacienteAtualizado.getPatientName() != null)
+                        && (validatePatientName(pacienteAtualizado.getPatientName())))
                         ? pacienteAtualizado.getPatientName()
                         : paciente.getPatientName();
-                String patientCpf = (pacienteAtualizado.getPatientCpf() != null)
+                String patientCpf = ((pacienteAtualizado.getPatientCpf() != null)
+                        && (validarCpf(pacienteAtualizado.getPatientCpf())))
                         ? pacienteAtualizado.getPatientCpf()
                         : paciente.getPatientCpf();
                 String patientBornDate = ((pacienteAtualizado.getPatientBornDate() != null)
                         && (validateBornDate(pacienteAtualizado.getPatientBornDate())))
                         ? pacienteAtualizado.getPatientBornDate()
                         : paciente.getPatientBornDate();
+                String senha = (pacienteAtualizado.getPassword() != null) ? pacienteAtualizado.getPassword() : paciente.getPassword();
 
                 paciente.setPatientName(patientName.trim());
                 paciente.setPatientCpf(patientCpf.trim());
                 paciente.setPatientBornDate(patientBornDate.trim());
+                paciente.setPassword(senha.trim());
 
                 repository.save(paciente);
 
@@ -168,6 +175,7 @@ public class PacienteService {
         pacienteDTO.setPatientName(paciente.getPatientName());
         pacienteDTO.setPatientCpf(paciente.getPatientCpf());
         pacienteDTO.setPatientBornDate(paciente.getPatientBornDate());
+        pacienteDTO.setPassword(paciente.getPassword());
         return pacienteDTO;
     }
 

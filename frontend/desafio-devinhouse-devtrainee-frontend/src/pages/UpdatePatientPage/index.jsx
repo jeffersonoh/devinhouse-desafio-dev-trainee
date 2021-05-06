@@ -11,6 +11,7 @@ import { testCpf } from "../../util/CPFValidation";
 import { validateName } from "../../util/nameValidation";
 import { validateBornDate } from "../../util/bornDateValidation";
 import { formatterDate } from "../../util/dateFormat";
+import { validatePassword } from "../../util/passwordValidation";
 
 import LightDivindingLine from "../../components/LightDividingLine";
 import PatientForms from "../../components/PatientForms";
@@ -78,6 +79,7 @@ function UpdatePatientPage() {
             nameValue={patient.patientName}
             cpfValue={patient.patientCpf}
             dateValue={desformatterDate(patient.patientBornDate)}
+            passwordValue={patient.password}
             children={
               <Buttons>
                 <Button>
@@ -102,6 +104,9 @@ function UpdatePatientPage() {
                       const date = document.getElementById(
                         "dataDeNascimentoDoPaciente"
                       ).value;
+                      const password = document.getElementById(
+                        "senhaDoPaciente"
+                      ).value;
 
                       if ((validateName(nome) === false ? "" : nome) === "") {
                         toast.error("Informe um nome válido!");
@@ -111,11 +116,18 @@ function UpdatePatientPage() {
                         (validateBornDate(date) === false ? "" : date) === ""
                       ) {
                         toast.error("Informe uma data válida!");
+                      } else if (
+                        (validatePassword(password) === false
+                          ? ""
+                          : password) === ""
+                      ) {
+                        toast.error("Informe uma senha válida!");
                       } else {
                         const patient = {
                           patientName: nome,
                           patientCpf: cpf,
                           patientBornDate: formatterDate(date),
+                          password: password,
                         };
 
                         atualizarPaciente(patient);

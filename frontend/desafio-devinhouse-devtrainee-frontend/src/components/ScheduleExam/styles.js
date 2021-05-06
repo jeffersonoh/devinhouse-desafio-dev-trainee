@@ -5,6 +5,10 @@ export const Container = styled.div`
   margin: auto;
   margin-top: 2%;
   margin-bottom: 2%;
+
+  @media (max-width: 541px) {
+    width: 80%;
+  }
 `;
 
 export const Wrapper = styled.form`
@@ -22,6 +26,10 @@ export const ExamName = styled.div`
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
+
+  @media (max-width: 541px) {
+    font-size: medium;
+  }
 `;
 
 export const ExamId = styled.div`
@@ -30,4 +38,10 @@ export const ExamId = styled.div`
   margin-top: 1%;
   font-size: large;
   margin-bottom: 0;
+
+  @media (max-width: 541px) {
+    font-size: medium;
+    margin-left: 3.5%;
+    margin-bottom: 7.2%;
+  }
 `;
