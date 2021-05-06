@@ -13,6 +13,14 @@ class ApiService {
 			throw error;
 		});
 	}
+
+	countExames() {
+		return axios.get(`${BASE_URL}/total`)
+			.then(response => response.data)
+			.catch(error => {
+				throw error;
+			});
+	}
 	
 	searchExames(query) {
 		return axios.get(`${BASE_URL}?busca=${query}`)

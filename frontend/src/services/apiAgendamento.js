@@ -13,6 +13,14 @@ class ApiService {
 			throw error;
 		});
 	}
+
+	countAgendamentos() {
+		return axios.get(`${BASE_URL}/total`)
+			.then(response => response.data)
+			.catch(error => {
+				throw error;
+			});
+	}
 	
 	filterAgendamentos(clienteId, exameId) {
 		return axios.get(`${BASE_URL}?cliente_id=${clienteId}&exame_id=${exameId}`)

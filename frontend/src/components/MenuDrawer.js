@@ -46,7 +46,7 @@ const MenuDrawer = ({ open }) => {
         <List>
           <ListItemLink
             icon={<HomeIcon />}
-            to="/painel"
+            to="/"
             name="Home"
           />
 

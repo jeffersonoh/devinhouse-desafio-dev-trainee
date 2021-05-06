@@ -6,6 +6,7 @@ import MenuDrawer from "../components/MenuDrawer";
 import Agendamentos from "../pages/Agendamentos";
 import Clientes from "../pages/Clientes";
 import Exames from "../pages/Exames";
+import Home from "../pages/Home";
 import NovoAgendamento from "../pages/NovoAgendamento";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AppRouter = () => {
   const classes = useStyles();
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
@@ -33,6 +34,7 @@ const AppRouter = () => {
       <div className={classes.main}>
         <Toolbar />
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route path="/clientes" component={Clientes} />
           <Route path="/exames" component={Exames} />
           <Route exact path="/agendamentos" component={Agendamentos} />
