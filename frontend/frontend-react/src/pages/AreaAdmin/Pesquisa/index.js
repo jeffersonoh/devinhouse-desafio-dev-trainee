@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Paper, Typography, makeStyles } from "@material-ui/core";
 
-import Botao from "../../../components/Button/Botao";
+import {Botao} from "../../../components/Button";
 import { InputText } from "../../../components/InputText";
 import theme from "./Pesquisa.style";
 

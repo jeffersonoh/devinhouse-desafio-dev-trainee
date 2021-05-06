@@ -8,7 +8,7 @@ import { DropdownExames } from "./DropdownExames";
 import theme from "./Agendamento.style";
 import { InputText } from "../../components/InputText";
 import { DropdownHorario } from "./DropdownHorario";
-import Botao from "../../components/Button/Botao";
+import {Botao} from "../../components/Button";
 
 const useStyles = makeStyles({
   boxExterior: {

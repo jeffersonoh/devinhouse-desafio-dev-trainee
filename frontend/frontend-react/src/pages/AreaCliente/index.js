@@ -4,13 +4,13 @@ import { Box, Drawer, makeStyles, Typography } from "@material-ui/core";
 
 import RequestBackendCliente from "../../utils/ClienteRequest";
 import RequestBasckendAgendamento from "../../utils/AgendamentoRequest";
-import { Listagem } from "../../components/listagem";
+import { Listagem } from "./listagem";
 import { CustomModal } from "../../components/CustomModal";
-import BarraPrincipal from "../../components/Header/BarraPrincipal";
-import Botao from "../../components/Button/Botao";
+import {BarraPrincipal} from "../../components/Header";
+import {Botao} from "../../components/Button";
+import { CadastroCliente } from "../../components/CadastroCliente";
+import { Agendamento } from "../../components/Agendamento";
 import theme from "./AreaPrincipal.style";
-import { CadastroCliente } from "../CadastroCliente";
-import { Agendamento } from "../Agendamento";
 
 const useStyles = makeStyles({
   agendamentoList: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AreaPrincipalCliente() {
+export function AreaPrincipalCliente() {
   const classes = useStyles();
   const [openMenu, setOpenMenu] = useState(false);
   const [openModalPerfil, setOpenModalPerfil] = useState(false);

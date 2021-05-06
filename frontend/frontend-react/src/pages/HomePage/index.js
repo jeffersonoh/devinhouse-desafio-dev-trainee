@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import BarraPrincipal from "../../components/Header/BarraPrincipal";
+import {BarraPrincipal} from "../../components/Header";
 import { CustomModal } from "../../components/CustomModal";
-import { CadastroCliente } from "../../pages/CadastroCliente";
+import { CadastroCliente } from "../../components/CadastroCliente";
 import { Login } from "./Login";
 import { Typography } from "@material-ui/core";
 
@@ -47,7 +47,7 @@ export function HomePage() {
         variant="h6"
         style={{ textAlign: "center", marginTop: "1rem" }}
       >
-        (Clique em minha conta)
+        (Clique no botão minha conta)
       </Typography>
       {openModalCadastro == true && (
         <CustomModal

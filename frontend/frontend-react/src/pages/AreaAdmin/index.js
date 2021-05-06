@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { Drawer, Typography } from "@material-ui/core";
 
-import BarraPrincipal from "../../components/Header/BarraPrincipal";
-import Botao from "../../components/Button/Botao";
+import {BarraPrincipal} from "../../components/Header";
+import {Botao}from "../../components/Button";
 import RequestBackendCliente from "../../utils/ClienteRequest";
 import RequestBackendExame from "../../utils/ExameRequest";
 import ListagemClientes from "./ListagemAdmin/ListagemClientes";

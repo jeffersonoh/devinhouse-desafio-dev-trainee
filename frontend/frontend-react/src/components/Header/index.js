@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function BarraPrincipal(props) {
+export function BarraPrincipal(props) {
   const {drawyerEvent, clickCadastro, clickLogin} = props;
   const classes = useStyles();
 

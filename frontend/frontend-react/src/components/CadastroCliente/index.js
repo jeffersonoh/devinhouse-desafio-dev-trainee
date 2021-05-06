@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { cpfMask } from "./maks";
 
 import { InputText } from "../../components/InputText";
-import Botao from "../../components/Button/Botao";
+import {Botao} from "../Button";
 import theme from "./CadastroCliente.style";
 import RequestBackendCliente from "../../utils/ClienteRequest";
 

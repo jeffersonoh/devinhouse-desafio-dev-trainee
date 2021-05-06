@@ -1,7 +1,7 @@
-import { Box, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import React from "react";
-import Botao from "../Button/Botao";
+import { Box, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 
+import {Botao} from "../../../components/Button";
 import theme from "./listagem.style";
 
 const useStyle = makeStyles({

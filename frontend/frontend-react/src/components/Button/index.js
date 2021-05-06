@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function Botao(props) {
+export function Botao(props) {
   const classes = useStyles();
 
   const { icone, text, variante, tamanho, onclick, cor, fontsize } = props;

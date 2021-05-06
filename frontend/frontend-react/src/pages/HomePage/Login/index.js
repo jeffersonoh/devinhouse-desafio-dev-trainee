@@ -3,7 +3,7 @@ import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 
 import { cpfMask } from "../../../utils/cpfMask";
 import { InputText } from "../../../components/InputText";
-import Botao from "../../../components/Button/Botao";
+import {Botao} from "../../../components/Button";
 import theme from "./Login.style";
 
 const useStyles = makeStyles({
