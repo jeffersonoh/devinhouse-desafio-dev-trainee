@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,8 +38,8 @@ public class ExameController {
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<ExameDTOOutput> findAll() {
-		List<Exame> exames = service.findAll();
+	public List<ExameDTOOutput> findAll(@RequestParam(required = false) String busca) {
+		List<Exame> exames = service.findAll(busca);
 		
 		List<ExameDTOOutput> result = new ArrayList<ExameDTOOutput>();
 		

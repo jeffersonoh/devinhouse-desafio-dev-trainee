@@ -19,7 +19,11 @@ public class ExameService {
 	@Autowired
 	ExameRepository repository;
 	
-	public List<Exame> findAll() {
+	public List<Exame> findAll(String busca) {
+		if (busca != null) {
+			return (List<Exame>) repository.findByNomeContainingIgnoreCase(busca);
+		}
+		
 		return (List<Exame>) repository.findAll();
 	}
 	
