@@ -4,6 +4,7 @@ import BarraPrincipal from "../../components/Header/BarraPrincipal";
 import { CustomModal } from "../../components/CustomModal";
 import { CadastroCliente } from "../../pages/CadastroCliente";
 import { Login } from "./Login";
+import { Typography } from "@material-ui/core";
 
 export function HomePage() {
   const [openModalCadastro, setOpenModalCadastro] = useState(false);
@@ -30,6 +31,24 @@ export function HomePage() {
         clickLogin={() => handleOpenModalLogin()}
       />
 
+      <Typography
+        variant="h1"
+        style={{ textAlign: "center", marginTop: "4rem" }}
+      >
+        Bem-Vindo!
+      </Typography>
+      <Typography
+        variant="h6"
+        style={{ textAlign: "center", marginTop: "1rem" }}
+      >
+        Sistema de agendamento de exames DEVinHouse
+      </Typography>
+      <Typography
+        variant="h6"
+        style={{ textAlign: "center", marginTop: "1rem" }}
+      >
+        (Clique em minha conta)
+      </Typography>
       {openModalCadastro == true && (
         <CustomModal
           open={openModalCadastro}

@@ -13,9 +13,10 @@ const useStyles = makeStyles({
   boxInterior: {
     ...theme.boxInterior,
   },
+  boxMargin: {
+    ...theme.boxMargin
+  }
 });
-
-
 
 export const Login = (props) => {
   const classes = useStyles();
@@ -30,13 +31,15 @@ export const Login = (props) => {
   return (
     <Box className={classes.boxExterior}>
       <Box component={Paper} className={classes.boxInterior}>
-        <Typography variant="h6">{titulo}</Typography>
-        <InputText
-          label="Digite seu CPF"
-          value={stateCpf}
-          handlefunction={(e) => handleCpf(e)}
-        />
-        <Botao text="Login" />
+        <Box className={classes.boxMargin}>
+          <Typography variant="h6">{titulo}</Typography>
+          <InputText
+            label="Digite seu CPF"
+            value={stateCpf}
+            handlefunction={(e) => handleCpf(e)}
+          />
+          </Box>
+          <Botao text="Login" />
       </Box>
     </Box>
   );

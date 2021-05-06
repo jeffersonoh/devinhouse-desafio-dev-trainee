@@ -23,4 +23,5 @@ const theme = {
         "text-align": "left",
     }
 }
+
 export default theme;

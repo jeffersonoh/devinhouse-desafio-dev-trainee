@@ -15,7 +15,6 @@ const useStyles = makeStyles({
         color: "red",
       },
     },
-    
   }
 });
 
@@ -23,8 +22,12 @@ export default function BotaoLogo() {
   const classes = useStyles();
 
   return (
-    <Button className={classes.botaoBackground} startIcon={<HealingIcon />} component={Paper}
-      variant="contained" size="medium"
+    <Button 
+    className={classes.botaoBackground} 
+    startIcon={<HealingIcon />} 
+    component={Paper}
+    variant="contained" 
+    size="medium"
     >
       <Typography variant="body1">Sua Saúde</Typography>
     </Button>

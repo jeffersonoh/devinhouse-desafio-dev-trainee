@@ -40,6 +40,7 @@ export default function AreaPrincipalCliente() {
   const [exame, setExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
+  
   const handleOpenMenu = () => {
     setOpenMenu(true);
   };

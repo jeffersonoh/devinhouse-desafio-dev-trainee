@@ -105,16 +105,18 @@ export const CadastroCliente = (props) => {
             type="date"
           />
         </Box>
-        <Box className={classes.botao}>
+        {/* <Box className={classes.botao}> */}
           {showDeleteButton === true ? (
             <>
+            <Box className={classes.botao}>
               <Botao text="Atualizar" onclick={() => handlePut()} />{" "}
               <Botao text="Deletar Perfil" onclick={() => handleDelete()} />{" "}
+            </Box>
             </>
           ) : (
             <Botao text="Enviar" onclick={() => handlePost()} />
           )}
-        </Box>
+        {/* </Box> */}
       </Box>
     </Box>
   );
