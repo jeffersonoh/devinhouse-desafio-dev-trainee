@@ -9,6 +9,9 @@ const useStyle = makeStyles((theme) => ({
     "align-items": "center",
     "flex-direction": "column",
   },
+  margin: {
+    margin: 10,
+  },
 }));
 
 export default function HomePage() {
@@ -19,7 +22,7 @@ export default function HomePage() {
   return (
     <div className={classes.flex}>
       { state === "waiting" ?
-      <Typography variant="h4">
+      <Typography variant="h4"  className={classes.margin}>
         Bem Vindo, efetue o Login ou Cadastro para continuar.
       </Typography>
       :

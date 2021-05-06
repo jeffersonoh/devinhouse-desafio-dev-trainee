@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import CadastrarCliente from "./pages/Cliente/CadastrarCliente";
 import AtualizarCliente from "./pages/Cliente/AtualizarCliente";
+import ListarAgendamento from "./pages/Agendamento/ListarAgendamento";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
             </Route>
             <Route exact path="/cliente">
               <AtualizarCliente/>
+            </Route>
+            <Route exact path="/agendamentos">
+              <ListarAgendamento/>
             </Route>
             <Route>
               <Redirect to="/"/>

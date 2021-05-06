@@ -9,15 +9,15 @@ class AgendamentoAPI {
                 throw error;
             })
     }
-    buscarAgendamentoPorCliente(cliente) {
-        return axios.get(`${BASE_URL}/agendamento-cliente`, cliente)
+    buscarAgendamentoPorCliente(idCliente) {
+        return axios.get(`${BASE_URL}/agendamento-cliente?idCliente=${idCliente}`)
         .then(response => response.data)
         .catch(error => {
             throw error;
         })
     }
-    buscarAgendamentoPorExameEData(exame, data) {
-        return axios.get(`${BASE_URL}/agendamento-exame?data=${data}`, exame)
+    buscarAgendamentoPorExameEData(idExame, data) {
+        return axios.get(`${BASE_URL}/agendamento-exame?idExame=${idExame}&data=${data}`)
         .then(response => response.data)
         .catch(error => {
             throw error;

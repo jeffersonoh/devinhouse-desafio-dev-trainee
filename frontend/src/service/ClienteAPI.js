@@ -25,7 +25,6 @@ class ClienteAPI {
     }
     atualizarCliente(id, novoCliente){
         return axios.put(`${BASE_URL}/cliente?id=${id}`, novoCliente)
-        .then(response => response.data)
         .catch(error => {
             throw error;
         })
