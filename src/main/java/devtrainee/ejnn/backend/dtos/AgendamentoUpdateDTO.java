@@ -2,9 +2,9 @@ package devtrainee.ejnn.backend.dtos;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 public class AgendamentoUpdateDTO {
-    private LocalDateTime timestamp;
+    private ZonedDateTime timestamp;
 }

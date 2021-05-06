@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import devtrainee.ejnn.backend.domain.Cliente;
 import devtrainee.ejnn.backend.domain.Exame;
@@ -20,7 +20,7 @@ public class Agendamento {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private long id;
-    private LocalDateTime timestamp;
+    private ZonedDateTime timestamp;
     @ManyToOne
     private Cliente cliente;
     @ManyToOne

@@ -3,7 +3,7 @@ package devtrainee.ejnn.backend.dtos;
 import lombok.Data;
 import lombok.Builder;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 
 @Data
@@ -11,6 +11,6 @@ import java.time.LocalDate;
 public class ClienteInputDTO {
     private String nome;
     private String sobrenome;
-    private LocalDate dataDeNascimento;
+    private ZonedDateTime dataDeNascimento;
     private String cpf;
 }

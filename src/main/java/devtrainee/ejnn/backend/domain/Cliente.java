@@ -3,7 +3,7 @@ package devtrainee.ejnn.backend.domain;
 import lombok.Data;
 
 import java.util.List;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,7 +24,7 @@ public class Cliente {
     private long id;
     private String nome;
     private String sobrenome;
-    private LocalDate dataDeNascimento;
+    private ZonedDateTime dataDeNascimento;
     @Column(unique = true)
     private String cpf;
     @OneToMany(mappedBy = "cliente",

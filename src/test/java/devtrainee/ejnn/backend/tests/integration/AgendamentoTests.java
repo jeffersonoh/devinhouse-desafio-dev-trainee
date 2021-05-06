@@ -3,7 +3,7 @@ package devtrainee.ejnn.backend.tests.integration;
 import devtrainee.ejnn.backend.tests.categories.IntegrationTests;
 
 import java.util.List;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -79,7 +79,7 @@ public class AgendamentoTests {
 	AgendamentoOutputDTO[] agendamentos = mapper.readValue(agendamentosJson, AgendamentoOutputDTO[].class);
 
 	AgendamentoOutputDTO expectedAgendamento = agendamentos[0];
-	expectedAgendamento.setTimestamp(LocalDateTime.now());
+	expectedAgendamento.setTimestamp(ZonedDateTime.now());
 
 	AgendamentoUpdateDTO agendamentoUpdate = modelMapper.map(expectedAgendamento, AgendamentoUpdateDTO.class);
 

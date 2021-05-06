@@ -2,7 +2,7 @@ package devtrainee.ejnn.backend.dtos;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import devtrainee.ejnn.backend.dtos.ClienteWithoutAgendamentosDTO;
 import devtrainee.ejnn.backend.dtos.ExameOutputDTO;
@@ -10,7 +10,7 @@ import devtrainee.ejnn.backend.dtos.ExameOutputDTO;
 @Data
 public class AgendamentoOutputDTO {
     private long id;
-    private LocalDateTime timestamp;
+    private ZonedDateTime timestamp;
     private ClienteWithoutAgendamentosDTO cliente;
     private ExameOutputDTO exame;
 }
