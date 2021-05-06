@@ -14,4 +14,5 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
 	Iterable<Agendamento> findByClienteIdOrExameId(Long clienteId, Long ExameId);
 	Iterable<Agendamento> findByClienteIdAndExameId(Long clienteId, Long ExameId);
 	Optional<Agendamento> findByDataAndHorario(LocalDate data, LocalTime horario);
+	Iterable<Agendamento> findByData(LocalDate data);
 }

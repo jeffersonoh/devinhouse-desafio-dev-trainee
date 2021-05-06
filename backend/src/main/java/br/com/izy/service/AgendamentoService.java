@@ -73,6 +73,10 @@ public class AgendamentoService {
 		return repository.save(novoAgendamento);
 	}
 	
+	public List<Agendamento> findAgendamentosDia() {
+		return (List<Agendamento>) repository.findByData(LocalDate.now());
+	}
+	
 	public void update(Long id, AgendamentoDTOUpdate agendamentoDTO) {
 		Optional<Agendamento> result = repository.findById(id);
 		

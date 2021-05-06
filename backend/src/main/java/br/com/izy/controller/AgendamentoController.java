@@ -43,6 +43,21 @@ public class AgendamentoController {
 		return service.count();
 	}
 	
+	@GetMapping(value = "/dia", produces = APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<AgendamentoDTOOutput> findAgendamentoDia() {
+		List<Agendamento> agendamentos = service.findAgendamentosDia();
+		
+		List<AgendamentoDTOOutput> result = new ArrayList<AgendamentoDTOOutput>();
+		
+		agendamentos.forEach(agendamento -> {
+			result.add(new AgendamentoDTOOutput(agendamento));
+		});
+		
+		return result;
+	}
+	
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
