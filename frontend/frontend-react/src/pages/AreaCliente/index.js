@@ -93,7 +93,7 @@ export function AreaPrincipalCliente() {
       setListaAgendamento(listaAgendamentoDoCliente);
     };
     handleLista();
-  }, []);
+  }, [listaAgendamento]);
 
   return (
     <>
@@ -112,6 +112,7 @@ export function AreaPrincipalCliente() {
           onclick={() => handleOpenModalPerfil()}
         />
         <Botao text="Logout" variante="text" cor="menuLateral" />
+
       </Drawer>
       <Box className={classes.agendamentoList}>
         <Typography variant="h4">Meus exames agendados</Typography>
@@ -154,6 +155,7 @@ export function AreaPrincipalCliente() {
             labelData="Selecione uma Data"
             labelHorario="Selecione um horário"
             agendamentoPut={false}
+            closePostModal={handleCloseModalAgendamento}
           />
         }
       />
@@ -174,6 +176,7 @@ export function AreaPrincipalCliente() {
             valueHorario={horarioAgendamento}
             showEditButton={true}
             agendamentoPut={true}
+            closePutModal={handleCloseModalPutAgendamento}
           />
         }
       />

@@ -8,7 +8,7 @@ import { DropdownExames } from "./DropdownExames";
 import theme from "./Agendamento.style";
 import { InputText } from "../../components/InputText";
 import { DropdownHorario } from "./DropdownHorario";
-import {Botao} from "../../components/Button";
+import { Botao } from "../../components/Button";
 
 const useStyles = makeStyles({
   boxExterior: {
@@ -40,6 +40,8 @@ export function Agendamento(props) {
     labelHorario,
     agendamentoPut,
     showEditButton,
+    closePostModal,
+    closePutModal,
   } = props;
   const classes = useStyles();
   const [stateIdAgendamento, setstateIdAgendamento] = useState("");
@@ -60,7 +62,7 @@ export function Agendamento(props) {
     []
   );
   useEffect(() => {
-    if(nomeExame !== "" && dataAgendamento !== "") {
+    if (nomeExame !== "" && dataAgendamento !== "") {
       const handleListaHorariosIndisponiveis = async () => {
         const listaHorarios = await RequestBackendAgendamento.getAgendamentosIndisponiveis(
           nomeExame,
@@ -86,48 +88,40 @@ export function Agendamento(props) {
     setNomeExame("");
     setDataAgendamento("");
     setHorarioAgendamento("");
+    closePostModal();
   };
 
   const handlePut = async () => {
-    console.log("id agendamento: ", stateIdAgendamento)
-    console.log("Exame: ", nomeExame)
-    console.log("data: ", dataAgendamento)
-    console.log("horario: ", horarioAgendamento)
     await RequestBackendAgendamento.putAgendamento(stateIdAgendamento, {
       cliente: {
         cpf: "555",
       },
       exame: {
-        nome: nomeExame
+        nome: nomeExame,
       },
       data: dataAgendamento,
-      horario: horarioAgendamento
+      horario: horarioAgendamento,
     });
-  }
+    closePutModal();
+  };
 
   useEffect(() => {
-/*     setstateIdAgendamento(valueIdAgendamento)
-    setNomeExame(valueExame);
-    if(!dataAgendamento === undefined ) {
-      setDataAgendamento(valueData);
-    }
-    setHorarioAgendamento(valueHorario); */
-    if(valueIdAgendamento !== undefined ) {
-      setstateIdAgendamento(valueIdAgendamento)
+    if (valueIdAgendamento !== undefined) {
+      setstateIdAgendamento(valueIdAgendamento);
     }
 
-    if(valueExame !== undefined ) {
+    if (valueExame !== undefined) {
       setNomeExame(valueExame);
     }
-    
-    if(valueData !== undefined ) {
+
+    if (valueData !== undefined) {
       setDataAgendamento(valueData);
     }
 
-    if(!valueHorario !== undefined ) {
+    if (!valueHorario !== undefined) {
       setHorarioAgendamento(valueHorario);
     }
-  }, [valueIdAgendamento, valueExame, valueData, valueHorario] );
+  }, [valueIdAgendamento, valueExame, valueData, valueHorario]);
 
   return (
     <Box className={classes.boxExterior}>
