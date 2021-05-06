@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +18,7 @@ import devtrainee.ejnn.backend.domain.Exame;
 @Data
 public class Agendamento {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private long id;
     private LocalDateTime timestamp;
     @ManyToOne

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import devtrainee.ejnn.backend.domain.Agendamento;
 
@@ -19,7 +20,7 @@ import devtrainee.ejnn.backend.domain.Agendamento;
 @Entity
 public class Cliente {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private long id;
     private String nome;
     private String sobrenome;
