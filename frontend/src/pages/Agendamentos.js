@@ -1,23 +1,43 @@
 import { useEffect, useState } from "react";
-import Busca from "../components/Busca";
+import FiltroAgendamentos from "../components/FiltroAgendamentos";
 import PageHeader from "../components/PageHeader";
 import Tabela from '../components/Tabela';
 import apiAgendamento from '../services/apiAgendamento';
+import apiCliente from "../services/apiCliente";
+import apiExame from "../services/apiExame";
 
 const Agendamentos = () => {
+  const [clientes, setClientes] = useState([]);
+  const [exames, setExames] = useState([]);
   const [agendamentos, setAgendamentos] = useState([]);
 
-  useEffect(() => {
-    const getAgendamentos = async () => {
-      const result = await apiAgendamento.findAllAgendamentos();
+  const getClientes = async () => {
+    const result = await apiCliente.findAllClientes();
+  
+    setClientes(result);
+  };
 
-      setAgendamentos(result);
-    }
+  const getExames = async () => {
+    const result = await apiExame.findAllExames();
+
+    setExames(result);
+  };
+
+  const getAgendamentos = async () => {
+    const result = await apiAgendamento.findAllAgendamentos();
+
+    setAgendamentos(result);
+  }
+
+  useEffect(() => {
     getAgendamentos();
+    getClientes();
+    getExames();
   }, [])
 
-  const buscaAgendamentos = async (termoBusca) => {
-    const result = await apiAgendamento.searchAgendamentos(termoBusca);
+  const filtraAgendamentos = async (clienteId = '', exameId = '') => {
+    console.log(clienteId)
+    const result = await apiAgendamento.filterAgendamentos(clienteId, exameId);
 
     setAgendamentos(result)
   };
@@ -29,11 +49,10 @@ const Agendamentos = () => {
         tituloBotao="Novo Agendamento"
         endpoint="agendamentos"
       />
-      <Busca
-        titulo="Filtrar agendamentos"
-        label="Buscar agendamento"
-        id="agendamento"
-        onClick={buscaAgendamentos}
+      <FiltroAgendamentos 
+        clientes={clientes}
+        exames={exames}
+        onFilter={filtraAgendamentos}
       />
       <Tabela
         dados={agendamentos}

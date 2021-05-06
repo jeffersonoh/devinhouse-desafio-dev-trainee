@@ -14,8 +14,8 @@ class ApiService {
 		});
 	}
 	
-	searchAgendamentos(query) {
-		return axios.get(`${BASE_URL}?busca=${query}`)
+	filterAgendamentos(clienteId, exameId) {
+		return axios.get(`${BASE_URL}?cliente_id=${clienteId}&exame_id=${exameId}`)
 			.then(response => response.data)
 						.catch(error => {
 				throw error;

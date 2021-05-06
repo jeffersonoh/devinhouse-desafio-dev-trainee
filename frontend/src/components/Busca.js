@@ -37,6 +37,7 @@ const Busca = ({ titulo, label, id, onClick }) => {
             variant="outlined"
             color="secondary"
             value={termoBusca}
+            size="small"
             onChange={(e) => setTermoBusca(e.target.value)}
             InputProps={{
               endAdornment: (
