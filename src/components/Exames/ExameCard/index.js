@@ -1,6 +1,7 @@
 import {
     Typography,
     Grid,
+    Box,
 } from "@material-ui/core";
 
 import {
@@ -19,13 +20,29 @@ const ExameCard = (props) => {
 		      justify="space-around">
 		    
 		    <Grid item>
-			<Typography variant="caption">ID</Typography>
-			<Typography>{data?.id}</Typography>
+
+			<Box display="flex"
+			     flexDirection="column">
+
+			    <Typography variant="caption">ID</Typography>
+
+			    <Typography>{data.id}</Typography>
+
+			</Box>
+
 		    </Grid>
 		    
 		    <Grid item>
-			<Typography variant="caption">Nome</Typography>
-			<Typography>{data?.nome}</Typography>
+
+			<Box display="flex"
+			     flexDirection="column">
+
+			    <Typography variant="caption">Nome</Typography>
+
+			    <Typography>{data.nome}</Typography>
+
+			</Box>
+
 		    </Grid>
 		    
 		</Grid>
