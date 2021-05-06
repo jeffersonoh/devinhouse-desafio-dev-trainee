@@ -53,8 +53,12 @@ public class ClienteServices {
 			if(!cpfIsActive(obj.getCpf()) ) {		
 
 				return clienteRepository.save(obj);	
-			} throw new RuntimeException("CPF ja cadastrado");			
-		} throw new RuntimeException("Tamanho do CPF nao e valido");
+			} else { 
+				throw new RuntimeException("CPF ja cadastrado");			
+			}
+		} else {
+			throw new RuntimeException("Tamanho do CPF nao e valido");
+		}
 	}
 	
 	// Busca todos os clientes;
@@ -89,12 +93,12 @@ public class ClienteServices {
 	}
 		
 	// Remove um cliente baseado no seu CPF
-	public List<Cliente> delete(String cpf) {
+	public void delete(String cpf) {
 		if (cpfIsActive(cpf)) {
 			Cliente filteredClient = foundClientByCPF(cpf);
-			clienteRepository.delete(filteredClient);
-			
-			return clienteRepository.findAll();		
-		} throw new RuntimeException("Nao foi possivel remover o cliente, CPF nao encontrado");
+			clienteRepository.delete(filteredClient);		
+		} else { 
+			throw new RuntimeException("Nao foi possivel remover o cliente, CPF nao encontrado");
+		};
 	}
 }

@@ -9,6 +9,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import br.com.devinhouse.trainee.services.ClienteServices;
 
 @RestController
 @RequestMapping(value = "/clientes/v1", headers = "api-version=1")
+@CrossOrigin
 public class ClienteController {
 	
 	@Autowired
@@ -54,9 +56,9 @@ public class ClienteController {
 	}
 		
 	// Deverá haver um endpoint para exclusão de um cliente;
-	@RequestMapping(value = "/deletar/cpf/{cpf}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deletar/cpf/{cpf}", method = DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public List<Cliente> removeClient(@PathVariable String cpf) {
-		return clienteServices.delete(cpf);
+	public void removeClient(@PathVariable String cpf) {
+		clienteServices.delete(cpf);
 	}
 }
