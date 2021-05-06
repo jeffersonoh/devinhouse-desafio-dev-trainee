@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.izy.dto.AgendamentoDTOInput;
+import br.com.izy.dto.AgendamentoDTOUpdate;
 import br.com.izy.entity.Agendamento;
 import br.com.izy.entity.Cliente;
 import br.com.izy.entity.Exame;
@@ -48,28 +49,12 @@ public class AgendamentoService {
 		return repository.save(agendamento);
 	}
 	
-	public void update(Long id, AgendamentoDTOInput agendamentoDTO, Long clienteId, Long exameId) {
+	public void update(Long id, AgendamentoDTOUpdate agendamentoDTO) {
 		Optional<Agendamento> result = repository.findById(id);
 		
 		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));
 		
-		Cliente cliente = null;
-		
-		Exame exame = null;
-		
-		if (clienteId != null) {
-			cliente = clienteService.find(clienteId, null);
-		}
-		
-		if (exameId != null) {
-			exame = exameService.find(exameId);
-		}
-		
-		Agendamento agendamentoData = new Agendamento();
-		
-		agendamentoData = agendamentoData.converteAgendamentoDTO(agendamentoDTO, cliente, exame);
-		
-		BeanUtils.copyProperties(agendamentoData, agendamento, AtualizaColunasUtil.getNullPropertyNames(agendamentoData));
+		BeanUtils.copyProperties(agendamentoDTO, agendamento, AtualizaColunasUtil.getNullPropertyNames(agendamentoDTO));
 		
 		repository.save(agendamento);
 	}

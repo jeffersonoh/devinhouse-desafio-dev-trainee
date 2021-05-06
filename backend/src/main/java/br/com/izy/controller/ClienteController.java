@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.izy.dto.ClienteDTOInput;
 import br.com.izy.dto.ClienteDTOOuput;
+import br.com.izy.dto.ClienteDTOUpdate;
 import br.com.izy.entity.Cliente;
 import br.com.izy.service.ClienteService;
 
@@ -43,9 +44,9 @@ public class ClienteController {
 		
 		List<ClienteDTOOuput> result = new ArrayList<ClienteDTOOuput>();
 		
-		for (Cliente cliente : clientes) {
+		clientes.forEach(cliente -> {
 			result.add(new ClienteDTOOuput(cliente));
-		}
+		});
 		
 		return result;
 	}
@@ -62,12 +63,9 @@ public class ClienteController {
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ClienteDTOOuput create(@Valid @RequestBody ClienteDTOInput body) {
-		Cliente cliente = new Cliente();
-		
-		cliente = cliente.converteClienteDTO(body);
-		
-		Cliente result = service.create(cliente);
+	public ClienteDTOOuput create(@Valid @RequestBody ClienteDTOInput clienteDTO) {
+				
+		Cliente result = service.create(clienteDTO);
 		
 		return new ClienteDTOOuput(result);
 	}
@@ -75,12 +73,8 @@ public class ClienteController {
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @Valid @RequestBody ClienteDTOInput body) {
-		Cliente cliente = new Cliente();
-		
-		cliente = cliente.converteClienteDTO(body);
-		
-		service.update(id, cliente);
+	public void update(@PathVariable Long id, @RequestBody ClienteDTOUpdate clienteDTO) {
+		service.update(id, clienteDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)

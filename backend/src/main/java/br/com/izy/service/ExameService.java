@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.izy.dto.ExameDTOInput;
 import br.com.izy.entity.Exame;
 import br.com.izy.exception.ExameNotFoundException;
 import br.com.izy.repository.ExameRepository;
@@ -28,16 +29,20 @@ public class ExameService {
 		return result.orElseThrow(() -> new ExameNotFoundException("Nenhum exame encontrado"));
 	}
 	
-	public Exame create(Exame exame) {
+	public Exame create(ExameDTOInput exameDTO) {
+		Exame exame = new Exame();
+		
+		exame = exame.converteExameDTO(exameDTO);
+		
 		return repository.save(exame);
 	}
 	
-	public void update(Long id, Exame body) {
+	public void update(Long id, ExameDTOInput exameDTO) {
 		Optional<Exame> result = repository.findById(id);
 		
 		Exame exame = result.orElseThrow(() -> new ExameNotFoundException("Nenhum exame encontrado"));
 		
-		BeanUtils.copyProperties(body, exame, AtualizaColunasUtil.getNullPropertyNames(body));
+		BeanUtils.copyProperties(exameDTO, exame, AtualizaColunasUtil.getNullPropertyNames(exameDTO));
 		
 		repository.save(exame);
 	}

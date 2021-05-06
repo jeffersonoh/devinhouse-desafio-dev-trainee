@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.izy.dto.AgendamentoDTOInput;
 import br.com.izy.dto.AgendamentoDTOOutput;
+import br.com.izy.dto.AgendamentoDTOUpdate;
 import br.com.izy.entity.Agendamento;
 import br.com.izy.service.AgendamentoService;
 
@@ -42,9 +43,9 @@ public class AgendamentoController {
 		
 		List<AgendamentoDTOOutput> result = new ArrayList<AgendamentoDTOOutput>();
 		
-		for (Agendamento agendamento : agendamentos) {
+		agendamentos.forEach(agendamento -> {
 			result.add(new AgendamentoDTOOutput(agendamento));
-		}
+		});
 		
 		return result;
 	}
@@ -61,8 +62,8 @@ public class AgendamentoController {
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public AgendamentoDTOOutput create(@Valid @RequestBody AgendamentoDTOInput body) {
-		Agendamento agendamento = service.create(body, body.getClienteId(), body.getExameId());
+	public AgendamentoDTOOutput create(@Valid @RequestBody AgendamentoDTOInput agendamentoDTO) {
+		Agendamento agendamento = service.create(agendamentoDTO, agendamentoDTO.getClienteId(), agendamentoDTO.getExameId());
 		
 		return new AgendamentoDTOOutput(agendamento);
 	}
@@ -70,8 +71,8 @@ public class AgendamentoController {
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @Valid @RequestBody AgendamentoDTOInput body) {
-		service.update(id, body, body.getClienteId(), body.getExameId());
+	public void update(@PathVariable Long id, @Valid @RequestBody AgendamentoDTOUpdate agendamentoDTO) {
+		service.update(id, agendamentoDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)

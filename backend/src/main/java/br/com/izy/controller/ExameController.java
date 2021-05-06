@@ -42,9 +42,9 @@ public class ExameController {
 		
 		List<ExameDTOOutput> result = new ArrayList<ExameDTOOutput>();
 		
-		for (Exame exame : exames) {
+		exames.forEach(exame -> {
 			result.add(new ExameDTOOutput(exame));
-		}
+		});
 		
 		return result;
 	}
@@ -61,12 +61,9 @@ public class ExameController {
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ExameDTOOutput create(@Valid @RequestBody ExameDTOInput body) {
-		Exame exame = new Exame();
+	public ExameDTOOutput create(@Valid @RequestBody ExameDTOInput exameDTO) {
 		
-		exame = exame.converteExameDTO(body);
-		
-		Exame result = service.create(exame);
+		Exame result = service.create(exameDTO);
 		
 		return new ExameDTOOutput(result);
 	}
@@ -74,12 +71,8 @@ public class ExameController {
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @Valid @RequestBody ExameDTOInput body) {
-		Exame exame = new Exame();
-		
-		exame = exame.converteExameDTO(body);
-		
-		service.update(id, exame);
+	public void update(@PathVariable Long id, @RequestBody ExameDTOInput exameDTO) {		
+		service.update(id, exameDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
