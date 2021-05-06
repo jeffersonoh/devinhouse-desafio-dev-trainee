@@ -35,17 +35,17 @@ public class ClienteService {
 		return result.orElseThrow(() -> new ClienteNotFoundException("Nenhum cliente encontrado"));
 	}
 	
-	public Cliente create(ClienteDTOInput cliente) {
-		cliente.setCpf(cliente.getCpf().replaceAll("([^\\d])", ""));
+	public Cliente create(ClienteDTOInput clienteDTO) {
+		clienteDTO.setCpf(clienteDTO.getCpf().replaceAll("([^\\d])", ""));
 		
-		Optional<Cliente> clienteResult = repository.findByCpf(cliente.getCpf());
+		Optional<Cliente> clienteResult = repository.findByCpf(clienteDTO.getCpf());
 		
-		Cliente novoCliente = new Cliente();
+		Cliente cliente = new Cliente();
 		
-		Cliente result = novoCliente.converteClienteDTO(cliente);
+		Cliente novoCliente = cliente.converteClienteDTO(clienteDTO);
 		
 		clienteResult.ifPresent(c -> {
-			if (!c.equals(result)) {
+			if (!c.equals(novoCliente)) {
         throw new CpfJaExistenteException("CPF informado já cadastrado");
 			}
 		});

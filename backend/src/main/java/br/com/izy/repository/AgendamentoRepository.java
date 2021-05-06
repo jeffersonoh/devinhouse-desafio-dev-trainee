@@ -1,5 +1,7 @@
 package br.com.izy.repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -11,4 +13,5 @@ import br.com.izy.entity.Agendamento;
 public interface AgendamentoRepository extends CrudRepository<Agendamento, Long> {
 	Optional<Agendamento> findByClienteId(Long clienteId);
 	Optional<Agendamento> findByExameId(Long exameId);
+	Optional<Agendamento> findByDataAndHorario(LocalDate data, LocalTime horario);
 }

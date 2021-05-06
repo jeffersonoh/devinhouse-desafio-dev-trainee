@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.izy.dto.AgendamentoDTOInput;
 import br.com.izy.util.StringToLocalDateHandler;
 
@@ -29,9 +27,7 @@ public class Agendamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate data;
-	@JsonFormat(pattern="HH:mm")
 	private LocalTime horario;
 	@ManyToOne
   @JoinColumn(name = "cliente_id", nullable = false)

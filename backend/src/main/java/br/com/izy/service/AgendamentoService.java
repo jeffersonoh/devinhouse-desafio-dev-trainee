@@ -1,5 +1,7 @@
 package br.com.izy.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,8 @@ import br.com.izy.entity.Agendamento;
 import br.com.izy.entity.Cliente;
 import br.com.izy.entity.Exame;
 import br.com.izy.exception.AgendamentoNotFoundException;
+import br.com.izy.exception.DataHoraInvalidoException;
+import br.com.izy.exception.DataHoraJaExistenteException;
 import br.com.izy.repository.AgendamentoRepository;
 import br.com.izy.util.AtualizaColunasUtil;
 
@@ -44,9 +48,23 @@ public class AgendamentoService {
 		
 		Agendamento agendamento = new Agendamento();
 		
-		agendamento = agendamento.converteAgendamentoDTO(agendamentoDTO, cliente, exame);
+		Agendamento novoAgendamento = agendamento.converteAgendamentoDTO(agendamentoDTO, cliente, exame);
 		
-		return repository.save(agendamento);
+		if (novoAgendamento.getData().isBefore(LocalDate.now())) {
+			throw new DataHoraInvalidoException("A data não pode ser menor que o dia atual");
+		} else if (novoAgendamento.getHorario().isBefore(LocalTime.now())) {
+			throw new DataHoraInvalidoException("O horário não pode ser menor que a hora atual");
+		}
+		
+		Optional<Agendamento> agendamentoResult = repository.findByDataAndHorario(novoAgendamento.getData(), novoAgendamento.getHorario());
+		
+		agendamentoResult.ifPresent(a -> {
+			if (!a.equals(novoAgendamento)) {
+        throw new DataHoraJaExistenteException("Já exsite um agendamento para este horário");
+			}
+		});
+		
+		return repository.save(novoAgendamento);
 	}
 	
 	public void update(Long id, AgendamentoDTOUpdate agendamentoDTO) {
