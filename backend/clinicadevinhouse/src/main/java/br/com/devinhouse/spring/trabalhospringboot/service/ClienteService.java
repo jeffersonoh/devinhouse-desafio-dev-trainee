@@ -16,45 +16,77 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repository;
-    
 
-    public void cadastroCliente(ClienteDTO cliente){
+    public void cadastroCliente(ClienteDTO cliente) {
         if (validadorDeCadastro(cliente)) {
             this.repository.save(cliente);
             this.repository.flush();
         } else {
-            throw new EntityNotFoundException("Não foi possivel cadastrar esse cliente, o CPF " + cliente.getCpf() + " já consta em nosso sistema.");
+            throw new EntityNotFoundException("Não foi possivel cadastrar esse cliente, o CPF " + cliente.getCpf()
+                    + " já consta em nosso sistema.");
         }
     }
 
-    private Boolean validadorDeCadastro(ClienteDTO cliente){
+    private Boolean validadorDeCadastro(ClienteDTO cliente) {
         List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
-        for (int x = 0; x < repository.count(); x++){
-            clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x+1)));
+        for (int x = 0; x < repository.count(); x++) {
+            clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
         }
         for (ClienteDTO clienteDTO : clientesCadastrados) {
-            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()) {return false;}
+            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()) {
+                return false;
+            }
         }
         return true;
     }
 
-    public void atualizarCliente(ClienteDTO clienteAtualizado, Integer id){
+    public void atualizarCliente(ClienteDTO clienteAtualizado, Integer id) {
         if (validadorDeExistencia(id)) {
-            ClienteDTO clienteCadastrado = ClienteDTO.converter(this.repository.getOne(id));
-            if (clienteAtualizado.getNome() != null) {
-                if (clienteAtualizado.getNome() != clienteCadastrado.getNome()) {
-                    this.repository.getOne(id).setNome(clienteAtualizado.getNome());}}
-            if (clienteAtualizado.getDdn() != null) {
-                if (clienteAtualizado.getDdn() != clienteCadastrado.getDdn()) {
-                    this.repository.getOne(id).setDdn(clienteAtualizado.getDdn());}}
-            this.repository.flush();
+            if (validadorDeAtualizar(clienteAtualizado, id)) {
+                ClienteDTO clienteCadastrado = ClienteDTO.converter(this.repository.getOne(id));
+                if (clienteAtualizado.getNome() != null) {
+                    if (clienteAtualizado.getNome() != clienteCadastrado.getNome()) {
+                        this.repository.getOne(id).setNome(clienteAtualizado.getNome());
+                    }
+                }
+                if (clienteAtualizado.getCpf() != null) {
+                    if (clienteAtualizado.getCpf() != clienteCadastrado.getCpf()) {
+                        this.repository.getOne(id).setCpf(clienteAtualizado.getCpf());
+                    }
+                }
+                if (clienteAtualizado.getDdn() != null) {
+                    if (clienteAtualizado.getDdn() != clienteCadastrado.getDdn()) {
+                        this.repository.getOne(id).setDdn(clienteAtualizado.getDdn());
+                    }
+                }
+                this.repository.flush();
+            } else {
+                throw new EntityNotFoundException("Não foi possivel cadastrar esse cliente, o CPF "
+                        + clienteAtualizado.getCpf() + " já consta em nosso sistema.");
+            }
         } else {
             throw new EntityNotFoundException("Não foi localizado o cadastro desse cliente.");
         }
     }
 
-    private Boolean validadorDeExistencia(Integer id){
-        if (!this.repository.existsById(id)) {return false;}
+    private Boolean validadorDeAtualizar(ClienteDTO cliente, Integer id) {
+        List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
+        for (int x = 0; x < repository.count(); x++) {
+            clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
+        }
+        for (ClienteDTO clienteDTO : clientesCadastrados) {
+            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()
+                    && clienteDTO.getId() != id) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Boolean validadorDeExistencia(Integer id) {
+        if (!this.repository.existsById(id)) {
+            return false;
+        }
         return true;
     }
 
@@ -67,22 +99,20 @@ public class ClienteService {
         }
     }
 
-    public List<ClienteDTO> procurarClientePorCpf(String cpf){
-        return this.repository.findByCpfContains(cpf)
-        .stream()
-        .map(ClienteDTO::converter)
-        .collect(Collectors.toList());
+    public List<ClienteDTO> procurarClientePorCpf(String cpf) {
+        return this.repository.findByCpfContains(cpf).stream().map(ClienteDTO::converter).collect(Collectors.toList());
     }
 
     public List<ClienteDTO> listaDeTodosClientesCadastrados() {
         List<ClienteDTO> lista = new ArrayList<ClienteDTO>();
         int deletados = 0;
-        for (int x = 0; x < this.repository.count(); x++){
-            if (this.repository.existsById(x+1+deletados)){
-                lista.add(ClienteDTO.converter(this.repository.getOne(x+1+deletados)));
+        for (int x = 0; x < this.repository.count(); x++) {
+            if (this.repository.existsById(x + 1 + deletados)) {
+                lista.add(ClienteDTO.converter(this.repository.getOne(x + 1 + deletados)));
             } else {
                 x--;
-                deletados++;}
+                deletados++;
+            }
         }
         return lista;
     }

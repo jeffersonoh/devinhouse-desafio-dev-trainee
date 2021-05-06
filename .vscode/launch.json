@@ -10,6 +10,16 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TrabalhospringbootApplication<trabalhospringboot>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "br.com.devinhouse.spring.trabalhospringboot.TrabalhospringbootApplication",
+            "projectName": "trabalhospringboot",
+            "args": ""
         }
     ]
 }
