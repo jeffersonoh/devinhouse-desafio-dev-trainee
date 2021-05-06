@@ -10,6 +10,7 @@ import theme from "utils/theme.js";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
+import PageLayout from "components/PageLayout";
 import Clientes from "components/Clientes";
 import Exames from "components/Exames";
 
@@ -20,20 +21,24 @@ const App = () => {
 		<Router>
 		    <Switch>
 			
-			<Route path="/clientes">
-			    <Clientes/>
-			</Route>
-			
-			<Route path="/agendamentos">
-			</Route>
-			
-			<Route path="/exames">
-			    <Exames/>
-			</Route>
+			<PageLayout>
 
-			<Route>
-			</Route>
-			
+			    <Route path="/clientes">
+				<Clientes/>
+			    </Route>
+			    
+			    <Route path="/agendamentos">
+			    </Route>
+			    
+			    <Route path="/exames">
+				<Exames/>
+			    </Route>
+			    
+			    <Route>
+			    </Route>
+
+			</PageLayout>
+
 		    </Switch>
 		</Router>
 	    </MuiPickersUtilsProvider>
