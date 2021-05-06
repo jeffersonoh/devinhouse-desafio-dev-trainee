@@ -90,4 +90,9 @@ public class AgendamentoService {
 		
 		repository.delete(agendamento);
 	}
+	
+	public Long count() {
+		return repository.count();
+	}
+	
 }

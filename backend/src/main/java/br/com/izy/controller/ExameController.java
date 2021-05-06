@@ -35,6 +35,13 @@ public class ExameController {
 	@Autowired
 	private ExameService service;
 	
+	@GetMapping(value = "/total", produces = APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ResponseStatus(code = HttpStatus.OK)
+	public Long count() {
+		return service.count();
+	}
+	
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)

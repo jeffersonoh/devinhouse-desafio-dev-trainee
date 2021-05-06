@@ -59,4 +59,8 @@ public class ExameService {
 		repository.delete(exame);
 	}
 	
+	public Long count() {
+		return repository.count();
+	}
+	
 }

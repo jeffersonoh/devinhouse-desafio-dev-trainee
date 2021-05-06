@@ -71,4 +71,8 @@ public class ClienteService {
 		repository.delete(cliente);
 	}
 	
+	public Long count() {
+		return repository.count();
+	}
+	
 }
