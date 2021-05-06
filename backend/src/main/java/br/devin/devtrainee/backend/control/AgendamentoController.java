@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.devin.devtrainee.backend.model.Agendamento;
-import br.devin.devtrainee.backend.model.Cliente;
-import br.devin.devtrainee.backend.model.Exame;
 import br.devin.devtrainee.backend.service.AgendamentoService;
 
 @RestController
@@ -34,14 +32,14 @@ public class AgendamentoController {
 		return this.service.cadastrarAgendamento(agendamento);
 	}
 	
-	@GetMapping(path="/v1/agendamento-exame", consumes="application/json", produces="application/json")
-	public List<Agendamento> buscaTodosAgendamentoPorExameEData(@Validated @RequestBody Exame exame, @RequestParam String data) {
-		return this.service.buscarTodosAgendamentoPorExameEData(exame, data);
+	@GetMapping(path="/v1/agendamento-exame", produces="application/json")
+	public List<Agendamento> buscaTodosAgendamentoPorExameEData(@RequestParam Long idExame, @RequestParam String data) {
+		return this.service.buscarTodosAgendamentoPorExameEData(idExame, data);
 	}
 	
-	@GetMapping(path="/v1/agendamento-cliente", consumes="application/json", produces="application/json")
-	public List<Agendamento> buscaTodosAgendamentoPorCliente(@Validated @RequestBody Cliente cliente) {
-		return this.service.buscarTodosAgendamentoPorCliente(cliente);
+	@GetMapping(path="/v1/agendamento-cliente", produces="application/json")
+	public List<Agendamento> buscaTodosAgendamentoPorCliente(@RequestParam Long idCliente) {
+		return this.service.buscarTodosAgendamentoPorCliente(idCliente);
 	}
 	
 	@PutMapping(path="/v1/agendamento", consumes="application/json")

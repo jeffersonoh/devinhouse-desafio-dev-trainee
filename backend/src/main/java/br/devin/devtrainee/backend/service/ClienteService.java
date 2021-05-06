@@ -62,7 +62,7 @@ public class ClienteService {
 	
 	public ResponseEntity<?> deletarCliente(Long id) {
 		if(this.clienteRep.existsById(id)) {
-			List<Agendamento> lista = this.agendamentoService.buscarTodosAgendamentoPorCliente(clienteRep.findById(id).get());
+			List<Agendamento> lista = this.agendamentoService.buscarTodosAgendamentoPorCliente(id);
 			for(Agendamento agendamento : lista) {
 				this.agendamentoService.deletarAgendamento(agendamento.getIdAgendamento());
 			}

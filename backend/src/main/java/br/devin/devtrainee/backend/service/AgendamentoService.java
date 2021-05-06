@@ -21,6 +21,12 @@ public class AgendamentoService {
 	@Autowired
 	private AgendamentoRepository agendamentorep;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private ExameService exameService;
+	
 	public Agendamento cadastrarAgendamento(Agendamento agendamento) {
 		return this.agendamentorep.save(agendamento);
 	}
@@ -37,11 +43,13 @@ public class AgendamentoService {
 				);
 	}
 	
-	public List<Agendamento> buscarTodosAgendamentoPorExameEData(Exame exame, String data) {
+	public List<Agendamento> buscarTodosAgendamentoPorExameEData(Long idExame, String data) {
+		Exame exame = this.exameService.buscaExamePorID(idExame);
 		return this.agendamentorep.findByExameIsAndDataIs(exame, data);
 	}
 	
-	public List<Agendamento> buscarTodosAgendamentoPorCliente(Cliente cliente){
+	public List<Agendamento> buscarTodosAgendamentoPorCliente(Long idCliente){
+		Cliente cliente = this.clienteService.buscarClientePorID(idCliente);
 		return this.agendamentorep.findByClienteIs(cliente);
 	}
 	
