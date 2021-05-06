@@ -49,6 +49,14 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(404).body(erroDTO);
 	}
 	
+	@ExceptionHandler(CpfJaExistenteException.class)
+	public ResponseEntity<Object> handleCpfJaExistenteException(CpfJaExistenteException ex, WebRequest request) {
+		
+		ErroDTO erroDTO = new ErroDTO(new Date(), ex.getMessage(), 404);
+		
+		return ResponseEntity.status(404).body(erroDTO);
+	}
+	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
 		

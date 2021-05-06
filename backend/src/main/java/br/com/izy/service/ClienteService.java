@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.izy.entity.Cliente;
 import br.com.izy.exception.ClienteNotFoundException;
+import br.com.izy.exception.CpfJaExistenteException;
 import br.com.izy.repository.ClienteRepository;
 import br.com.izy.util.AtualizaColunasUtil;
 
@@ -33,6 +34,16 @@ public class ClienteService {
 	}
 	
 	public Cliente create(Cliente cliente) {
+		cliente.setCpf(cliente.getCpf().replaceAll("([^\\d])", ""));
+		
+		Optional<Cliente> result = repository.findByCpf(cliente.getCpf());
+		
+		result.ifPresent(c -> {
+			if (!c.equals(cliente)) {
+        throw new CpfJaExistenteException("CPF informado já cadastrado");
+			}
+		});
+		
 		return repository.save(cliente);
 	}
 	

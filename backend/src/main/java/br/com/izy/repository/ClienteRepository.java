@@ -11,5 +11,7 @@ import br.com.izy.entity.Cliente;
 public interface ClienteRepository extends CrudRepository<Cliente, Long> {
 	Optional<Cliente> findByIdOrCpf(Long id, String cpf);
 	
+	Optional<Cliente> findByCpf(String cpf);
+	
 	Iterable<Cliente> findByNomeContainingIgnoreCaseOrCpfContainingIgnoreCase(String nome, String cpf);
 }
