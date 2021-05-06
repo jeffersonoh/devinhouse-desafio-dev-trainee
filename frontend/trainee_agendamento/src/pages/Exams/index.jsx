@@ -22,8 +22,8 @@ function Exams() {
 
   useEffect(() => {
     findExamList();
-  }, []);
-
+  }, [examesList]);
+ 
   return (
     <Main>
       <div className="clients-resume">
@@ -36,14 +36,13 @@ function Exams() {
             return (
               <ExamCard 
                 titulo = "Exame"
-                key = {data.id}
-                nome = {data.nome} />
+                data = {data}
+                id = {data.id} />
               )
             })
         
            : "Nenhum exame cadastrado"
           }
-        
         </div>
       </div>
 

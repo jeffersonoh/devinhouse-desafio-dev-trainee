@@ -1,9 +1,14 @@
 import ExamStyle from "./style";
 import { AiFillMedicineBox } from "react-icons/ai";
 import { MdEdit, MdDelete } from "react-icons/md";
+import Actions from "../../services/api";
 
 function ExamCard(props) {
-  const { titulo, nome, id } = props;
+  const { titulo, nome, id } = props.data;
+
+  function handleRemoveExam(){
+    Actions.removeExam(id);
+  }
 
   return (
     <ExamStyle>
@@ -11,7 +16,7 @@ function ExamCard(props) {
         <div className="card-header">
           <div className="card-header-schedule-icon">
             <AiFillMedicineBox className="card-header-icon"/>
-            <h3>{titulo}</h3>
+            <h3>{props.titulo}</h3>
           </div>
 
           <div className="schedule-actions">
@@ -19,7 +24,7 @@ function ExamCard(props) {
               <MdEdit className="schedule-action-edit"/>
             </div>
             <div className="schedule-action">
-              <MdDelete className="schedule-action-delete"/>
+              <MdDelete className="schedule-action-delete" onClick={handleRemoveExam}/>
             </div>
           </div>
         </div>

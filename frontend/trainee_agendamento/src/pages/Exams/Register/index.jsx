@@ -44,7 +44,7 @@ function ExamsRegister() {
     }
 
     Actions.createExam(data).then(toastSucess)
-                           .catch(response => toastError(response));
+                           .catch(res => toastError(res.response.data.message));
   }
 
   function handleSubmit(event){

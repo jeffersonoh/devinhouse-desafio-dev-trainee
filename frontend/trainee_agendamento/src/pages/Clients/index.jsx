@@ -21,7 +21,7 @@ function Clients() {
 
   useEffect(() => {
     findClientList();
-  }, []);
+  }, [clientesList]);
 
   return (
     <Main>
@@ -35,10 +35,7 @@ function Clients() {
             return (
               <ClientCard 
               titulo = "Cliente"
-              key = {data.id}
-              nome = {data.nome}
-              cpf = {data.cpf}
-              data_nascimento = {data.birthYear} />
+              data = {data} />
               )
               })
     

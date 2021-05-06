@@ -1,29 +1,44 @@
 import CardStyle from "./style";
 import { AiOutlineUser } from "react-icons/ai";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdDeleteForever } from "react-icons/md";
 import { BsListTask } from "react-icons/bs";
-
+import { format, parseISO } from "date-fns";
+import Actions from "../../services/api";
+import Tooltip from "@material-ui/core/Tooltip";
+import { useState } from "react";
 
 function ScheduleCard(props) {
-  const {titulo, nome, exame, data, hora} = props;
-  
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
+  const {id, cliente, exame, dataAgendamento} = props.data;
+
+  function handleConfirmDelete() {
+    setConfirmDelete(true);
+    setTimeout(() => {
+      setConfirmDelete(false);
+    }, 2000);
+  }
+
+  function handleRemoveSchedule(){
+    Actions.removeSchedule(id);
+  }
+  
   return (
     <CardStyle>
       <div className="card">
         <div className="card-header">
           <div className="card-header-schedule-icon">
             <BsListTask className="card-header-icon"/>
-            <h3>{titulo}</h3>
+            <h3>{props.titulo}</h3>
           </div>
           <div className="schedule-date-info">
             <div className="schedule-date">
               <p className="schedule-date-title">Data:</p>
-              <p className="schedule-date-info-data">{data}</p>
+              <p className="schedule-date-info-data">{format(parseISO(dataAgendamento), "dd/MM/yyyy")}</p>
             </div>
             <div className="schedule-time">
               <p className="schedule-time-title">Horário:</p>
-              <p className="schedule-date-info-data">{hora}</p>
+              <p className="schedule-date-info-data">{format(parseISO(dataAgendamento), "HH:mm")}</p>
             </div>
           </div>
 
@@ -32,7 +47,20 @@ function ScheduleCard(props) {
               <MdEdit className="schedule-action-edit"/>
             </div>
             <div className="schedule-action">
-              <MdDelete className="schedule-action-delete"/>
+              { confirmDelete ? 
+                <Tooltip title="Confirme para apagar">
+                  <div>
+                    <MdDeleteForever className="schedule-action-delete confirm-delete" onClick={handleRemoveSchedule}/>
+                  </div>
+                </Tooltip>          
+             : 
+                <Tooltip title="Apagar">    
+                  <div>
+                    <MdDelete className="schedule-action-delete" onClick={handleConfirmDelete}/>
+                  </div>
+                </Tooltip>    
+              }
+  
             </div>
           </div>
         </div>
@@ -44,13 +72,13 @@ function ScheduleCard(props) {
             </div>
             <div className="card-content-schedule-client-name">
               <p className="card-content-schedule-cliente-name-title">Cliente: </p>
-              <p className="card-content-schedule-cliente-name-resume">{nome}</p>
+              <p className="card-content-schedule-cliente-name-resume">{cliente.nome}</p>
             </div>
           </div>
           <div className="card-content-schedule-exam">
             <div className="card-content-schedule-exam-name">
               <p className="card-content-schedule-exam-name-title">Exame: </p>
-              <p className="card-content-schedule-exam-name-name">{exame}</p>
+              <p className="card-content-schedule-exam-name-name">{exame.nome}</p>
             </div>
           </div>
         </div>

@@ -3,13 +3,15 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import Actions from "../../../services/api";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
+
 
 function ClientRegister() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const data = Date();
+  const data = Date.now();
   const history = useHistory();
 
 
@@ -35,7 +37,7 @@ function ClientRegister() {
   }
 
   function toastError(message) {
-    toast.error(`${message.error}`, {
+    toast.error(`${message}`, {
       position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
@@ -55,7 +57,7 @@ function ClientRegister() {
     }
 
     Actions.createClient(data).then(toastSuccess)
-                             .catch((res) => toastError(res));
+                             .catch((res) => toastError(res.response.data.message));
   }
 
   function handleSubmit(event){
@@ -98,7 +100,7 @@ function ClientRegister() {
               <div>
                 <label>Data de Nascimento</label>
               </div>
-              <input className="form-data-input" type="date" max={data} onChange={(e) => setDataNascimento(e.target.value)}  max={data} name="birthYear" placeholder="01/01/2000"/>
+              <input className="form-data-input" type="date" onChange={(e) => setDataNascimento(e.target.value)}  max={format(data, "yyyy-MM-dd")} name="birthYear" />
             </div>
 
             <button type="submit" className="form-data-button" onClick={handleSubmit}>Cadastrar</button>

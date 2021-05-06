@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { useHistory } from "react-router-dom";
 import Main from "../../components/Main";
 import ScheduleCard from "../../components/ScheduleCard";
 import Button from "../../components/Button";
-// import action from "../../services/api";
-// import { toast } from "react-toastify";
 
 function Home() {
-  // const [scheduleDetails, setScheduleDetails] = useState({});
-  // const history = useHistory();
-
-  // const handleDeleteSchedule = () => {
-  //   const id = scheduleDetails.id;
-
-  //   const response = action.removeSchedule(id);
-  //   history.push("/");
-  //   toast.success(`Agendamento ${scheduleDetails.id} removido com sucesso`, {
-  //     position: "top-right";
-  //     autoClose: 4000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //   });
-  // };
+  
 
   return (
     <>
@@ -35,33 +15,6 @@ function Home() {
           </div>
 
           <div className="schedule-card">
-              <ScheduleCard 
-              titulo = "Agendamento"
-              data = "20/05/2021"
-              hora = "08:00"
-              nome = "Jose da Silva"
-              exame = "Raio X" />
-
-              <ScheduleCard 
-              titulo = "Agendamento"
-              data = "21/05/2021"
-              hora = "09:00"
-              nome = "Jose da Silva"
-              exame = "Ressonancia Magnetica" />
-
-              <ScheduleCard 
-              titulo = "Agendamento"
-              data = "22/05/2021"
-              hora = "10:00"
-              nome = "Jose da Silva"
-              exame = "Raio X" />
-
-              <ScheduleCard 
-              titulo = "Agendamento"
-              data = "22/05/2021"
-              hora = "11:00"
-              nome = "Jose da Silva"
-              exame = "Ressonancia Magnetica" />
           </div>
         </div>
 
