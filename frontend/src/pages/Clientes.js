@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Busca from "../components/Busca";
 import ClienteDialog from "../components/ClienteDialog";
 import PageHeader from "../components/PageHeader";
@@ -37,23 +38,29 @@ const Clientes = () => {
   };
 
   const handleCreate = async (cliente) => {
-    const data = {
-      ...cliente,
-      dataNascimento: cliente.dataNascimento.split('-').reverse().join('/')
-    };
+    try {
+      const data = {
+        ...cliente,
+        dataNascimento: cliente.dataNascimento.split('-').reverse().join('/')
+      };
+  
+      if (cliente.id === 0) {
+        await apiCliente.createCliente(data);
+      } else {
+        data.id = cliente.id;
+        await apiCliente.updateCliente(data.id, data);
+      }
+  
+      setOpen(false);
+  
+      setCliente(undefined);
+  
+      getClientes();
 
-    if (cliente.id === 0) {
-      await apiCliente.createCliente(data);
-    } else {
-      data.id = cliente.id;
-      await apiCliente.updateCliente(data.id, data);
+      toast.success('Cliente cadastrado com sucesso');
+    } catch (error) {
+      toast.error(error.response.data.mensagem);
     }
-
-    setOpen(false);
-
-    setCliente(undefined);
-
-    getClientes();
   };
 
   const handleUpdate = async (cliente) => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Busca from "../components/Busca";
 import ExameDialog from "../components/ExameDialog";
 import PageHeader from "../components/PageHeader";
@@ -37,17 +38,23 @@ const Exames = () => {
   };
 
   const handleCreate = async (exame) => {
-    if (exame.id === 0) {
-      await apiExame.createExame(exame);
-    } else {
-      await apiExame.updateExame(exame.id, exame);
+    try {
+      if (exame.id === 0) {
+        await apiExame.createExame(exame);
+      } else {
+        await apiExame.updateExame(exame.id, exame);
+      }
+  
+      setOpen(false);
+  
+      setExame(undefined);
+  
+      getExames();
+
+      toast.success('Exame cadastrado com sucesso');
+    } catch (error) {
+      toast.error(error.response.data.mensagem);
     }
-
-    setOpen(false);
-
-    setExame(undefined);
-
-    getExames();
   };
 
   const handleUpdate = async (exame) => {

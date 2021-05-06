@@ -6,6 +6,7 @@ import { Autocomplete } from "formik-material-ui-lab";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as Yup from 'yup';
 
 import ClienteDialog from "../components/ClienteDialog";
@@ -108,23 +109,29 @@ const NovoAgendamento = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const data = {
-      data: values.data.split('-').reverse().join('/'),
-      horario: values.horario,
-      clienteId: values.cliente.id,
-      exameId: values.exame.id
+    try {
+      const data = {
+        data: values.data.split('-').reverse().join('/'),
+        horario: values.horario,
+        clienteId: values.cliente.id,
+        exameId: values.exame.id
+      }
+  
+      if (values.id === 0) {
+        await apiAgendamento.createAgendamento(data);
+      } else {
+        data.id = values.id;
+        await apiAgendamento.updateAgendamento(data.id, data);
+      }
+  
+      setSubmitting(false);
+  
+      history.goBack();
+      
+      toast.success('Agendamento cadastrado com sucesso');
+    } catch (error) {
+      toast.error(error.response.data.mensagem);
     }
-
-    if (values.id === 0) {
-      await apiAgendamento.createAgendamento(data);
-    } else {
-      data.id = values.id;
-      await apiAgendamento.updateAgendamento(data.id, data);
-    }
-
-    setSubmitting(false);
-
-    history.goBack();
   }
 
   const handleCreateCliente = async (cliente) => {
