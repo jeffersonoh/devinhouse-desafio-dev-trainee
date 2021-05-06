@@ -5,8 +5,8 @@ const ExameContext = createContext({});
 const ExameProvider = ({ children }) => {
     const [exame, setExame] = useState({state: "waiting"});
 
-    const salvar = (payload) => {
-        setExame({ ...payload, state: "selected"});
+    const salvar = (exameDados) => {
+        setExame({ exameDados, state: "selected"});
     }
     const resetar = () => {
         setExame({state: "waiting"});

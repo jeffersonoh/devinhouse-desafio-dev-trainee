@@ -6,7 +6,10 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
+
+import { useExameContext } from "../../../utils/exameSelect.context";
 import ExameAPI from "../../../service/exameAPI";
 
 const useStyle = makeStyles((theme) => ({
@@ -16,7 +19,11 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function ExameList() {
+  let history = useHistory();
   const classes = useStyle();
+  const {
+    salvar,
+  } = useExameContext();
   const [exames, setExames] = useState([]);
   useEffect(() => {
     const recuperarLista = async () => {
@@ -26,21 +33,36 @@ export default function ExameList() {
     recuperarLista();
   }, []);
 
+  function cadastrarAgendamentoDoExame(exameDado) {
+    salvar(exameDado);
+    history.replace("/agendar");
+  }
+  
   return (
-      <List>
-        {exames?.map((exames) => (
-          <ListItem
-            className={classes.item}
-            key={exames.idExame}
-            divider
-            button
-          >
-            <ListItemText
-              disableTypography
-              primary={<Typography variant="h4"> {exames.idExame}: {exames.nome} </Typography>}
-            />
-          </ListItem>
-        ))}
-      </List>
+    <List>
+      {exames?.map((exames) => (
+        <ListItem
+          className={classes.item}
+          key={exames.idExame}
+          divider
+          button
+          onClick={() => {
+            cadastrarAgendamentoDoExame({
+              idExame: exames.idExame,
+              nome: exames.nome,
+            });
+          }}
+        >
+          <ListItemText
+            disableTypography
+            primary={
+              <Typography variant="h4">
+                {exames.idExame}: {exames.nome}
+              </Typography>
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
   );
 }

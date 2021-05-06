@@ -8,6 +8,8 @@ import CadastrarCliente from "./pages/Cliente/CadastrarCliente";
 import AtualizarCliente from "./pages/Cliente/AtualizarCliente";
 import ListarAgendamento from "./pages/Agendamento/ListarAgendamento";
 
+import AgendamentoMenu from "./components/AgendamentoMenu"
+
 function App() {
   return (
     <Router>
@@ -27,6 +29,9 @@ function App() {
             </Route>
             <Route exact path="/agendamentos">
               <ListarAgendamento/>
+            </Route>
+            <Route exact path="/agendar">
+              <AgendamentoMenu/>
             </Route>
             <Route>
               <Redirect to="/"/>
