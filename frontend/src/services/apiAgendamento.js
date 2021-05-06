@@ -6,14 +6,6 @@ import axios from 'axios';
 const BASE_URL = `http://localhost:8080/v1/agendamentos`;
 
 class ApiService {
-	findAllAgendamentos() {
-	return axios.get(BASE_URL)
-		.then(response => response.data)
-					.catch(error => {
-			throw error;
-		});
-	}
-
 	countAgendamentos() {
 		return axios.get(`${BASE_URL}/total`)
 			.then(response => response.data)
@@ -21,14 +13,30 @@ class ApiService {
 				throw error;
 			});
 	}
+
+	findAllAgendamentos() {
+	return axios.get(BASE_URL)
+		.then(response => response.data)
+					.catch(error => {
+			throw error;
+		});
+	}
 	
 	filterAgendamentos(clienteId, exameId) {
 		return axios.get(`${BASE_URL}?cliente_id=${clienteId}&exame_id=${exameId}`)
 			.then(response => response.data)
-						.catch(error => {
+			.catch(error => {
 				throw error;
 			});
-		}
+	}
+
+	findAgendamentosDia(clienteId, exameId) {
+		return axios.get(`${BASE_URL}/dia`)
+			.then(response => response.data)
+			.catch(error => {
+				throw error;
+			});
+	}
   
   findAgendamento(id) {
 		return axios.get(`${BASE_URL}/${id}`)
