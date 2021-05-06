@@ -31,8 +31,6 @@ public class ControllerExame {
 		return service.buscarExamePorNome(nome);
 	}
 	
-	// TODO: Deverá haver um endpoint para listagem dos exames disponíveis para
-	// agendamento, exibindo apenas nome do exame e id;
 	@GetMapping(path = "/exames", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> buscarTodosExames() {
 		return service.buscarTodosOsExames();
