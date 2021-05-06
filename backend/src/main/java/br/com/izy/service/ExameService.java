@@ -25,7 +25,7 @@ public class ExameService {
 	public Exame find(Long id) {
 		Optional<Exame> result = repository.findById(id);
 		
-		return result.orElseThrow(() -> new ExameNotFoundException());
+		return result.orElseThrow(() -> new ExameNotFoundException("Nenhum exame encontrado"));
 	}
 	
 	public Exame create(Exame exame) {
@@ -35,7 +35,7 @@ public class ExameService {
 	public void update(Long id, Exame body) {
 		Optional<Exame> result = repository.findById(id);
 		
-		Exame exame = result.orElseThrow(() -> new ExameNotFoundException());
+		Exame exame = result.orElseThrow(() -> new ExameNotFoundException("Nenhum exame encontrado"));
 		
 		BeanUtils.copyProperties(body, exame, AtualizaColunasUtil.getNullPropertyNames(body));
 		
@@ -45,7 +45,7 @@ public class ExameService {
 	public void delete(Long id) {
 		Optional<Exame> result = repository.findById(id);
 		
-		Exame exame = result.orElseThrow(() -> new ExameNotFoundException());
+		Exame exame = result.orElseThrow(() -> new ExameNotFoundException("Nenhum exame encontrado"));
 		
 		repository.delete(exame);
 	}

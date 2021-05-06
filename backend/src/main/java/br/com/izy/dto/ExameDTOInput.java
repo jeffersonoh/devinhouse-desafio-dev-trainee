@@ -2,12 +2,15 @@ package br.com.izy.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import br.com.izy.entity.Exame;
 
 public class ExameDTOInput implements Serializable {
 
 	private static final long serialVersionUID = 7762737242474661104L;
 	
+	@NotNull
 	private String nome;
 	
 	public ExameDTOInput() {
@@ -28,5 +31,6 @@ public class ExameDTOInput implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 
 }

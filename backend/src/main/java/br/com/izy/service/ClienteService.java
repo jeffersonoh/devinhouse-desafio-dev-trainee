@@ -29,7 +29,7 @@ public class ClienteService {
 	public Cliente find(Long id, String cpf) {
 		Optional<Cliente> result = repository.findByIdOrCpf(id, cpf);
 		
-		return result.orElseThrow(() -> new ClienteNotFoundException());
+		return result.orElseThrow(() -> new ClienteNotFoundException("Nenhum cliente encontrado"));
 	}
 	
 	public Cliente create(Cliente cliente) {
@@ -39,7 +39,7 @@ public class ClienteService {
 	public void update(Long id, Cliente body) {
 		Optional<Cliente> result = repository.findById(id);
 		
-		Cliente cliente = result.orElseThrow(() -> new ClienteNotFoundException());
+		Cliente cliente = result.orElseThrow(() -> new ClienteNotFoundException("Nenhum cliente encontrado"));
 		
 		BeanUtils.copyProperties(body, cliente, AtualizaColunasUtil.getNullPropertyNames(body));
 		
@@ -49,7 +49,7 @@ public class ClienteService {
 	public void delete(Long id) {
 		Optional<Cliente> result = repository.findById(id);
 		
-		Cliente cliente = result.orElseThrow(() -> new ClienteNotFoundException());
+		Cliente cliente = result.orElseThrow(() -> new ClienteNotFoundException("Nenhum cliente encontrado"));
 		
 		repository.delete(cliente);
 	}

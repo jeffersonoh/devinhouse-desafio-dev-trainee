@@ -33,7 +33,7 @@ public class AgendamentoService {
 	public Agendamento find(Long id) {
 		Optional<Agendamento> result = repository.findById(id);
 		
-		return result.orElseThrow(() -> new AgendamentoNotFoundException());
+		return result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));
 	}
 	
 	public Agendamento create(AgendamentoDTO agendamentoDTO, Long clienteId, Long exameId) {
@@ -51,7 +51,7 @@ public class AgendamentoService {
 	public void update(Long id, AgendamentoDTO agendamentoDTO, Long clienteId, Long exameId) {
 		Optional<Agendamento> result = repository.findById(id);
 		
-		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException());
+		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));
 		
 		Cliente cliente = null;
 		
@@ -77,7 +77,7 @@ public class AgendamentoService {
 	public void delete(Long id) {
 		Optional<Agendamento> result = repository.findById(id);
 		
-		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException());
+		Agendamento agendamento = result.orElseThrow(() -> new AgendamentoNotFoundException("Nenhum agendamento encontrado"));
 		
 		repository.delete(agendamento);
 	}

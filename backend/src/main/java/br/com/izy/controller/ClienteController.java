@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.izy.dto.ClienteDTO;
+import br.com.izy.dto.ClienteDTOInput;
+import br.com.izy.dto.ClienteDTOOuput;
 import br.com.izy.entity.Cliente;
 import br.com.izy.service.ClienteService;
 
@@ -37,13 +38,13 @@ public class ClienteController {
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<ClienteDTO> findAll(@RequestParam(required = false) String busca) {
+	public List<ClienteDTOOuput> findAll(@RequestParam(required = false) String busca) {
 		List<Cliente> clientes = service.findAll(busca);
 		
-		List<ClienteDTO> result = new ArrayList<ClienteDTO>();
+		List<ClienteDTOOuput> result = new ArrayList<ClienteDTOOuput>();
 		
 		for (Cliente cliente : clientes) {
-			result.add(new ClienteDTO(cliente));
+			result.add(new ClienteDTOOuput(cliente));
 		}
 		
 		return result;
@@ -52,29 +53,29 @@ public class ClienteController {
 	@GetMapping(value = "/{cpf}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public ClienteDTO find(@Valid @PathVariable String cpf) {
+	public ClienteDTOOuput find(@PathVariable String cpf) {
 		Cliente cliente = service.find(null, cpf);
 		
-		return new ClienteDTO(cliente);
+		return new ClienteDTOOuput(cliente);
 	}
 	
 	@PostMapping(produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ClienteDTO create(@RequestBody ClienteDTO body) {
+	public ClienteDTOOuput create(@Valid @RequestBody ClienteDTOInput body) {
 		Cliente cliente = new Cliente();
 		
 		cliente = cliente.converteClienteDTO(body);
 		
 		Cliente result = service.create(cliente);
 		
-		return new ClienteDTO(result);
+		return new ClienteDTOOuput(result);
 	}
 	
 	@PutMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @RequestBody ClienteDTO body) {
+	public void update(@PathVariable Long id, @Valid @RequestBody ClienteDTOInput body) {
 		Cliente cliente = new Cliente();
 		
 		cliente = cliente.converteClienteDTO(body);

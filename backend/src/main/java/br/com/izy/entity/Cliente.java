@@ -9,13 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CPF;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import br.com.izy.dto.ClienteDTO;
+import br.com.izy.dto.ClienteDTOInput;
 
 @Entity
 @Table(
@@ -31,18 +26,14 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	@CPF
-	@NotNull(message = "CPF não pode ser nulo")
 	private String cpf;
-	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate dataNascimento;
 	
 	public Cliente() {
 		
 	}
 	
-	public Cliente(Long id, String nome, String cpf, LocalDate dataNascimento) {
-		this.id = id;
+	public Cliente(String nome, String cpf, LocalDate dataNascimento) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
@@ -73,8 +64,8 @@ public class Cliente implements Serializable {
 		this.cpf = cpf;
 	}
 	
-	public Cliente converteClienteDTO(ClienteDTO clienteDTO) {
-		Cliente result = new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getCpf(), clienteDTO.getDataNascimento());
+	public Cliente converteClienteDTO(ClienteDTOInput clienteDTO) {
+		Cliente result = new Cliente(clienteDTO.getNome(), clienteDTO.getCpf(), clienteDTO.getDataNascimento());
 		
 		return result;
 	}

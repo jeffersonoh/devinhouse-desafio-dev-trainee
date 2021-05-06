@@ -3,45 +3,28 @@ package br.com.izy.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.izy.entity.Cliente;
-
-public class ClienteDTO implements Serializable {
+public class ClienteDTOInput implements Serializable {
 
 	private static final long serialVersionUID = -5917432598031376988L;
 	
-	private Long id;
+	@NotNull
 	private String nome;
+	@NotNull
+	@CPF
 	private String cpf;
+	@NotNull
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate dataNascimento;
 	
-	
-	public ClienteDTO() {
-		
+	public ClienteDTOInput() {
 	}
 	
-	public ClienteDTO(Long id, String nome, String cpf, LocalDate dataNascimento) {
-		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
-	}
-	
-	public ClienteDTO(Cliente cliente) {
-		this.id = cliente.getId();
-		this.nome = cliente.getNome();
-		this.cpf = cliente.getCpf();
-		this.dataNascimento = cliente.getDataNascimento();
-	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getNome() {
 		return nome;
 	}

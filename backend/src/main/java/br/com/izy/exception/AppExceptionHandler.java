@@ -1,16 +1,19 @@
 package br.com.izy.exception;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -25,7 +28,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ClienteNotFoundException.class)
 	public ResponseEntity<Object> handleClienteNotFoundException(ClienteNotFoundException ex, WebRequest request) {
 		
-		ErroDTO erroDTO = new ErroDTO(new Date(), "Nenhum cliente encontrado", 404);
+		ErroDTO erroDTO = new ErroDTO(new Date(), ex.getMessage(), 404);
 		
 		return ResponseEntity.status(404).body(erroDTO);
 	}
@@ -33,7 +36,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ExameNotFoundException.class)
 	public ResponseEntity<Object> handleExameNotFoundException(ExameNotFoundException ex, WebRequest request) {
 		
-		ErroDTO erroDTO = new ErroDTO(new Date(), "Nenhum exame encontrado", 404);
+		ErroDTO erroDTO = new ErroDTO(new Date(), ex.getMessage(), 404);
 		
 		return ResponseEntity.status(404).body(erroDTO);
 	}
@@ -41,7 +44,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(AgendamentoNotFoundException.class)
 	public ResponseEntity<Object> handleAgendamentoNotFoundException(AgendamentoNotFoundException ex, WebRequest request) {
 		
-		ErroDTO erroDTO = new ErroDTO(new Date(), "Nenhum agendamento encontrado", 404);
+		ErroDTO erroDTO = new ErroDTO(new Date(), ex.getMessage(), 404);
 		
 		return ResponseEntity.status(404).body(erroDTO);
 	}
@@ -54,27 +57,30 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(400).body(erroDTO);
 	}
 	
-	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-		
-		ErroDTO erroDTO = new ErroDTO(new Date(), ex.getConstraintName(), 400);
-		
-		return ResponseEntity.status(400).body(erroDTO);
-	}
-	
-	@ExceptionHandler(javax.validation.ConstraintViolationException.class)
-	public ResponseEntity<Object> handleConstraintViolationException(javax.validation.ConstraintViolationException ex, WebRequest request) {
-		
-		Map<String, Object> body = new LinkedHashMap<>();
-		body.put("data", new Date());
+	@Autowired
+	private MessageSource messageSource;
 
-		List<String> erros = ex.getConstraintViolations().stream().map(x -> x.getMessage()).collect(Collectors.toList());
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		ErroDTO erroDTO = new ErroDTO(new Date(), "Um ou mais campos estão incorretos. Corrija e tente novamente", 400);
+
+		new Locale("pt-BR");
 		
-		body.put("erros", erros);
-		body.put("statusCode", 400);
-		
-		return ResponseEntity.status(400).body(body);
+		List<ErroDTO.Campo> campos = ex.getBindingResult().getAllErrors()
+				.stream()
+				.map(e -> new ErroDTO.Campo(((FieldError) e).getField(),
+						messageSource.getMessage(e, LocaleContextHolder.getLocale()))
+				)
+				.collect(Collectors.toList());
+
+		erroDTO.setCampos(campos);
+
+		return super.handleExceptionInternal(ex, erroDTO, headers, status, request);
 	}
+
 	
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
