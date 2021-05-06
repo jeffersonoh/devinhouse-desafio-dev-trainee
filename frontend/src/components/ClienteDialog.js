@@ -4,6 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import * as Yup from 'yup';
+import MascaraInputCPF from "./MascaraInputCPF";
 
 const useStyles = makeStyles(() => ({
   gridContainer: {
@@ -40,7 +41,7 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const yupSchema = Yup.object().shape({
   nome: Yup.string().required('Campo nome é obrigatório'),
-  cpf: Yup.string().required('Campo cpf é obrigatório'),
+  cpf: Yup.string().required('Campo cpf é obrigatório').min(14).matches(/^\d{3}.\d{3}.\d{3}-\d{2}$/, 'Cpf inválido'),
   dataNascimento: Yup.string().required('Campo data de nascimento é obrigatório'),
 });
 
@@ -107,6 +108,9 @@ const ClienteDialog = (props) => {
                   color="secondary"
                   margin="normal"
                   fullWidth
+                  InputProps={{
+                    inputComponent: MascaraInputCPF,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
