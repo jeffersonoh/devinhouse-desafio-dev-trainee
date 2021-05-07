@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,10 +70,12 @@ public class ServiceCliente {
 	}
 	
 	public ResponseEntity<?> buscarClientePorCpf(String cpf) {
+		Optional<Cliente> cliente = null;
 		if (cpfEstaCadastrado(cpf)) {
-			return new ResponseEntity<>(repository.findByCpf(cpf), HttpStatus.OK);
+			cliente = repository.findByCpf(cpf);
+			return new ResponseEntity<>(cliente, HttpStatus.OK);
 		}
-		return new ResponseEntity<>("{\n   CPF nao encontrado, por favor, digite um CPF cadastrado\n}", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(cliente, HttpStatus.BAD_REQUEST);
 	}
 	
 	public ResponseEntity<?> listarTodosAgendamentosCliente(String cpf) {
