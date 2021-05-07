@@ -46,12 +46,12 @@ const yupSchema = Yup.object().shape({
 });
 
 const ClienteDialog = (props) => {
-  const { onClose, selectedValue, open, onSave, cliente } = props;
+  const { onClose, open, onSave, cliente } = props;
 
   const classes = useStyles();
 
   const handleClose = () => {
-    onClose(selectedValue);
+    onClose();
   };
 
   const handleInitialValues = () => {

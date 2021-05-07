@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Tabela = ({ dados, titulo, endpoint, abreUpdate }) => {
+const Tabela = ({ dados, titulo, endpoint, abreUpdate, onDelete }) => {
   const classes = useStyles();
   const [colunas, setColunas] = useState([]);
 
@@ -101,7 +101,11 @@ const Tabela = ({ dados, titulo, endpoint, abreUpdate }) => {
                       </IconButton>
                     )
                   }   
-                  <IconButton size="small" className={classes.button}>
+                  <IconButton
+                    size="small"
+                    className={classes.button}
+                    onClick={() => onDelete(linha.id)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>

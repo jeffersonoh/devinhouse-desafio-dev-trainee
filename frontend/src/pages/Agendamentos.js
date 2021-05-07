@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ExclusaoDialog from "../components/ExclusaoDialog";
 import FiltroAgendamentos from "../components/FiltroAgendamentos";
 import PageHeader from "../components/PageHeader";
 import Tabela from '../components/Tabela';
@@ -8,8 +9,20 @@ import apiExame from "../services/apiExame";
 
 const Agendamentos = () => {
   const [clientes, setClientes] = useState([]);
+  const [openExclusaoDialog, setOpenExclusaoDialog] = useState(false);
   const [exames, setExames] = useState([]);
+  const [agendamentoId, setAgendamentoId] = useState(0);
   const [agendamentos, setAgendamentos] = useState([]);
+
+  const handleClickOpenExclusaoDialog = (agendamentoId) => {
+    setAgendamentoId(agendamentoId);
+
+    setOpenExclusaoDialog(true);
+  };
+
+  const handleCloseExclusaoDialog = () => {
+    setOpenExclusaoDialog(false);
+  };
 
   const getClientes = async () => {
     const result = await apiCliente.findAllClientes();
@@ -42,6 +55,14 @@ const Agendamentos = () => {
     setAgendamentos(result)
   };
 
+  const handleDelete = async (agendamentoId) => {
+    await apiAgendamento.deleteAgendamento(agendamentoId);
+
+    setOpenExclusaoDialog(false);
+
+    getAgendamentos();
+  };
+
   return (
     <>
       <PageHeader
@@ -58,6 +79,15 @@ const Agendamentos = () => {
         dados={agendamentos}
         titulo="agendamento"
         endpoint="agendamentos"
+        onDelete={handleClickOpenExclusaoDialog}
+      />
+      <ExclusaoDialog
+        titulo="Tem certeza que deseja excluir?"
+        descricao="Esta operação não poderá ser desfeita."
+        open={openExclusaoDialog}
+        onClose={handleCloseExclusaoDialog}
+        onDelete={handleDelete}
+        entidadeId={agendamentoId}
       />
     </>
   );

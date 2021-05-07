@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Busca from "../components/Busca";
 import ClienteDialog from "../components/ClienteDialog";
+import ExclusaoDialog from "../components/ExclusaoDialog";
 import PageHeader from "../components/PageHeader";
 import Tabela from '../components/Tabela';
 import apiCliente from '../services/apiCliente';
 
 const Clientes = () => {
   const [open, setOpen] = useState(false);
+  const [openExclusaoDialog, setOpenExclusaoDialog] = useState(false);
   const [cliente, setCliente] = useState(undefined);
+  const [clienteId, setClienteId] = useState(0);
   const [clientes, setClientes] = useState([]);
 
   const getClientes = async () => {
@@ -31,10 +34,20 @@ const Clientes = () => {
     setOpen(true);
   };
 
+  const handleClickOpenExclusaoDialog = (clienteId) => {
+    setClienteId(clienteId);
+
+    setOpenExclusaoDialog(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
 
     setCliente(undefined);
+  };
+
+  const handleCloseExclusaoDialog = () => {
+    setOpenExclusaoDialog(false);
   };
 
   const handleCreate = async (cliente) => {
@@ -67,7 +80,15 @@ const Clientes = () => {
     setCliente(cliente);
 
     setOpen(true);
-  }
+  };
+
+  const handleDelete = async (clienteId) => {
+    await apiCliente.deleteCliente(clienteId);
+
+    setOpenExclusaoDialog(false);
+
+    getClientes();
+  };
 
   return (
     <>
@@ -88,12 +109,21 @@ const Clientes = () => {
         titulo="cliente"
         endpoint="clientes"
         abreUpdate={handleUpdate}
+        onDelete={handleClickOpenExclusaoDialog}
       />
       <ClienteDialog
         open={open}
         onClose={handleClose}
         onSave={handleCreate}
         cliente={cliente}
+      />
+      <ExclusaoDialog
+        titulo="Tem certeza que deseja excluir?"
+        descricao="Esta operação não poderá ser desfeita. Todos os agendamentos para este cliente serão excluidos."
+        open={openExclusaoDialog}
+        onClose={handleCloseExclusaoDialog}
+        onDelete={handleDelete}
+        entidadeId={clienteId}
       />
     </>
   );
