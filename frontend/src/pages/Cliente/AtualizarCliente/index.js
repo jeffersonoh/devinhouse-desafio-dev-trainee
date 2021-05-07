@@ -64,7 +64,7 @@ export default function AtualizarCliente() {
   const {
     login: { payload },
     logar,
-    deslogar,
+    desconectar,
   } = useLoginContext();
   const formik = useFormik({
     initialValues: {
@@ -90,7 +90,7 @@ export default function AtualizarCliente() {
   });
   function deletarCliente() {
     deletar(payload.idCliente);
-    deslogar();
+    desconectar();
   }
   return (
     <div className={classes.flex}>

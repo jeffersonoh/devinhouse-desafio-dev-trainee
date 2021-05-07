@@ -23,6 +23,13 @@ class AgendamentoAPI {
             throw error;
         })
     }
+    buscarHorariosAgendadosNaDataDoExame(idExame, data) {
+        return axios.get(`${BASE_URL}/agendamento-horarios?idExame=${idExame}&data=${data}`)
+        .then(response => response.data)
+        .catch(error => {
+            throw error;
+        })
+    }
     atualizarAgendamento(id, novoAgendamento){
         return axios.put(`${BASE_URL}/agendamento?id=${id}`, novoAgendamento)
         .then(response => response.data)

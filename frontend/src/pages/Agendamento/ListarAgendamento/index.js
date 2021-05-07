@@ -1,7 +1,8 @@
-import { Typography, Card, Button, makeStyles, Grid } from "@material-ui/core";
+import { Typography, Card, Button, makeStyles, Grid, Modal } from "@material-ui/core";
 import { useState, useEffect } from "react";
 
 import { useLoginContext } from "../../../utils/login.context";
+import AgendamentoMenu from "../../../components/AgendamentoMenu";
 import AgendamentoAPI from "../../../service/agendamentoAPI";
 
 const useStyle = makeStyles((theme) => ({
@@ -30,6 +31,8 @@ export default function ListarAgendamento() {
     login: { payload },
   } = useLoginContext();
   const [agendamentos, setAgendamentos] = useState([]);
+  const [idEditar,setIdEditar] = useState('');
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     if (payload) {
       const recuperarListaAgendamentos = async () => {
@@ -40,7 +43,17 @@ export default function ListarAgendamento() {
       };
       recuperarListaAgendamentos();
     }
-  }, [payload, agendamentos]);
+  }, [payload, agendamentos, modal]);
+
+  const abrirModal = (id) => {
+    setIdEditar(id);
+    setModal(true);
+  };
+
+  const fecharModal = () => {
+    setModal(false);
+  };
+
   async function deletarAgendamento(id) {
     await AgendamentoAPI.deletarAgedamento(id);
     setAgendamentos(agendamentos);
@@ -85,6 +98,7 @@ export default function ListarAgendamento() {
                 color="primary"
                 variant="contained"
                 fullWidth
+                onClick={() => abrirModal(agendamentos.idAgendamento)}
               >
                 Atualizar Agendamento
               </Button>
@@ -101,6 +115,17 @@ export default function ListarAgendamento() {
           </Grid>
         ))
       )}
+      <Modal
+        open={modal}
+        onClose={fecharModal}
+        aria-labelledby="Atualizar"
+        aria-describedby="Modal para atualizar agendamento"
+        children={
+          <div>
+            <AgendamentoMenu idAtualizar={idEditar} atualizar={modal} fecharModal={fecharModal}/>
+          </div>
+        }
+      />
     </Grid>
   );
 }

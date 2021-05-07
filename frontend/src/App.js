@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import CadastrarCliente from "./pages/Cliente/CadastrarCliente";
 import AtualizarCliente from "./pages/Cliente/AtualizarCliente";
+import ListagemCliente from "./pages/Cliente/ListagemCliente"
 import ListarAgendamento from "./pages/Agendamento/ListarAgendamento";
 
 import AgendamentoMenu from "./components/AgendamentoMenu"
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route exact path="/cliente">
               <AtualizarCliente/>
+            </Route>
+            <Route exact path="/lista-cliente">
+              <ListagemCliente/>
             </Route>
             <Route exact path="/agendamentos">
               <ListarAgendamento/>

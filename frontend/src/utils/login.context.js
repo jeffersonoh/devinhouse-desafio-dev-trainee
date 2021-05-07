@@ -20,13 +20,13 @@ const LoginProvider = ({ children }) => {
     const resultado = await ClienteAPI.buscarClientePorCPF(cpf);
     logar(resultado);
   };
-  const deslogar = () => {
+  const desconectar = () => {
     setLogin({ state: "waiting" });
     voltarParaHome();
   };
 
   return (
-    <LoginContext.Provider value={{ login, logar, conectar, deslogar }}>
+    <LoginContext.Provider value={{ login, logar, conectar, desconectar }}>
       {children}
     </LoginContext.Provider>
   );
