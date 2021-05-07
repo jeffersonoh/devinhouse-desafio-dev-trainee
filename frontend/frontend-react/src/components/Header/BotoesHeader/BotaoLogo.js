@@ -9,12 +9,7 @@ import theme from "./Botao.style";
 const useStyles = makeStyles({
   botaoStyle: {
     ...theme.botaoStyle,
-    "&:hover": {
-      "& .MuiButton-startIcon": {
-        color: "#AD0A01",
-      },
-      color: "#AD0A01",
-    },
+    color: "#AD0A01",
   },
 });
 
@@ -29,9 +24,9 @@ export default function BotaoLogo() {
     variant="text" 
     size="medium"
     disableElevation
-    color="text"
+    
     >
-      <Typography variant="body1" style={{fontWeight: "bold"}}>Sua Saúde</Typography>
+      <Typography variant="body1" style={{fontWeight: "bold"}}>Sistema de saúde DEVinHouse</Typography>
     </Button>
   );
 }

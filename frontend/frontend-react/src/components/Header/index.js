@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import BotaoLogo from "./BotoesHeader/BotaoLogo";
+
 import { AppBar, Toolbar, Menu, MenuItem, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useContextLogin } from "../../utils/contextLogin";
 import Botao from "./BotoesHeader/Botao";
+import BotaoMenu from "./BotoesHeader/BotaoMenu"; 
+import BotaoLogo from "./BotoesHeader/BotaoLogo";
 import theme from "./BarraPrincipal.style";
 
 const useStyles = makeStyles({
@@ -43,7 +45,7 @@ export function BarraPrincipal(props) {
         {loginStatus === false ? (
           <>
             <Botao
-              variante="text"
+              variante="contained"
               text="Minha Conta"
               aria-controls="simple-menu"
               aria-haspopup="true"
@@ -61,9 +63,9 @@ export function BarraPrincipal(props) {
           </>
         ) : (
           <Box>
-            <Botao
-              icone={<MenuIcon/>}
-              tamanho="medium"
+            <BotaoMenu
+              icone={<MenuIcon style={{color: "#e1f5fe"}}/>}
+              tamanho="large"
               variante="text"
               onclick={drawyerEvent}
             />

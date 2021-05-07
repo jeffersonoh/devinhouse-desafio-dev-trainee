@@ -7,7 +7,7 @@ import theme from "./Botao.style";
 
 const useStyles = makeStyles({
   botaoMinhaConta: {
-    ...theme.botaoMinhaConta
+    ...theme.botaoMinhaConta,
   }
 })
 
