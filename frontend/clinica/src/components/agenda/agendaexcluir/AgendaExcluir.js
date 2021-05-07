@@ -6,19 +6,22 @@ import { useStyles } from 'style/Style';
 import { useAuth } from 'providers/auth';
 
 const AgendaExcluir = () => {
-    const {linhaSelecionadaAgenda, dataAgenda, setDataAgenda, setIndex, setChamadoHTTP} = useAuth();
+    const { linhaSelecionadaAgenda, dataAgenda, setDataAgenda, setIndex, setChamadoHTTP } = useAuth();
     const classes = useStyles();
 
-    useEffect(()=>{
-        setDataAgenda({...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"), 
-                    hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")});
-    },[])
+    useEffect(() => {
+        setDataAgenda({
+            ...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"),
+            hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  return (
-    <Fragment>
-        <Paper className={classes.control}>
-            <form className={classes.form} noValidate autoComplete="off">
-                    <TextField 
+    return (
+        <Fragment>
+            <Paper className={classes.control}>
+                <form className={classes.form} noValidate autoComplete="off">
+                    <TextField
                         id="outlined-basic"
                         label="Nome"
                         className={classes.textField}
@@ -26,16 +29,16 @@ const AgendaExcluir = () => {
                         value={linhaSelecionadaAgenda.pacienteNome}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
-                    <TextField 
-                        label="CPF" 
+                    <TextField
+                        label="CPF"
                         className={classes.textField}
                         name="cpf"
                         value={linhaSelecionadaAgenda.cpf}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
                     <TextField
                         name="data"
@@ -44,11 +47,11 @@ const AgendaExcluir = () => {
                         className={classes.textField}
                         value={dataAgenda.data}
                         InputLabelProps={{
-                        shrink: true,
+                            shrink: true,
                         }}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
                     <TextField
                         name="hora"
@@ -57,27 +60,27 @@ const AgendaExcluir = () => {
                         value={dataAgenda.hora}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
-                     <TextField
+                    <TextField
                         name="exame"
                         label="Exames ofertados"
                         className={classes.textField}
                         value={linhaSelecionadaAgenda.exame}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
                     <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("DELETE_AGENDA")}>
                         Excluir
                     </Button>
-                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => {setIndex(1)}}>
+                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => { setIndex(1) }}>
                         Cancelar
                     </Button>
-            </form>
-        </Paper>
-    </Fragment>
-  );
+                </form>
+            </Paper>
+        </Fragment>
+    );
 }
 
 export default AgendaExcluir;

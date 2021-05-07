@@ -13,10 +13,12 @@ const AgendaEditar = () => {
 
     useEffect(()=>{
         setDataAgenda({...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"), hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(()=>{
         setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, data: dataAgenda.data + "T" + dataAgenda.hora});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dataAgenda])
 
   return (

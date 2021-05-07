@@ -58,10 +58,12 @@ const AuthProvider = (props) => {
       .then(response => {
         setMarcacoes(response.data);
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [atualizar])
 
   useEffect(() => {
     setAtualizar(!atualizar);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
 
@@ -99,8 +101,12 @@ const AuthProvider = (props) => {
       case "GET_LISTAAGENDA":
         GETListaAgenda();
         break;
+        default:
+          break;
     }
+ 
     setChamadoHTTP("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chamadoHTTP])
 
   function validarCliente(cliente) {

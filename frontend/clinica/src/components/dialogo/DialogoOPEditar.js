@@ -73,6 +73,7 @@ export default function DialogoOPEditar() {
               width: "100%",
               height: "200px"
             }}
+            alt="Como editar"
           />
           <Typography gutterBottom>
             Opps!! Nos perdoe pelo inconveniente, para acessar o campo de edição, 

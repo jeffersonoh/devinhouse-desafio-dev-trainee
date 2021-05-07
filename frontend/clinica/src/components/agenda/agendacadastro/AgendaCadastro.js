@@ -12,11 +12,13 @@ const AgendaCadastro = () => {
 
     useEffect(()=>{
         setNovaMarcacao({ ...novaMarcacao, data: dataAgenda.data + "T" + dataAgenda.hora});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dataAgenda])
 
     useEffect(()=>{
         setDataAgenda({ ...dataAgenda, data: "", hora: ""});
         setNovaMarcacao({...novaMarcacao, cpf:"", pacienteNome: "", exame: ""})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     
     return (

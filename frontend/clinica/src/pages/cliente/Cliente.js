@@ -52,6 +52,7 @@ const PagesCliente = () => {
     useEffect(()=> {
         setIndex(1);
         setLinhaSelecionadaCliente({id: 0})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const onChangeTab = (e,tab) => {

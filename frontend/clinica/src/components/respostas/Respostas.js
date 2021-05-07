@@ -56,6 +56,7 @@ const Respostas = () => {
         if (resposta === 909) { erro("Data de nascimento não é valida!"); }
 
         setResposta(0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resposta])
 
     return (

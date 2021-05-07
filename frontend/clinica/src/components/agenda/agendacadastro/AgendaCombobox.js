@@ -44,10 +44,12 @@ const AgendaCombobox = () => {
 
   useEffect(() => {
     if (!clienteCriadoComboBox) { handleClose(); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clienteCriadoComboBox])
 
   useEffect(() => {
     setClienteCriadoComboBox(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

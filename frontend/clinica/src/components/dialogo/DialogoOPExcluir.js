@@ -73,6 +73,7 @@ export default function DialogoOPExcluir() {
               width: "100%",
               height: "200px"
             }}
+            alt="Como excluir"
           />
           <Typography gutterBottom>
             Opps!! Nos perdoe pelo inconveniente, para acessar o campo de exclusão, 

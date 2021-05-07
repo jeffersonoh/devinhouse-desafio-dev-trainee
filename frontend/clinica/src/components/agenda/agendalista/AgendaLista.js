@@ -59,6 +59,7 @@ const AgendaLista = () => {
 
     useEffect(() => {
         setPaginaLista();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [marcacoes])
 
     useEffect(() => {
@@ -66,6 +67,7 @@ const AgendaLista = () => {
         setRefresh(false);
         setPesquisaMarcacao("");
         setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

@@ -52,6 +52,7 @@ const PagesAgenda = () => {
   useEffect(() => {
     setIndex(1);
     setLinhaSelecionadaAgenda({ id: 0 })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onChangeTab = (e, tab) => {

@@ -58,6 +58,7 @@ const ClienteLista = () => {
 
     useEffect(() => {
         setPaginaLista()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clientes])
 
     useEffect(() => {
@@ -65,6 +66,7 @@ const ClienteLista = () => {
         setRefresh(false);
         setPesquisaCliente("");
         setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

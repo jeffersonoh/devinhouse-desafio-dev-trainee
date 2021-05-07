@@ -31,7 +31,6 @@ const AgendaExames = () => {
             }
             linhaAtual++;
         })
-
         setItempagina(paginaProvisoria);
     }
 
@@ -51,6 +50,7 @@ const AgendaExames = () => {
 
     useEffect(() => {
         setPaginaLista();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
