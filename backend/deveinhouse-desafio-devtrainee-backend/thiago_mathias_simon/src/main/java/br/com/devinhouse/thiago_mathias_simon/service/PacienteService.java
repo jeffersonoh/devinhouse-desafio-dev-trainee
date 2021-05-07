@@ -29,19 +29,22 @@ public class PacienteService {
             String name = novoPaciente.getPatientName().trim();
             String cpf = novoPaciente.getPatientCpf().trim();
             String bornDate = novoPaciente.getPatientBornDate().trim();
-            String senha = novoPaciente.getPassword();
+            String password = novoPaciente.getPassword();
 
             if (validatePatientName(name)) {
                 if (validarCpf(cpf)) {
                     if (!verificarExistenciaDeCpf(cpf)) {
                         if (validateBornDate(bornDate)) {
-                            novoPaciente.setId(0);
-                            novoPaciente.setPatientName(name);
-                            novoPaciente.setPatientCpf(cpf);
-                            novoPaciente.setPatientBornDate(bornDate);
-                            novoPaciente.setPassword(senha);
-                            repository.save(novoPaciente);
-                            return generatePatientDTO(novoPaciente);
+                            if (validatePassword(password)){
+                                novoPaciente.setId(0);
+                                novoPaciente.setPatientName(name);
+                                novoPaciente.setPatientCpf(cpf);
+                                novoPaciente.setPatientBornDate(bornDate);
+                                novoPaciente.setPassword(password);
+                                repository.save(novoPaciente);
+                                return generatePatientDTO(novoPaciente);
+                            }
+                            throw new InvalidPasswordException("A senha informada é inválida! Por obséquio, informe uma senha alfanumérica com 6 a 10 caracteres!");
                         }
                         throw new InvalidBornDateException("A data de nascimento informada não é válida!");
                     }
@@ -87,12 +90,14 @@ public class PacienteService {
                         && (validateBornDate(pacienteAtualizado.getPatientBornDate())))
                         ? pacienteAtualizado.getPatientBornDate()
                         : paciente.getPatientBornDate();
-                String senha = (pacienteAtualizado.getPassword() != null) ? pacienteAtualizado.getPassword() : paciente.getPassword();
+                String password = ((pacienteAtualizado.getPassword() != null)
+                        && (validatePassword(pacienteAtualizado.getPassword()))
+                        ? pacienteAtualizado.getPassword() : paciente.getPassword());
 
                 paciente.setPatientName(patientName.trim());
                 paciente.setPatientCpf(patientCpf.trim());
                 paciente.setPatientBornDate(patientBornDate.trim());
-                paciente.setPassword(senha.trim());
+                paciente.setPassword(password.trim());
 
                 repository.save(paciente);
 
@@ -119,6 +124,31 @@ public class PacienteService {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean validatePassword(String password){
+        if (password.length() >= 6 && password.length() <= 10) {
+            final String[] LETRAS = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+                    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+            boolean possuiNumeros = false;
+            boolean possuiLetras = false;
+            for (int i = 0; i < password.length(); i++) {
+                for (String letra : LETRAS) {
+                    if (password.substring(i, i + 1).equalsIgnoreCase(letra)) {
+                        possuiNumeros = true;
+                        break;
+                    }
+                }
+                for (int y = 0; y < 10; y++) {
+                    if (password.substring(i, i + 1).equalsIgnoreCase("" + y)) {
+                        possuiLetras = true;
+                        break;
+                    }
+                }
+            }
+            return possuiLetras && possuiNumeros;
+        };
         return false;
     }
 

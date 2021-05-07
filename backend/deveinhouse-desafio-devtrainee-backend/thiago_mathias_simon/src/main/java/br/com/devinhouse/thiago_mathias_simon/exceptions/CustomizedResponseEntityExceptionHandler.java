@@ -154,4 +154,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
 	}
 
+	@ExceptionHandler(value = {InvalidPasswordException.class})
+	public final ResponseEntity<Object> handleExceptionEntity(InvalidPasswordException ipe, WebRequest request)
+			throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(ipe.getMessage(),
+				request.getDescription(false), BAD_REQUEST.getReasonPhrase());
+
+		return new ResponseEntity<Object>(exceptionResponse, BAD_REQUEST);
+	}
+
 }
