@@ -3,8 +3,6 @@ package br.com.devinhouse.trainee.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.devinhouse.trainee.entities.Agendamento;
@@ -54,15 +52,14 @@ public class AgendamentoServices {
 	}
 	
 	// Criar agendamento
-	public ResponseEntity<?> create(Agendamento obj) {
+	public Agendamento create(Agendamento obj) {
 		Cliente client = clienteServices.getByCPFKey(obj.getCliente().getCpf());
 		obj.setCliente(client);
 		
 		Exame exam = exameServices.findByNome(obj.getExame().getNome());
 		obj.setExame(exam);
 		
-		agendamentoRepository.save(obj);
-		return new ResponseEntity<>("Agendamento realizado com sucesso", HttpStatus.CREATED);
+		return agendamentoRepository.save(obj);
 	}
 	
 	// Pesquisar todos os agendamentos
@@ -89,10 +86,8 @@ public class AgendamentoServices {
 	}	
 		
 	// Deletar um agendamento
-	public ResponseEntity<?> delete(Integer id) {
+	public void delete(Integer id) {
 		Agendamento filteredSchedule = agendamentoRepository.findById(id).get();
 		agendamentoRepository.delete(filteredSchedule);
-		
-		return new ResponseEntity<>("{\n Agendamento removido com sucesso \n}", HttpStatus.OK);
 	}
 }

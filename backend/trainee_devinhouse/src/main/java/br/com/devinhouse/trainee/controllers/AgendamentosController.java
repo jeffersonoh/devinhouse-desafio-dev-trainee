@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,18 +31,21 @@ public class AgendamentosController {
 	
 	// Deverá haver um endpoint para inclusao de um agendamento
 	@RequestMapping(value = "/cadastrar", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> registerScheduling(@RequestBody Agendamento obj) {
+	@ResponseStatus(HttpStatus.OK)
+	public Agendamento registerScheduling(@RequestBody Agendamento obj) {
 		return service.create(obj);
 	}
 	
 	// Endpoint para consulta de agendamentos realizados
 	@RequestMapping(value = "/consultar", method = GET, produces = APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public List<Agendamento> findAllSchedules() {
 		return service.searchAllSchedules();
 	}
 	
 	// Endpoint para consulta de agendamentos por id
 	@RequestMapping(value = "/consultar/id/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public Agendamento findScheduleById(@PathVariable("id") Integer id) {
 		return service.searchScheduleById(id);
 	}
@@ -57,7 +59,8 @@ public class AgendamentosController {
 		
 	// Deverá haver um endpoint para exclusão de um agendamento realizado
 	@RequestMapping(value = "/deletar/id/{id}", method = DELETE)
-	public ResponseEntity<?> removeScheduling(@PathVariable Integer id) {
-		return service.delete(id);
+	@ResponseStatus(HttpStatus.OK)
+	public void removeScheduling(@PathVariable Integer id) {
+		service.delete(id);
 	}	
 }
