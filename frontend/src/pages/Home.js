@@ -8,6 +8,8 @@ import apiCliente from "../services/apiCliente";
 import apiExame from "../services/apiExame";
 import apiAgendamento from "../services/apiAgendamento";
 import Tabela from "../components/Tabela";
+import ExclusaoDialog from "../components/ExclusaoDialog";
+import FiltroHome from "../components/FiltroHome";
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -26,43 +28,88 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Home = () => {
+  const [openExclusaoDialog, setOpenExclusaoDialog] = useState(false);
   const [totalClientes, setTotalClientes] = useState(0);
   const [totalExames, setTotalExames] = useState(0);
   const [totalAgendamentos, setTotalAgendamentos] = useState(0);
   const [agendamentosDia, setAgendamentosDia] = useState([]);
+  const [agendamentoId, setAgendamentoId] = useState(0);
 
   const classes = useStyles();
+
+  const handleClickOpenExclusaoDialog = (agendamentoId) => {
+    setAgendamentoId(agendamentoId);
+
+    setOpenExclusaoDialog(true);
+  };
+
+  const handleCloseExclusaoDialog = () => {
+    setOpenExclusaoDialog(false);
+  };
 
   const countClientes = async () => {
     const result = await apiCliente.countClientes();
 
     setTotalClientes(result);
-  }
+  };
 
   const countExames = async () => {
     const result = await apiExame.countExames();
 
     setTotalExames(result);
-  }
+  };
 
   const countAgendamentos = async () => {
     const result = await apiAgendamento.countAgendamentos();
 
     setTotalAgendamentos(result);
-  }
+  };
 
-  const getAgendamentosDia = async () => {
-    const result = await apiAgendamento.findAgendamentosDia();
+  const getAgendamentos = async (dataInicial, dataFinal) => {
+    const dados = {};
+    let result;
+    if (dataInicial && !dataFinal) {
+      dados.dataInicial = dataInicial;
+  
+      result = await apiAgendamento.filterAgendamentosPorData(dados);
+  
+    } else if (dataInicial && dataFinal) {
+      dados.dataInicial = dataInicial;
+      dados.dataFinal = dataFinal;
 
-    setAgendamentosDia(result);
-  }
+      result = await apiAgendamento.filterAgendamentosPorData(dados);
+    }
+    
+    return setAgendamentosDia(result);
+  };
+
+  const filtrarAgendamentos = (filtro) => {
+    const data = new Date();
+    const dataHoje = data.toLocaleDateString();
+    const dataAmanha = new Date(data.getFullYear(), data.getMonth(), data.getDate() + 1).toLocaleDateString();
+    const data15 = new Date(data.getFullYear(), data.getMonth(), data.getDate() + 15).toLocaleDateString();
+    const dataMes = new Date(data.getFullYear(), data.getMonth()+1, 0).toLocaleDateString();
+
+    filtro === 'hoje' && getAgendamentos(dataHoje, null);
+    filtro === 'amanha' && getAgendamentos(dataAmanha, null);
+    filtro === '15' && getAgendamentos(dataHoje, data15);
+    filtro === 'mes' && getAgendamentos(dataHoje, dataMes);
+  };
   
   useEffect(() => {
     countClientes();
     countExames();
     countAgendamentos();
-    getAgendamentosDia();
-  }, [])
+    getAgendamentos(new Date().toLocaleDateString(), null);
+  }, []);
+
+  const handleDelete = async (agendamentoId) => {
+    await apiAgendamento.deleteAgendamento(agendamentoId);
+
+    setOpenExclusaoDialog(false);
+
+    getAgendamentos();
+  };
 
   return (
     <>
@@ -131,12 +178,22 @@ const Home = () => {
         </Grid>
       </Grid>
       <Typography variant="h4" paragraph >
-        Agendamentos do dia
+        Agendamentos recentes
       </Typography>
+      <FiltroHome onFilter={filtrarAgendamentos} />
       <Tabela
         dados={agendamentosDia}
         titulo="agendamento"
         endpoint="agendamentos"
+        onDelete={handleClickOpenExclusaoDialog}
+      />
+      <ExclusaoDialog
+        titulo="Tem certeza que deseja excluir?"
+        descricao="Esta operação não poderá ser desfeita."
+        open={openExclusaoDialog}
+        onClose={handleCloseExclusaoDialog}
+        onDelete={handleDelete}
+        entidadeId={agendamentoId}
       />
     </>
   );

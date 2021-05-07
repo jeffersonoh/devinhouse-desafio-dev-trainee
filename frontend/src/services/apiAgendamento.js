@@ -30,8 +30,8 @@ class ApiService {
 			});
 	}
 
-	findAgendamentosDia(clienteId, exameId) {
-		return axios.get(`${BASE_URL}/dia`)
+	filterAgendamentosPorData(datas) {
+		return axios.post(`${BASE_URL}/filtro-data`, datas)
 			.then(response => response.data)
 			.catch(error => {
 				throw error;

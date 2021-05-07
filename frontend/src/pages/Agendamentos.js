@@ -49,7 +49,6 @@ const Agendamentos = () => {
   }, [])
 
   const filtraAgendamentos = async (clienteId = '', exameId = '') => {
-    console.log(clienteId)
     const result = await apiAgendamento.filterAgendamentos(clienteId, exameId);
 
     setAgendamentos(result)
