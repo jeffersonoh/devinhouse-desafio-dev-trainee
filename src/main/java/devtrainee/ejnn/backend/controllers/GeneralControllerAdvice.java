@@ -11,6 +11,7 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import org.springframework.dao.DataIntegrityViolationException;
 import devtrainee.ejnn.backend.exceptions.ClienteInexistenteException;
 import devtrainee.ejnn.backend.exceptions.ForbiddenException;
+import devtrainee.ejnn.backend.exceptions.CpfJaCadastradoException;
 
 @ControllerAdvice
 public class GeneralControllerAdvice {
@@ -28,5 +29,10 @@ public class GeneralControllerAdvice {
     @ExceptionHandler
     public ResponseEntity<String> handleForbidden(ForbiddenException e) {
 	return new ResponseEntity<>(e.getMessage(), FORBIDDEN);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleCpfJaCadastrado(CpfJaCadastradoException e) {
+	return new ResponseEntity<>("Este cpf já está cadastrado no sistema!", BAD_REQUEST);
     }
 }

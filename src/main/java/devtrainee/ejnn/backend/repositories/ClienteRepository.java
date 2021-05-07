@@ -1,6 +1,7 @@
 package devtrainee.ejnn.backend.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,6 @@ import devtrainee.ejnn.backend.domain.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    List<Cliente> findClienteByCpfContaining(String cpf);
+    Optional<Cliente> findByCpf(String cpf);
+    List<Cliente> findByCpfContaining(String cpf);
 }

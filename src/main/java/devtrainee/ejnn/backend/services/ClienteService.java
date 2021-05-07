@@ -19,6 +19,7 @@ import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
 import devtrainee.ejnn.backend.repositories.ClienteRepository;
 
 import devtrainee.ejnn.backend.exceptions.ClienteInexistenteException;
+import devtrainee.ejnn.backend.exceptions.CpfJaCadastradoException;
 
 
 @Service
@@ -34,6 +35,11 @@ public class ClienteService {
     }
 
     public ClienteOutputDTO create(ClienteInputDTO clienteInput) {
+	Optional<Cliente> cliente = clienteRepository.findByCpf(clienteInput.getCpf());
+	if (cliente.isPresent()) {
+	    throw new CpfJaCadastradoException();
+	}
+
 	Cliente createdClient = clienteRepository.save(mapper.map(clienteInput, Cliente.class));
 	return mapToOutputDTO(createdClient);
     }
@@ -50,7 +56,7 @@ public class ClienteService {
     }
 
     public List<ClienteOutputDTO> searchByCpf(String cpf) {
-	List<Cliente> searchResults = clienteRepository.findClienteByCpfContaining(cpf);
+	List<Cliente> searchResults = clienteRepository.findByCpfContaining(cpf);
 	return searchResults.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
 
