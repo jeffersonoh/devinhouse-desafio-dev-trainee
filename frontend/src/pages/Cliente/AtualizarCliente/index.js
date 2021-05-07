@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import { useLoginContext } from "../../../utils/login.context";
-import ClienteAPI from "../../../service/ClienteAPI";
+import ClienteAPI from "../../../service/clienteAPI";
 
 const date = new Date();
 

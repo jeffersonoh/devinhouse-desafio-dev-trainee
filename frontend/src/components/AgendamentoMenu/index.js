@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 
 import { useLoginContext } from "../../utils/login.context";
 import { useExameContext } from "../../utils/exameSelect.context";
-import AgendamentoAPI from "../../service/AgendamentoAPI";
+import AgendamentoAPI from "../../service/agendamentoAPI";
 import horarios from "./horarios";
 
 const useStyle = makeStyles((theme) => ({

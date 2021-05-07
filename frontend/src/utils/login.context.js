@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import ClienteAPI from "../service/ClienteAPI";
+import ClienteAPI from "../service/clienteAPI";
 
 const LoginContext = createContext({});
 

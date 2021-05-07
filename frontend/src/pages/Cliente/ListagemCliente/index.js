@@ -2,7 +2,7 @@ import { Typography, Card, Button, makeStyles, Grid } from "@material-ui/core";
 import { useState, useEffect } from "react";
 
 import { useLoginContext } from "../../../utils/login.context";
-import ClienteAPI from "../../../service/ClienteAPI";
+import ClienteAPI from "../../../service/clienteAPI";
 
 const useStyle = makeStyles((theme) => ({
   margin: {

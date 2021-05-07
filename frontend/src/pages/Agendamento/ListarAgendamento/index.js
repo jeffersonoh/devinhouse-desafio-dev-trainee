@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { useLoginContext } from "../../../utils/login.context";
 import AgendamentoMenu from "../../../components/AgendamentoMenu";
-import AgendamentoAPI from "../../../service/AgendamentoAPI";
+import AgendamentoAPI from "../../../service/agendamentoAPI";
 
 const useStyle = makeStyles((theme) => ({
   margin: {

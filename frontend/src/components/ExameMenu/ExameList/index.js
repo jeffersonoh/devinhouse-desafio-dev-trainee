@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 
 
 import { useExameContext } from "../../../utils/exameSelect.context";
-import ExameAPI from "../../../service/ExameAPI";
+import ExameAPI from "../../../service/exameAPI";
 
 const useStyle = makeStyles((theme) => ({
   item: {
