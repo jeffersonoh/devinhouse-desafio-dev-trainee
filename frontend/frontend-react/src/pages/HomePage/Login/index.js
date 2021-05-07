@@ -5,6 +5,7 @@ import { useContextLogin } from "../../../utils/contextLogin";
 import { cpfMask } from "../../../utils/cpfMask";
 import { InputText } from "../../../components/InputText";
 import { Botao } from "../../../components/Button";
+import {errorClienteGet} from "../../../utils/alertas"
 import theme from "./Login.style";
 
 const useStyles = makeStyles({
@@ -35,6 +36,8 @@ export const Login = (props) => {
   const realizarLogin = (cpf) => {
     if(cpf === "111.111.111-11") {
       return loginAdmin(cpf)
+    } else if (cpf === "") {
+      return errorClienteGet();
     }
     login(cpf);
     setStateCpf(cpf);

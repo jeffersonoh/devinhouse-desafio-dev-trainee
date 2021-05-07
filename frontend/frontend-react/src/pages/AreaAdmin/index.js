@@ -13,6 +13,7 @@ import { CustomModal } from "../../components/CustomModal";
 import { Pesquisa } from "./Pesquisa";
 import { cpfMask } from "../../utils/cpfMask";
 import { useContextLogin } from "../../utils/contextLogin";
+import {errorClienteGet} from "../../utils/alertas";
 
 export function AreaAdmin() {
   const { usuarioState: {loginStatus}, logout } = useContextLogin();
@@ -75,6 +76,9 @@ export function AreaAdmin() {
   };
 
   const handlePesquisaCliente = async () => {
+    if(cpf === "") {
+      return errorClienteGet();
+    }
     const cliente = await RequestBackendCliente.getClientePorCpf(cpf);
     setCliente(cliente);
     setCpf("");
