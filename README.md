@@ -1,41 +1,144 @@
-# Desafio Dev Trainee Softplan DEV in House
+<h1 align="center">
+    Izy
+</h1>
 
-## Descrição
+<p align="center">
+  <a href="#page_facing_up-sobre">Sobre</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#computer-web">Web</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#iphone-mobile">Mobile</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-tecnologias-utilizadas">Tecnologias Utilizadas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#gear-como-configurar-e-executar">Como configurar e executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+</p>
 
-O desafio tem como objetivo construir uma aplicação de formato **front/backend** com os conceitos aprendidos no curso **DEV In House** :
+<br/>
 
-* Módulo 1 completo (frontend);
-* Módulo 2 até a semana 6 (backend com Spring boot, API REST e padrão de projeto MVC);
+<h3 align="center">
+  <img alt="izy_cover" title="github_explorer" src=".github/capa.png" />
+</h3>
 
-Este desafio servirá como forma avaliativa para a seleção dos candidatos as vagas de **Dev Trainne** na [Softplan](www.softplan.com.br) de forma para evidenciar se os conceitos passados no curso em formato de apresentações e execicios práticos foram aprendidos e fixados de maneira clara.
+<br/>
 
-Serão testadas as habilidades e qualidade de código ao transformar requisitos limitados em uma aplicação web.
 
-## Instruções de entrega do desafio
+## :page_facing_up: Sobre
 
-* Fork esse repositório e faça o desafio numa branch com o seu nome (exemplo: nome- sobrenome);
-* Assim que concluir o seu desafio, abra um **pull request** com suas alterações;
-* Data limite para entrega do desafio é **07/05/2020** até **23:59**;
+O Izy é um aplicativo desenvolvido para o processo seletivo Dev Trainee DEVinHouse <a href="https://www.softplan.com.br/">Softplan</a>. 
 
-### Instruções alternativas de entrega do desafio
+Para maiores informações sobre os requisitos veja em <a href="https://github.com/jeffersonoh/devinhouse-desafio-devtrainee">devinhouse-desafio-devtrainee</a>.
 
-*Esta alternativa é direcionada aos candidatos(as) que não queiram que a submissão seja pública e/ou não saibam usar o Git*
+<br/>
 
-Faça um clone deste repositório. Em seguida, implemente o projeto tal qual descrito abaixo, em seu clone local. Por fim, envie via email com o arquivo patch para:
+## :computer: Web
 
-* [jefferson.henrique@softplan.com.br](jefferson.henrique@softplan.com.br).
+<h3 align="center">
+  <img alt="izy_web" title="github_explorer" src=".github/web.png" />
+</h3>
 
-Caso você não saiba gerar um patch, não tem problema. Comprima o projeto todo em um arquivo .zip e mande para o email acima.
+<br/>
 
-Caso não saiba nem usar o Git para clonar o repositório e iniciar o projeto, também não tem problema. Clique no botão "Download ZIP" na barra lateral direita nesta página, baixe o .zip do projeto, modifique-o, comprima novamente em um novo arquivo .zip e mande para o email acima.
+## :iphone: Mobile
 
-## Avaliação
+<h3 align="center">
+  <img alt="izy_mobile" title="github_explorer" src=".github/mobile.jpeg" />
+</h3>
 
-Seu projeto será avaliado de acordo com a qualidade do seu código e sua organização com os arquivos utilizados, além do conhecimento e bom uso da semântica das linguagens de programação escolhidas para o desafio. Serão levados em conta de forma principal os conceitos aprendidos no curso **Dev In House** conforme mencionado na descrição deste desafio.
+<br/>
 
-## Desafio backend
+## :rocket: Tecnologias Utilizadas
 
-O desafio de backend se trata em construir uma estrutura contendo os requisitos relacionados na descrição do seu README [AQUI](./backend/readme.md).
+- React
+- Java
+- Spring Boot
 
-## Desafio frontend
-O desafio de backend se trata em construir uma estrutura contendo os requisitos relacionados na descrição do seu README [AQUI](./frontend/readme.md).
+<br/>
+
+## :gear: Como configurar e executar
+
+```bash
+
+    # Clonar o repositório
+    $ git clone https://github.com/mausampaio/devinhouse-desafio-devtrainee 'izy'
+
+```
+
+### Utilizando o Docker
+
+A imagem backend está no Docker Hub como mausampaio/izy-backend. Já existe um docker-compose.yml com as instruções para buscar essa imagem e subir o frontend em ambiente de desenvolvimento.
+
+```bash
+
+    # Navegar para o diretório do frontend
+    $ cd izy/frontend
+
+    # Para subir os containers
+    $ docker-compose  up -d
+
+```
+
+Caso queira buildar o backend siga os seguintes passos:
+
+```bash
+
+    # Navegar para o diretório do backend
+    $ cd izy/backend
+
+    # Faça o build do backend
+
+    # Caso Linux ou MacOS
+    $ ./mvnw package
+    # Caso Windows
+    $ ./mvnw.cmd package
+
+    # Para subir o container
+    $ docker-compose  up -d
+
+```
+
+### Sem o Docker
+
+Para subir o backend:
+
+```bash
+
+    # Navegar para o diretório do backend
+    $ cd izy/backend
+
+    # Faça o build do backend
+
+    # Caso Linux ou MacOS
+    $ ./mvnw package
+    # Caso Windows
+    $ ./mvnw.cmd package
+
+    # Navegar para a pasta target
+    $ cd /target
+
+    # Execute o arquivo .jar
+    $ java -jar backend-0.0.1-SNAPSHOT.jar
+
+```
+
+Para subir o frontend:
+
+```bash
+
+    # Navegar para o diretório do frontend
+    $ cd izy/frontend
+
+    $ npm install
+    # ou
+    $ yarn
+
+    # Para iniciar a aplicação
+    $ npm start
+    # ou
+    $ yarn start
+
+```
+
+<br/>
+
+---
+
+<h4 align="center">
+  Feito com :purple_heart: by <a href="https://www.linkedin.com/in/mausampaio/" target="_blank">Maurício Sampaio</a>.
+</h4>
