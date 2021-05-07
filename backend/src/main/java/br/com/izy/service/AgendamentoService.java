@@ -60,7 +60,7 @@ public class AgendamentoService {
 		
 		if (novoAgendamento.getData().isBefore(LocalDate.now())) {
 			throw new DataHoraInvalidoException("A data não pode ser menor que o dia atual");
-		} else if (novoAgendamento.getHorario().isBefore(LocalTime.now())) {
+		} else if (novoAgendamento.getData().isBefore(LocalDate.now()) && novoAgendamento.getHorario().isBefore(LocalTime.now())) {
 			throw new DataHoraInvalidoException("O horário não pode ser menor que a hora atual");
 		}
 		
