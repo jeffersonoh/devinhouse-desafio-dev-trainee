@@ -33,7 +33,7 @@ const AppRouter = () => {
   return (
     <>
       <Header onToggleMenu={() => setOpenMenu((prevOpenMenu) => !prevOpenMenu)} />
-      <MenuDrawer open={openMenu} />
+      <MenuDrawer open={openMenu} onItemClick={setOpenMenu} width={width} />
       <div className={classes.main}>
         <Toolbar />
         <Switch>

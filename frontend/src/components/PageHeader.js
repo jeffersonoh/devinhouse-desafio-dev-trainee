@@ -6,7 +6,16 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('md')]: {
+      flexWrap: "wrap",
+    },
   },
+  titulo: {
+    [theme.breakpoints.down('md')]: {
+      fontSize: "2.5rem",
+      width: "100%"
+    }
+  }
 }));
 
 const PageHeader = ({ titulo, tituloBotao, endpoint, abreNovo }) => {
@@ -14,7 +23,12 @@ const PageHeader = ({ titulo, tituloBotao, endpoint, abreNovo }) => {
 
   return (
     <div className={classes.header}>
-        <Typography variant="h3" component="h1">
+        <Typography
+          variant="h3"
+          component="h1"
+          paragraph
+          className={classes.titulo}
+        >
           {titulo}
         </Typography>
         {endpoint === "clientes" || endpoint === "exames"

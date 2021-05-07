@@ -34,7 +34,7 @@ const FiltroAgendamentos = ({ clientes, exames, onFilter }) => {
         className={classes.content}
         alignItems="center"
       >
-        <Grid item xs={5}>
+        <Grid item xs={4} md={3}>
           <Autocomplete
             className={classes.input}
             id="filtro-cliente"
@@ -49,7 +49,7 @@ const FiltroAgendamentos = ({ clientes, exames, onFilter }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={4} md={3}>
           <Autocomplete
             className={classes.input}
             id="filtro-exame"
@@ -64,7 +64,7 @@ const FiltroAgendamentos = ({ clientes, exames, onFilter }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Button
             variant="outlined"
             color="secondary"

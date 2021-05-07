@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuDrawer = ({ open }) => {
+const MenuDrawer = ({ open, onItemClick, width }) => {
   const classes = useStyles();
 
   return (
     <Drawer
       className={classes.drawer}
-      variant={open && "permanent"}
+      variant={open ? "permanent" : "temporary"}
       classes={{
         paper: classes.drawerPaper,
       }}
@@ -48,24 +48,28 @@ const MenuDrawer = ({ open }) => {
             icon={<HomeIcon />}
             to="/"
             name="Home"
+            onClick={() => onItemClick(width <= 575 ? false : open)}
           />
 
           <ListItemLink
             icon={<DescriptionIcon />}
             to="/exames"
             name="Exames"
+            onClick={() => onItemClick(width <= 575 ? false : open)}
           />
 
           <ListItemLink
             icon={<PeopleAltIcon />}
             to="/clientes"
             name="Clientes"
+            onClick={() => onItemClick(width <= 575 ? false : open)}
           />
 
           <ListItemLink
             icon={<ScheduleIcon />}
             to="/agendamentos"
             name="Agendamentos"
+            onClick={() => onItemClick(width <= 575 ? false : open)}
           />
         </List>
       </div>
