@@ -65,10 +65,10 @@ function ListScheduledExamsPage() {
                   if (userConfirmation === true) {
                     deletarAgendamento(exam.id);
                     toast.success("O agendamento foi removido!");
+                    setAlterado(!alterado);
                   } else {
                     toast.warning("O agendamento será mantido!");
                   }
-                  setAlterado(!alterado);
                 }}
                 examId={exam.examId}
                 examName={exam.examName}

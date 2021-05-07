@@ -67,9 +67,19 @@ function PatientsListPage() {
       <SearchBar
         handleClick={(cpf) => {
           if (testCpf(cpf)) {
-            carregarPacientes(cpf);
+            let encontrou = false;
+            patients.forEach((patient) => {
+              if (patient.patientCpf === cpf) {
+                carregarPacientes(cpf);
+                encontrou = true;
+              }
+            });
+            if (!encontrou) {
+              toast.warning("O paciente que buscavas não foi encontrado!");
+            }
           } else {
             toast.warning("Por obséquio, informe um CPF válido!");
+            carregarPacientes();
           }
         }}
       />
