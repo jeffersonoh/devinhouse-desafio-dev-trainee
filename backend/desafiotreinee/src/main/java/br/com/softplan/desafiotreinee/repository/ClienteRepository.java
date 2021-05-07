@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.com.softplan.desafiotreinee.dto.ClienteDTO;
-import br.com.softplan.desafiotreinee.mock.ClienteMock;
+import br.com.softplan.desafiotreinee.mock.DadosMock;
 
 @Repository
 public class ClienteRepository {
-	
+
 	@Autowired
-	private ClienteMock clienteMock;
-	
-	public List<ClienteDTO> findAllClientes(){
+	private DadosMock clienteMock;
+
+	public List<ClienteDTO> findAllClientes() {
 		return clienteMock.getAllClientes();
 	}
 

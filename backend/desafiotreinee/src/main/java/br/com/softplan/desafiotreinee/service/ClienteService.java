@@ -19,12 +19,10 @@ public class ClienteService {
 		return repository.findAllClientes();
 	}
 
-	// Deverá haver um endpoint para listagem de todos os clientes cadastrados;
 	public List<ClienteDTO> recuperarClientesMocados() {
 		return recuperarTodosClientes();
 	}
 
-	// Deverá haver um endpoint para busca de um cliente baseado no seu cpf;
 	public List<ClienteDTO> recuperarClientesMocados(String cpf) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
 		List<ClienteDTO> listClienteFiltrado = new ArrayList<ClienteDTO>();
@@ -38,11 +36,29 @@ public class ClienteService {
 		return listClienteFiltrado;
 	}
 
-	// Deverá haver um endpoint para criação de um cliente;
+	public List<ClienteDTO> recuperarClientesId(Integer id) {
+		List<ClienteDTO> todosClientes = recuperarTodosClientes();
+		List<ClienteDTO> listClienteFiltrado = new ArrayList<ClienteDTO>();
+
+		for (ClienteDTO clienteDTO : todosClientes) {
+			if (id == clienteDTO.getId()) {
+				listClienteFiltrado.add(clienteDTO);
+			}
+		}
+
+		return listClienteFiltrado;
+	}
+
 	public List<ClienteDTO> cadastrarCliente(ClienteDTO cliente) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
-		
-		todosClientes.add(cliente);
+
+		if (todosClientes.size() != 0) {
+			int id = todosClientes.size();
+			id += 1;
+			cliente.setId(id);
+
+			todosClientes.add(cliente);
+		}
 
 		for (ClienteDTO clienteDTO : todosClientes) {
 
@@ -51,7 +67,7 @@ public class ClienteService {
 				todosClientes.remove(cliente);
 				return todosClientes;
 
-			}else {
+			} else {
 				return todosClientes;
 			}
 
@@ -59,46 +75,36 @@ public class ClienteService {
 		return todosClientes;
 	}
 
-	// Deverá haver um endpoint para atualização de um cliente;
-	public List<ClienteDTO> atualizarCliente(String cpf, ClienteDTO newCliente) {
+	public ClienteDTO atualizarCliente(String cpf, ClienteDTO newCliente) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
+		ClienteDTO clienteAtualizado = null;
 
-		for (ClienteDTO clienteDTO : todosClientes) {
-			if (cpf.equals(clienteDTO.getCpf())) {
-				if (clienteDTO.getCpf() != null) {
-					clienteDTO.setCpf(newCliente.getCpf());
+		for (int i = 0; i < todosClientes.size(); i++) {
+			if (cpf.equals(todosClientes.get(i).getCpf())) {
+				if (todosClientes.get(i).getCpf() != null) {
+					todosClientes.get(i).setCpf(newCliente.getCpf());
 				}
-				if (clienteDTO.getNome() != null) {
-					clienteDTO.setNome(newCliente.getNome());
+				if (todosClientes.get(i).getNome() != null) {
+					todosClientes.get(i).setNome(newCliente.getNome());
 				}
-				if (clienteDTO.getSobrenome() != null) {
-					clienteDTO.setSobrenome(newCliente.getSobrenome());
+				if (todosClientes.get(i).getSobrenome() != null) {
+					todosClientes.get(i).setSobrenome(newCliente.getSobrenome());
 				}
-				if (clienteDTO.getDataNascimento() != null) {
-					clienteDTO.setDataNascimento(newCliente.getDataNascimento());
+				if (todosClientes.get(i).getDataNascimento() != null) {
+					todosClientes.get(i).setDataNascimento(newCliente.getDataNascimento());
 				}
+
+				clienteAtualizado = todosClientes.get(i);
+
 			}
 		}
 
-		return todosClientes;
-
-		/*
-		 * if(todosClientes.size() != 0) { int id = todosClientes.size(); id += 1;
-		 * newCliente.setId(id); for(ClienteDTO clienteDTO : todosClientes) {
-		 * if(newCliente.getCpf() != clienteDTO.getCpf()) {
-		 * 
-		 * 
-		 * } } todosClientes.add(newCliente); }
-		 * 
-		 * return todosClientes;
-		 */
+		return clienteAtualizado;
 	}
 
-	// Deverá haver um endpoint para exclusão de um cliente;
 	public List<ClienteDTO> apagarCliente(String cpf) {
 		List<ClienteDTO> todosClientes = recuperarTodosClientes();
 
-		
 		for (int i = 0; i < todosClientes.size(); i++) {
 			if (cpf.equals(todosClientes.get(i).getCpf())) {
 				todosClientes.remove(i);
@@ -109,10 +115,3 @@ public class ClienteService {
 	}
 
 }
-/*
- * Deverá haver um endpoint para criação de um cliente; Deverá haver um endpoint
- * para atualização de um cliente; ->Deverá haver um endpoint para exclusão de
- * um cliente; ->Deverá haver um endpoint para busca de um cliente baseado no
- * seu cpf; ->Deverá haver um endpoint para listagem de todos os clientes
- * cadastrados;
- */

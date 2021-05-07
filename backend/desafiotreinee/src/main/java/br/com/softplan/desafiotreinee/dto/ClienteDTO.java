@@ -2,10 +2,8 @@ package br.com.softplan.desafiotreinee.dto;
 
 public class ClienteDTO {
 
-	private static final long serialVersionUID = 7887343820631112092L;
-
+	private Integer id;
 	private String cpf;
-
 	private String nome;
 	private String sobrenome;
 	private String dataNascimento;
@@ -13,11 +11,20 @@ public class ClienteDTO {
 	public ClienteDTO() {
 	}
 
-	public ClienteDTO(String cpf, String nome, String sobrenome, String dataNascimento) {
+	public ClienteDTO(Integer id, String cpf, String nome, String sobrenome, String dataNascimento) {
+		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.dataNascimento = dataNascimento;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -59,8 +66,3 @@ public class ClienteDTO {
 	}
 
 }
-/*
- * public String limitaString(String testes, int tamanho){ if(testes != null &&
- * testes.length() > tamanho){ return testes.substring(0, tamanho+1) + "..."; }
- * else { return testes; } }
- */

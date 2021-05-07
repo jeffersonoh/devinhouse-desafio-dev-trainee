@@ -2,97 +2,61 @@ package br.com.softplan.desafiotreinee.dto;
 
 public class AgendaDTO {
 
-	private int id;
-	private Integer dia;
-	private Integer mes;
-	private Integer ano;
-	private Integer hora;
-	private Integer min;
-	private ClienteDTO cliente;
-	private ExameDTO exame;
+	private Integer id;
+	private String cpfCliente;
+	private String nomeExame;
+	private String dataAgendada;
+	private String horaAgendada;
 
-	public AgendaDTO(int id, Integer dia, Integer mes, Integer ano, Integer hora, Integer min, ClienteDTO cliente,ExameDTO exame ) {
+	public AgendaDTO() {
+	}
+
+	public AgendaDTO(Integer id, String cpfCliente, String nomeExame, String dataAgendada, String horaAgendada) {
 		this.id = id;
-		this.dia = dia;
-		this.mes = mes;
-		this.ano = ano;
-		this.hora = hora;
-		this.min = min;
-		this.cliente = cliente;
-		this.exame = exame;
+		this.cpfCliente = cpfCliente;
+		this.nomeExame = nomeExame;
+		this.dataAgendada = dataAgendada;
+		this.horaAgendada = horaAgendada;
 	}
 
-	public Integer getDia() {
-		return dia;
-	}
-
-	public void setDia(Integer dia) {
-		this.dia = dia;
-	}
-
-	public Integer getMes() {
-		return mes;
-	}
-
-	public void setMes(Integer mes) {
-		if (mes >= 5 && mes <= 6) {
-			this.mes = mes;
-		}
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Integer getAno() {
-		return ano;
+	public String getCpfCliente() {
+		return cpfCliente;
 	}
 
-	public void setAno(Integer ano) {
-		if (ano >= 2021 && ano <= 2021) {
-			this.ano = ano;
-		}
+	public void setCpfCliente(String cpfCliente) {
+		this.cpfCliente = cpfCliente;
 	}
 
-	public String getCliente() {
-		return cliente.getCpf();
+	public String getNomeExame() {
+		return nomeExame;
 	}
 
-	public int getExame() {
-		return exame.getId();
+	public void setNomeExame(String nomeExame) {
+		this.nomeExame = nomeExame;
 	}
 
-	public void setExame(ExameDTO exame) {
-		this.exame = exame;
+	public String getDataAgendada() {
+		return dataAgendada;
 	}
 
-	public Integer getHora() {
-		return hora;
+	public void setDataAgendada(String dataAgendada) {
+		this.dataAgendada = dataAgendada;
 	}
 
-	public void setHora(Integer hora) {
-		if (hora >= 0 && hora <= 23) {
-			this.hora = hora;
-		}
+	public String getHoraAgendada() {
+		return horaAgendada;
 	}
 
-	public Integer getMin() {
-		return min;
-	}
-
-	public void setMin(Integer min) {
-		if (min >= 0 && min <= 60) {
-			this.min = min;
-		}
+	public void setHoraAgendada(String horaAgendada) {
+		this.horaAgendada = horaAgendada;
 	}
 
 }
-/*
- * Deverá haver um endpoint para edição de um agendamento realizado, apenas dia
- * e hora poderão ser editados; Deverá haver um endpoint para exclusão de um
- * agendamento realizado;
- */

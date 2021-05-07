@@ -27,16 +27,14 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 
-	// ->Deverá haver um endpoint para exclusão de um cliente;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/deletar/cpf/{cpf}", method = DELETE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ResponseStatus(HttpStatus.ACCEPTED)
+	@ResponseStatus(HttpStatus.OK)
 	public List<ClienteDTO> apagarCliente(@PathVariable String cpf) {
 		return service.apagarCliente(cpf);
 	}
 
-	// ->Deverá haver um endpoint para busca de um cliente baseado no seu cpf;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/consulta/cpf/{cpf}", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -45,7 +43,6 @@ public class ClienteController {
 		return service.recuperarClientesMocados(cpf);
 	}
 
-	// ->Deverá haver um endpoint para listagem de todos os clientes cadastrados;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/consulta", method = GET, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -54,7 +51,6 @@ public class ClienteController {
 		return service.recuperarClientesMocados();
 	}
 
-	// ->Deverá haver um endpoint para criação de um cliente;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/cadastro/cliente", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -63,12 +59,11 @@ public class ClienteController {
 		return service.cadastrarCliente(cliente);
 	}
 
-	// ->Deverá haver um endpoint para atualização de um cliente;
 	@RequestMapping(headers = "api-version=v1", value = "/v1"
 			+ "/atualizar/cliente/{cpf}", method = PUT, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	public List<ClienteDTO> atualizarCliente(@PathVariable String cpf, @RequestBody ClienteDTO newCliente) {
+	@ResponseStatus(HttpStatus.OK)
+	public ClienteDTO atualizarCliente(@PathVariable String cpf, @RequestBody ClienteDTO newCliente) {
 
 		return service.atualizarCliente(cpf, newCliente);
 	}
