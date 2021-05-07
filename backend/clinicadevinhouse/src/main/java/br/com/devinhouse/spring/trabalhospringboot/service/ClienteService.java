@@ -75,12 +75,12 @@ public class ClienteService {
     private Boolean validadorDeAtualizar(ClienteDTO cliente, Integer id) {
         List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
         for (int x = 0; x < repository.count(); x++) {
-            if (!this.repository.existsById(id)) {
+            if (this.repository.existsById(x + 1)) {
                 clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
             }
         }
         for (ClienteDTO clienteDTO : clientesCadastrados) {
-            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern() && clienteDTO.getId() != id) {
+            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()) {
                 return false;
             }
         }

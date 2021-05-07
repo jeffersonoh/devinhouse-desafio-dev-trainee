@@ -28,7 +28,7 @@ public class AgendaService {
             this.repository.flush();
         } else {
             throw new EntityNotFoundException(
-                    "Não foi possivel cadastrar esse exame na agenda, já consta um cadastro igual em nosso sistema.");
+                    "Não foi possivel cadastrar essa marcação na agenda, já consta um cadastro igual em nosso sistema.");
         }
     }
 
@@ -41,7 +41,7 @@ public class AgendaService {
         }
         for (AgendaDTO examesDTO : agendaCadastrada) {
             if (examesDTO.getCpf().intern() == cadastroDeExame.getCpf().intern()
-                    && examesDTO.getData().isEqual(cadastroDeExame.getData())
+                    && examesDTO.getData() == cadastroDeExame.getData()
                     && examesDTO.getHora() == cadastroDeExame.getHora()) {
                 return false;
             }
@@ -82,7 +82,7 @@ public class AgendaService {
         }
         for (AgendaDTO examesDTO : AgendaCadastrados) {
             if (examesDTO.getCpf().intern() == agendaAtualizar.getCpf().intern()
-                    && examesDTO.getData().isEqual(agendaAtualizar.getData())
+                    && examesDTO.getData() == agendaAtualizar.getData()
                     && examesDTO.getHora() == agendaAtualizar.getHora()) {
                 return false;
             }

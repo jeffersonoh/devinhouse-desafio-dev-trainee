@@ -70,27 +70,35 @@ const AuthProvider = (props) => {
       case "DELETE_AGENDA":
         DELETEAgenda();
         break;
-        default:
-          break;
+      default:
+        break;
     }
     setChamadoHTTP("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chamadoHTTP])
 
   function validarCliente(cliente) {
+    let retorno = true;
     if (cliente.nome.length === 0) {
       setResposta(907);
-      return false;
+      retorno = false;
     }
     if (cliente.cpf.length !== 14) {
       setResposta(908);
-      return false;
+      retorno = false;
     }
     if (cliente.ddn.length !== 10) {
       setResposta(909);
-      return false;
+      retorno = false;
     }
-    return true;
+    clientesG.map((item) => {
+      if (cliente.cpf === item.cpf) {
+        setResposta(407);
+        retorno = false;
+      }
+
+    })
+    return retorno;
   }
 
   function validarMarcacao(agenda) {
@@ -119,6 +127,14 @@ const AuthProvider = (props) => {
       setResposta(906);
       return false;
     }
+    marcacoesG.map((item) => {
+      if (agenda.cpf === item.cpf
+        && agenda.data === item.data
+        && agenda.hora === item.hora) {
+        setResposta(408);
+        return false;
+      }
+    })
     return true;
   }
 

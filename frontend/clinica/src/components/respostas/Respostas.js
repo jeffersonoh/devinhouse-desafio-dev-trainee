@@ -40,9 +40,11 @@ const Respostas = () => {
         if (resposta === 401) { erro("Marcação não foi cadastrada!"); }
         if (resposta === 402) { erro("Marcação não foi editada!"); }
         if (resposta === 403) { erro("Marcação não foi excluida!"); }
-        if (resposta === 404) { erro("Cliente não foi cadastrado! (CPF já cadastrado)"); }
-        if (resposta === 405) { erro("Cliente não foi editado! (CPF já cadastrado)"); }
+        if (resposta === 404) { erro("Cliente não foi cadastrado!"); }
+        if (resposta === 405) { erro("Cliente não foi editado!"); }
         if (resposta === 406) { erro("Cliente não foi excluido!"); }
+        if (resposta === 407) { erro("Operação cancelada! (CPF já cadastrado)"); }
+        if (resposta === 408) { erro("Operação cancelada! (Já existe uma marcação para esse cliente no período)"); }
 
         //VALIDAÇÕES COMPONENTS
         if (resposta === 901) { erro("Cliente não é valido!"); }
