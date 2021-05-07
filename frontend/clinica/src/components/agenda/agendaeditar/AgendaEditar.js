@@ -48,7 +48,7 @@ const AgendaEditar = () => {
                         label="Data do exame"
                         type="date"
                         maxLength='10'
-                        defaultValue={new Date}
+                        defaultValue={new Date()}
                         className={classes.textField}
                         value={dataAgenda.data}
                         onChange={(e) => { setDataAgenda({ ...dataAgenda, data: e.target.value })}}

@@ -40,7 +40,7 @@ const AgendaCadastro = () => {
                         name="data"
                         label="Data do exame"
                         type="date"
-                        defaultValue={new Date}
+                        defaultValue={new Date()}
                         className={classes.textField}
                         value={dataAgenda.data}
                         onChange={(e) => { setDataAgenda({ ...dataAgenda, data: e.target.value }) }}

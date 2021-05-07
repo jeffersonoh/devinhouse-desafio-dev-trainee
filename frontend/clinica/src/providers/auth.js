@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { exames, listaDeAgenda, listaDeClientes } from 'api/apiTeste'
 import axios from 'axios';
 
 export const AuthContext = React.createContext({});

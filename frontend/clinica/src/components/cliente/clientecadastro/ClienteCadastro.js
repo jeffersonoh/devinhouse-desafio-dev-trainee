@@ -36,7 +36,7 @@ const ClienteCadastro = () => {
                         label="Data de nacimento"
                         type="date"
                         maxLength='10'
-                        defaultValue={new Date}
+                        defaultValue={new Date()}
                         className={classes.textField}
                         value={novoCliente.ddn}
                         onChange={(e) => { setNovoCliente({ ...novoCliente, ddn: e.target.value }) }}

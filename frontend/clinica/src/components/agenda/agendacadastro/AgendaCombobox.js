@@ -144,7 +144,7 @@ const AgendaCombobox = () => {
                 name="data"
                 label="Data de nascimento"
                 type="date"
-                defaultValue={new Date}
+                defaultValue={new Date()}
                 value={novoCliente.ddn}
                 onChange={(e) => { setNovoCliente({ ...novoCliente, ddn: e.target.value }) }}
                 InputLabelProps={{
