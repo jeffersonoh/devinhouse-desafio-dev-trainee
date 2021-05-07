@@ -42,7 +42,8 @@ function Home() {
                 setSchedulesList = {setSchedulesList} />
                 )
             })
-            : "Nenhum agendamento realizado"
+            : 
+            <p>Nenhum cliente encontrado</p>
           }
           </div>
         </div>
@@ -72,7 +73,7 @@ function Home() {
             <div className="container-info">
               <ul>
                 <li>
-                  <p className="container-info-description">Para realizar um agendamento é necessário cadastrar ao menos um cliente e o exame será realizado.</p>
+                  <p className="container-info-description">Para realizar um agendamento é necessário cadastrar ao menos um cliente e o exame que será realizado.</p>
                 </li>
                 <li>
                   <p className="container-info-description">Todas as informações solicitadas são obrigatórias para o correto funcionamento da plataforma.</p>

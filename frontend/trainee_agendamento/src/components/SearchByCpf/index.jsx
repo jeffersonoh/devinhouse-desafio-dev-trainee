@@ -1,31 +1,56 @@
 import CpfSearchStyle from "./style";
-import Main from "../../components/Main";
-import ClientCard from "../../components/ClientCard";
+import SearchByCpfCard from "./Card";
 import Button from "../../components/Button";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
+import { useState } from "react";
 import Actions from "../../services/api";
+import { toast } from "react-toastify";
 
 function SearchByCpf() {
-  const [client, setClient] = useState({});
+  const [cliente, setCliente] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-  const useQuery = new URLSearchParams(useLocation().search);
-  const query = useQuery;
-  const term = query.get("cpf");
+
+  function toastError(message) {
+    toast.error(`${message}`, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });                    
+  }
+
+  function toastSuccess() {
+    toast.success(`CPF: ${searchTerm} localizado!`, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });                    
+  }
 
   function findClientByCpf() {
-    Actions.findClientByCpf(term)
-      .then((res) => {
-        setClient(res.data);
-      }
-      );
+    if(searchTerm.length > 0) {
+      Actions.findClientByCpf(searchTerm)
+        .then((res) => (
+          toastSuccess(),
+          setCliente(res.data)
+        ))
+        .catch((res) => (
+          toastError(res.response.data.message),
+          setCliente({})
+        ));
+    } 
   };
 
-  useEffect(() => {
-    findClientByCpf(term);
-  }, [term])
-
-  console.log(client);
+  function handleFindClient(e) {
+    e.preventDefault();
+    findClientByCpf();
+  }
 
   return (
     <CpfSearchStyle>
@@ -36,26 +61,17 @@ function SearchByCpf() {
 
         <div className="clients-card">
           <div className="clients-card-input-div">
-            {/* <label className="clients-card-input-label">Digite o CPF:</label> */}
-            <div>
-              <input type="text" className="clients-card-input" placeholder="Digite o CPF" onChange={(e) => setSearchTerm(e.target.value)} />
-            </div>
+            <input type="text" className="clients-card-input" placeholder="Digite o CPF" onChange={(e) => setSearchTerm(e.target.value)} />
+            <button onClick={handleFindClient}>Pesquisar</button>
           </div>
 
-
-
-          {/* { clientesList.length > 0 ? clientesList.map((cliente) => {
-            return (
-              <ClientCard 
-              key = {cliente.cpf}
-              titulo = "Cliente"
-              data = {cliente} 
-              clientesList = {clientesList}
-              setClientesList = {setClientesList} />
-              )
-              })
-            : "Nenhum cliente cadastrado"
-          } */}
+          { Object.keys(cliente).length > 0 ? 
+            <SearchByCpfCard 
+            keys = {cliente.cpf}
+            titulo = "Cliente"
+            data = {cliente} /> 
+            : null
+          }
         </div>
       </div>
 

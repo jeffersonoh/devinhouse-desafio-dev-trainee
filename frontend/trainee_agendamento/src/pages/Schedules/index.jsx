@@ -41,8 +41,9 @@ function Schedules() {
               setSchedulesList = {setSchedulesList} />
               )
           })
-          : "Nenhum agendamento realizado"
-         }
+          : 
+          <p>Nenhum cliente encontrado</p>
+        }
         </div>
       </div>
 

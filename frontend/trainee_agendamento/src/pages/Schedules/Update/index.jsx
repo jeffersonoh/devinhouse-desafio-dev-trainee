@@ -15,7 +15,7 @@ function ScheduleUpdate() {
   const term = query.get("id");
   const maxDateInput = Date.now();
 
-  function toastSucess() {
+  function toastSuccess() {
     history.push("/agendamentos")
     toast.success(`Agendamento atualizado com sucesso!`, {
       position: "top-right",
@@ -38,7 +38,7 @@ function ScheduleUpdate() {
     }
 
     Actions.updateSchedule(schedule.id, newData)
-      .then(toastSucess)
+      .then(toastSuccess)
       .catch((e) => console.log(e));
   }
 

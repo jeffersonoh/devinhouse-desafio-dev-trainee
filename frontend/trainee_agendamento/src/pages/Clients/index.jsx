@@ -44,8 +44,9 @@ function Clients() {
               setClientesList = {setClientesList} />
               )
               })
-             : "Nenhum cliente cadastrado"
-          }
+             : 
+             <p>Nenhum cliente encontrado</p>
+            }
         </div>
       </div>
 

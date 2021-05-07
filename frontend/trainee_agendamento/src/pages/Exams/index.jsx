@@ -42,7 +42,8 @@ function Exams() {
                 setExamesList = {setExamesList} />
               )
             })
-           : "Nenhum exame cadastrado"
+           : 
+           <p>Nenhum cliente encontrado</p>
           }
         </div>
       </div>

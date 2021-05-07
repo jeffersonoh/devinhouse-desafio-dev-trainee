@@ -19,7 +19,7 @@ function ClientUpdate() {
     })
   }
 
-  function toastSucess() {
+  function toastSuccess() {
     history.push("/clientes")
     toast.success(`Cliente atualizado com sucesso!`, {
       position: "top-right",
@@ -40,7 +40,7 @@ function ClientUpdate() {
     }
     
   Actions.updateClient(cliente.cpf, newData)
-    .then(toastSucess)
+    .then(toastSuccess)
     .catch((e) => console.log(e));    
   }
 

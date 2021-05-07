@@ -40,7 +40,7 @@ function ScheduleRegister() {
     return format(parseISO(`${data}T${horario}`), "yyyy-MM-dd HH:mm:ss");
   }
 
-  function toastSucess() {
+  function toastSuccess() {
     history.push('/agendamentos');
     toast.success(`Agendamento cadastrado com sucesso!`, {
       position: "top-right",
@@ -77,7 +77,7 @@ function ScheduleRegister() {
     }
 
     Actions.createSchedule(info)
-      .then(toastSucess)
+      .then(toastSuccess)
       .catch(res => toastError(res.response.data.message));
   }
 

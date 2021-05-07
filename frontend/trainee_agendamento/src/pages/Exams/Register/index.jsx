@@ -12,7 +12,7 @@ function ExamsRegister() {
     setNome("");
   }
 
-  function toastSucess() {
+  function toastSuccess() {
     history.push('/exames');
     toast.success(`Exame cadastrado com sucesso!`, {
       position: "top-right",
@@ -43,7 +43,7 @@ function ExamsRegister() {
       "nome" : nome
     }
 
-    Actions.createExam(data).then(toastSucess)
+    Actions.createExam(data).then(toastSuccess)
                            .catch(res => toastError(res.response.data.message));
   }
 
