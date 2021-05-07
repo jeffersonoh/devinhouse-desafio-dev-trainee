@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import Main from "../../components/Main";
 import ClientCard from "../../components/ClientCard";
 import Button from "../../components/Button";
-import { useState, useEffect } from "react";
 import axios from "axios"; 
 
 function Clients() {
@@ -60,7 +60,7 @@ function Clients() {
               name = "Cadastrar Cliente" />
 
               <Button 
-              path = "#"
+              path = "/clientes/consultar"
               name = "Consultar CPF" />
           </div>
         </div>
