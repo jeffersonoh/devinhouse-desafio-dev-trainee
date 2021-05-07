@@ -81,14 +81,15 @@ export function AreaPrincipalCliente() {
     setOpenModalPutAgendamento(true);
     setControlador(!controlador);
   };
-  const handleDeleteAgendamento = async (id) => {
-    await RequestBasckendAgendamento.deleteAgendamentoPorId(id);
-    setControlador(!controlador);
-  };
 
   const handleCloseModalPutAgendamento = () => {
     setOpenModalPutAgendamento(false);
     setOpenMenu(false);
+    setControlador(!controlador);
+  };
+
+  const handleDeleteAgendamento = async (id) => {
+    await RequestBasckendAgendamento.deleteAgendamentoPorId(id);
     setControlador(!controlador);
   };
 
@@ -131,6 +132,23 @@ export function AreaPrincipalCliente() {
       </Box>
 
       <CustomModal
+        open={openModalAgendamento}
+        onclose={() => handleCloseModalAgendamento()}
+        classNameModal={classes.modalAgendamento}
+        classNameBox={classes.modalBox}
+        child={
+          <Agendamento
+            titulo="Realizar Agendamento"
+            labelExame="Selecione um exame"
+            labelData="Selecione uma Data"
+            labelHorario="Selecione um horário"
+            agendamentoPut={false}
+            closePostModal={handleCloseModalAgendamento}
+          />
+        }
+      />
+
+      <CustomModal
         text="teste"
         classNameModal={classes.modalCliente}
         classNameBox={classes.modalBox}
@@ -146,23 +164,6 @@ export function AreaPrincipalCliente() {
             valueNascimento={nascimento}
             showDeleteButton={true}
             closeModal={() => handleCloseModalPerfil()}
-          />
-        }
-      />
-
-      <CustomModal
-        open={openModalAgendamento}
-        onclose={() => handleCloseModalAgendamento()}
-        classNameModal={classes.modalAgendamento}
-        classNameBox={classes.modalBox}
-        child={
-          <Agendamento
-            titulo="Realizar Agendamento"
-            labelExame="Selecione um exame"
-            labelData="Selecione uma Data"
-            labelHorario="Selecione um horário"
-            agendamentoPut={false}
-            closePostModal={handleCloseModalAgendamento}
           />
         }
       />

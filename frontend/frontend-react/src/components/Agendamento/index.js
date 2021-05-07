@@ -30,7 +30,9 @@ const useStyles = makeStyles({
 });
 
 export function Agendamento(props) {
-  const { usuarioState: {cpf} } = useContextLogin();
+  const {
+    usuarioState: { cpf },
+  } = useContextLogin();
   const {
     titulo,
     valueIdAgendamento,
@@ -46,12 +48,13 @@ export function Agendamento(props) {
     closePutModal,
   } = props;
   const classes = useStyles();
+
   const [stateIdAgendamento, setstateIdAgendamento] = useState("");
   const [nomeExame, setNomeExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
-
   const [listaExames, setListaExames] = useState([]);
+
   useEffect(() => {
     const handleListaExames = async () => {
       const listaExames = await RequestBackendExame.getTodosExames();
@@ -63,6 +66,7 @@ export function Agendamento(props) {
   const [listaHorariosIndisponiveis, setListaHorariosIndisponiveis] = useState(
     []
   );
+  
   useEffect(() => {
     if (nomeExame !== "" && dataAgendamento !== "") {
       const handleListaHorariosIndisponiveis = async () => {
