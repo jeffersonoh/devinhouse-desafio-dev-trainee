@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.izy.dto.AgendamentoDTOFilter;
 import br.com.izy.dto.AgendamentoDTOInput;
 import br.com.izy.dto.AgendamentoDTOOutput;
 import br.com.izy.dto.AgendamentoDTOUpdate;
@@ -43,11 +44,11 @@ public class AgendamentoController {
 		return service.count();
 	}
 	
-	@GetMapping(value = "/dia", produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/filtro-data", produces = APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<AgendamentoDTOOutput> findAgendamentoDia() {
-		List<Agendamento> agendamentos = service.findAgendamentosDia();
+	public List<AgendamentoDTOOutput> findAgendamentoPorData(@Valid @RequestBody AgendamentoDTOFilter agendamentoDTO) {
+		List<Agendamento> agendamentos = service.findAgendamentosPorData(agendamentoDTO);
 		
 		List<AgendamentoDTOOutput> result = new ArrayList<AgendamentoDTOOutput>();
 		

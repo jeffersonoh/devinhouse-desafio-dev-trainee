@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.izy.dto.AgendamentoDTOFilter;
 import br.com.izy.dto.AgendamentoDTOInput;
 import br.com.izy.dto.AgendamentoDTOUpdate;
 import br.com.izy.entity.Agendamento;
@@ -19,6 +20,7 @@ import br.com.izy.exception.DataHoraInvalidoException;
 import br.com.izy.exception.DataHoraJaExistenteException;
 import br.com.izy.repository.AgendamentoRepository;
 import br.com.izy.util.AtualizaColunasUtil;
+import br.com.izy.util.StringToLocalDateHandler;
 
 @Service
 public class AgendamentoService {
@@ -73,8 +75,16 @@ public class AgendamentoService {
 		return repository.save(novoAgendamento);
 	}
 	
-	public List<Agendamento> findAgendamentosDia() {
-		return (List<Agendamento>) repository.findByData(LocalDate.now());
+	public List<Agendamento> findAgendamentosPorData(AgendamentoDTOFilter agendamentoDTO) {
+		LocalDate dataAtual = StringToLocalDateHandler.ConverteStringToLocalDate(agendamentoDTO.getDataInicial());
+		
+		if (agendamentoDTO.getDataFinal() == null) {
+			return (List<Agendamento>) repository.findByData(dataAtual);			
+		} else {
+			LocalDate dataFinal = StringToLocalDateHandler.ConverteStringToLocalDate(agendamentoDTO.getDataFinal());
+			
+			return (List<Agendamento>) repository.findByDataBetween(dataAtual, dataFinal);
+		}
 	}
 	
 	public void update(Long id, AgendamentoDTOUpdate agendamentoDTO) {
