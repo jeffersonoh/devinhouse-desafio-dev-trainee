@@ -5,7 +5,6 @@ import {BarraPrincipal} from "../../components/Header";
 import { CustomModal } from "../../components/CustomModal";
 import { CadastroCliente } from "../../components/CadastroCliente";
 import { Login } from "./Login";
-import {Alerta} from "../../components/Alerta";
 
 export function HomePage() {
   const [openModalCadastro, setOpenModalCadastro] = useState(false);

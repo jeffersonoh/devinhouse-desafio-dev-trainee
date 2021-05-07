@@ -11,7 +11,6 @@ import { BarraPrincipal } from "../../components/Header";
 import { Botao } from "../../components/Button";
 import { CadastroCliente } from "../../components/CadastroCliente";
 import { Agendamento } from "../../components/Agendamento";
-import {Alerta} from "../../components/Alerta";
 import theme from "./AreaPrincipal.style";
 
 const useStyles = makeStyles({
@@ -187,9 +186,6 @@ export function AreaPrincipalCliente() {
             closePutModal={handleCloseModalPutAgendamento}
           />
         }
-      />
-      <CustomModal 
-        child={<Alerta />}
       />
     </>
   );
