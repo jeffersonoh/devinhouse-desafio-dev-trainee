@@ -94,7 +94,6 @@ export function AreaPrincipalCliente() {
 
   const [listaAgendamento, setListaAgendamento] = useState([]);
   useEffect(() => {
-    console.log("cpf: ", cpf)
     const handleLista = async () => {
       const listaAgendamentoDoCliente = await RequestBackendCliente.getClienteAgendamentoPorCpf(
         cpf
@@ -102,7 +101,7 @@ export function AreaPrincipalCliente() {
       setListaAgendamento(listaAgendamentoDoCliente);
     };
     handleLista();
-  }, [controlador, openMenu]);
+  }, [controlador, openMenu, cpf]);
 
   return (
     <>

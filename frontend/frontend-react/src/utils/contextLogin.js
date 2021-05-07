@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import RequestBackendCliente from "../services/ClienteRequest";
 
 const ContextLogin = createContext({});
 
