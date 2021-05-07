@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 import java.time.ZonedDateTime;
 
-import devtrainee.ejnn.backend.dtos.AgendamentoWithoutClienteDTO;
+import devtrainee.ejnn.backend.dtos.AgendamentoOutputDTO;
 
 
 @Data
@@ -15,5 +15,5 @@ public class ClienteOutputDTO {
     private String sobrenome;
     private ZonedDateTime dataDeNascimento;
     private String cpf;
-    private List<AgendamentoWithoutClienteDTO> agendamentos;
+    private List<AgendamentoOutputDTO> agendamentos;
 }

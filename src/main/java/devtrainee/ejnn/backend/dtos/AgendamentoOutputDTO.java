@@ -4,8 +4,8 @@ import lombok.Data;
 
 import java.time.ZonedDateTime;
 
-import devtrainee.ejnn.backend.dtos.ClienteWithoutAgendamentosDTO;
 import devtrainee.ejnn.backend.dtos.ExameOutputDTO;
+
 
 @Data
 public class AgendamentoOutputDTO {
