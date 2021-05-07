@@ -171,35 +171,30 @@ const Clientes = () => {
 	
 	{/* clientes */}
 	<Grid item xs={12}
-	      md={selectedCliente ? 6 : 12}
-	      className={clsx(
-		smDownScreen && selectedCliente && classes.hidden,
-		selectedCliente && classes.shortenedList,
-		!selectedCliente && classes.extendedList,
-	      )}
-	      container
-	      spacing={2}>
-	  { clientes
-	    ? clientes.map(data => (
-	      <Grid item xs={12}
-		    sm={selectedCliente ? 12 : 6 }
-		    lg={selectedCliente ? 6 : 4 }
-		    xl={selectedCliente ? 4 : 3 }
-		    key={data.id}>
-		<SButton onClick={() => handleSelectedClienteToggle(data)}>
-		  <MinimalClienteCard data={data}
-				      outlined={data?.id === selectedCliente?.id}/>
-		</SButton>
-	      </Grid>
-	    ))
-	    : new Array(17).fill(null).map((_, index) => (
-	      <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
-		<Skeleton variant="rect" height={75}/>
-	      </Grid>
-	    ))
-	  }
+	      md={selectedCliente ? 6 : 12}>
+	  <Grid container
+		spacing={2}>
+	    { clientes
+	      ? clientes.map(data => (
+		<Grid item xs={12}
+		      sm={selectedCliente ? 12 : 6 }
+		      lg={selectedCliente ? 6 : 4 }
+		      xl={selectedCliente ? 4 : 3 }
+		      key={data.id}>
+		  <SButton onClick={() => handleSelectedClienteToggle(data)}>
+		    <MinimalClienteCard data={data}
+					outlined={data?.id === selectedCliente?.id}/>
+		  </SButton>
+		</Grid>
+	      ))
+	      : new Array(17).fill(null).map((_, index) => (
+		<Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
+		  <Skeleton variant="rect" height={75}/>
+		</Grid>
+	      ))
+	    }
+	  </Grid>
 	</Grid>
-	
 	
 	{/* detailed cliente card */}
 	{ selectedCliente
@@ -214,6 +209,7 @@ const Clientes = () => {
 	    </Slide>
 	  : null
 	}
+	
       </Grid>
     </>
   );
