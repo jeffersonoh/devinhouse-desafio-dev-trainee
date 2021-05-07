@@ -23,8 +23,15 @@ public class ClienteService {
 	@Autowired
 	private AgendamentoService agendamentoService;
 	
-	public Cliente cadastrarCliente(Cliente cliente) {
-		return this.clienteRep.save(cliente);
+	public ResponseEntity<?> cadastrarCliente(Cliente cliente) {
+		if(this.clienteRep.findBycPF(cliente.getCPF()).isPresent()) {
+			return  ResponseEntity.badRequest()
+					.build();
+		} else {			
+			 this.clienteRep.save(cliente);
+			 return  ResponseEntity.created(null)
+					 .build();
+		}
 	}
 	
 	public List<Cliente> buscarTodosClientes() {
