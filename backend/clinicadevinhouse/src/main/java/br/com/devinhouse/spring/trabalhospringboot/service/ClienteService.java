@@ -27,25 +27,9 @@ public class ClienteService {
         }
     }
 
-    private Boolean validadorDeCadastro(ClienteDTO cliente) {
-        List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
-
-        for (int x = 0; x < this.repository.count(); x++) {
-            if (this.repository.existsById(x + 1)) {
-                clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
-            }
-        }
-        for (ClienteDTO clienteDTO : clientesCadastrados) {
-            if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void atualizarCliente(ClienteDTO clienteAtualizado, Integer id) {
         if (validadorDeExistencia(id)) {
-            if (validadorDeAtualizar(clienteAtualizado, id)) {
+            if (validadorDeCadastro(clienteAtualizado)) {
                 ClienteDTO clienteCadastrado = ClienteDTO.converter(this.repository.getOne(id));
                 if (clienteAtualizado.getNome() != null) {
                     if (clienteAtualizado.getNome() != clienteCadastrado.getNome()) {
@@ -72,9 +56,10 @@ public class ClienteService {
         }
     }
 
-    private Boolean validadorDeAtualizar(ClienteDTO cliente, Integer id) {
+    private Boolean validadorDeCadastro(ClienteDTO cliente) {
         List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
-        for (int x = 0; x < repository.count(); x++) {
+
+        for (int x = 0; x < this.repository.count(); x++) {
             if (this.repository.existsById(x + 1)) {
                 clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
             }

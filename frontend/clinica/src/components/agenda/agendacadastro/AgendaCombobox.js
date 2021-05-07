@@ -69,7 +69,7 @@ const AgendaCombobox = () => {
       <Autocomplete
         autoFocus
         className={classes.textField}
-        value={value}
+        value={novaMarcacao.pacienteNome}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.

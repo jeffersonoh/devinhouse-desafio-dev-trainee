@@ -102,40 +102,42 @@ const AuthProvider = (props) => {
   }
 
   function validarMarcacao(agenda) {
+    let retorno = true;
+
     const validarHora = dataAgenda.hora.split(":");
     if (agenda.pacienteNome.length === 0) {
       setResposta(901);
-      return false;
+      retorno = false;
     }
     if (agenda.data.length !== 10) {
       setResposta(902);
-      return false;
+      retorno = false;
     }
-    if (agenda.hora.length !== 5) {
+    if (agenda.hora.length <= 5) {
       setResposta(903);
-      return false;
+      retorno = false;
     }
     if (validarHora[0] >= 24 || validarHora[0] < 0) {
       setResposta(904);
-      return false;
+      retorno = false;
     }
     if (validarHora[1] >= 60 || validarHora[1] < 0) {
       setResposta(905);
-      return false;
+      retorno = false;
     }
     if (agenda.exame.length === 0) {
       setResposta(906);
-      return false;
+      retorno = false;
     }
     marcacoesG.map((item) => {
       if (agenda.cpf === item.cpf
         && agenda.data === item.data
         && agenda.hora === item.hora) {
         setResposta(408);
-        return false;
+        retorno = false;
       }
     })
-    return true;
+    return retorno;
   }
 
   const POSTAgenda = () => {
@@ -187,7 +189,6 @@ const AuthProvider = (props) => {
   }
 
   const DELETEAgenda = () => {
-    console.log("linhaSelecionadaAgenda", linhaSelecionadaAgenda);
     axios.delete(`http://localhost:8080/clinica-devinhouse/v1/agenda/deletar/${linhaSelecionadaAgenda.id}`)
       .then(response => {
         setAtualizar(!atualizar);
@@ -197,7 +198,6 @@ const AuthProvider = (props) => {
         setIndex(1)
       })
       .catch(error => {
-        console.log(error);
         setResposta(403);
       })
   }

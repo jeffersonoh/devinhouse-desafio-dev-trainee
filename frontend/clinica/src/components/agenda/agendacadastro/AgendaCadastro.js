@@ -10,8 +10,12 @@ const AgendaCadastro = () => {
     const { examesOfertados, novaMarcacao, setNovaMarcacao, setChamadoHTTP, setIndex } = useAuth();
     const classes = useStyles();
 
-    console.log("Paginacriar");
-    console.log("novaMarcacao", novaMarcacao);
+    useEffect(() => {
+        if (novaMarcacao.hora.length === 5){
+            setNovaMarcacao({ ...novaMarcacao, hora: novaMarcacao.hora + ":00" })
+        }
+    }, [novaMarcacao])
+
     return (
         <Fragment>
             <Paper className={classes.control}>
