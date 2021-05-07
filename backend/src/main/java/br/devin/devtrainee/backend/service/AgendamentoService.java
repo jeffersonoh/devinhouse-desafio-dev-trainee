@@ -1,5 +1,6 @@
 package br.devin.devtrainee.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,15 @@ public class AgendamentoService {
 	public List<Agendamento> buscarTodosAgendamentoPorCliente(Long idCliente){
 		Cliente cliente = this.clienteService.buscarClientePorID(idCliente);
 		return this.agendamentorep.findByClienteIs(cliente);
+	}
+	
+	public List<String> buscarTodosHorariosAgendadosDoExameNoDia(Long idExame, String data){
+		List<Agendamento> listaAgendamento = this.buscarTodosAgendamentoPorExameEData(idExame, data);
+		List<String> horariosMarcadosDoExameNoDia = new ArrayList<>();;
+		for(Agendamento agendamento : listaAgendamento) {
+			horariosMarcadosDoExameNoDia.add(agendamento.getHora());
+		}
+		return horariosMarcadosDoExameNoDia;
 	}
 	
 	public ResponseEntity<?> atualizarAgendamento(Long id, Agendamento novoAgendamento) {

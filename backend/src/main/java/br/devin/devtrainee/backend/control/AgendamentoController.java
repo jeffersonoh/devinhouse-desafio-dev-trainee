@@ -42,6 +42,11 @@ public class AgendamentoController {
 		return this.service.buscarTodosAgendamentoPorCliente(idCliente);
 	}
 	
+	@GetMapping(path="/v1/agendamento-horarios", produces="application/json")
+	public List<String> buscaTodosHorariosAgendadosNoDia(@RequestParam Long idExame, @RequestParam String data) {
+		return this.service.buscarTodosHorariosAgendadosDoExameNoDia(idExame,data);
+	}
+	
 	@PutMapping(path="/v1/agendamento", consumes="application/json")
 	public ResponseEntity<?> atualizaAgendamento(@RequestParam Long id, @Validated @RequestBody Agendamento novo){
 		return this.service.atualizarAgendamento(id, novo);
