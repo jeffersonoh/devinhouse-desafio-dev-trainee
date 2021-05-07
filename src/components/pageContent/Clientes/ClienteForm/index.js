@@ -7,9 +7,12 @@ import {
   Button,
   Box,
   Hidden,
+  Snackbar,
 } from "@material-ui/core";
 
 import { DateTimePicker } from "@material-ui/pickers";
+
+import { Alert } from "@material-ui/lab";
 
 import { SPaper, STopRightCloseButton } from "./styledComponents";
 
@@ -32,11 +35,12 @@ const ClienteForm = forwardRef((props, ref) => {
 					     cpf: "",
 					     dataDeNascimento: "2021-05-07",
 					   });
-  
   // DateTimePicker requires special treatment
   const [dataDeNascimento, setDataDeNascimento] = useState(parseISO(formData.dataDeNascimento));
+  const [errorSnackbarIsOpen, setErrorSnackbarIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("you shouldn't be seeing this...");
   
-  
+
   const handleChange = (event) => {
     setFormData(formData => ({
       ...formData,
@@ -50,7 +54,11 @@ const ClienteForm = forwardRef((props, ref) => {
       ...formData,
       dataDeNascimento: formatISO(dataDeNascimento),
     }).then(onSuccessfulAction)
-      .then(onClose);
+      .then(onClose)
+      .catch(error => {
+	createErrorMessage(error.response);
+	openErrorSnackbar();
+      });
   };
   
   const submitClienteUpdate = (event) => {
@@ -59,11 +67,39 @@ const ClienteForm = forwardRef((props, ref) => {
       ...formData,
       dataDeNascimento: formatISO(dataDeNascimento),
     }).then(onSuccessfulAction)
-      .then(onClose);
+      .then(onClose)
+      .catch(error => {
+	createErrorMessage(error.response);
+	openErrorSnackbar();
+      });
   };
+
+  const openErrorSnackbar = () => {
+    setErrorSnackbarIsOpen(true);
+  };
+
+  const closeErrorSnackbar = () => {
+    setErrorSnackbarIsOpen(false);
+  };
+
+  const createErrorMessage = (response) => {
+    if ("Este cpf já está cadastrado no sistema!".localeCompare(response?.data) === 0) {
+      setErrorMessage("Este cpf já está cadastrado no sistema!");
+      return;
+    }
+
+    setErrorMessage("Erro imprevisto; código " + response?.data?.status);
+  };
+
   
   return (
     <SPaper>
+
+      <Snackbar open={errorSnackbarIsOpen} onClose={closeErrorSnackbar}
+		autoHideDuration={5000}
+		anchorOrigin={{ horizontal:"left", vertical: "bottom" }}>
+	<Alert severity="error" variant="filled">{errorMessage}</Alert>
+      </Snackbar>
       
       <STopRightCloseButton onClick={onClose}/>
       
