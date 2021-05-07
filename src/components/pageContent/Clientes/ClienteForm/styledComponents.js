@@ -9,6 +9,7 @@ import {
   Close as CloseIcon,
 } from "@material-ui/icons";
 
+
 export const SPaper = withStyles(theme => ({
   root: {
     position: "absolute",
@@ -22,6 +23,7 @@ export const SPaper = withStyles(theme => ({
   },
 }))(Paper);
 
+
 const CloseButton = (props) => (
   <IconButton {...props}>
     <CloseIcon/>
@@ -33,5 +35,9 @@ export const STopRightCloseButton = withStyles(theme => ({
     position: "absolute",
     top: 0,
     right: 0,
+    
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
   },
 }))(CloseButton);

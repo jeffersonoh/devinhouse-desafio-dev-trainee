@@ -1,19 +1,19 @@
 import { withStyles } from "@material-ui/core/styles";
 
 import {
-    ListItem,
-    Drawer,
-    IconButton,
-    Toolbar,
-    Box,
+  ListItem,
+  Drawer,
+  IconButton,
+  Toolbar,
+  Box,
 } from "@material-ui/core";
 
 import {
-    Menu as MenuIcon,
-    ChevronLeft as ChevronLeftIcon,
-    Face as FaceIcon,
-    Schedule as ScheduleIcon,
-    Healing as HealingIcon,
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  Face as FaceIcon,
+  Schedule as ScheduleIcon,
+  Healing as HealingIcon,
 } from "@material-ui/icons";
 
 // the +/- 2's are because of unitary padding
@@ -23,11 +23,11 @@ export const headerHeight = closedDrawerWidth + 2;
 
 
 const iconStyles = (theme) => ({
-    root: {
-	padding: theme.spacing(0, 1),
-	height: theme.spacing(closedDrawerWidth - 2),
-	width: theme.spacing(closedDrawerWidth - 2),
-    },
+  root: {
+    padding: theme.spacing(0, 1),
+    height: theme.spacing(closedDrawerWidth - 2),
+    width: theme.spacing(closedDrawerWidth - 2),
+  },
 });
 
 export const SMenuIcon = withStyles(iconStyles)(MenuIcon);
@@ -37,28 +37,28 @@ export const SScheduleIcon = withStyles(iconStyles)(ScheduleIcon);
 export const SHealingIcon = withStyles(iconStyles)(HealingIcon);
 
 export const SNavbarListItem = withStyles(theme => ({
-    root: {
-	padding: theme.spacing(1, 0),
-    },
+  root: {
+    padding: theme.spacing(1, 0),
+  },
 }))(ListItem);
 
 export const SDrawer = withStyles(theme => ({
-    paper: {
-	width: "inherit",
-	overflow: "hidden",
-    },
+  paper: {
+    width: "inherit",
+    overflow: "hidden",
+  },
 }))(Drawer);
 
 export const SIconButton = withStyles(theme => ({
-    root: {
-	padding: 0,
-    },
+  root: {
+    padding: 0,
+  },
 }))(IconButton);
 
 export const SToolbar = withStyles(theme => ({
-    root: {
-	height: theme.spacing(headerHeight),
-    },
+  root: {
+    height: theme.spacing(headerHeight),
+  },
 }))(Toolbar);
 
 const Main = ({ classes, ...props}) => (
@@ -66,14 +66,14 @@ const Main = ({ classes, ...props}) => (
 );
 
 export const SMain = withStyles(theme => ({
-    root: {
-	marginTop: theme.spacing(headerHeight + 2),
-	marginLeft: theme.spacing(closedDrawerWidth + 1),
-    },
+  root: {
+    marginTop: theme.spacing(headerHeight + 2),
+    marginLeft: theme.spacing(closedDrawerWidth + 1),
+  },
 }))(Main);
 
 export const SHeaderTallBox = withStyles(theme => ({
-    root: {
-	height: theme.spacing(headerHeight),
-    },
+  root: {
+    height: theme.spacing(headerHeight),
+  },
 }))(Box);

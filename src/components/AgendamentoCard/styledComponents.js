@@ -1,15 +1,15 @@
 import { withStyles } from "@material-ui/core/styles";
 
 import {
-    Paper
+  Paper
 } from "@material-ui/core";
 
 
 export const SPaper = withStyles(theme => ({
-    root: {
-	width: "100%",
-	padding: theme.spacing(0, 2),
-    },
+  root: {
+    width: "100%",
+    padding: theme.spacing(0, 2),
+  },
 }))(Paper);
 
 
