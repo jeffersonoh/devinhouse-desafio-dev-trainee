@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
   boxMargin: {
     ...theme.boxMargin,
-  },
+  }
 });
 
 export const Login = (props) => {
@@ -51,7 +51,7 @@ export const Login = (props) => {
             handlefunction={(e) => handleCpf(e)}
           />
         </Box>
-        <Botao text="Login" onclick={() => realizarLogin(stateCpf)} />
+        <Botao text="Login" onclick={() => realizarLogin(stateCpf)}/>
       </Box>
     </Box>
   );

@@ -11,7 +11,7 @@ const theme = {
         "text-align": "center",
         "display": "flex",
         "flex-direction": "column",
-        "background-color": "lightGrey",
+        "background-color": "white",
     },
     boxMargin: {
         "width": "70%",

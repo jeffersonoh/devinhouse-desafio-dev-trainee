@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     backgroundColor: theme.colors.corDeFundo,
     color: theme.colors.corDaLetra,
     "&:hover": {
-      backgroundColor: "#e1f5fe",
+      backgroundColor: "#1495FE",
       color: "#000"
     },
   },

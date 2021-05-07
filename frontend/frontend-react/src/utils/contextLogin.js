@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import RequestBackendCliente from "../services/ClienteRequest";
 const ContextLogin = createContext({});
 
 const LoginProvider = ({ children }) => {
@@ -14,7 +14,8 @@ const LoginProvider = ({ children }) => {
     routerHistory.replace("/");
   };
 
-  const login = (cpf) => {
+  const login = async (cpf) => {
+    await RequestBackendCliente.getClientePorCpf(cpf);
     setUsuarioState({ loginStatus: true, cpf: cpf });
     routerHistory.replace("/area-cliente");
   };

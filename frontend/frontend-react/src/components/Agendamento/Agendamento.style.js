@@ -6,7 +6,7 @@ const theme = {
     },
     boxPaper: {
         "width": "60%",
-        "background-color": "lightgrey"
+        "background-color": "white"
     },
     boxTitle: {
         "text-align": "center"

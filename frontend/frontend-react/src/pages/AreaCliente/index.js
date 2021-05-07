@@ -11,6 +11,7 @@ import { BarraPrincipal } from "../../components/Header";
 import { Botao } from "../../components/Button";
 import { CadastroCliente } from "../../components/CadastroCliente";
 import { Agendamento } from "../../components/Agendamento";
+import {Alerta} from "../../components/Alerta";
 import theme from "./AreaPrincipal.style";
 
 const useStyles = makeStyles({
@@ -106,7 +107,7 @@ export function AreaPrincipalCliente() {
 
   return (
     <>
-      <BarraPrincipal drawyerEvent={handleOpenMenu} />
+      <BarraPrincipal drawyerEvent={handleOpenMenu} tituloNavBar="Área do Cliente"/>
       <Drawer anchor="right" open={openMenu} onClose={handleCloseMenu}>
         <Botao
           text="Realizar agendamento"
@@ -149,7 +150,6 @@ export function AreaPrincipalCliente() {
       />
 
       <CustomModal
-        text="teste"
         classNameModal={classes.modalCliente}
         classNameBox={classes.modalBox}
         open={openModalPerfil}
@@ -187,6 +187,9 @@ export function AreaPrincipalCliente() {
             closePutModal={handleCloseModalPutAgendamento}
           />
         }
+      />
+      <CustomModal 
+        child={<Alerta />}
       />
     </>
   );

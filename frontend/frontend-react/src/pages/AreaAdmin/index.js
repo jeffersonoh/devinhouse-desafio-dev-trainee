@@ -89,7 +89,7 @@ export function AreaAdmin() {
 
   return (
     <>
-      <BarraPrincipal showOptions={loginStatus} drawyerEvent={handleOpenMenu} />
+      <BarraPrincipal showOptions={loginStatus} drawyerEvent={handleOpenMenu} tituloNavBar="Área do Administrador"/>
       <Drawer anchor="right" open={openMenu} onClose={handleCloseMenu}>
         <Botao
           text="Pesquisar cliente"
@@ -111,7 +111,7 @@ export function AreaAdmin() {
         />
         <Botao text="Logout" variante="text" cor="menuLateral" onclick={() => logout()}/>
       </Drawer>
-
+      
       {showExames === true && (
         <>
           <Typography variant="h4" style={{textAlign: "center"}}>Listagem de Exames</Typography>

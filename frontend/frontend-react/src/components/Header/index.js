@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { AppBar, Toolbar, Menu, MenuItem, Box } from "@material-ui/core";
+import { AppBar, Toolbar, Menu, MenuItem, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -11,16 +11,17 @@ import BotaoLogo from "./BotoesHeader/BotaoLogo";
 import theme from "./BarraPrincipal.style";
 
 const useStyles = makeStyles({
-  buttonBackground: {
-    backgroundColor: theme.colors.corDeFundo,
+  appBar: {
+    ...theme.appBar,
   },
-  logoButton: {
-    flexGrow: 1,
-  },
+  toolBarPosition: {
+    ...theme.toolBarPosition
+  }
+
 });
 
 export function BarraPrincipal(props) {
-  const { drawyerEvent, clickCadastro, clickLogin } = props;
+  const { drawyerEvent, clickCadastro, clickLogin, tituloNavBar } = props;
   const classes = useStyles();
   const {
     usuarioState: { loginStatus },
@@ -36,12 +37,12 @@ export function BarraPrincipal(props) {
   };
 
   return (
-    <AppBar className={classes.buttonBackground} position="static">
-      <Toolbar variant="regular">
-        <Box className={classes.logoButton}>
+    <AppBar className={classes.appBar} position="static">
+      <Toolbar variant="regular" className={classes.toolBarPosition}>
+        <Box >
           <BotaoLogo />
         </Box>
-
+        <Typography style={{color: "white"}} variant="h5">{tituloNavBar}</Typography>
         {loginStatus === false ? (
           <>
             <Botao
