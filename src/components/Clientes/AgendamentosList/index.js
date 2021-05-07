@@ -19,20 +19,11 @@ import { deleteAgendamento } from "utils/api";
 
 const AgendamentosList = (props) => {
 
-    const { clienteData } = props;
+    const { agendamentos } = props;
 
     const [selectedAgendamento, setSelectedAgendamento] = useState(null);
     const [agendamentoMenuAnchor, setAgendamentoMenuAnchor] = useState(null);
     const [agendamentoUpdateModalIsOpen, setAgendamentoUpdateModalIsOpen] = useState(false);
-
-    const selectAgendamento = (agendamento) => {
-	setSelectedAgendamento({
-	    ...agendamento,
-	    cliente: {
-		...clienteData,
-	    },
-	});
-    };
 
     const openAgendamentoMenu = (event) => {
 	setAgendamentoMenuAnchor(event.target);
@@ -60,10 +51,10 @@ const AgendamentosList = (props) => {
 				       data={selectedAgendamento}/>
 	    </Modal>
 	    
-	    { clienteData.agendamentos.map(agendamento => (
+	    { agendamentos.map(agendamento => (
 		<SListItem button
 			   onClick={(event) => {
-			       selectAgendamento(agendamento);
+			       setSelectedAgendamento(agendamento);
 			       openAgendamentoMenu(event);
 			   }}
 			   key={agendamento.id}>

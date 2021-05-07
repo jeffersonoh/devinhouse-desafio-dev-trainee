@@ -12,6 +12,7 @@ import DateFnsUtils from "@date-io/date-fns";
 
 import PageLayout from "components/PageLayout";
 import Clientes from "components/Clientes";
+import Agendamentos from "components/Agendamentos";
 import Exames from "components/Exames";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
 			    </Route>
 			    
 			    <Route path="/agendamentos">
+				<Agendamentos/>
 			    </Route>
 			    
 			    <Route path="/exames">
