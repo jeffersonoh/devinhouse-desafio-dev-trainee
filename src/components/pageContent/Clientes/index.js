@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import clsx from "clsx";
 
 import {
   Grid,
@@ -34,6 +35,24 @@ const useStyles = makeStyles(theme => ({
   hidden: {
     display: "none",
   },
+  extendedList: {
+    transition: theme.transitions.create("all", {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeIn,
+    }),
+  },
+  shortenedList: {
+    transition: theme.transitions.create("all", {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeInOut,
+    }),
+  },
+  detailedCard: {
+    transition: theme.transitions.create("all", {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeIn,
+    }),
+  },
 }));
 
 const Clientes = () => {
@@ -50,7 +69,7 @@ const Clientes = () => {
   useEffect(() => {
     getClientes().then(res => setClientes(res.data));
   }, []);
-  
+
   const openClienteFormModal = () => {
     setClienteFormModalIsOpen(true);
   };
@@ -83,14 +102,30 @@ const Clientes = () => {
   
   const deleteCliente = (id) => {
     apiDeleteCliente(id)
-      .then(deselectCliente);
+      .then(deselectCliente)
+      .then(handleSuccessfulAction);
   };
+
+  const handleSuccessfulAction = () => {
+    searchByCpf();
+  };
+
+  useEffect(() => {
+    if (selectedCliente) {
+      const updatedData = clientes.filter(c => c.id === selectedCliente.id)[0];
+
+      if (updatedData) {
+	setSelectedCliente(updatedData);
+      }
+    }
+  }, [clientes]);
   
   
   return (
     <>
       <Modal open={clienteFormModalIsOpen} onClose={closeClienteFormModal}>
-	<ClienteForm onClose={closeClienteFormModal}/>
+	<ClienteForm onClose={closeClienteFormModal}
+		     onSuccessfulAction={handleSuccessfulAction}/>
       </Modal>
       
       <Grid container
@@ -136,9 +171,12 @@ const Clientes = () => {
 	</Grid>
 	
 	{/* clientes */}
-	
 	<Grid item xs={12}
-	      className={ smDownScreen && selectedCliente ? classes.hidden : ""}
+	      className={clsx(
+		smDownScreen && selectedCliente && classes.hidden,
+		selectedCliente && classes.shortenedList,
+		!selectedCliente && classes.extendedList,
+			     )}
 	      md={selectedCliente ? 6 : 12}
 	      container
 	      spacing={2}>
@@ -160,12 +198,11 @@ const Clientes = () => {
 	
 	{/* detailed cliente card */}
 	{ selectedCliente
-	  ? <Grid item xs={12}
-		  md={selectedCliente ? 6 : false}>
-
+	  ? <Grid item xs={12} md={6} className={classes.detailedCard}>
 	      <DetailedClienteCard data={selectedCliente}
 				   onClose={deselectCliente}
-				   onDelete={deleteCliente}/>
+				   onDelete={deleteCliente}
+				   onSuccessfulAction={handleSuccessfulAction}/>
 	    </Grid>
 	  : null
 	}

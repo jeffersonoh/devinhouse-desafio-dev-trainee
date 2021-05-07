@@ -5,6 +5,7 @@ import {
   Drawer,
   IconButton,
   Toolbar,
+  Typography,
   Box,
 } from "@material-ui/core";
 
@@ -77,3 +78,9 @@ export const SHeaderTallBox = withStyles(theme => ({
     height: theme.spacing(headerHeight),
   },
 }))(Box);
+
+export const STitle = withStyles(theme => ({
+  root: {
+    paddingLeft: theme.spacing(1),
+  },
+}))(Typography);

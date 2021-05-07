@@ -23,7 +23,7 @@ import { patchAgendamento } from "utils/api";
 // (and this form is intended to be shown as a modal)
 const AgendamentoUpdateForm = forwardRef((props, ref) => {
   
-  const { data, onClose } = props;
+  const { data, onClose, onSuccessfulAction } = props;
   
   const [date, setDate] = useState(parseISO(data.timestamp));
   
@@ -32,7 +32,8 @@ const AgendamentoUpdateForm = forwardRef((props, ref) => {
     patchAgendamento({
       ...data,
       timestamp: formatISO(date),
-    }).then(onClose);
+    }).then(onSuccessfulAction)
+      .then(onClose);
   };
   
   return (

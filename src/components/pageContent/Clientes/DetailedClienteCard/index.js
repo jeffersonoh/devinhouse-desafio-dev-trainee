@@ -36,7 +36,7 @@ const toDecoratedAgendamentos = ({agendamentos, ...clienteData}) => {
 
 const DetailedClienteCard = (props) => {
   
-  const { data, onClose, onDelete } = props;
+  const { data, onClose, onDelete, onSuccessfulAction } = props;
   
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   
@@ -53,7 +53,8 @@ const DetailedClienteCard = (props) => {
     <SPaper>
       
       <Modal open={updateModalIsOpen} onClose={closeUpdateModal}>
-	<ClienteForm data={data} onClose={closeUpdateModal}/>
+	<ClienteForm data={data} onClose={closeUpdateModal}
+		     onSuccessfulAction={onSuccessfulAction}/>
       </Modal>
       
       
@@ -109,7 +110,8 @@ const DetailedClienteCard = (props) => {
 	
 	<Grid item xs={12}>
 	  <Typography variant="caption">Agendamentos</Typography>
-	  <AgendamentosList agendamentos={toDecoratedAgendamentos(data)}/>
+	  <AgendamentosList agendamentos={toDecoratedAgendamentos(data)}
+			    onSuccessfulAction={onSuccessfulAction}/>
 	</Grid>
 	
       </Grid>

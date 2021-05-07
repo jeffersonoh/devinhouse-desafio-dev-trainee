@@ -22,7 +22,7 @@ import { createCliente, updateCliente } from "utils/api";
 // (and this form is intended to be shown as a modal)
 const ClienteForm = forwardRef((props, ref) => {
   
-  const { data, onClose } = props;
+  const { data, onClose, onSuccessfulAction } = props;
   
   const [formData, setFormData] = useState(data
 					   ? data
@@ -49,7 +49,8 @@ const ClienteForm = forwardRef((props, ref) => {
     createCliente({
       ...formData,
       dataDeNascimento: formatISO(dataDeNascimento),
-    }).then(onClose);
+    }).then(onSuccessfulAction)
+      .then(onClose);
   };
   
   const submitClienteUpdate = (event) => {
@@ -57,7 +58,8 @@ const ClienteForm = forwardRef((props, ref) => {
     updateCliente({
       ...formData,
       dataDeNascimento: formatISO(dataDeNascimento),
-    }).then(onClose);
+    }).then(onSuccessfulAction)
+      .then(onClose);
   };
   
   return (

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from "clsx";
 
 import {
   AppBar,
@@ -13,6 +14,7 @@ import {
   closedDrawerWidth,
   headerHeight,
   SToolbar,
+  STitle,
   SDrawer,
   SHeaderTallBox,
   SNavbarListItem,
@@ -31,21 +33,38 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles(theme => ({
-  headerTall: {
-    minHeight: theme.spacing(headerHeight),
-  },
   openDrawer: {
     position: "absolute",
     width: theme.spacing(openDrawerWidth),
+    transition: theme.transitions.create("width", {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeInOut,
+    }),
   },
   closedDrawer: {
     width: theme.spacing(closedDrawerWidth),
+    transition: theme.transitions.create("width", {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeInOut,
+    }),
   },
   openAppbar: {
     zIndex: theme.zIndex.drawer - 1,
+    paddingLeft: theme.spacing(openDrawerWidth - closedDrawerWidth),
+    transition: theme.transitions.create("padding", {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeInOut,
+    }),
   },
   closedAppbar: {
     zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create("padding", {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeInOut,
+    }),
+  },
+  openToolbar: {
+    marginLeft: theme.spacing(closedDrawerWidth),
   },
 }));
 
@@ -67,22 +86,31 @@ const PageLayout = (props) => {
   
   return (
     <>
-      <AppBar className={drawerIsOpen ? classes.openAppbar : classes.closedAppbar}>
-	
-	<SToolbar disableGutters>
-	  <SIconButton onClick={openDrawer}>
-	    <SMenuIcon/>
-	  </SIconButton>
-	  <Typography variant="h4">Princeton-Plainsboro Teaching Hospital</Typography>
+      <AppBar className={clsx(
+		drawerIsOpen && classes.openAppbar ,
+		!drawerIsOpen && classes.closedAppbar,
+	      )}>
+	<SToolbar className={clsx(drawerIsOpen && classes.openToolbar)}
+		  disableGutters>
+
+	  { drawerIsOpen
+	    ? null
+	    : <SIconButton onClick={openDrawer}>
+		<SMenuIcon/>
+	      </SIconButton>
+	  }
+
+	  <STitle variant="h4">Princeton-Plainsboro Teaching Hospital</STitle>
 	</SToolbar>
       </AppBar>
       
-      <SDrawer className={drawerIsOpen ? classes.openDrawer : classes.closedDrawer}
+      <SDrawer className={clsx(
+		 drawerIsOpen && classes.openDrawer,
+		 !drawerIsOpen && classes.closedDrawer,
+	       )}
 	       variant="permanent">
 	
-	<SHeaderTallBox
-	  display="flex"
-	  justifyContent="flex-end">
+	<SHeaderTallBox display="flex" justifyContent="flex-end">
 	  <SIconButton onClick={closeDrawer}>
 	    <SChevronLeftIcon/>
 	  </SIconButton>
@@ -92,23 +120,20 @@ const PageLayout = (props) => {
 	
 	<List>
 	  
-	  <SNavbarListItem button
-			   component={Link}
-			   to="/clientes">
+	  <SNavbarListItem button component={Link} to="/clientes"
+			   onClick={closeDrawer}>
 	    <SFaceIcon/>
 	    <ListItemText>Clientes</ListItemText>
 	  </SNavbarListItem>
 	  
-	  <SNavbarListItem button
-			   component={Link}
-			   to="/agendamentos">
+	  <SNavbarListItem button component={Link} to="/agendamentos"
+			   onClick={closeDrawer}>
 	    <SScheduleIcon/>
 	    <ListItemText>Agendamentos</ListItemText>
 	  </SNavbarListItem>
 	  
-	  <SNavbarListItem button
-			   component={Link}
-			   to="/exames">
+	  <SNavbarListItem button component={Link} to="/exames"
+			   onClick={closeDrawer}>
 	    <SHealingIcon/>
 	    <ListItemText>Exames</ListItemText>
 	  </SNavbarListItem>

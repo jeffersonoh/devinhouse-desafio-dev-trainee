@@ -4,17 +4,24 @@ import { Grid, Typography } from "@material-ui/core";
 
 import AgendamentosList from "components/AgendamentosList";
 
-import { getAgendamentos } from "utils/api";
+import { getAgendamentos as apiGetAgendamentos } from "utils/api";
 
 
 const Agendamentos = (props) => {
   
   const [agendamentos, setAgendamentos] = useState([]);
+
+  const getAgendamentos = () => {
+    apiGetAgendamentos().then(res => setAgendamentos(res.data));
+  };
   
   useEffect(() => {
-    getAgendamentos()
-      .then(res => setAgendamentos(res.data));
+    getAgendamentos();
   }, []);
+
+  const handleSuccessfulAction = () => {
+    getAgendamentos();
+  };
   
   return (
     <Grid container spacing={2}>
@@ -24,7 +31,8 @@ const Agendamentos = (props) => {
       </Grid>
       
       <Grid item xs={12}>
-	<AgendamentosList agendamentos={agendamentos}/>
+	<AgendamentosList agendamentos={agendamentos}
+			  onSuccessfulAction={handleSuccessfulAction}/>
       </Grid>
       
     </Grid>

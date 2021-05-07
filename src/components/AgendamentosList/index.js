@@ -16,7 +16,7 @@ import { deleteAgendamento } from "utils/api";
 
 const AgendamentosList = (props) => {
   
-  const { agendamentos } = props;
+  const { agendamentos, onSuccessfulAction } = props;
   
   const [selectedAgendamento, setSelectedAgendamento] = useState(null);
 
@@ -45,7 +45,8 @@ const AgendamentosList = (props) => {
       
       <Modal open={updateModalIsOpen} onClose={closeUpdateModal}>
 	<AgendamentoUpdateForm onClose={closeUpdateModal}
-			       data={selectedAgendamento}/>
+			       data={selectedAgendamento}
+			       onSuccessfulAction={onSuccessfulAction}/>
       </Modal>
       
       { agendamentos.map(agendamento => (
@@ -72,6 +73,7 @@ const AgendamentosList = (props) => {
 	
 	<MenuItem onClick={() => {
 		    deleteAgendamento(selectedAgendamento)
+		      .then(onSuccessfulAction)
 		      .then(closeAgendamentoMenu);
 		  }}>
 	  Deletar
