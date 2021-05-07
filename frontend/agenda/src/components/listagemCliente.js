@@ -86,7 +86,6 @@ export default function ListagemCliente() {
                 <TableCell align="right">{cliente.name}</TableCell>
                 <TableCell align="right">{cliente.birth}</TableCell>
                 <TableCell align="right">
-                  {/* <FormEditCliente /> */}
                   <Button
                     variant="outlined"
                     color="primary"

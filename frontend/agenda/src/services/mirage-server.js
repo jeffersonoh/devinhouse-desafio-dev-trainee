@@ -29,7 +29,7 @@ export function criarServidor({ enviroment = "test" } = {}) {
         return schema.exames.all().models;
       });
 
-      this.get("/listagem/clientes", (schema, request) => {
+      this.get("/clientes", (schema, request) => {
         const busca = request.queryParams.busca;
 
         if (busca) {
@@ -40,24 +40,24 @@ export function criarServidor({ enviroment = "test" } = {}) {
         return schema.clientes.all().models;
       });
 
-      this.delete("/listagem/clientes/:cpf", (schema, request) => {
+      this.delete("/clientes/:cpf", (schema, request) => {
         const cpf = request.params.cpf;
         return schema.clientes
           .where((cliente) => cliente.cpf === cpf)
           .models[0].destroy();
       });
 
-      this.post("/listagem/clientes", (schema, request) => {
+      this.post("/clientes", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         return schema.clientes.create(attrs);
       });
 
-      this.put("/listagem/clientes", (schema, request) => {
+      this.put("/clientes", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         return schema.clientes.create(attrs);
       });
 
-      this.get("/agenda", (schema, request) => {
+      this.get("/agendamentos", (schema, request) => {
         const busca = request.queryParams.busca;
 
         if (busca) {
@@ -69,12 +69,12 @@ export function criarServidor({ enviroment = "test" } = {}) {
         return schema.agendamentos.all().models;
       });
 
-      this.delete("/agenda/:id", (schema, request) => {
+      this.delete("/agendamentos/:id", (schema, request) => {
         const id = request.params.id;
         return schema.agendamentos.find(id).destroy();
       });
 
-      this.put("/agenda", (schema, request) => {
+      this.put("/agendamentos", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         return schema.agendamentos.create(attrs);
       });

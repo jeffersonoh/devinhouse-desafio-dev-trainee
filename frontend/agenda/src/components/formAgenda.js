@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import AgendaService from "../services/AgendaService";
 
-//import "date-fns";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -37,7 +35,6 @@ function FormAgenda() {
       alignItems="center"
       className={classes.root}
     >
-      {/* <form className={classes.root} noValidate autoComplete="off"> */}
       <div>
         <TextField
           required
@@ -64,7 +61,6 @@ function FormAgenda() {
           id="datetime-local"
           label="Dia e hora marcados"
           type="datetime-local"
-          // defaultValue="2017-05-24T10:30"
           value={agendamento.scheduled_date_time}
           className="dataNsc"
           InputLabelProps={{
@@ -83,7 +79,6 @@ function FormAgenda() {
       >
         SALVAR ALTERAÇÕES
       </Button>
-      {/* </form> */}
     </Grid>
   );
 }

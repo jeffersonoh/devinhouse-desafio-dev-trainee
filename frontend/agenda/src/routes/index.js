@@ -1,10 +1,9 @@
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-// import ClienteManipulação from "../pages/clienteManipulação";
 import ExamesListagem from "../pages/examesListagem";
 import ClientesListagem from "../pages/clientesListagem";
 import AgendamentosListagem from "../pages/agendamentosListagem.js";
-import Home from "../pages/home/Home";
+import Home from "../pages/home";
 import EdicaoAgenda from "../pages/edicaoAgenda";
 import clienteAlteracao from "../pages/clienteAlteracao";
 import ClienteNovo from "../pages/clienteNovo";

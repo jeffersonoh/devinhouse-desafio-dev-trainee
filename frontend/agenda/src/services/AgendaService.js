@@ -2,12 +2,10 @@ import axios from "axios";
 import * as constants from "./constants";
 
 const BASE_URL_EXAM = `${constants.AGENDAMENTO_API}/exames`;
-const BASE_URL_CLIENT = `${constants.AGENDAMENTO_API}/listagem/clientes`;
-const BASE_URL_AGENDA = `${constants.AGENDAMENTO_API}/agenda`;
+const BASE_URL_CLIENT = `${constants.AGENDAMENTO_API}/clientes`;
+const BASE_URL_AGENDA = `${constants.AGENDAMENTO_API}/agendamentos`;
 
 class AgendaService {
-  //   buscarExames(busca) {
-
   buscarExames() {
     const url = BASE_URL_EXAM;
     return axios

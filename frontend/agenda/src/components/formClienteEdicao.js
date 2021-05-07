@@ -53,6 +53,9 @@ function FormClienteEdicao() {
           id="cpfClient"
           label="CPF"
           variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}
           value={cliente.cpf}
           onChange={(e) => handleChange({ cpf: e.target.value })}
         />

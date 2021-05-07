@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import AgendaService from "../services/AgendaService";
 
-//import "date-fns";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -19,7 +17,6 @@ function FormClienteNovo() {
   const classes = useStyles();
   const history = useHistory();
   const [cliente, setCliente] = useState({ cpf: "", name: "", birth: "" });
-  // history.location.state[0]
 
   const salvarCliente = async (cliente) => {
     await AgendaService.inserirCliente(cliente);
@@ -45,7 +42,6 @@ function FormClienteNovo() {
           id="nomeClient"
           label="Nome Completo"
           variant="outlined"
-          // value={cliente.name}
           onChange={(e) => handleChange({ name: e.target.value })}
         />
       </div>
@@ -56,7 +52,6 @@ function FormClienteNovo() {
           id="cpfClient"
           label="CPF"
           variant="outlined"
-          // value={cliente.cpf}
           onChange={(e) => handleChange({ cpf: e.target.value })}
         />
       </div>

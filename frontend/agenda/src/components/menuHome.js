@@ -1,46 +1,56 @@
-import React from "react";
-import { Button, Menu, MenuItem } from "@material-ui/core";
+import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import PageWrapper from "./PageWrapper";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+}));
 
 function MenuHome() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const classes = useStyles();
   return (
     <>
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        MENU
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-      >
-        <Link to={{ pathname: "/exames" }}>
-          <MenuItem>EXAMES</MenuItem>
-        </Link>
-        <Link to={{ pathname: "/agenda" }}>
-          <MenuItem>AGENDA</MenuItem>
-        </Link>
-        <Link to={{ pathname: "/listagem/clientes" }}>
-          <MenuItem>CLIENTES</MenuItem>
-        </Link>
-        <Link to={{ pathname: "/novo/cliente" }}>
-          <MenuItem>NOVO CLIENTES</MenuItem>
-        </Link>
-      </Menu>
+      <PageWrapper>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          spacing={6}
+        >
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Link to={{ pathname: "/exames" }}>EXAMES DISPONÍVEIS</Link>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Link to={{ pathname: "/listagem/clientes" }}>
+                CLIENTES CADASTRADOS
+              </Link>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Link to={{ pathname: "/agenda" }}>EXAMES AGENDADOS</Link>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Link to={{ pathname: "/novo/cliente" }}>ADICIONAR CLIENTE</Link>
+            </Paper>
+          </Grid>
+        </Grid>
+      </PageWrapper>
     </>
   );
 }
+
 export default MenuHome;
