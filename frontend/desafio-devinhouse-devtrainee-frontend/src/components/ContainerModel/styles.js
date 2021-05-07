@@ -29,6 +29,7 @@ export const Container = styled.div`
 
     div.line {
       height: 0.5rem;
+      margin-bottom: 19px;
     }
 
     div.input {
