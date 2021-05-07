@@ -13,6 +13,8 @@ import { SButton } from "./styledComponents";
 import AgendamentoCard from "components/AgendamentoCard";
 import AgendamentoUpdateForm from "components/AgendamentoUpdateForm";
 
+import { Skeleton } from "@material-ui/lab";
+
 import {
   getAgendamentos as apiGetAgendamentos,
   deleteAgendamento as apiDeleteAgendamento,
@@ -21,11 +23,11 @@ import {
 
 const Agendamentos = (props) => {
   
-  const [agendamentos, setAgendamentos] = useState([]);
+  const [agendamentos, setAgendamentos] = useState(null);
   const [selectedAgendamento, setSelectedAgendamento] = useState(null);
   const [agendamentoFormIsOpen, setAgendamentoFormIsOpen] = useState(false);
   const [agendamentoMenuAnchor, setAgendamentoMenuAnchor] = useState(null);
-
+  
   const getAgendamentos = () => {
     apiGetAgendamentos().then(res => setAgendamentos(res.data));
   };
@@ -70,17 +72,22 @@ const Agendamentos = (props) => {
 	<Typography variant="h4">Agendamentos</Typography>
       </Grid>
       
-      { agendamentos.map(agendamento => (
-	<Grid item xs={12} key={agendamento.id}
-	      sm={6} md={4} lg={3} xl={2}>
-	  <SButton onClick={(event) => {
-		    setAgendamentoMenuAnchor(event.target);
-		    setSelectedAgendamento(agendamento);
-		  }}>
-	    <AgendamentoCard data={agendamento}/>
-	  </SButton>
-	</Grid>
-      ))
+      { agendamentos
+	? agendamentos.map(agendamento => (
+	  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={agendamento.id}>
+	    <SButton onClick={(event) => {
+		       setAgendamentoMenuAnchor(event.target);
+		       setSelectedAgendamento(agendamento);
+		     }}>
+	      <AgendamentoCard data={agendamento}/>
+	    </SButton>
+	  </Grid>
+	))
+	: new Array(17).fill(null).map((_, index) => (
+	  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+	      <Skeleton variant="rect" height={66}/>
+	  </Grid>
+	))
       }
       
       <Menu anchorEl={agendamentoMenuAnchor}

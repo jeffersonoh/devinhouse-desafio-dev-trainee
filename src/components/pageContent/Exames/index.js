@@ -10,12 +10,14 @@ import {
 
 import ExameCard from "./ExameCard";
 
+import { Skeleton } from "@material-ui/lab";
+
 import { getExames } from "utils/api";
 
 
 const Exames = () => {
   
-  const [exames, setExames] = useState([]);
+  const [exames, setExames] = useState(null);
   
   useEffect(() => {
     getExames().then(res => setExames(res.data));
@@ -29,15 +31,16 @@ const Exames = () => {
       <Grid item xs={12}>
 	<Typography variant="h4">Exames</Typography>
       </Grid>
-      {
-	exames.map(data => (
-	  <Grid item
-		xs={12}
-		md={6}
-		lg={4}
-		xl={3}
-		key={data.id}>
+
+      { exames
+	? exames.map(data => (
+	  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={data.id}>
 	    <ExameCard data={data}/>
+	  </Grid>
+	))
+	: new Array(11).fill(null).map((_, index) => (
+	  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+	    <Skeleton variant="rect" height={67}/>
 	  </Grid>
 	))
       }

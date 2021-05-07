@@ -22,6 +22,8 @@ import MinimalClienteCard from "./MinimalClienteCard";
 import DetailedClienteCard from "./DetailedClienteCard";
 import ClienteForm from "./ClienteForm";
 
+import { Skeleton } from "@material-ui/lab";
+
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 
@@ -58,19 +60,15 @@ const Clientes = () => {
   const xsScreen = useMediaQuery(theme.breakpoints.only("xs"));
   const smDownScreen = useMediaQuery(theme.breakpoints.down("sm"));
   
-  const [clientes, setClientes] = useState([]);
+  const [clientes, setClientes] = useState(null);
   const [selectedCliente, setSelectedCliente] = useState(null);
   const [cpfQuery, setCpfQuery] = useState("");
   const [clienteFormModalIsOpen, setClienteFormModalIsOpen] = useState(false);
-
-  useEffect(() => {
-    console.log(selectedCliente);
-  }, [selectedCliente]);
   
   useEffect(() => {
     getClientes().then(res => setClientes(res.data));
   }, []);
-
+  
   const openClienteFormModal = () => {
     setClienteFormModalIsOpen(true);
   };
@@ -106,15 +104,15 @@ const Clientes = () => {
       .then(deselectCliente)
       .then(handleSuccessfulAction);
   };
-
+  
   const handleSuccessfulAction = () => {
     searchByCpf();
   };
-
+  
   useEffect(() => {
     if (selectedCliente) {
       const updatedData = clientes.filter(c => c.id === selectedCliente.id)[0];
-
+      
       if (updatedData) {
 	setSelectedCliente(updatedData);
       }
@@ -178,21 +176,27 @@ const Clientes = () => {
 		smDownScreen && selectedCliente && classes.hidden,
 		selectedCliente && classes.shortenedList,
 		!selectedCliente && classes.extendedList,
-			     )}
+	      )}
 	      container
 	      spacing={2}>
-	  { clientes.map(data => (
-	    <Grid item xs={12}
-		  sm={selectedCliente ? 12 : 6 }
-		  lg={selectedCliente ? 6 : 4 }
-		  xl={selectedCliente ? 4 : 3 }
-		  key={data.id}>
-	      <SButton onClick={() => handleSelectedClienteToggle(data)}>
-		<MinimalClienteCard data={data}
-				    outlined={data?.id === selectedCliente?.id}/>
-	      </SButton>
-	    </Grid>
-	  ))
+	  { clientes
+	    ? clientes.map(data => (
+	      <Grid item xs={12}
+		    sm={selectedCliente ? 12 : 6 }
+		    lg={selectedCliente ? 6 : 4 }
+		    xl={selectedCliente ? 4 : 3 }
+		    key={data.id}>
+		<SButton onClick={() => handleSelectedClienteToggle(data)}>
+		  <MinimalClienteCard data={data}
+				      outlined={data?.id === selectedCliente?.id}/>
+		</SButton>
+	      </Grid>
+	    ))
+	    : new Array(17).fill(null).map((_, index) => (
+	      <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
+		<Skeleton variant="rect" height={75}/>
+	      </Grid>
+	    ))
 	  }
 	</Grid>
 	
