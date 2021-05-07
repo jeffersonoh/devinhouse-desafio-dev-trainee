@@ -21,7 +21,6 @@ const ClienteCadastro = () => {
                         value={novoCliente.nome}
                         onChange={(e) => { setNovoCliente({ ...novoCliente, nome: e.target.value }) }}
                         autoFocus
-                        
                     />
                     <TextField
                         label="CPF"

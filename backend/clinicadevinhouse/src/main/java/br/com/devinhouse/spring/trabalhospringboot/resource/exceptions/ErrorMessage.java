@@ -1,6 +1,5 @@
 package br.com.devinhouse.spring.trabalhospringboot.resource.exceptions;
 
-
 import java.util.Date;
 
 import lombok.Data;

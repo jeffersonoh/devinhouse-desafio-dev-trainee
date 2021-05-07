@@ -27,7 +27,7 @@ const AgendaCombobox = () => {
       cpf: '',
       ddn: ''
     });
-    setNovaMarcacao({...novaMarcacao, pacienteNome: "", cpf: ""})
+    setNovaMarcacao({ ...novaMarcacao, pacienteNome: "", cpf: "" })
     toggleOpen(false);
   };
 
@@ -55,6 +55,7 @@ const AgendaCombobox = () => {
   return (
     <React.Fragment>
       <Autocomplete
+        autoFocus
         className={classes.textField}
         value={value}
         onChange={(event, newValue) => {

@@ -1,6 +1,7 @@
 package br.com.devinhouse.spring.trabalhospringboot.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class AgendaDTO {
     @Column(nullable = false)
     private LocalDate data;
     @Column(nullable = false)
+    private LocalTime hora;
+    @Column(nullable = false)
     private String exame;
     @Column(nullable = false)
     private String pacienteNome;
@@ -32,6 +35,7 @@ public class AgendaDTO {
 
         agenda.setId(a.getId());
         agenda.setData(a.getData());
+        agenda.setHora(a.getHora());
         agenda.setExame(a.getExame());
         agenda.setPacienteNome(a.getPacienteNome());
         agenda.setCpf(a.getCpf());

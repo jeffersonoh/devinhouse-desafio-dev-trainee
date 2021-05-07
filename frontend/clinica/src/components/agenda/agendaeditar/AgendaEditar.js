@@ -39,7 +39,6 @@ const AgendaEditar = () => {
                         label="CPF" 
                         className={classes.textField}
                         name="cpf"
-                        maxLength='14'
                         value={linhaSelecionadaAgenda.cpf}
                         InputProps={{
                             readOnly: true,
@@ -49,7 +48,7 @@ const AgendaEditar = () => {
                         name="data"
                         label="Data do exame"
                         type="date"
-                        maxLength='10'
+                        autoFocus
                         defaultValue={new Date()}
                         className={classes.textField}
                         value={dataAgenda.data}
@@ -61,7 +60,6 @@ const AgendaEditar = () => {
                     <TextField
                         name="hora"
                         label="Hora do exame"
-                        maxLength='5'
                         className={classes.textField}
                         value={dataAgenda.hora}
                         onChange={(e) => { setDataAgenda({ ...dataAgenda, hora: horaMask(e.target.value) })}}
