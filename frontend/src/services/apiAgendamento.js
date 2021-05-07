@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-//import * as constants from './constants';
-
-//const BASE_URL = `${constants.IZY_API}/processo`;
-const BASE_URL = `http://localhost:8080/v1/agendamentos`;
+const BASE_URL = `${process.env.REACT_APP_BACKEND}/${process.env.REACT_APP_BACKEND_VERSION}/agendamentos`;
 
 class ApiService {
 	countAgendamentos() {

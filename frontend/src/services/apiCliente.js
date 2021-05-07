@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-//import * as constants from './constants';
-
-//const BASE_URL = `${constants.IZY_API}/processo`;
-const BASE_URL = `http://localhost:8080/v1/clientes`;
+const BASE_URL = `${process.env.REACT_APP_BACKEND}/${process.env.REACT_APP_BACKEND_VERSION}/clientes`;
 
 class ApiService {
 	findAllClientes() {
