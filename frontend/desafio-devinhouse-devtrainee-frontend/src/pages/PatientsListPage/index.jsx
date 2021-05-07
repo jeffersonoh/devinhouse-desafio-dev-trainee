@@ -42,8 +42,8 @@ function PatientsListPage() {
         AgendamentosAPI.deletarAgendamento(agendamento.id);
       }
     });
-    setAlterado(!alterado);
     carregarPacientes();
+    setAlterado(!alterado);
   };
 
   useEffect(() => {
@@ -52,7 +52,6 @@ function PatientsListPage() {
 
     return () => {
       setPatients([]);
-      setAgendamentos([]);
     };
   }, [alterado]);
 
@@ -97,6 +96,7 @@ function PatientsListPage() {
                 } else {
                   toast.warning("O paciente será mantido!");
                 }
+                setAlterado(!alterado);
               }}
               patientName={patient.patientName}
               patientCpf={patient.patientCpf}

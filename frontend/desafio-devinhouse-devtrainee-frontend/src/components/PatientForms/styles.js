@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
 
   > div {
     width: 3%;
-    margin-right: 7%;
+    margin-right: 6%;
     margin-top: 6%;
     background: transparent;
   }

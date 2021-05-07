@@ -68,6 +68,7 @@ function ListScheduledExamsPage() {
                   } else {
                     toast.warning("O agendamento será mantido!");
                   }
+                  setAlterado(!alterado);
                 }}
                 examId={exam.examId}
                 examName={exam.examName}
