@@ -29,7 +29,8 @@ public class ScheduleEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	// Cliente precisa estar cadastrado para realizar o agendamento;
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "client", referencedColumnName = "cpf")
 	private ClientEntity client;
@@ -88,7 +89,6 @@ public class ScheduleEntity implements Serializable {
 	public ScheduleEntity converterDto(ScheduleDto schedule) {
 		ScheduleEntity result = new ScheduleEntity(schedule.getId(), schedule.getClient(), schedule.getMedicalExam(),
 				schedule.getScheduledDateTime());
-
 		return result;
 	}
 

@@ -19,85 +19,63 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.softplan.devtrainee.dto.ClientDto;
 
 @Entity(name = "clients")
-@Table(
-		name="CLIENTS", 
-	    uniqueConstraints=
-	        @UniqueConstraint(columnNames={"cpf"})
-	)
-public class ClientEntity implements Serializable{
+@Table(name = "CLIENTS", uniqueConstraints = @UniqueConstraint(columnNames = { "cpf" }))
+public class ClientEntity implements Serializable {
 
 	private static final long serialVersionUID = -5715156494272798188L;
-//	O cadastro de cliente deverá ter os campos: Nome, CPF e Data de Nascimento;
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Long id;
+
 	private String name;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birth;
+	
+	// Não poderá ser cadastrado mais de um cliente para o mesmo CPF;
 	@Id
 	private String cpf;
-	
-//	@OneToMany(cascade = ALL, mappedBy = "client")
-//	private List<ScheduleEntity> schedule;
+
 	public ClientEntity() {
-		
+
 	}
-	
+
 	public ClientEntity(ClientDto client) {
 		this.name = client.getName();
 		this.birth = client.getBirth();
 		this.cpf = client.getCpf();
 	}
-	
-public ClientEntity(String name, LocalDate birth, String cpf) {
-	super();
-	this.name = name;
-	this.birth = birth;
-	this.cpf = cpf;
-}
 
-//	public ClientEntity(Long id, LocalDate birth, String name, String cpf) {
-//		super();
-//		this.id = id;
-//		this.birth = birth;
-//		this.name = name;
-//		this.cpf = cpf;
-//	}
-	
-//	public Long getId() {
-//		return id;
-//	}
-//	
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	public ClientEntity(String name, LocalDate birth, String cpf) {
+		super();
+		this.name = name;
+		this.birth = birth;
+		this.cpf = cpf;
+	}
+
 	public LocalDate getBirth() {
 		return birth;
 	}
+
 	public void setBirth(LocalDate birth) {
 		this.birth = birth;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public ClientEntity converterDto(ClientDto client) {
-//	ClientEntity result = new ClientEntity(client.getId(), client.getBirth(), client.getName(), client.getCpf());
-		ClientEntity result = new ClientEntity( client.getName(),client.getBirth(), client.getCpf());
-		
-	
-	return result;
-}
-	
-	
-	
+		ClientEntity result = new ClientEntity(client.getName(), client.getBirth(), client.getCpf());
+		return result;
+	}
 
 }

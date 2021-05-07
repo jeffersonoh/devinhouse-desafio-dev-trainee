@@ -7,28 +7,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.softplan.devtrainee.entity.ClientEntity;
 
-public class ClientDto implements Serializable{
+public class ClientDto implements Serializable {
 
 	private static final long serialVersionUID = 741054569194247956L;
-	
-	
+
 	private String name;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birth;
 	private String cpf;
-	
-	
+
 	public ClientDto() {
-		
+
 	}
-	
-	
+
 	public ClientDto(ClientEntity client) {
 		this.name = client.getName();
 		this.birth = client.getBirth();
 		this.cpf = client.getCpf();
 	}
-
 
 	public LocalDate getBirth() {
 		return birth;
@@ -53,5 +49,5 @@ public class ClientDto implements Serializable{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 }

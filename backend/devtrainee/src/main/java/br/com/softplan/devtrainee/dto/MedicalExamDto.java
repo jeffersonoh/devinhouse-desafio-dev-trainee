@@ -18,11 +18,12 @@ public class MedicalExamDto implements Serializable {
 		this.id = id;
 		this.typeOfExam = typeOfExam;
 	}
+
 	public MedicalExamDto(MedicalExamEntity exam) {
 		this.id = exam.getId();
 		this.typeOfExam = exam.getTypeOfExam();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

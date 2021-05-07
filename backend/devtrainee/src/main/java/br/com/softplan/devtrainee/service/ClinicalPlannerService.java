@@ -3,7 +3,6 @@ package br.com.softplan.devtrainee.service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +21,11 @@ public class ClinicalPlannerService {
 	private ClientRepository repository;
 	@Autowired
 	private MedicalExamRepository repositoryExam;
-	@Autowired 
+	@Autowired
 	ScheduleRepository repositorySchedule;
-	
 
 	public void registerClient(ClientDto client) {
 		repository.saveAndFlush(new ClientEntity(client));
-		
 	}
 
 	public List<ClientEntity> findAllClients() {
@@ -39,68 +36,62 @@ public class ClinicalPlannerService {
 		}
 		return clients;
 	}
-	
+
 	public ClientDto findClientsByCpf(String cpf) {
-		ClientEntity clientCpf = null ;
+		ClientEntity clientCpf = null;
 		Iterable<ClientEntity> allClients = repository.findAll();
 		for (ClientEntity client : allClients) {
 			if (client.getCpf().equals(cpf)) {
 				clientCpf = client;
 			}
 		}
+//		tratamento do estouro 500
+		if (clientCpf == null) {
+			return null;
+		}
 		ClientDto clientViewer = new ClientDto(clientCpf);
 		return clientViewer;
 	}
-	
+
 	public boolean findCpf(ClientDto newClient) {
-		//ClientEntity clientCpf = null ;
-		
 		Iterable<ClientEntity> allClients = repository.findAll();
+
 		for (ClientEntity client : allClients) {
 			if (client.getCpf().equals(newClient.getCpf())) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 
+//	TODO: verificar sobrescrita de métodos para deletar direto/só permite id
 	public void deleteClient(ClientDto clientToDelete) {
 		Iterable<ClientEntity> allClients = repository.findAll();
+
 		for (ClientEntity client : allClients) {
-		
 			if (client.getCpf().equals(clientToDelete.getCpf())) {
 				repository.delete(client);
 			}
 		}
-		
 	}
 
-
 	public ClientDto updateClient(String cpf, ClientDto newClient) {
-		//ClientDto clientDb = findClientsByCpf(cpf);//		List<ProcessoDTO> todosProcessos = recuperarListaProcessos();
-		ClientDto clientUpdate = null ;
+		ClientDto clientUpdate = null;
 		Iterable<ClientEntity> allClients = repository.findAll();
-		for (ClientEntity client : allClients) {
-		
-			if (client.getCpf().equals(cpf)) {
 
-			
+		for (ClientEntity client : allClients) {
+			if (client.getCpf().equals(cpf)) {
 				if (newClient.getName() != null) {
 					client.setName(newClient.getName());
 				}
 				if (newClient.getBirth() != null) {
 					client.setBirth(newClient.getBirth());
 				}
-						
 				repository.saveAndFlush(client);
 				clientUpdate = new ClientDto(client);
-
 			}
-
 		}
 		return clientUpdate;
-
 	}
 
 	public List<MedicalExamEntity> findAllExams() {
@@ -110,27 +101,17 @@ public class ClinicalPlannerService {
 			examsList.add(exam);
 		}
 		return examsList;
-		
 	}
 
 	public ScheduleDto updateSchedule(Long id, ScheduleDto scheduledDatetime) {
 		ScheduleEntity scheduleToUpdate = repositorySchedule.getOne(id);
 		scheduleToUpdate.setScheduledDateTime(scheduledDatetime.getScheduledDateTime());
 		this.repositorySchedule.saveAndFlush(scheduleToUpdate);
-
 		return new ScheduleDto(scheduleToUpdate);
 	}
 
 	public void deleteSchedule(Long id) {
 		repositorySchedule.deleteById(id);
-		
-		// TODO Auto-generated method stub
-		
 	}
-	
-	
-	
-	
-
 
 }
