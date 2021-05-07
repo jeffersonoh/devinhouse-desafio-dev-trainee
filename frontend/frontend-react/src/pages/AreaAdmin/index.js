@@ -114,19 +114,19 @@ export function AreaAdmin() {
 
       {showExames === true && (
         <>
-          <Typography>Listagem de Exames</Typography>
+          <Typography variant="h4" style={{textAlign: "center"}}>Listagem de Exames</Typography>
           <ListagemExames listagem={exames} />
         </>
       )}
       {showListaClientes === true && (
         <>
-          <Typography>Listagem de clientes</Typography>
+          <Typography variant="h4" style={{textAlign: "center"}}>Listagem de clientes</Typography>
           <ListagemClientes listagem={listaClientes} />
         </>
       )}
       {showCliente === true && (
         <>
-          <Typography>Resultado da pesquisa</Typography>
+          <Typography variant="h4" style={{textAlign: "center"}}>Resultado da pesquisa</Typography>
           <CustomModal
             open={openModalPesquisa}
             onclose={handleCloseModalPesquisa}

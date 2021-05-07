@@ -1,7 +1,9 @@
 const theme = {
     colors: {
-        "corDeFundo": "#e1f5fe",
-        "corDaLetra": "#212121",
+        /* "corDeFundo": "#e1f5fe", */
+        "corDeFundo": "#002060",
+        "corDaLetra": "#FFFFFF",
+        /* "corDaLetra": "#212121", */
     },
     menuLateral: {
         "cordDeFundo": "#FFFFFF",

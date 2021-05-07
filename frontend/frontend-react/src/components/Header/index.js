@@ -43,7 +43,7 @@ export function BarraPrincipal(props) {
         {loginStatus === false ? (
           <>
             <Botao
-              variante="contained"
+              variante="text"
               text="Minha Conta"
               aria-controls="simple-menu"
               aria-haspopup="true"
@@ -62,9 +62,9 @@ export function BarraPrincipal(props) {
         ) : (
           <Box>
             <Botao
-              icone={<MenuIcon />}
+              icone={<MenuIcon/>}
               tamanho="medium"
-              variante="contained"
+              variante="text"
               onclick={drawyerEvent}
             />
           </Box>

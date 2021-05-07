@@ -1,6 +1,6 @@
 const theme = {
     colors: {
-        "corDeFundo": "#0277bd"
+        "corDeFundo": "#002060"
     },
 }
 export default theme;

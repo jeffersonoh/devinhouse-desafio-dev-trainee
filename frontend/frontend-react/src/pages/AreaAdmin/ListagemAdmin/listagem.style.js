@@ -1,7 +1,13 @@
 const theme = {
+    boxCenter: {
+        "display": "flex",
+        "justify-content": "center"
+    },
     boxExterior: {
         "width": "30%",
-        "margin-top": "2rem"
+        "margin-top": "2rem",
+        "display": "flex",
+        "flex-direction": "column",
     },
     gridPaper: {
         "margin-bottom": "1rem",
