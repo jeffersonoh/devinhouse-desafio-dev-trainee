@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
+    width: 110,
   },
   gridContainer: {
     marginBottom: 20,
