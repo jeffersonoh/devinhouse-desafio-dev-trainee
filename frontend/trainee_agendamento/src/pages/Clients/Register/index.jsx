@@ -5,7 +5,6 @@ import Actions from "../../../services/api";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 
-
 function ClientRegister() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -13,7 +12,6 @@ function ClientRegister() {
   const [dataNascimento, setDataNascimento] = useState("");
   const data = Date.now();
   const history = useHistory();
-
 
   function clearDataState(){
     setNome("");

@@ -1,15 +1,39 @@
-import CardStyle from "./style";
+import { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { MdEdit, MdDelete } from "react-icons/md";
-import Actions from "../../services/api";
+import { MdEdit, MdDelete, MdDeleteForever } from "react-icons/md";
 import { format, parseISO } from "date-fns";
-
+import CardStyle from "./style";
+import Actions from "../../services/api";
+import Tooltip from "@material-ui/core/Tooltip";
+import { useHistory } from "react-router";
 
 function ClientCard(props) {
-  const { nome, cpf, birthYear } = props.data;
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const { nome, sobrenome, cpf, birthYear } = props.data;
+  const history = useHistory();
+
+  function buildCompleteName(nome, sobrenome){
+    return `${nome} ${sobrenome}`;
+  }
+
+  function handleConfirmDelete() {
+    setConfirmDelete(true);
+    setTimeout(() => {
+      setConfirmDelete(false);
+    }, 2000);
+  }
+
+  function handleEditClient(){
+    history.push(`/clientes/atualizar?cpf=${cpf}`);
+  }
 
   function handleRemoveClient() {
-    Actions.removeCliente(cpf);
+    try {
+      Actions.removeCliente(cpf);
+      props.setClientesList(props.clientesList.filter(cliente => cliente.cpf !== cpf))
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -23,10 +47,22 @@ function ClientCard(props) {
 
           <div className="schedule-actions">
             <div className="schedule-action">
-              <MdEdit className="schedule-action-edit"/>
+              <MdEdit className="schedule-action-edit" onClick={handleEditClient} />
             </div>
             <div className="schedule-action">
-              <MdDelete className="schedule-action-delete" onClick={handleRemoveClient}/>
+            { confirmDelete ? 
+                <Tooltip title="Confirme para apagar">
+                  <div>
+                    <MdDeleteForever className="schedule-action-delete confirm-delete" onClick={handleRemoveClient} />
+                  </div>
+                </Tooltip>          
+             : 
+                <Tooltip title="Apagar">    
+                  <div>
+                    <MdDelete className="schedule-action-delete" onClick={handleConfirmDelete} />
+                  </div>
+                </Tooltip>    
+              }
             </div>
           </div>
         </div>
@@ -35,7 +71,7 @@ function ClientCard(props) {
           <div className="card-content-schedule-client">
             <div className="card-content-schedule-client-name">
               <p className="card-content-schedule-cliente-name-title">Nome: </p>
-              <p className="card-content-schedule-cliente-name-resume">{nome}</p>
+              <p className="card-content-schedule-cliente-name-resume">{buildCompleteName(nome, sobrenome)} </p>
             </div>
           </div>
           <div className="card-content-schedule-exam">

@@ -22,7 +22,7 @@ function Exams() {
 
   useEffect(() => {
     findExamList();
-  }, [examesList]);
+  }, []);
  
   return (
     <Main>
@@ -35,17 +35,17 @@ function Exams() {
           { examesList.length > 0 ? examesList.map((data) => {
             return (
               <ExamCard 
+                key = {data.id}
                 titulo = "Exame"
                 data = {data}
-                id = {data.id} />
+                examesList = {examesList}
+                setExamesList = {setExamesList} />
               )
             })
-        
            : "Nenhum exame cadastrado"
           }
         </div>
       </div>
-
 
       <div className="right-content">
         <div className="shortcuts-buttons">

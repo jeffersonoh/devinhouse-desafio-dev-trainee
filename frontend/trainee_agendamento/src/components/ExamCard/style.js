@@ -119,6 +119,10 @@ const ExamStyle = styled.div`
   .card-content-schedule-client-info-name {
     margin-left: 5px;
   }
+
+  .confirm-delete {
+    color: red;
+  }
 `;
 
 export default ExamStyle;

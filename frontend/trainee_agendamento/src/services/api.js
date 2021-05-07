@@ -46,6 +46,10 @@ const Actions = {
     return instance.get(`/agendamentos/v1/consultar`);
   },
 
+  findScheduleById : (term) => {
+    return instance.get(`/agendamentos/v1/consultar/id/${term}`);
+  },
+
   updateSchedule : (term, data) => {
     return instance.put(`/agendamentos/v1/atualizar/id/${term}`, data);
   },

@@ -10,7 +10,7 @@ function Schedules() {
   const instance = axios.create({
     baseURL: 'http://localhost:8080/backend',
     headers: {'api-version' : '1'}
-  });
+  }); 
  
   function findSchedulesList() {
     instance.get(`/agendamentos/v1/consultar`)
@@ -21,7 +21,7 @@ function Schedules() {
 
   useEffect(() => {
     findSchedulesList();
-  }, [schedulesList]);
+  }, []);
 
   return (
     <Main>
@@ -31,12 +31,14 @@ function Schedules() {
         </div>
 
         <div className="schedule-card">
-          { schedulesList.length > 0 ? schedulesList.map((data) => {
+          { schedulesList.length > 0 ? schedulesList.map((agendamento) => {
             return (
               <ScheduleCard 
-              key = {data.id}
+              key = {agendamento.id}
               titulo = "Agendamento"
-              data = {data} />
+              data = {agendamento}
+              schedulesList = {schedulesList}
+              setSchedulesList = {setSchedulesList} />
               )
           })
           : "Nenhum agendamento realizado"

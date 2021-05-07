@@ -21,7 +21,10 @@ function Clients() {
 
   useEffect(() => {
     findClientList();
-  }, [clientesList]);
+    console.log("call");
+  }, []);
+
+  console.log(clientesList);
 
   return (
     <Main>
@@ -31,14 +34,16 @@ function Clients() {
         </div>
 
         <div className="clients-card">
-          { clientesList.length > 0 ? clientesList.map((data) => {
+          { clientesList.length > 0 ? clientesList.map((cliente) => {
             return (
               <ClientCard 
+              key = {cliente.cpf}
               titulo = "Cliente"
-              data = {data} />
+              data = {cliente} 
+              clientesList = {clientesList}
+              setClientesList = {setClientesList} />
               )
               })
-    
              : "Nenhum cliente cadastrado"
           }
         </div>

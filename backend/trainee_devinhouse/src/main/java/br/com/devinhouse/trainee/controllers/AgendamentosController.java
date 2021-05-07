@@ -39,7 +39,13 @@ public class AgendamentosController {
 	// Endpoint para consulta de agendamentos realizados
 	@RequestMapping(value = "/consultar", method = GET, produces = APPLICATION_JSON_VALUE)
 	public List<Agendamento> findAllSchedules() {
-		return service.getAllSchedules();
+		return service.searchAllSchedules();
+	}
+	
+	// Endpoint para consulta de agendamentos por id
+	@RequestMapping(value = "/consultar/id/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+	public Agendamento findScheduleById(@PathVariable("id") Integer id) {
+		return service.searchScheduleById(id);
 	}
 	
 	// Deverá haver um endpoint para edição de um agendamento realizado, apenas dia e hora poderão ser editados

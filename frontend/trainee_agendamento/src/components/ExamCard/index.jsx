@@ -1,13 +1,28 @@
-import ExamStyle from "./style";
+import { useState } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdDeleteForever } from "react-icons/md";
+import Tooltip from "@material-ui/core/Tooltip";
+import ExamStyle from "./style";
 import Actions from "../../services/api";
 
 function ExamCard(props) {
-  const { titulo, nome, id } = props.data;
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const { nome, id } = props.data;
+
+  function handleConfirmDelete() {
+    setConfirmDelete(true);
+    setTimeout(() => {
+      setConfirmDelete(false);
+    }, 2000);
+  }
 
   function handleRemoveExam(){
-    Actions.removeExam(id);
+    try {
+      Actions.removeExam(id);
+      props.setExamesList(props.examesList.filter(exame => exame.id !== id));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -20,11 +35,23 @@ function ExamCard(props) {
           </div>
 
           <div className="schedule-actions">
-            <div className="schedule-action">
+            {/* <div className="schedule-action">
               <MdEdit className="schedule-action-edit"/>
-            </div>
+            </div> */}
             <div className="schedule-action">
-              <MdDelete className="schedule-action-delete" onClick={handleRemoveExam}/>
+            { confirmDelete ? 
+                <Tooltip title="Confirme para apagar">
+                  <div>
+                    <MdDeleteForever className="schedule-action-delete confirm-delete" onClick={handleRemoveExam} />
+                  </div>
+                </Tooltip>          
+             : 
+                <Tooltip title="Apagar">    
+                  <div>
+                    <MdDelete className="schedule-action-delete" onClick={handleConfirmDelete} />
+                  </div>
+                </Tooltip>    
+              }
             </div>
           </div>
         </div>

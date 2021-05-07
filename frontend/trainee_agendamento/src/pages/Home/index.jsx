@@ -2,19 +2,48 @@ import React, { useState, useEffect } from "react";
 import Main from "../../components/Main";
 import ScheduleCard from "../../components/ScheduleCard";
 import Button from "../../components/Button";
+import axios from "axios";
 
 function Home() {
-  
+  const [schedulesList, setSchedulesList] = useState([]);
+
+  const instance = axios.create({
+    baseURL: 'http://localhost:8080/backend',
+    headers: {'api-version' : '1'}
+  }); 
+
+  function findSchedulesList() {
+    instance.get(`/agendamentos/v1/consultar`)
+      .then((res) => {
+        setSchedulesList(res.data);
+      });    
+  }
+
+  useEffect(() => {
+    findSchedulesList();
+  }, []);
 
   return (
     <>
       <Main>
         <div className="schedules-resume">
           <div className="container-title">
-            <h2>Agendamentos Realizados</h2>
+            <h2>Agendamentos</h2>
           </div>
 
           <div className="schedule-card">
+          { schedulesList.length > 0 ? schedulesList.map((data) => {
+              return (
+                <ScheduleCard 
+                key = {data.id}
+                titulo = "Agendamento"
+                data = {data}
+                schedulesList = {schedulesList}
+                setSchedulesList = {setSchedulesList} />
+                )
+            })
+            : "Nenhum agendamento realizado"
+          }
           </div>
         </div>
 

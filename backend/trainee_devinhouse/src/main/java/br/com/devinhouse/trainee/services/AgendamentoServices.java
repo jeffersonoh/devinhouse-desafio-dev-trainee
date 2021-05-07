@@ -66,8 +66,12 @@ public class AgendamentoServices {
 	}
 	
 	// Pesquisar todos os agendamentos
-	public List<Agendamento> getAllSchedules() {
+	public List<Agendamento> searchAllSchedules() {
 		return agendamentoRepository.findAll();
+	}
+	
+	public Agendamento searchScheduleById(Integer id) {
+		return agendamentoRepository.findById(id).get();
 	}
 	
 	// Atualizar um agendamento
