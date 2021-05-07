@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -14,11 +15,11 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "idExame")
 	private Exame exame;
 	
