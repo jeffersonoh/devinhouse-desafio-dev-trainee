@@ -56,7 +56,7 @@ public class ClienteTests {
 	mockedClienteJson = "{"
 	    + "\"nome\": \"Muad\","
 	    + "\"sobrenome\": \"'dib\","
-	    + "\"dataDeNascimento\": \"2021-04-01T03:39:31.463Z\","
+	    + "\"dataDeNascimento\": \"2021-04-01\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
     }
@@ -76,7 +76,7 @@ public class ClienteTests {
 	String mockedClienteJsonB = "{"
 	    + "\"nome\": \"Paul\","
 	    + "\"sobrenome\": \"Atreides\","
-	    + "\"dataDeNascimento\": \"2021-04-01T03:39:31.463Z\","
+	    + "\"dataDeNascimento\": \"2021-01-04\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
 	
@@ -154,7 +154,7 @@ public class ClienteTests {
     public void clienteUpdates() throws Exception {
 	
 	// inexistent id's won't be honored
-	String createdClienteJson = mvc.perform(put("/clientes/9999")
+	String createdClienteJson = mvc.perform(put("/clientes/-1")
 						.contentType(APPLICATION_JSON)
 						.content(mockedClienteJson))
 	    .andExpect(status().isCreated())
