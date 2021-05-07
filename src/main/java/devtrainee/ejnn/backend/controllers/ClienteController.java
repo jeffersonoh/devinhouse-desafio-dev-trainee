@@ -23,10 +23,15 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import devtrainee.ejnn.backend.services.ClienteService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import devtrainee.ejnn.backend.dtos.ClienteInputDTO;
 import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
 
-import devtrainee.ejnn.backend.services.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -75,4 +80,11 @@ public class ClienteController {
     public void delete(@PathVariable long id) {
 	clienteService.deleteById(id);
     }
+
+    @GetMapping("/page")
+    public Page<ClienteOutputDTO> getPage(@RequestParam int page,
+					  @RequestParam int size) {
+	return clienteService.findAll(PageRequest.of(page, size, Sort.unsorted()));
+    };
+					  
 }

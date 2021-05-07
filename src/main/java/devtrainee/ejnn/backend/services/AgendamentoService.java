@@ -16,6 +16,9 @@ import devtrainee.ejnn.backend.exceptions.ForbiddenException;
 
 import devtrainee.ejnn.backend.repositories.AgendamentoRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import devtrainee.ejnn.backend.dtos.AgendamentoOutputDTO;
 import devtrainee.ejnn.backend.dtos.AgendamentoUpdateDTO;
 
@@ -63,4 +66,9 @@ public class AgendamentoService {
 	    agendamentoRepository.deleteById(id);
 	}
     }
+
+    public Page<AgendamentoOutputDTO> findAll(PageRequest pageRequest) {
+	Page<Agendamento> page = agendamentoRepository.findAll(pageRequest);
+	return page.map((x) -> mapper.map(x, AgendamentoOutputDTO.class));
+    };
 }

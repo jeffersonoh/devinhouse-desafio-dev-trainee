@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.modelmapper.ModelMapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import devtrainee.ejnn.backend.domain.Cliente;
 import devtrainee.ejnn.backend.dtos.ClienteInputDTO;
 import devtrainee.ejnn.backend.dtos.ClienteOutputDTO;
@@ -64,6 +67,11 @@ public class ClienteService {
 	List<Cliente> clientes = clienteRepository.findAll();
 	return clientes.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
+
+    public Page<ClienteOutputDTO> findAll(PageRequest pageRequest) {
+	Page<Cliente> page = clienteRepository.findAll(pageRequest);
+	return page.map((x) -> mapper.map(x, ClienteOutputDTO.class));
+    };
 
     public boolean existsById(long id) {
 	return clienteRepository.existsById(id);

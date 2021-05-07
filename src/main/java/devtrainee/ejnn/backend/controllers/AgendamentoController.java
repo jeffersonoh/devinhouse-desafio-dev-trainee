@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -19,6 +20,10 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 import javax.servlet.http.HttpServletResponse;
 
 import devtrainee.ejnn.backend.services.AgendamentoService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import devtrainee.ejnn.backend.dtos.AgendamentoOutputDTO;
 import devtrainee.ejnn.backend.dtos.AgendamentoUpdateDTO;
@@ -47,6 +52,12 @@ public class AgendamentoController {
     @ResponseStatus(ACCEPTED)
     public void delete(@PathVariable long id) {
 	agendamentoService.delete(id);
+    }
+
+    @GetMapping("/page")
+    public Page<AgendamentoOutputDTO> getPage(@RequestParam int page,
+					  @RequestParam int size) {
+	return agendamentoService.findAll(PageRequest.of(page, size, Sort.unsorted()));
     }
 
 }

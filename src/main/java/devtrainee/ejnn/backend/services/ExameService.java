@@ -13,9 +13,13 @@ import org.modelmapper.ModelMapper;
 
 import devtrainee.ejnn.backend.repositories.ExameRepository;
 
-import devtrainee.ejnn.backend.domain.Exame;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import devtrainee.ejnn.backend.dtos.ExameOutputDTO;
+
+import devtrainee.ejnn.backend.domain.Exame;
+
 
 
 @Service
@@ -34,4 +38,9 @@ public class ExameService {
 	List<Exame> exames = exameRepository.findAll();
 	return exames.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
+
+    public Page<ExameOutputDTO> findAll(PageRequest pageRequest) {
+	Page<Exame> page = exameRepository.findAll(pageRequest);
+	return page.map((x) -> mapper.map(x, ExameOutputDTO.class));
+    };
 }
