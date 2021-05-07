@@ -42,7 +42,7 @@ function Schedules() {
               )
           })
           : 
-          <p>Nenhum cliente encontrado</p>
+          <p>Nenhum agendamento encontrado</p>
         }
         </div>
       </div>

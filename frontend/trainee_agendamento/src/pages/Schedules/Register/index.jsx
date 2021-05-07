@@ -86,6 +86,10 @@ function ScheduleRegister() {
     handleCreateSchedule();
   }
 
+  function buildCompleteName(nome, sobrenome) {
+    return `${nome} ${sobrenome}`;
+  }
+
   useEffect(() => {
     findClients();
     findExams();
@@ -109,7 +113,7 @@ function ScheduleRegister() {
                 <option value="">Selecione o cliente</option>
                 { clienteList.length > 0 ? clienteList.map((data) => {
                   return (
-                  <option value={data.cpf}>{data.nome}</option>
+                  <option value={data.cpf}>{buildCompleteName(data.nome, data.sobrenome)}</option>
                 )
                     })
                   : " "

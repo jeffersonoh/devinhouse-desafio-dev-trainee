@@ -43,7 +43,7 @@ function Exams() {
               )
             })
            : 
-           <p>Nenhum cliente encontrado</p>
+           <p>Nenhum exame encontrado</p>
           }
         </div>
       </div>
