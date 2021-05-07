@@ -129,65 +129,76 @@ const ClienteLista = () => {
                     </div>
                 </Toolbar>
                 <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
+                    {itemPagina.length === 0 &&
+                        <Toolbar>
+                            <Typography>
+                                Não encontramos nenhum cliente, cadastre o primeiro!
+                            </Typography>
+                        </Toolbar>
+                    }
+                    {itemPagina.length > 0 &&
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    {
+                                        cabecalhoTabelaClientes.map((linha) => {
+                                            return (
+                                                <TableCell key={linha.id} align="center">
+                                                    <TableContainer><b>{linha.coluna}</b></TableContainer>
+                                                </TableCell>
+                                            )
+                                        })
+                                    }
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {
-                                    cabecalhoTabelaClientes.map((linha) => {
-                                        return (
-                                            <TableCell key={linha.id} align="center">
-                                                <TableContainer><b>{linha.coluna}</b></TableContainer>
-                                            </TableCell>
-                                        )
-                                    })
+                                    itemPagina?.map((linha) => (
+                                        <TableRow
+                                            key={linha.id}
+                                            onClick={() => linha.id === linhaSelecionadaCliente.id
+                                                ? setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 })
+                                                : setLinhaSelecionadaCliente(linha)}
+                                            style={{
+                                                backgroundColor: linhaSelecionadaCliente.id === linha.id ? "#ff8a80" : "#fff"
+                                            }}
+                                        >
+                                            <TableCell align="center" component="th" scope="row">{linha.nome}</TableCell>
+                                            <TableCell align="center">{linha.cpf}</TableCell>
+                                            <TableCell align="center">{moment(linha.ddn).format("DD/MM/yyyy")}</TableCell>
+                                        </TableRow>
+                                    ))
                                 }
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                itemPagina?.map((linha) => (
-                                    <TableRow
-                                        key={linha.id}
-                                        onClick={() => linha.id === linhaSelecionadaCliente.id
-                                            ? setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 })
-                                            : setLinhaSelecionadaCliente(linha)}
-                                        style={{
-                                            backgroundColor: linhaSelecionadaCliente.id === linha.id ? "#ff8a80" : "#fff"
-                                        }}
-                                    >
-                                        <TableCell align="center" component="th" scope="row">{linha.nome}</TableCell>
-                                        <TableCell align="center">{linha.cpf}</TableCell>
-                                        <TableCell align="center">{moment(linha.ddn).format("DD/MM/yyyy")}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                            </TableBody>
+                        </Table>
+                    }
                 </TableContainer>
-                <Toolbar className={classes.contadorDePagina}>
-                    <Tooltip title="Página anterior">
-                        <IconButton aria-label="Página anterior" onClick={() => { paginaAnterior() }}>
-                            <ArrowBackIosIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Typography>
-                        {(pagina === 1
-                            ? 1
-                            : (pagina - 1) * 5 + 1)
-                            + "-" +
-                            (pagina * 5 > clientes.length && pagina > 1
-                                ? clientes.length
-                                : clientes.length < 5
+                {itemPagina.length > 0 &&
+                    <Toolbar className={classes.contadorDePagina}>
+                        <Tooltip title="Página anterior">
+                            <IconButton aria-label="Página anterior" onClick={() => { paginaAnterior() }}>
+                                <ArrowBackIosIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Typography>
+                            {(pagina === 1
+                                ? 1
+                                : (pagina - 1) * 5 + 1)
+                                + "-" +
+                                (pagina * 5 > clientes.length && pagina > 1
                                     ? clientes.length
-                                    : pagina * 5)
-                            + " de " + (clientes.length)}
-                    </Typography>
-                    <Tooltip title="Proxíma página">
-                        <IconButton aria-label="Proxíma página" onClick={() => { proximaPagina() }}>
-                            <ArrowForwardIosIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Toolbar>
+                                    : clientes.length < 5
+                                        ? clientes.length
+                                        : pagina * 5)
+                                + " de " + (clientes.length)}
+                        </Typography>
+                        <Tooltip title="Proxíma página">
+                            <IconButton aria-label="Proxíma página" onClick={() => { proximaPagina() }}>
+                                <ArrowForwardIosIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Toolbar>
+                }
             </Paper>
         </Fragment>
     )

@@ -130,66 +130,77 @@ const AgendaLista = () => {
                     </div>
                 </Toolbar>
                 <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
+                    {itemPagina.length === 0 &&
+                        <Toolbar>
+                            <Typography>
+                                Não encontramos nenhuma marcação, cadastre a primeira!
+                            </Typography>
+                        </Toolbar>
+                    }
+                    {itemPagina.length > 0 &&
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    {
+                                        cabecalhoTabelaAgenda.map((linha) => {
+                                            return (
+                                                <TableCell key={linha.id} align="center">
+                                                    <TableContainer><b>{linha.coluna}</b></TableContainer>
+                                                </TableCell>
+                                            )
+                                        })
+                                    }
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {
-                                    cabecalhoTabelaAgenda.map((linha) => {
-                                        return (
-                                            <TableCell key={linha.id} align="center">
-                                                <TableContainer><b>{linha.coluna}</b></TableContainer>
-                                            </TableCell>
-                                        )
-                                    })
+                                    itemPagina.map((linha) => (
+                                        <TableRow
+                                            key={linha.id}
+                                            onClick={() => linha.id === linhaSelecionadaAgenda.id
+                                                ? setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 })
+                                                : setLinhaSelecionadaAgenda(linha)}
+                                            style={{
+                                                backgroundColor: linhaSelecionadaAgenda.id === linha.id ? "#ff8a80" : "#fff"
+                                            }}
+                                        >
+                                            <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>
+                                            <TableCell align="center">{linha.cpf}</TableCell>
+                                            <TableCell align="center">{moment(linha.data).format("DD/MM/yyyy - HH:mm")}</TableCell>
+                                            <TableCell align="center">{linha.exame}</TableCell>
+                                        </TableRow>
+                                    ))
                                 }
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                itemPagina.map((linha) => (
-                                    <TableRow
-                                        key={linha.id}
-                                        onClick={() => linha.id === linhaSelecionadaAgenda.id
-                                            ? setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 })
-                                            : setLinhaSelecionadaAgenda(linha)}
-                                        style={{
-                                            backgroundColor: linhaSelecionadaAgenda.id === linha.id ? "#ff8a80" : "#fff"
-                                        }}
-                                    >
-                                        <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>
-                                        <TableCell align="center">{linha.cpf}</TableCell>
-                                        <TableCell align="center">{moment(linha.data).format("DD/MM/yyyy - HH:mm")}</TableCell>
-                                        <TableCell align="center">{linha.exame}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                            </TableBody>
+                        </Table>
+                    }
                 </TableContainer>
-                <Toolbar className={classes.contadorDePagina}>
-                    <Tooltip title="Página anterior">
-                        <IconButton aria-label="Página anterior" onClick={() => { paginaAnterior() }}>
-                            <ArrowBackIosIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Typography>
-                        {(pagina === 1
-                            ? 1
-                            : (pagina - 1) * 5 + 1)
-                            + "-" +
-                            (pagina * 5 > marcacoes.length && pagina > 1
-                                ? marcacoes.length
-                                : marcacoes.length < 5
+                {itemPagina.length > 0 &&
+                    <Toolbar className={classes.contadorDePagina}>
+                        <Tooltip title="Página anterior">
+                            <IconButton aria-label="Página anterior" onClick={() => { paginaAnterior() }}>
+                                <ArrowBackIosIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Typography>
+                            {(pagina === 1
+                                ? 1
+                                : (pagina - 1) * 5 + 1)
+                                + "-" +
+                                (pagina * 5 > marcacoes.length && pagina > 1
                                     ? marcacoes.length
-                                    : pagina * 5)
-                            + " de " + (marcacoes.length)}
-                    </Typography>
-                    <Tooltip title="Proxíma página">
-                        <IconButton aria-label="Proxíma página" onClick={() => { proximaPagina() }}>
-                            <ArrowForwardIosIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Toolbar>
+                                    : marcacoes.length < 5
+                                        ? marcacoes.length
+                                        : pagina * 5)
+                                + " de " + (marcacoes.length)}
+                        </Typography>
+                        <Tooltip title="Proxíma página">
+                            <IconButton aria-label="Proxíma página" onClick={() => { proximaPagina() }}>
+                                <ArrowForwardIosIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Toolbar>
+                }
             </Paper>
         </Fragment>
     )
