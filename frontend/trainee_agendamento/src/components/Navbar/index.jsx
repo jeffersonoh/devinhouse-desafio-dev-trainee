@@ -4,8 +4,6 @@ import { NavbarStyle, HeaderMenu } from "./style";
 function Navbar(){
   const location = useLocation();
 
-  console.log({location});
-
   return (
     <>
       <HeaderMenu>

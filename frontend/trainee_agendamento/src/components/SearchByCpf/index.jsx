@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 function SearchByCpf() {
   const [cliente, setCliente] = useState({});
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("00000000000");
 
   function toastError(message) {
     toast.error(`${message}`, {
@@ -37,7 +37,7 @@ function SearchByCpf() {
     if(searchTerm.length > 0) {
       Actions.findClientByCpf(searchTerm)
         .then((res) => (
-          toastSuccess(),
+          toastSuccess,
           setCliente(res.data)
         ))
         .catch((res) => (

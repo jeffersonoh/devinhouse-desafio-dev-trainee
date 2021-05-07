@@ -21,10 +21,7 @@ function Clients() {
 
   useEffect(() => {
     findClientList();
-    console.log("call");
   }, []);
-
-  console.log(clientesList);
 
   return (
     <Main>

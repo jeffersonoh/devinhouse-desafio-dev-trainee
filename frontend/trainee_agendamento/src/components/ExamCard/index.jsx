@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
-import { MdEdit, MdDelete, MdDeleteForever } from "react-icons/md";
+import { MdDelete, MdDeleteForever } from "react-icons/md";
 import Tooltip from "@material-ui/core/Tooltip";
 import ExamStyle from "./style";
 import Actions from "../../services/api";
@@ -35,9 +35,6 @@ function ExamCard(props) {
           </div>
 
           <div className="schedule-actions">
-            {/* <div className="schedule-action">
-              <MdEdit className="schedule-action-edit"/>
-            </div> */}
             <div className="schedule-action">
             { confirmDelete ? 
                 <Tooltip title="Confirme para apagar">

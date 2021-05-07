@@ -1,8 +1,6 @@
 import SearchByCpfCardStyle from "./style";
 import { AiOutlineUser } from "react-icons/ai";
-import { MdEdit, MdDelete, MdDeleteForever } from "react-icons/md";
 import { format, parseISO } from "date-fns";
-
 
 function SearchByCpfCard(props) {
   const { nome, sobrenome, cpf, birthYear } = props.data;
