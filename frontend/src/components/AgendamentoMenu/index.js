@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 
 import { useLoginContext } from "../../utils/login.context";
 import { useExameContext } from "../../utils/exameSelect.context";
-import AgendamentoAPI from "../../service/agendamentoAPI";
+import AgendamentoAPI from "../../service/AgendamentoAPI";
 import horarios from "./horarios";
 
 const useStyle = makeStyles((theme) => ({
@@ -89,7 +89,7 @@ export default function AgendamentoMenu(props) {
       );
     };
     recuperarListaAgendamentos();
-  }, [payload, exameDados, dataAge]);
+  }, [payload, exameDados, dataAge, horariosDeAgendamento]);
 
   const aoMudarData = (event) => {
     setDataAge(event.target.value);

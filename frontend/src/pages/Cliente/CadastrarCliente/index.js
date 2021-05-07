@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import {useHistory} from "react-router-dom";
 
-import ClienteAPI from "../../../service/clienteAPI";
+import ClienteAPI from "../../../service/ClienteAPI";
 
 const date = new Date();
 
