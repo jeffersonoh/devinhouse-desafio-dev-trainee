@@ -10,6 +10,7 @@ import {
 
 import { format, parseISO } from "date-fns";
 
+
 const AgendamentoCard = (props) => {
     
     const { data } = props;
@@ -44,7 +45,6 @@ const AgendamentoCard = (props) => {
 			</Box>
 		    </Box>
 		</Grid>
-		
 		
 	    </Grid>
 	</SPaper>

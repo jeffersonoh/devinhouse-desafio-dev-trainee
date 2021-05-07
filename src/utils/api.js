@@ -15,3 +15,5 @@ export const createCliente = (data) => axios.post(API_BASE + "/clientes", data);
 export const updateCliente = (data) => axios.put(API_BASE + "/clientes/" + data.id, data);
 
 export const patchAgendamento = (data) => axios.patch(API_BASE + "/agendamentos/" + data.id, data);
+
+export const deleteAgendamento = (data) => axios.delete(API_BASE + "/agendamentos/" + data.id);

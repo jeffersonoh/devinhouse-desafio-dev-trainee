@@ -5,7 +5,6 @@ import {
     Divider,
     List,
     ListItemText,
-    Box,
     Typography,
 } from "@material-ui/core";
 
@@ -14,8 +13,8 @@ import {
     closedDrawerWidth,
     headerHeight,
     SToolbar,
-    SPageTitle,
     SDrawer,
+    SHeaderTallBox,
     SNavbarListItem,
     SIconButton,
     SMenuIcon,
@@ -29,6 +28,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
+
 
 const useStyles = makeStyles(theme => ({
     headerTall: {
@@ -80,13 +80,13 @@ const PageLayout = (props) => {
 	    <SDrawer className={drawerIsOpen ? classes.openDrawer : classes.closedDrawer}
 		     variant="permanent">
 
-		<Box className={classes.headerTall}
+		<SHeaderTallBox
 		     display="flex"
 		     justifyContent="flex-end">
-		    <SIconButton button onClick={closeDrawer}>
+		    <SIconButton onClick={closeDrawer}>
 			<SChevronLeftIcon/>
 		    </SIconButton>
-		</Box>
+		</SHeaderTallBox>
 
 		    <Divider/>
 

@@ -77,7 +77,8 @@ const AgendamentoUpdateForm = forwardRef((props, ref) => {
 			     justifyContent="center"
 			     flexDirection="column">
 			    <Typography variant="caption">Data e hora</Typography>
-			    <DateTimePicker value={date}
+			    <DateTimePicker autoFocus
+					    value={date}
 					    onChange={setDate}/>
 			</Box>
 		    </Grid>

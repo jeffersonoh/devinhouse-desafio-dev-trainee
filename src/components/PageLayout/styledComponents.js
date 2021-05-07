@@ -5,6 +5,7 @@ import {
     Drawer,
     IconButton,
     Toolbar,
+    Box,
 } from "@material-ui/core";
 
 import {
@@ -70,3 +71,9 @@ export const SMain = withStyles(theme => ({
 	marginLeft: theme.spacing(closedDrawerWidth + 1),
     },
 }))(Main);
+
+export const SHeaderTallBox = withStyles(theme => ({
+    root: {
+	height: theme.spacing(headerHeight),
+    },
+}))(Box);
