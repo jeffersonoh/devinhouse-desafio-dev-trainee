@@ -7,15 +7,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import theme from "./Botao.style";
 
 const useStyles = makeStyles({
-  botaoBackground: {
-    backgroundColor: theme.colors.corDeFundo,
-    color: theme.colors.corDaLetra,
+  botaoStyle: {
+    ...theme.botaoStyle,
     "&:hover": {
       "& .MuiButton-startIcon": {
-        color: "red",
+        color: "#AD0A01",
       },
+      color: "#AD0A01",
     },
-  }
+  },
 });
 
 export default function BotaoLogo() {
@@ -23,13 +23,15 @@ export default function BotaoLogo() {
 
   return (
     <Button 
-    className={classes.botaoBackground} 
-    startIcon={<HealingIcon />} 
+    className={classes.botaoStyle}
+    startIcon={<HealingIcon fontSize="large"/>} 
     component={Paper}
-    variant="contained" 
+    variant="text" 
     size="medium"
+    disableElevation
+    color="text"
     >
-      <Typography variant="body1">Sua Saúde</Typography>
+      <Typography variant="body1" style={{fontWeight: "bold"}}>Sua Saúde</Typography>
     </Button>
   );
 }
