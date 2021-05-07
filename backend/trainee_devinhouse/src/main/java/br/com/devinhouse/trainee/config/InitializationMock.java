@@ -32,7 +32,6 @@ public class InitializationMock implements CommandLineRunner {
 			exam.setNome(listExamNames[i]);
 			
 			exameRepository.save(exam);
-		};
-		
+		};	
 	}
 }
