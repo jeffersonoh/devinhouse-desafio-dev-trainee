@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 
 import {
-  Replay as ReplayIcon,
   Add as AddIcon,
 } from "@material-ui/icons";
 
@@ -127,9 +126,7 @@ const Clientes = () => {
 		     onSuccessfulAction={handleSuccessfulAction}/>
       </Modal>
       
-      <Grid container
-	    direction="row"
-	    spacing={2}>
+      <Grid container direction="row" spacing={2}>
 	
 	{/* toolbar row */}
 	<Grid item xs={12}
@@ -170,8 +167,11 @@ const Clientes = () => {
 	</Grid>
 	
 	{/* clientes */}
-	<Grid item xs={12}
-	      md={selectedCliente ? 6 : 12}>
+	<Grid item xs={12} md={selectedCliente ? 6 : 12}
+	      className={clsx(
+		selectedCliente && classes.shortenedList,
+		!selectedCliente && classes.extendedList,
+	      )}>
 	  <Grid container
 		spacing={2}>
 	    { clientes

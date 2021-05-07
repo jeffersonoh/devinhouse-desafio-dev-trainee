@@ -6,13 +6,11 @@ import {
   Divider,
   List,
   ListItemText,
-  Typography,
 } from "@material-ui/core";
 
 import {
   openDrawerWidth,
   closedDrawerWidth,
-  headerHeight,
   SToolbar,
   STitle,
   SDrawer,
