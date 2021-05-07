@@ -30,6 +30,8 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   margin-top: 2%;
+  margin-bottom: 1%;
+  height: 100vmax;
 
   @media (max-width: 541px) {
     margin-bottom: 20%;

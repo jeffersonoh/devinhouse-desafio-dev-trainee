@@ -15,12 +15,14 @@ function ExamListPage() {
   const [exames, setExames] = useState([]);
 
   const carregarExames = async () => {
-    const exames = await ExamesAPI.buscarExames();
-    setExames(exames);
+    const exam = await ExamesAPI.listarExames();
+    setExames(exam);
   };
 
   useEffect(() => {
     carregarExames();
+
+    console.log(exames);
   }, []);
 
   return (
@@ -30,6 +32,7 @@ function ExamListPage() {
         <h1> Lista de Exames</h1>
         <LightDivindingLine />
         <Wrapper>
+          {console.log(exames)}
           {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
             <Loading />
           )}
@@ -37,13 +40,18 @@ function ExamListPage() {
             exames.length !== 0 &&
             exames.map((exam, index) => {
               return (
-                <ListItemModel key={index} id={exam.id} examName={exam.nome} />
+                <ListItemModel
+                  key={index}
+                  id={exam.id}
+                  examName={exam.examName}
+                />
               );
             })}
           {loaded === true && exames.length === 0 && (
             <h2>Não há exames para serem exibidos!</h2>
           )}
         </Wrapper>
+        <br />
         <Footer />
       </Container>
     </>

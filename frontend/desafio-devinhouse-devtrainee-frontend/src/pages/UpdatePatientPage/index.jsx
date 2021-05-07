@@ -68,12 +68,12 @@ function UpdatePatientPage() {
   return (
     <Container>
       <Wrapper>
-        {console.log(patient)}
         <h1>Atualizar paciente</h1>
         <LightDivindingLine />
         {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
           <Loading />
         )}
+        {console.log("paciente em edição", patient)}
         {loaded === true && (
           <PatientForms
             nameValue={patient.patientName}

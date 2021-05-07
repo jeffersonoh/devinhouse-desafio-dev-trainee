@@ -61,14 +61,16 @@ public class PacienteService {
         return getAll();
     }
 
-    public PacienteEntity buscarPacientePorCpf(String cpf) {
+    public Iterable<PacienteEntity> buscarPacientePorCpf(String cpf) {
         if(verificarExistenciaDeCpf(cpf)){
             ArrayList<PacienteEntity> pacientes = (ArrayList<PacienteEntity>) getAll();
+            ArrayList<PacienteEntity> pacienteEncontrado = new ArrayList<>();
             for (PacienteEntity paciente : pacientes) {
                 if (paciente.getPatientCpf().equals(cpf)) {
-                    return paciente;
+                    pacienteEncontrado.add(paciente);
                 }
             }
+            return pacienteEncontrado;
         }
         throw new CpfNotFoundException("O CPF pelo qual buscavas não consta em nossa base de dados!");
     }
@@ -125,6 +127,16 @@ public class PacienteService {
             }
         }
         return false;
+    }
+
+    public  PacienteEntity buscarPacientePorId(long id){
+        ArrayList<PacienteEntity> pacientes = (ArrayList<PacienteEntity>) getAll();
+        for (PacienteEntity paciente : pacientes) {
+            if (paciente.getId() == id) {
+                return paciente;
+            }
+        }
+        throw new PatientNotFoundException("O paciente pelo qual buscavas não foi encontrado!");
     }
 
     private boolean validatePassword(String password){
@@ -207,16 +219,6 @@ public class PacienteService {
         pacienteDTO.setPatientBornDate(paciente.getPatientBornDate());
         pacienteDTO.setPassword(paciente.getPassword());
         return pacienteDTO;
-    }
-
-    private PacienteEntity buscarPacientePorId(long id){
-        ArrayList<PacienteEntity> pacientes = (ArrayList<PacienteEntity>) getAll();
-        for (PacienteEntity paciente : pacientes){
-            if (paciente.getId() == id){
-                return paciente;
-            }
-        }
-        throw new PatientNotFoundException("O paciente pelo qual buscavas não foi encontrado!");
     }
 
     private Iterable<PacienteEntity> getAll() {

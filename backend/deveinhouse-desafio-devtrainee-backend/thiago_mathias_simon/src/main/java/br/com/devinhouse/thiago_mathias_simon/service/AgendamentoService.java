@@ -40,7 +40,13 @@ public class AgendamentoService {
             String examTime = novoAgendamento.getExamTime().trim();
 
             if (pacienteService.verificarExistenciaDeCpf(patientCpf)) {
-                PacienteEntity pacienteEntity = pacienteService.buscarPacientePorCpf(patientCpf);
+                PacienteEntity pacienteEntity = new PacienteEntity();
+                ArrayList<PacienteEntity> pacienteEntities = (ArrayList<PacienteEntity>) pacienteService.buscarPacientePorCpf(patientCpf);
+                for (PacienteEntity paciente : pacienteEntities){
+                    if (paciente.getPatientCpf().equals(patientCpf)){
+                        pacienteEntity = paciente;
+                    }
+                }
                 if (pacienteEntity.getPatientCpf().equals(patientCpf)
                         && pacienteEntity.getPatientName().equals(patientName)) {
                     if (validateExamDate(examDate)) {
@@ -186,7 +192,7 @@ public class AgendamentoService {
         return true;
     }
 
-    private AgendamentoEntity buscarAgendamentoPorId(long id){
+    public AgendamentoEntity buscarAgendamentoPorId(long id){
         ArrayList<AgendamentoEntity> agendamentoEntities = (ArrayList<AgendamentoEntity>) getAll();
         for (AgendamentoEntity agendamento : agendamentoEntities){
             if (agendamento.getId() == id){

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/v1" + "/paciente")
 public class PacienteController {
@@ -33,8 +34,14 @@ public class PacienteController {
 
     @GetMapping(headers = HEADERS_VERSION_1, value = "/cpf", produces = APPLICATION_JSON_VALUE)
     @ResponseBody
-    public PacienteEntity buscarPacientePorCpf(@RequestParam String valor) {
+    public Iterable<PacienteEntity> buscarPacientePorCpf(@RequestParam String valor) {
         return service.buscarPacientePorCpf(valor);
+    }
+
+    @GetMapping(headers = HEADERS_VERSION_1, value = "/id/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public PacienteEntity buscarPacientePorId(@PathVariable long id){
+        return service.buscarPacientePorId(id);
     }
 
     @PutMapping(headers = HEADERS_VERSION_1, value = "/id/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

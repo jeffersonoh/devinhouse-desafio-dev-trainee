@@ -2,6 +2,7 @@ package br.com.devinhouse.thiago_mathias_simon.controller;
 
 import br.com.devinhouse.thiago_mathias_simon.dto.AgendamentoDTO;
 import br.com.devinhouse.thiago_mathias_simon.entity.AgendamentoEntity;
+import br.com.devinhouse.thiago_mathias_simon.entity.PacienteEntity;
 import br.com.devinhouse.thiago_mathias_simon.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/v1" + "/agendamento")
 public class AgendamentoController {
@@ -29,6 +31,12 @@ public class AgendamentoController {
     @ResponseBody
     public Iterable<AgendamentoEntity> listarAgendamentos() {
         return service.listarAgendamentos();
+    }
+
+    @GetMapping(headers = HEADERS_VERSION_1, value = "/id/{id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public AgendamentoEntity buscarAgendamentoPorId(@PathVariable long id){
+        return service.buscarAgendamentoPorId(id);
     }
 
     @PutMapping(headers = HEADERS_VERSION_1, value = "/id/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

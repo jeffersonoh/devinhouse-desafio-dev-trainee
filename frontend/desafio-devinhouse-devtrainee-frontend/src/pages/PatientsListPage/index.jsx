@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
+import { testCpf } from "../../util/CPFValidation";
+
 import { Container } from "./styles";
 
 import Header from "../../components/Header";
@@ -59,7 +61,11 @@ function PatientsListPage() {
       <SearchBar
         handleClick={(cpf) => {
           console.log("CPF", cpf);
-          carregarPacientes(cpf);
+          if (testCpf(cpf)) {
+            carregarPacientes(cpf);
+          } else {
+            toast.warning("Por obséquio, informe um CPF válido!");
+          }
           console.log(patients);
         }}
       />
