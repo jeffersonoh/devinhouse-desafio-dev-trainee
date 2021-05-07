@@ -32,6 +32,7 @@ export function AreaPrincipalCliente() {
   const classes = useStyles();
   const {
     usuarioState: { cpf },
+    logout,
   } = useContextLogin();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -45,6 +46,7 @@ export function AreaPrincipalCliente() {
   const [dataAgendamento, setDataAgendamento] = useState("");
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
   const [controlador, setControlador] = useState(false);
+
   const handleOpenMenu = () => {
     setOpenMenu(true);
   };
@@ -118,7 +120,7 @@ export function AreaPrincipalCliente() {
           cor="menuLateral"
           onclick={() => handleOpenModalPerfil(cpf)}
         />
-        <Botao text="Logout" variante="text" cor="menuLateral" />
+        <Botao text="Logout" variante="text" cor="menuLateral" onclick={() => logout()}/>
       </Drawer>
       <Box className={classes.agendamentoList}>
         <Typography variant="h4">Meus exames agendados</Typography>
@@ -144,6 +146,7 @@ export function AreaPrincipalCliente() {
             valueNome={nome}
             valueNascimento={nascimento}
             showDeleteButton={true}
+            closeModal={() => handleCloseModalPerfil()}
           />
         }
       />

@@ -15,7 +15,7 @@ import { cpfMask } from "../../utils/cpfMask";
 import { useContextLogin } from "../../utils/contextLogin";
 
 export function AreaAdmin() {
-  const { usuarioState: {loginStatus} } = useContextLogin();
+  const { usuarioState: {loginStatus}, logout } = useContextLogin();
 
   const [openMenu, setOpenMenu] = useState(false);
   const [showExames, setShowExames] = useState(false);
@@ -109,7 +109,7 @@ export function AreaAdmin() {
           cor="menuLateral"
           onclick={() => handleShowExames()}
         />
-        <Botao text="Logout" variante="text" cor="menuLateral" />
+        <Botao text="Logout" variante="text" cor="menuLateral" onclick={() => logout()}/>
       </Drawer>
 
       {showExames === true && (

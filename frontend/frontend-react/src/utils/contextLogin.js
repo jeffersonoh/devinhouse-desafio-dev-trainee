@@ -20,13 +20,18 @@ const LoginProvider = ({ children }) => {
     routerHistory.replace("/area-cliente");
   };
 
+  const loginAdmin = (cpf) => {
+    setUsuarioState({ loginStatus: true, cpf: cpf });
+    routerHistory.replace("/area-admin");
+  }
+
   const logout = () => {
     setUsuarioState({ loginStatus: false, cpf: "" });
     voltarHome();
   };
 
   return (
-    <ContextLogin.Provider value={{ usuarioState, login, logout, voltarHome }}>
+    <ContextLogin.Provider value={{ usuarioState, login, loginAdmin, logout, voltarHome }}>
       {children}
     </ContextLogin.Provider>
   );

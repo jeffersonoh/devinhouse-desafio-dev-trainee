@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 export const CadastroCliente = (props) => {
-  const { usuarioState: {cpf, loginStatus} } = useContextLogin();
+  const { usuarioState: {cpf, loginStatus}, logout } = useContextLogin();
   const {
     titulo,
     labelNome,
@@ -43,12 +44,9 @@ export const CadastroCliente = (props) => {
   const [dataNascimento, setDataNascimento] = useState("");
 
   const handlePost = async (cpf) => {
-    const [ano, mes, dia] = dataNascimento.split("-");
-
     await RequestBackendCliente.postCliente({
       cpf: cpf,
       nome: nome,
-      /* dataNascimento: `${dia}/${mes}/${ano}`, */
       dataNascimento: dataNascimento
     });
     setNome("");
@@ -64,10 +62,12 @@ export const CadastroCliente = (props) => {
     });
     setNome("");
     setDataNascimento("");
+    closeModal();
   };
 
   const handleDelete = async () => {
     await RequestBackendCliente.deleteClientePorCpf(cpf);
+    logout();
   };
 
   const handleCpf = (e) => {
