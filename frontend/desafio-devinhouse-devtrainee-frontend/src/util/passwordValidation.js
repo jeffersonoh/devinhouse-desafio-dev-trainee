@@ -33,10 +33,6 @@ export const validatePassword = (password) => {
     let possuiNumeros = false;
     for (let i = 0; i < password.length; i++) {
       for (let e = 0; e < LETRAS.length; e++) {
-        console.log(
-          typeof password.substring(i, i + 1),
-          password.substring(i, i + 1)
-        );
         if (password.substring(i, i + 1) === LETRAS[e]) {
           possuiLetras = true;
         }
@@ -47,7 +43,6 @@ export const validatePassword = (password) => {
         }
       }
     }
-    console.log(possuiLetras, possuiNumeros);
     if (possuiLetras === true && possuiNumeros === true) {
       return true;
     } else {

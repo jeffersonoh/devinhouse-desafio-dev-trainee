@@ -13,26 +13,9 @@ class ExameService {
     return axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         return response.data;
       })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
-
-  buscarExames() {
-    const url = BASE_URL;
-    return axios
-      .get(url)
-      .then((response) => {
-        console.log("buscarExames");
-        return response.data;
-      })
-      .catch((error) => {
-        console.log("Oi");
-        throw error;
-      });
+      .catch(function (error) {});
   }
 }
 export default new ExameService();

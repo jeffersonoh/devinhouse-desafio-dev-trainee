@@ -38,10 +38,8 @@ function UpdatePatientPage() {
   };
 
   const { id } = useParams();
-  console.log(id);
 
   const procurarPaciente = async () => {
-    console.log("id", id);
     const paciente = await PacienteAPI.procurarPaciente(id);
     setPatient(paciente);
   };
@@ -73,7 +71,6 @@ function UpdatePatientPage() {
         {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
           <Loading />
         )}
-        {console.log("paciente em edição", patient)}
         {loaded === true && (
           <PatientForms
             nameValue={patient.patientName}

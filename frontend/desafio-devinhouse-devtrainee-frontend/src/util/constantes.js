@@ -1,56 +1,56 @@
 export const EXAME_INICIAL = {
   id: "",
-  nome: "",
+  examName: "",
 };
 
 export const exames = [
   {
     id: 1,
-    nome: "HEMOGRAMA",
+    examName: "HEMOGRAMA",
   },
   {
     id: 2,
-    nome: "GLICEMIA EM JEJUM",
+    examName: "GLICEMIA EM JEJUM",
   },
   {
     id: 3,
-    nome: "COLESTEROL E TRIGLICERÍDEOS",
+    examName: "COLESTEROL E TRIGLICERÍDEOS",
   },
   {
     id: 4,
-    nome: "UREIA E CREATINA",
+    examName: "UREIA E CREATINA",
   },
   {
     id: 5,
-    nome: "TGO (AST) E TGP (ALT)",
+    examName: "TGO (AST) E TGP (ALT)",
   },
   {
     id: 6,
-    nome: "TSH E T4 LIVRE",
+    examName: "TSH E T4 LIVRE",
   },
   {
     id: 7,
-    nome: "ÁCIDO ÚRICO",
+    examName: "ÁCIDO ÚRICO",
   },
   {
     id: 8,
-    nome: "EXAMES DE URINA",
+    examName: "EXAMES DE URINA",
   },
   {
     id: 9,
-    nome: "ELETROCARDIOGRAMA",
+    examName: "ELETROCARDIOGRAMA",
   },
   {
     id: 10,
-    nome: "TESTE ERGOMÉTRICO",
+    examName: "TESTE ERGOMÉTRICO",
   },
   {
     id: 11,
-    nome: "ECOCARDIOGRAMA",
+    examName: "ECOCARDIOGRAMA",
   },
   {
     id: 12,
-    nome: "RAIO-X",
+    examName: "RAIO-X",
   },
 ];
 

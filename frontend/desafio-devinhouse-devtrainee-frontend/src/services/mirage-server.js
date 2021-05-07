@@ -22,23 +22,23 @@ export function criarServidor({ environment = "test" } = {}) {
     },
 
     routes() {
-      this.namespace = "/v1";
+      this.namespace = "http://localhost:8080/devinhouse-backend/v1";
 
-      this.get("/exames", (schema, request) => {
+      this.get(this.namespace + "/exame", (schema, request) => {
         console.log("schema", schema);
         return schema.exames.all().models;
       });
 
-      this.get("/agendamento", (schema, request) => {
+      this.get(this.namespace + "/agendamento", (schema, request) => {
         return schema.agendamentos.all().models;
       });
 
-      this.get("/agendamento/:id", (schema, request) => {
+      this.get(this.namespace + "/agendamento/id/:id", (schema, request) => {
         const id = request.params.id;
         return schema.agendamentos.find(id).attrs;
       });
 
-      this.post("/agendamento", (schema, request) => {
+      this.post(this.namespace + "/agendamento", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         attrs.id = schedeludedExamsCounter;
         schedeludedExamsCounter++;
@@ -46,7 +46,7 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.agendamentos.create(attrs);
       });
 
-      this.put("/agendamento/:id", (schema, request) => {
+      this.put(this.namespace + "/agendamento/id/:id", (schema, request) => {
         const id = request.params.id;
         console.log("id", id);
         const attrs = JSON.parse(request.requestBody);
@@ -55,29 +55,28 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.agendamentos.create(attrs);
       });
 
-      this.delete("/agendamento/:id", (schema, request) => {
+      this.delete(this.namespace + "/agendamento/id/:id", (schema, request) => {
         const id = request.params.id;
         return schema.agendamentos.find(id).destroy();
       });
 
-      this.get("/paciente", (schema, request) => {
-        const cpf = request.queryParams.cpf;
-        console.log("cpf", cpf);
-        if (cpf !== undefined) {
-          console.log("requisição de busca com parâmetros");
-          return schema.pacientes.where((paciente) =>
-            paciente.patientCpf.includes(cpf)
-          ).models;
-        }
+      this.get(this.namespace + "/paciente", (schema, request) => {
         return schema.pacientes.all().models;
       });
 
-      this.get("/paciente/:id", (schema, request) => {
+      this.get(this.namespace + "/paciente/cpf", (schema, request) => {
+        const valor = request.queryParams.valor;
+        return schema.pacientes.where((paciente) =>
+          paciente.patientCpf.includes(valor)
+        ).models;
+      });
+
+      this.get(this.namespace + "/paciente/id/:id", (schema, request) => {
         const id = request.params.id;
         return schema.pacientes.find(id).attrs;
       });
 
-      this.post("/paciente", (schema, request) => {
+      this.post(this.namespace + "/paciente", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         attrs.id = patientCounter;
         patientCounter++;
@@ -85,14 +84,14 @@ export function criarServidor({ environment = "test" } = {}) {
         return schema.pacientes.create(attrs);
       });
 
-      this.put("/paciente/:id", (schema, request) => {
+      this.put(this.namespace + "/paciente/id/:id", (schema, request) => {
         const id = request.params.id;
         const attrs = JSON.parse(request.requestBody);
         attrs.id = id;
         return schema.pacientes.create(attrs);
       });
 
-      this.delete("/paciente/:id", (schema, request) => {
+      this.delete(this.namespace + "/paciente/id/:id", (schema, request) => {
         const id = request.params.id;
         return schema.pacientes.find(id).destroy();
       });

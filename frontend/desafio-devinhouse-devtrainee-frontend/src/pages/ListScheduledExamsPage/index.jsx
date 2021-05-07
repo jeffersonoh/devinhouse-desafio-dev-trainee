@@ -15,6 +15,8 @@ import Loading from "../../components/Loading";
 import AgendamentosAPI from "../../services/agendamentos";
 
 function ListScheduledExamsPage() {
+  const [alterado, setAlterado] = useState(false);
+
   const [loaded, setLoaded] = useState(false);
 
   const [agendamentos, setAgendamentos] = useState([]);
@@ -27,11 +29,15 @@ function ListScheduledExamsPage() {
   const deletarAgendamento = (id) => {
     AgendamentosAPI.deletarAgendamento(id);
     carregarAgendamentos();
+    setAlterado(!alterado);
   };
 
   useEffect(() => {
     carregarAgendamentos();
-  }, []);
+    return () => {
+      setAgendamentos([]);
+    };
+  }, [alterado]);
 
   const navigate = useNavigate();
   return (

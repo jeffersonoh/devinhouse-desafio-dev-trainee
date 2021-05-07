@@ -5,14 +5,14 @@ export const validateTime = (date, time) => {
 
   const informedDate = date.split("/");
 
-  const informedDay = informedDate[0];
-  const informedMonth = informedDate[1];
-  const informedYear = informedDate[2];
+  const informedDay = parseInt(informedDate[0]);
+  const informedMonth = parseInt(informedDate[1]);
+  const informedYear = parseInt(informedDate[2]);
 
   const informedTime = time.split(":");
 
-  const informedHour = informedTime[0];
-  const informedMinute = informedTime[1];
+  const informedHour = parseInt(informedTime[0]);
+  const informedMinute = parseInt(informedTime[1]);
 
   const dataAtual = new Date();
 
@@ -24,13 +24,13 @@ export const validateTime = (date, time) => {
   const actualMinutes = dataAtual.getMinutes();
 
   if (
-    actualDay == informedDay &&
-    actualMonth == informedMonth &&
-    actualYear == informedYear
+    actualDay === informedDay &&
+    actualMonth === informedMonth &&
+    actualYear === informedYear
   ) {
     if (
       actualHour > informedHour ||
-      (actualHour == informedHour && actualMinutes > informedMinute)
+      (actualHour === informedHour && actualMinutes > informedMinute)
     ) {
       return false;
     }

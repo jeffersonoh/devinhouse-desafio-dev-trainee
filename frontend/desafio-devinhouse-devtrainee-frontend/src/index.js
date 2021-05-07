@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-import { criarServidor } from "./services/mirage-server";
+// import { criarServidor } from "./services/mirage-server";
 
 // const ambiente = process.env.NODE_ENV;
 // if (ambiente !== "production") {

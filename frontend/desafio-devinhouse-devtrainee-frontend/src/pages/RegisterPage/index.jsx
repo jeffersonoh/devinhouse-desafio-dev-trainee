@@ -20,11 +20,9 @@ function RegisterPage() {
   const [patients, setPatients] = useState([]);
 
   const salvarPaciente = (paciente) => {
-    console.log("patients", patients);
     let cpfJaExiste = false;
     if (patients.length > 0) {
       patients.forEach((patient) => {
-        console.log("Entrou no forEach");
         if (patient.patientCpf === paciente.patientCpf) {
           cpfJaExiste = true;
         }

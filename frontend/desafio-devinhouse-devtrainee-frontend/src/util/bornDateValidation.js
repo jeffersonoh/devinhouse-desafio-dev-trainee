@@ -7,14 +7,14 @@ export const validateBornDate = (date) => {
 
   const dataInformada = date.split("-");
 
-  const ano = dataInformada[0];
-  const mes = dataInformada[1];
-  const dia = dataInformada[2];
+  const ano = parseInt(dataInformada[0]);
+  const mes = parseInt(dataInformada[1]);
+  const dia = parseInt(dataInformada[2]);
 
   if (
     actualYear < ano ||
-    (actualYear == ano && actualMonth < mes) ||
-    (actualYear == ano && actualMonth == mes && actualDay < dia)
+    (actualYear === ano && actualMonth < mes) ||
+    (actualYear === ano && actualMonth === mes && actualDay < dia)
   ) {
     return false;
   }

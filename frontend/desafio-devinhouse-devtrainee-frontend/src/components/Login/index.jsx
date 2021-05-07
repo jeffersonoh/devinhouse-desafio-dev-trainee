@@ -26,10 +26,8 @@ function Login() {
 
   const handleLogar = (cpf, senha) => {
     let encontrou = false;
-    console.log(pacientes);
     if (pacientes.length > 0) {
       pacientes.forEach((patient) => {
-        console.log("paciente", patient);
         if (patient.patientCpf === cpf && patient.password === senha) {
           encontrou = true;
           toast.success("Bem vindo(a) à Clínca DEVinHose!");

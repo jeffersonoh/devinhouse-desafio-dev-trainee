@@ -30,10 +30,8 @@ function UpdadeScheduledExamPage() {
   const [scheduledExam, setScheduledExam] = useState(initialScheduledExam);
 
   const { id } = useParams();
-  console.log(id);
 
   const procurarAgendamento = async () => {
-    console.log("id", id);
     const scheduledExam = await AgendamentoAPI.procurarAgendamento(id);
     setScheduledExam(scheduledExam);
   };

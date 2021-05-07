@@ -21,8 +21,6 @@ function ExamListPage() {
 
   useEffect(() => {
     carregarExames();
-
-    console.log(exames);
   }, []);
 
   return (
@@ -32,7 +30,6 @@ function ExamListPage() {
         <h1> Lista de Exames</h1>
         <LightDivindingLine />
         <Wrapper>
-          {console.log(exames)}
           {loaded === false && setTimeout(() => setLoaded(true), 3000) && (
             <Loading />
           )}

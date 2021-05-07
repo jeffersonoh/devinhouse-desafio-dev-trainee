@@ -21,6 +21,7 @@ import PacientesAPI from "../../services/pacientes";
 import AgendamentosAPI from "../../services/agendamentos";
 
 function PatientsListPage() {
+  const [alterado, setAlterado] = useState(false);
   const [patients, setPatients] = useState([]);
   const [agendamentos, setAgendamentos] = useState([]);
 
@@ -41,13 +42,19 @@ function PatientsListPage() {
         AgendamentosAPI.deletarAgendamento(agendamento.id);
       }
     });
+    setAlterado(!alterado);
     carregarPacientes();
   };
 
   useEffect(() => {
     carregarPacientes();
     carregarAgendamentos();
-  }, []);
+
+    return () => {
+      setPatients([]);
+      setAgendamentos([]);
+    };
+  }, [alterado]);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -60,13 +67,11 @@ function PatientsListPage() {
       <LightDividingLine />
       <SearchBar
         handleClick={(cpf) => {
-          console.log("CPF", cpf);
           if (testCpf(cpf)) {
             carregarPacientes(cpf);
           } else {
             toast.warning("Por obséquio, informe um CPF válido!");
           }
-          console.log(patients);
         }}
       />
       <LightDividingLine />
@@ -80,7 +85,6 @@ function PatientsListPage() {
             <ListPatientItemModel
               key={index}
               handleClick={() => {
-                console.log(patient.id);
                 navigate("/paciente/atualizar/" + patient.id);
               }}
               handleDelete={() => {

@@ -5,7 +5,6 @@ function SearchBar(props) {
 
   const handleSearch = () => {
     const input = document.getElementById("search");
-    console.log(input.value);
     handleClick(input.value);
   };
   return (
