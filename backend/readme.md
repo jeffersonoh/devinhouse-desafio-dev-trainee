@@ -37,7 +37,9 @@ O nosso desafio de backend será em criar uma api **RESTFULL** para realização
 
 * Não é obrigatório o uso dos conceitos de Testes unitários Junit 4.x., mas seu uso será um diferencial;
 
-#EndPoints 
+<br>
+
+# EndPoints 
 
 ## Clientes
 
@@ -122,7 +124,7 @@ http://localhost:3000/desafiotreinee/agenda/v1/deletar/id/1
 
 ## Exames 
 
-### Retorna todos os exames
+### `GET` Retorna todos os exames
 
 ```
 http://localhost:3000/desafiotreinee/exames/v1/consulta
