@@ -7,6 +7,7 @@ import {
   Modal,
   IconButton,
   Typography,
+  Slide,
 } from "@material-ui/core";
 
 import {
@@ -44,27 +45,27 @@ const useStyles = makeStyles(theme => ({
   shortenedList: {
     transition: theme.transitions.create("all", {
       duration: theme.transitions.duration.enteringScreen,
-      easing: theme.transitions.easing.easeInOut,
-    }),
-  },
-  detailedCard: {
-    transition: theme.transitions.create("all", {
-      duration: theme.transitions.duration.enteringScreen,
-      easing: theme.transitions.easing.easeIn,
+      easing: theme.transitions.easing.easeOut,
     }),
   },
 }));
+
 
 const Clientes = () => {
   
   const classes = useStyles();
   const theme = useTheme();
+  const xsScreen = useMediaQuery(theme.breakpoints.only("xs"));
   const smDownScreen = useMediaQuery(theme.breakpoints.down("sm"));
   
   const [clientes, setClientes] = useState([]);
   const [selectedCliente, setSelectedCliente] = useState(null);
   const [cpfQuery, setCpfQuery] = useState("");
   const [clienteFormModalIsOpen, setClienteFormModalIsOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(selectedCliente);
+  }, [selectedCliente]);
   
   useEffect(() => {
     getClientes().then(res => setClientes(res.data));
@@ -172,12 +173,12 @@ const Clientes = () => {
 	
 	{/* clientes */}
 	<Grid item xs={12}
+	      md={selectedCliente ? 6 : 12}
 	      className={clsx(
 		smDownScreen && selectedCliente && classes.hidden,
 		selectedCliente && classes.shortenedList,
 		!selectedCliente && classes.extendedList,
 			     )}
-	      md={selectedCliente ? 6 : 12}
 	      container
 	      spacing={2}>
 	  { clientes.map(data => (
@@ -198,15 +199,17 @@ const Clientes = () => {
 	
 	{/* detailed cliente card */}
 	{ selectedCliente
-	  ? <Grid item xs={12} md={6} className={classes.detailedCard}>
-	      <DetailedClienteCard data={selectedCliente}
-				   onClose={deselectCliente}
-				   onDelete={deleteCliente}
-				   onSuccessfulAction={handleSuccessfulAction}/>
-	    </Grid>
+	  ? <Slide in={true} direction="left">
+	      <Grid item xs={12} md={6}>
+		<DetailedClienteCard data={selectedCliente}
+				     shortened={xsScreen}
+				     onClose={deselectCliente}
+				     onDelete={deleteCliente}
+				     onSuccessfulAction={handleSuccessfulAction}/>
+	      </Grid>
+	    </Slide>
 	  : null
 	}
-	
       </Grid>
     </>
   );

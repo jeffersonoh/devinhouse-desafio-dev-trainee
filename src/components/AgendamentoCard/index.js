@@ -11,19 +11,19 @@ import { format, parseISO } from "date-fns";
 
 const AgendamentoCard = (props) => {
   
-  const { data } = props;
+  const { data, shortened } = props;
   
   return (
     <SPaper variant="outlined">
       
       <Grid container>
 	
-	<Grid item xs={6} sm={4}>
+	<Grid item xs={shortened ? 6 : 4}>
 	  <Typography variant="caption">Data</Typography>
 	  <Typography>{format(parseISO(data.timestamp), "d/M/y")}</Typography>
 	</Grid>
 	
-	<Grid item xs={6} sm={4}>
+	<Grid item xs={shortened ? 6 : 4}>
 	  <Box display="flex" justifyContent="center">
 	    
 	    <Box>
@@ -34,8 +34,8 @@ const AgendamentoCard = (props) => {
 	  </Box>
 	</Grid>
 	
-	<Grid item xs={12} sm={4}>
-	  <Box display="flex" justifyContent="flex-end">
+	<Grid item xs={shortened ? 12 : 4}>
+	  <Box display="flex" justifyContent={shortened ? "center" : "flex-end"}>
 	    
 	    <Box>
 	      <Typography variant="caption">Exame</Typography>

@@ -20,7 +20,7 @@ import {
 } from "./styledComponents";
 
 import ClienteForm from "components/pageContent/Clientes/ClienteForm";
-import AgendamentosList from "components/AgendamentosList";
+import AgendamentosList from "./AgendamentosList";
 
 import { decorate } from "utils/cpf";
 
@@ -36,7 +36,7 @@ const toDecoratedAgendamentos = ({agendamentos, ...clienteData}) => {
 
 const DetailedClienteCard = (props) => {
   
-  const { data, onClose, onDelete, onSuccessfulAction } = props;
+  const { data, shortened, onClose, onDelete, onSuccessfulAction } = props;
   
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   
@@ -111,6 +111,7 @@ const DetailedClienteCard = (props) => {
 	<Grid item xs={12}>
 	  <Typography variant="caption">Agendamentos</Typography>
 	  <AgendamentosList agendamentos={toDecoratedAgendamentos(data)}
+			    shortened={shortened}
 			    onSuccessfulAction={onSuccessfulAction}/>
 	</Grid>
 	

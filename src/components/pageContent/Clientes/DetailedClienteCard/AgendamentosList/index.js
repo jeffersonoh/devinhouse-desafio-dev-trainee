@@ -16,7 +16,7 @@ import { deleteAgendamento } from "utils/api";
 
 const AgendamentosList = (props) => {
   
-  const { agendamentos, onSuccessfulAction } = props;
+  const { agendamentos, shortened, onSuccessfulAction } = props;
   
   const [selectedAgendamento, setSelectedAgendamento] = useState(null);
 
@@ -55,7 +55,7 @@ const AgendamentosList = (props) => {
 		     setSelectedAgendamento(agendamento);
 		     openAgendamentoMenu(event);
 		   }}>
-	  <AgendamentoCard data={agendamento}/>
+	  <AgendamentoCard shortened={shortened} data={agendamento}/>
 	</SListItem>
       ))
       }
