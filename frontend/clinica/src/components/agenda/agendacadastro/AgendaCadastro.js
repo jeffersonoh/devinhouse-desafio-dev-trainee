@@ -7,20 +7,11 @@ import { useAuth } from 'providers/auth';
 import { useStyles } from 'style/Style';
 
 const AgendaCadastro = () => {
-    const { examesOfertados, novaMarcacao, setNovaMarcacao, setChamadoHTTP, setIndex, dataAgenda, setDataAgenda } = useAuth();
+    const { examesOfertados, novaMarcacao, setNovaMarcacao, setChamadoHTTP, setIndex } = useAuth();
     const classes = useStyles();
 
-    useEffect(()=>{
-        setNovaMarcacao({ ...novaMarcacao, data: dataAgenda.data + "T" + dataAgenda.hora});
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[dataAgenda])
-
-    useEffect(()=>{
-        setDataAgenda({ ...dataAgenda, data: "", hora: ""});
-        setNovaMarcacao({...novaMarcacao, cpf:"", pacienteNome: "", exame: ""})
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-    
+    console.log("Paginacriar");
+    console.log("novaMarcacao", novaMarcacao);
     return (
         <Fragment>
             <Paper className={classes.control}>
@@ -44,8 +35,8 @@ const AgendaCadastro = () => {
                         type="date"
                         defaultValue={new Date()}
                         className={classes.textField}
-                        value={dataAgenda.data}
-                        onChange={(e) => { setDataAgenda({ ...dataAgenda, data: e.target.value }) }}
+                        value={novaMarcacao.data}
+                        onChange={(e) => { setNovaMarcacao({ ...novaMarcacao, data: e.target.value }) }}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -54,8 +45,8 @@ const AgendaCadastro = () => {
                         name="hora"
                         label="Hora do exame"
                         className={classes.textField}
-                        value={dataAgenda.hora}
-                        onChange={(e) => { setDataAgenda({ ...dataAgenda, hora: horaMask(e.target.value) }) }}
+                        value={novaMarcacao.hora}
+                        onChange={(e) => { setNovaMarcacao({ ...novaMarcacao, hora: horaMask(e.target.value) }) }}
                     />
                     <FormControl className={classes.textField}>
                         <InputLabel>Exames</InputLabel>

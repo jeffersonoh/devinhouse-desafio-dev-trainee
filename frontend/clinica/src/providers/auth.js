@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { MARCACAO_INICIAL } from 'api/apiTeste';
 
 export const AuthContext = React.createContext({});
 
@@ -9,12 +10,7 @@ const CLIENTE_INICIAL = {
   ddn: ""
 };
 
-const MARCACAO_INICIAL = {
-  data: "",
-  exame: "",
-  pacienteNome: "",
-  cpf: ""
-};
+
 
 const DATAAGENDA_INICIAL = {
   data: "",
@@ -27,13 +23,13 @@ const AuthProvider = (props) => {
   const [resposta, setResposta] = useState(0);
 
   const [linhaSelecionadaCliente, setLinhaSelecionadaCliente] = useState({ id: 0 });
-  const [clientes, setClientes] = useState({});
+  const [clientesG, setClientesG] = useState({});
   const [novoCliente, setNovoCliente] = useState(CLIENTE_INICIAL);
   const [pesquisaCliente, setPesquisaCliente] = useState("");
   const [clienteCriadoComboBox, setClienteCriadoComboBox] = useState(false);
 
   const [linhaSelecionadaAgenda, setLinhaSelecionadaAgenda] = useState({ id: 0 });
-  const [marcacoes, setMarcacoes] = useState({});
+  const [marcacoesG, setMarcacoesG] = useState({});
   const [novaMarcacao, setNovaMarcacao] = useState(MARCACAO_INICIAL);
   const [pesquisaMarcacao, setPesquisaMarcacao] = useState("");
   const [examesOfertados, setExamesOfertados] = useState({});
@@ -48,25 +44,10 @@ const AuthProvider = (props) => {
       .then(response => {
         setExamesOfertados(response.data);
       })
-
-    axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
-      .then(response => {
-        setClientes(response.data);
-      })
-
-    axios.get("http://localhost:8080/clinica-devinhouse/v1/agenda/todos")
-      .then(response => {
-        setMarcacoes(response.data);
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [atualizar])
-
-  useEffect(() => {
-    setAtualizar(!atualizar);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  useEffect(() => {
 
+  useEffect(() => {
     switch (chamadoHTTP) {
       case "POST_NOVOCLIENTE":
         POSTCliente();
@@ -76,9 +57,6 @@ const AuthProvider = (props) => {
         break;
       case "DELETE_CLIENTE":
         DELETECliente();
-        break;
-      case "FIND_CLIENTE":
-        FINDCliente();
         break;
       case "POST_NOVAMARCACAO":
         POSTAgenda();
@@ -92,19 +70,9 @@ const AuthProvider = (props) => {
       case "DELETE_AGENDA":
         DELETEAgenda();
         break;
-      case "FIND_AGENDA":
-        FINDAgenda();
-        break;
-      case "GET_LISTA":
-        GETListaCliente();
-        break;
-      case "GET_LISTAAGENDA":
-        GETListaAgenda();
-        break;
         default:
           break;
     }
- 
     setChamadoHTTP("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chamadoHTTP])
@@ -131,11 +99,11 @@ const AuthProvider = (props) => {
       setResposta(901);
       return false;
     }
-    if (dataAgenda.data.length !== 10) {
+    if (agenda.data.length !== 10) {
       setResposta(902);
       return false;
     }
-    if (dataAgenda.hora.length !== 5) {
+    if (agenda.hora.length !== 5) {
       setResposta(903);
       return false;
     }
@@ -216,24 +184,6 @@ const AuthProvider = (props) => {
         console.log(error);
         setResposta(403);
       })
-
-  }
-
-  const FINDAgenda = () => {
-    if (pesquisaMarcacao.length > 0) {
-      axios.get(`http://localhost:8080/clinica-devinhouse/v1/agenda/procurar/filtrar?cpf=${pesquisaMarcacao}`)
-        .then(response => {
-          setMarcacoes(response.data);
-          setResposta(207);
-        })
-    }
-  }
-
-  const GETListaAgenda = () => {
-    axios.get("http://localhost:8080/clinica-devinhouse/v1/agenda/todos")
-      .then(response => {
-        setMarcacoes(response.data);
-      })
   }
 
   const POSTCliente = () => {
@@ -279,22 +229,6 @@ const AuthProvider = (props) => {
       })
   }
 
-  const FINDCliente = () => {
-    if (pesquisaCliente.length > 0) {
-      axios.get(`http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/filtrar?cpf=${pesquisaCliente}`)
-        .then(response => {
-          setClientes(response.data);
-          setResposta(207);
-        })
-    }
-  }
-
-  const GETListaCliente = () => {
-    axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
-      .then(response => {
-        setClientes(response.data);
-      })
-  }
 
   return (
     <AuthContext.Provider value={{
@@ -302,12 +236,12 @@ const AuthProvider = (props) => {
       resposta, setResposta,
       novoCliente, setNovoCliente,
       chamadoHTTP, setChamadoHTTP,
-      clientes, setClientes,
+      clientesG, setClientesG,
       linhaSelecionadaCliente, setLinhaSelecionadaCliente,
       dialogo, setDialogo,
       pesquisaCliente, setPesquisaCliente,
       linhaSelecionadaAgenda, setLinhaSelecionadaAgenda,
-      marcacoes, setMarcacoes,
+      marcacoesG, setMarcacoesG,
       novaMarcacao, setNovaMarcacao,
       pesquisaMarcacao, setPesquisaMarcacao,
       clienteCriadoComboBox, setClienteCriadoComboBox,

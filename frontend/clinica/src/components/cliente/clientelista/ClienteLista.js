@@ -16,22 +16,26 @@ import moment from 'moment';
 import { useAuth } from 'providers/auth';
 import { cabecalhoTabelaClientes, listaClienteInicial } from 'api/apiTeste';
 import { useStyles } from 'style/Style';
+import axios from 'axios';
 
 let pagina = 1;
 const ClienteLista = () => {
-    const { clientes, linhaSelecionadaCliente, setLinhaSelecionadaCliente,
-        setIndex, setPesquisaCliente, pesquisaCliente, setChamadoHTTP, refresh, setRefresh } = useAuth();
+    const { linhaSelecionadaCliente, setLinhaSelecionadaCliente,
+        setIndex, setResposta, refresh, setRefresh, setClientesG } = useAuth();
     const classes = useStyles();
-    const [itemPagina, setItempagina] = useState([listaClienteInicial]);
+
+    const [clientes, setClientes] = useState([listaClienteInicial]);
+    const [pesquisa, setPesquisa] = useState("");
+    const [itemPagina, setItempagina] = useState([]);
 
 
-    const setPaginaLista = () => {
+    const setPaginaLista = (lista) => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
         const limiteLinhaPagina = pagina * 5;
         let paginaProvisoria = [];
         let linhaAtual = 1;
 
-        clientes.map((linha) => {
+        lista.map((linha) => {
             if (linhaAtual <= limiteLinhaPagina) {
                 if (linhaAtual >= offSetLinhaPagina) {
                     paginaProvisoria.push(linha);
@@ -56,15 +60,28 @@ const ClienteLista = () => {
         }
     }
 
-    useEffect(() => {
-        setPaginaLista()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clientes])
+    const procurarCliente = () => {
+        if (pesquisa.length > 0) {
+            axios.get(`http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/filtrar?cpf=${pesquisa}`)
+                .then(response => {
+                    setPaginaLista(response.data);
+                    setResposta(207);
+                })
+        }
+    }
+    const GETListaCompleta = () => {
+        axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
+            .then(response => {
+                setClientes(response.data);
+                setPaginaLista(response.data);
+                setClientesG(response.data);
+            })
+    }
 
     useEffect(() => {
-        setPaginaLista()
+        GETListaCompleta();
         setRefresh(false);
-        setPesquisaCliente("");
+        setPesquisa("");
         setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -74,7 +91,7 @@ const ClienteLista = () => {
             <Paper>
                 <div className={classes.divPesquisa}>
                     <IconButton aria-label="Editar" onClick={() => {
-                        setChamadoHTTP("FIND_CLIENTE");
+                        procurarCliente();
                         setRefresh(true);
                     }}>
                         <SearchIcon />
@@ -83,15 +100,15 @@ const ClienteLista = () => {
                         placeholder="Pesquisar"
                         className={classes.pesquisa}
                         title={"Apenas por CPF"}
-                        value={pesquisaCliente}
-                        onChange={(e) => { setPesquisaCliente(cpfMask(e.target.value)) }}
+                        value={pesquisa}
+                        onChange={(e) => { setPesquisa(cpfMask(e.target.value)) }}
                     />
                     {refresh &&
                         <IconButton aria-label="Editar" onClick={() => {
-                            setChamadoHTTP("GET_LISTA");
-                            setRefresh(false);
-                            setPesquisaCliente("");
+                            GETListaCompleta();
+                            setPesquisa("");
                             setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
+                            setRefresh(false);
                         }}>
                             <RefreshIcon />
                         </IconButton>

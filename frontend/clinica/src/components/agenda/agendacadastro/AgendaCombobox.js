@@ -11,15 +11,26 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { cpfMask } from 'utils/mask';
 import { useAuth } from 'providers/auth';
 import { useStyles } from 'style/Style';
+import axios from 'axios';
+import { listaClienteInicial } from 'api/apiTeste';
 
 const filter = createFilterOptions();
 
 const AgendaCombobox = () => {
-  const { clientes, novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox,
+  const { novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox,
     novaMarcacao, setNovaMarcacao, setChamadoHTTP } = useAuth();
   const classes = useStyles();
   const [value, setValue] = useState(null);
   const [open, toggleOpen] = useState(false);
+  const [clientes, setClientes] = useState([listaClienteInicial]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
+        .then(response => {
+            setClientes(response.data);
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
   const handleClose = () => {
     setNovoCliente({
@@ -27,7 +38,8 @@ const AgendaCombobox = () => {
       cpf: '',
       ddn: ''
     });
-    setNovaMarcacao({ ...novaMarcacao, pacienteNome: "", cpf: "" })
+    if (clienteCriadoComboBox) { setNovaMarcacao({ ...novaMarcacao, pacienteNome: "", cpf: "" }) }
+
     toggleOpen(false);
   };
 
@@ -107,8 +119,9 @@ const AgendaCombobox = () => {
         handleHomeEndKeys
         renderOption={(option) => `${option.nome} ${option.cpf ? "(" + option.cpf + ")" : ""}`}
         freeSolo
+        disableClearable
         renderInput={(params) => (
-          <TextField {...params} label="Cliente" variant="outlined" />
+          <TextField {...params} label="Cliente" />
         )}
       />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-nome">

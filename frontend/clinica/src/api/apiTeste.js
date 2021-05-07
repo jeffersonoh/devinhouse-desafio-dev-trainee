@@ -162,3 +162,11 @@ export const listaDeAgenda = [
     cpf: "123.456.789-12"
   }
 ]
+
+export const MARCACAO_INICIAL = {
+  data: "",
+  hora: "",
+  exame: "",
+  pacienteNome: "",
+  cpf: ""
+};

@@ -6,16 +6,8 @@ import { useStyles } from 'style/Style';
 import { useAuth } from 'providers/auth';
 
 const AgendaExcluir = () => {
-    const { linhaSelecionadaAgenda, dataAgenda, setDataAgenda, setIndex, setChamadoHTTP } = useAuth();
+    const { linhaSelecionadaAgenda, setIndex, setChamadoHTTP } = useAuth();
     const classes = useStyles();
-
-    useEffect(() => {
-        setDataAgenda({
-            ...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"),
-            hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
         <Fragment>
@@ -45,7 +37,7 @@ const AgendaExcluir = () => {
                         label="Data do exame"
                         type="date"
                         className={classes.textField}
-                        value={dataAgenda.data}
+                        value={linhaSelecionadaAgenda.data}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -57,7 +49,7 @@ const AgendaExcluir = () => {
                         name="hora"
                         label="Hora do exame"
                         className={classes.textField}
-                        value={dataAgenda.hora}
+                        value={linhaSelecionadaAgenda.hora}
                         InputProps={{
                             readOnly: true,
                         }}

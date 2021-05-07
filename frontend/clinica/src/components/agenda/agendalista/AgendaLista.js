@@ -14,24 +14,53 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
 import { useStyles } from 'style/Style';
-import { cabecalhoTabelaAgenda } from 'api/apiTeste';
+import { cabecalhoTabelaAgenda, MARCACAO_INICIAL } from 'api/apiTeste';
 import { useAuth } from 'providers/auth';
+import axios from 'axios';
 
 let pagina = 1;
 const AgendaLista = () => {
-    const { marcacoes, linhaSelecionadaAgenda, setLinhaSelecionadaAgenda,
-        setIndex, setPesquisaMarcacao, pesquisaMarcacao, setChamadoHTTP, refresh, setRefresh } = useAuth();
+    const { linhaSelecionadaAgenda, setLinhaSelecionadaAgenda,
+        setIndex, refresh, setRefresh, setResposta, setMarcacoesG } = useAuth();
     const classes = useStyles();
 
     const [itemPagina, setItempagina] = useState([]);
+    const [marcacoes, setMarcacoes] = useState(MARCACAO_INICIAL);
+    const [pesquisa, setPesquisa] = useState("");
 
-    const setPaginaLista = () => {
+    const procurarAgenda = () => {
+        axios.get(`http://localhost:8080/clinica-devinhouse/v1/agenda/procurar/filtrar?cpf=${pesquisa}`)
+            .then(response => {
+                setMarcacoes(response.data);
+                setPaginaLista(response.data);
+                setResposta(207);
+            })
+    }
+
+    const GETListaCompleta = () => {
+        axios.get("http://localhost:8080/clinica-devinhouse/v1/agenda/todos")
+            .then(response => {
+                setMarcacoes(response.data);
+                setPaginaLista(response.data);
+                setMarcacoesG(response.data);
+            })
+    }
+
+    useEffect(() => {
+        GETListaCompleta();
+        setRefresh(false);
+        setPesquisa("");
+        setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const setPaginaLista = (lista) => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
         const limiteLinhaPagina = pagina * 5;
         let paginaProvisoria = [];
         let linhaAtual = 1;
 
-        marcacoes.map((linha) => {
+        lista.map((linha) => {
             if (linhaAtual <= limiteLinhaPagina) {
                 if (linhaAtual >= offSetLinhaPagina) {
                     paginaProvisoria.push(linha);
@@ -57,26 +86,15 @@ const AgendaLista = () => {
         }
     }
 
-    useEffect(() => {
-        setPaginaLista();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [marcacoes])
-
-    useEffect(() => {
-        setPaginaLista();
-        setRefresh(false);
-        setPesquisaMarcacao("");
-        setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     return (
         <Fragment>
             <Paper>
                 <div className={classes.divPesquisa}>
                     <IconButton aria-label="Editar" onClick={() => {
-                        setChamadoHTTP("FIND_AGENDA");
-                        setRefresh(true);
+                        if (pesquisa.length > 0) {
+                            procurarAgenda();
+                            setRefresh(true);
+                        }
                     }}>
                         <SearchIcon />
                     </IconButton>
@@ -84,14 +102,14 @@ const AgendaLista = () => {
                         placeholder="Pesquisar"
                         className={classes.pesquisa}
                         title={"Apenas por CPF"}
-                        value={pesquisaMarcacao}
-                        onChange={(e) => { setPesquisaMarcacao(cpfMask(e.target.value)) }}
+                        value={pesquisa}
+                        onChange={(e) => { setPesquisa(cpfMask(e.target.value)) }}
                     />
                     {refresh &&
                         <IconButton aria-label="Editar" onClick={() => {
-                            setChamadoHTTP("GET_LISTAAGENDA");
+                            GETListaCompleta();
                             setRefresh(false);
-                            setPesquisaMarcacao("");
+                            setPesquisa("");
                             setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 });
                         }}>
                             <RefreshIcon />
@@ -166,7 +184,7 @@ const AgendaLista = () => {
                                         >
                                             <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>
                                             <TableCell align="center">{linha.cpf}</TableCell>
-                                            <TableCell align="center">{moment(linha.data).format("DD/MM/yyyy - HH:mm")}</TableCell>
+                                            <TableCell align="center">{moment(linha.data).format("DD/MM/yyyy") + " - " + linha.hora}</TableCell>
                                             <TableCell align="center">{linha.exame}</TableCell>
                                         </TableRow>
                                     ))

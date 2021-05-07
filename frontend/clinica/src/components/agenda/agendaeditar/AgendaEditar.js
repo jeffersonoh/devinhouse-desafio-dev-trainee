@@ -7,19 +7,8 @@ import { useStyles } from 'style/Style';
 import { useAuth } from 'providers/auth';
 
 const AgendaEditar = () => {
-    const {linhaSelecionadaAgenda, setLinhaSelecionadaAgenda, 
-        dataAgenda, setDataAgenda, setIndex, setChamadoHTTP} = useAuth();
+    const {linhaSelecionadaAgenda, setLinhaSelecionadaAgenda, setIndex, setChamadoHTTP} = useAuth();
     const classes = useStyles();
-
-    useEffect(()=>{
-        setDataAgenda({...dataAgenda, data: moment(linhaSelecionadaAgenda.data).format("yyyy-MM-DD"), hora: moment(linhaSelecionadaAgenda.data).format("HH:mm")});
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-    useEffect(()=>{
-        setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, data: dataAgenda.data + "T" + dataAgenda.hora});
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[dataAgenda])
 
   return (
     <Fragment>
@@ -51,8 +40,8 @@ const AgendaEditar = () => {
                         autoFocus
                         defaultValue={new Date()}
                         className={classes.textField}
-                        value={dataAgenda.data}
-                        onChange={(e) => { setDataAgenda({ ...dataAgenda, data: e.target.value })}}
+                        value={linhaSelecionadaAgenda.data}
+                        onChange={(e) => { setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, data: e.target.value })}}
                         InputLabelProps={{
                         shrink: true,
                         }}
@@ -61,8 +50,8 @@ const AgendaEditar = () => {
                         name="hora"
                         label="Hora do exame"
                         className={classes.textField}
-                        value={dataAgenda.hora}
-                        onChange={(e) => { setDataAgenda({ ...dataAgenda, hora: horaMask(e.target.value) })}}
+                        value={linhaSelecionadaAgenda.hora}
+                        onChange={(e) => { setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, hora: horaMask(e.target.value) })}}
                     />
                      <TextField
                         name="exame"
