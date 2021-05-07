@@ -42,6 +42,5 @@ public class ClienteDTOInput implements Serializable {
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
 	
 }
