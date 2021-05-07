@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Route, Switch } from "react-router";
 import Header from "../components/Header";
 import MenuDrawer from "../components/MenuDrawer";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 import Agendamentos from "../pages/Agendamentos";
 import Clientes from "../pages/Clientes";
 import Exames from "../pages/Exames";
@@ -24,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AppRouter = () => {
+  const { width } = useWindowDimensions();
+
   const classes = useStyles();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(width <= 575 ? false : true);
 
   return (
     <>
