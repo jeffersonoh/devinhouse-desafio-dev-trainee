@@ -16,6 +16,7 @@ const AgendaCadastro = () => {
 
     useEffect(()=>{
         setDataAgenda({ ...dataAgenda, data: "", hora: ""});
+        setNovaMarcacao({...novaMarcacao, cpf:"", pacienteNome: "", exame: ""})
     },[])
     
     return (
@@ -63,7 +64,7 @@ const AgendaCadastro = () => {
                             onChange={(e) => { setNovaMarcacao({ ...novaMarcacao, exame: e.target.value }) }}
                         >
                             {examesOfertados.map((e) => (
-                                <MenuItem value={e.exame}>{e.exame}</MenuItem>
+                                <MenuItem value={e.nome}>{e.nome}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

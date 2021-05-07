@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { exames, listaDeAgenda, listaDeClientes } from 'api/apiTeste'
-import moment from 'moment';
+import axios from 'axios';
 
 export const AuthContext = React.createContext({});
 
@@ -28,21 +28,42 @@ const AuthProvider = (props) => {
   const [resposta, setResposta] = useState(0);
 
   const [linhaSelecionadaCliente, setLinhaSelecionadaCliente] = useState({ id: 0 });
-  const [clientes, setClientes] = useState(listaDeClientes);
+  const [clientes, setClientes] = useState({});
   const [novoCliente, setNovoCliente] = useState(CLIENTE_INICIAL);
   const [pesquisaCliente, setPesquisaCliente] = useState("");
   const [clienteCriadoComboBox, setClienteCriadoComboBox] = useState(false);
 
   const [linhaSelecionadaAgenda, setLinhaSelecionadaAgenda] = useState({ id: 0 });
-  const [marcacoes, setMarcacoes] = useState(listaDeAgenda);
+  const [marcacoes, setMarcacoes] = useState({});
   const [novaMarcacao, setNovaMarcacao] = useState(MARCACAO_INICIAL);
   const [pesquisaMarcacao, setPesquisaMarcacao] = useState("");
-  const [examesOfertados, setExamesOfertados] = useState(exames);
+  const [examesOfertados, setExamesOfertados] = useState({});
   const [dataAgenda, setDataAgenda] = useState(DATAAGENDA_INICIAL);
 
   const [chamadoHTTP, setChamadoHTTP] = useState("");
+  const [atualizar, setAtualizar] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
+  useEffect(() => {
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/exames")
+      .then(response => {
+        setExamesOfertados(response.data);
+      })
 
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
+      .then(response => {
+        setClientes(response.data);
+      })
+
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/agenda/todos")
+      .then(response => {
+        setMarcacoes(response.data);
+      })
+  }, [atualizar])
+
+  useEffect(() => {
+    setAtualizar(!atualizar);
+  }, [])
   useEffect(() => {
 
     switch (chamadoHTTP) {
@@ -72,6 +93,12 @@ const AuthProvider = (props) => {
         break;
       case "FIND_AGENDA":
         FINDAgenda();
+        break;
+      case "GET_LISTA":
+        GETListaCliente();
+        break;
+      case "GET_LISTAAGENDA":
+        GETListaAgenda();
         break;
     }
     setChamadoHTTP("");
@@ -124,82 +151,144 @@ const AuthProvider = (props) => {
 
   const POSTAgenda = () => {
     if (validarMarcacao(novaMarcacao)) {
-      //POST
-      setNovaMarcacao(MARCACAO_INICIAL);
-      setDataAgenda(DATAAGENDA_INICIAL)
-      setResposta(201);
-      setIndex(1);
+      axios.post("http://localhost:8080/clinica-devinhouse/v1/agenda/cadastrar", novaMarcacao)
+        .then(response => {
+          setAtualizar(!atualizar);
+          setNovaMarcacao(MARCACAO_INICIAL);
+          setDataAgenda(DATAAGENDA_INICIAL)
+          setResposta(201);
+          setIndex(1);
+        })
+        .catch(error => {
+          setResposta(401);
+        })
     }
   }
 
   const POSTClienteComboBox = () => {
     if (validarCliente(novoCliente)) {
-      //POST
-
-      setNovoCliente(CLIENTE_INICIAL);
-      setResposta(205);
-      setIndex(2);
-      setClienteCriadoComboBox(false);
+      axios.post("http://localhost:8080/clinica-devinhouse/v1/clientes/cadastrar", novoCliente)
+        .then(response => {
+          setAtualizar(!atualizar);
+          setNovoCliente(CLIENTE_INICIAL);
+          setClienteCriadoComboBox(false);
+          setResposta(204);
+          setIndex(2);
+        })
+        .catch(error => {
+          setResposta(404);
+        })
     }
   }
 
   const PUTAgenda = () => {
     if (validarMarcacao(linhaSelecionadaAgenda)) {
-      //PUT
-      setResposta(202);
-      setDataAgenda(DATAAGENDA_INICIAL)
-      setLinhaSelecionadaAgenda({ id: 0 });
-      setIndex(1)
+      axios.put(`http://localhost:8080/clinica-devinhouse/v1/agenda/atualizar/${linhaSelecionadaAgenda.id}`, linhaSelecionadaAgenda)
+        .then(response => {
+          setAtualizar(!atualizar);
+          setResposta(202);
+          setDataAgenda(DATAAGENDA_INICIAL)
+          setLinhaSelecionadaAgenda({ id: 0 });
+          setIndex(1)
+        })
+        .catch(error => {
+          setResposta(402);
+        })
     }
   }
 
   const DELETEAgenda = () => {
-    //DELETE
-    setResposta(203);
-    setDataAgenda(DATAAGENDA_INICIAL)
-    setLinhaSelecionadaAgenda({ id: 0 });
-    setIndex(1)
+    console.log("linhaSelecionadaAgenda", linhaSelecionadaAgenda);
+    axios.delete(`http://localhost:8080/clinica-devinhouse/v1/agenda/deletar/${linhaSelecionadaAgenda.id}`)
+      .then(response => {
+        setAtualizar(!atualizar);
+        setResposta(203);
+        setDataAgenda(DATAAGENDA_INICIAL)
+        setLinhaSelecionadaAgenda({ id: 0 });
+        setIndex(1)
+      })
+      .catch(error => {
+        console.log(error);
+        setResposta(403);
+      })
+
   }
 
   const FINDAgenda = () => {
-    //FIND
-    setResposta(208);
+    if (pesquisaMarcacao.length > 0) {
+      axios.get(`http://localhost:8080/clinica-devinhouse/v1/agenda/procurar/filtrar?cpf=${pesquisaMarcacao}`)
+        .then(response => {
+          setMarcacoes(response.data);
+          setResposta(207);
+        })
+    }
+  }
+
+  const GETListaAgenda = () => {
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/agenda/todos")
+      .then(response => {
+        setMarcacoes(response.data);
+      })
   }
 
   const POSTCliente = () => {
     if (validarCliente(novoCliente)) {
-      //POST
-
-      setNovoCliente(CLIENTE_INICIAL);
-      setResposta(205);
-      if (clienteCriadoComboBox) {
-        setIndex(2);
-        setClienteCriadoComboBox(false);
-      } else {
-        setIndex(1);
-      }
+      axios.post("http://localhost:8080/clinica-devinhouse/v1/clientes/cadastrar", novoCliente)
+        .then(response => {
+          setAtualizar(!atualizar);
+          setNovoCliente(CLIENTE_INICIAL);
+          setResposta(204);
+          setIndex(1);
+        })
+        .catch(error => {
+          setResposta(404);
+        })
     }
   }
 
   const PUTCliente = () => {
     if (validarCliente(linhaSelecionadaCliente)) {
-      //PUT
-      setResposta(206);
-      setLinhaSelecionadaCliente({ id: 0 });
-      setIndex(1)
+      axios.put(`http://localhost:8080/clinica-devinhouse/v1/clientes/atualizar/${linhaSelecionadaCliente.id}`, linhaSelecionadaCliente)
+        .then(response => {
+          setAtualizar(!atualizar);
+          setLinhaSelecionadaCliente({ id: 0 });
+          setResposta(205);
+          setIndex(1)
+        })
+        .catch(error => {
+          setResposta(405);
+        })
     }
   }
 
   const DELETECliente = () => {
-    //DELETE
-    setResposta(207);
-    setLinhaSelecionadaCliente({ id: 0 });
-    setIndex(1)
+    axios.delete(`http://localhost:8080/clinica-devinhouse/v1/clientes/deletar/${linhaSelecionadaCliente.id}`)
+      .then(response => {
+        setAtualizar(!atualizar);
+        setLinhaSelecionadaCliente({ id: 0 });
+        setResposta(206);
+        setIndex(1)
+      })
+      .catch(error => {
+        setResposta(406);
+      })
   }
 
   const FINDCliente = () => {
-    //FIND
-    setResposta(208);
+    if (pesquisaCliente.length > 0) {
+      axios.get(`http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/filtrar?cpf=${pesquisaCliente}`)
+        .then(response => {
+          setClientes(response.data);
+          setResposta(207);
+        })
+    }
+  }
+
+  const GETListaCliente = () => {
+    axios.get("http://localhost:8080/clinica-devinhouse/v1/clientes/procurar/todos")
+      .then(response => {
+        setClientes(response.data);
+      })
   }
 
   return (
@@ -218,7 +307,8 @@ const AuthProvider = (props) => {
       pesquisaMarcacao, setPesquisaMarcacao,
       clienteCriadoComboBox, setClienteCriadoComboBox,
       examesOfertados, setExamesOfertados,
-      dataAgenda, setDataAgenda
+      dataAgenda, setDataAgenda,
+      refresh, setRefresh
     }}>
       {props.children}
     </AuthContext.Provider>

@@ -14,7 +14,6 @@ import { useStyles } from 'style/Style';
 
 const filter = createFilterOptions();
 
-let fecharDialogo = false;
 const AgendaCombobox = () => {
   const { clientes, novoCliente, setNovoCliente, clienteCriadoComboBox, setClienteCriadoComboBox,
     novaMarcacao, setNovaMarcacao, setChamadoHTTP } = useAuth();
@@ -28,13 +27,13 @@ const AgendaCombobox = () => {
       cpf: '',
       ddn: ''
     });
-
+    setNovaMarcacao({...novaMarcacao, pacienteNome: "", cpf: ""})
     toggleOpen(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setChamadoHTTP("POST_NOVOCLIENTE")
+    setChamadoHTTP("POST_NOVOCLIENTECOMBOBOX")
     setValue({
       nome: novoCliente.nome,
       cpf: novoCliente.cpf,
@@ -50,7 +49,6 @@ const AgendaCombobox = () => {
   useEffect(() => {
     setClienteCriadoComboBox(true);
   }, [])
-
 
   return (
     <React.Fragment>

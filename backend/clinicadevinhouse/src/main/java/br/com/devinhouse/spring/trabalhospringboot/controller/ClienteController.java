@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +20,9 @@ import br.com.devinhouse.spring.trabalhospringboot.dto.ClienteDTO;
 import br.com.devinhouse.spring.trabalhospringboot.service.ClienteService;
 
 @RestController
-@RequestMapping(path = "/" + ClienteController.VERSION + "/clientes", 
-                headers = "version=" + ClienteController.VERSION)
+@RequestMapping(path = "/v1/clientes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClienteController {
-
-    static final String VERSION = "v1";
     
     @Autowired
     private ClienteService service;

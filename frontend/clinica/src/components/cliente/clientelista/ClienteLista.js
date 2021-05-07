@@ -10,18 +10,20 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
 import { useAuth } from 'providers/auth';
-import { cabecalhoTabelaClientes } from 'api/apiTeste';
+import { cabecalhoTabelaClientes, listaClienteInicial } from 'api/apiTeste';
 import { useStyles } from 'style/Style';
 
 let pagina = 1;
 const ClienteLista = () => {
     const { clientes, linhaSelecionadaCliente, setLinhaSelecionadaCliente,
-        setIndex, setPesquisaCliente, pesquisaCliente, setChamadoHTTP } = useAuth();
+        setIndex, setPesquisaCliente, pesquisaCliente, setChamadoHTTP, refresh, setRefresh } = useAuth();
     const classes = useStyles();
-    const [itemPagina, setItempagina] = useState([]);
+    const [itemPagina, setItempagina] = useState([listaClienteInicial]);
+
 
     const setPaginaLista = () => {
         const offSetLinhaPagina = pagina === 1 ? 1 : (pagina - 1) * 5 + 1
@@ -47,7 +49,6 @@ const ClienteLista = () => {
             setPaginaLista();
         }
     }
-
     const paginaAnterior = () => {
         if (pagina > 1) {
             pagina--;
@@ -57,13 +58,23 @@ const ClienteLista = () => {
 
     useEffect(() => {
         setPaginaLista()
+    }, [clientes])
+
+    useEffect(() => {
+        setPaginaLista()
+        setRefresh(false);
+        setPesquisaCliente("");
+        setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
     }, [])
 
     return (
         <Fragment>
             <Paper>
                 <div className={classes.divPesquisa}>
-                    <IconButton aria-label="Editar" onClick={() => setChamadoHTTP("FIND_CLIENTE")}>
+                    <IconButton aria-label="Editar" onClick={() => {
+                        setChamadoHTTP("FIND_CLIENTE");
+                        setRefresh(true);
+                    }}>
                         <SearchIcon />
                     </IconButton>
                     <InputBase
@@ -73,6 +84,16 @@ const ClienteLista = () => {
                         value={pesquisaCliente}
                         onChange={(e) => { setPesquisaCliente(cpfMask(e.target.value)) }}
                     />
+                    {refresh &&
+                        <IconButton aria-label="Editar" onClick={() => {
+                            setChamadoHTTP("GET_LISTA");
+                            setRefresh(false);
+                            setPesquisaCliente("");
+                            setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
+                        }}>
+                            <RefreshIcon />
+                        </IconButton>
+                    }
                 </div>
                 <Toolbar className={classes.toolbar} style={{ backgroundColor: linhaSelecionadaCliente.id !== 0 ? "#ff8a80" : "#fff" }}>
                     <div>
@@ -122,7 +143,7 @@ const ClienteLista = () => {
                         </TableHead>
                         <TableBody>
                             {
-                                itemPagina.map((linha) => (
+                                itemPagina?.map((linha) => (
                                     <TableRow
                                         key={linha.id}
                                         onClick={() => linha.id === linhaSelecionadaCliente.id

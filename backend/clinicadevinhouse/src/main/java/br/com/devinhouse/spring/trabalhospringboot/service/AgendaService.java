@@ -2,6 +2,7 @@ package br.com.devinhouse.spring.trabalhospringboot.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -68,5 +69,8 @@ public class AgendaService {
         }
     }
 
+    public List<AgendaDTO> procurarAgendaPorCpf(String cpf) {
+        return this.repository.findByCpfContains(cpf).stream().map(AgendaDTO::converter).collect(Collectors.toList());
+    }
     
 }

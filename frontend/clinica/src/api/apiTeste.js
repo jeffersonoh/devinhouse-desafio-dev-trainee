@@ -64,6 +64,12 @@ export const cabecalhoTabelaExames = [
   { id: "exame", coluna: "Exames" }
 ];
 
+export const listaClienteInicial = {
+  nome: "",
+  cpf: "",
+  ddn: ""
+}
+
 export const exames = [
   { id: 1, exame: "Hemograma" },
   { id: 2, exame: "Colesterol" },

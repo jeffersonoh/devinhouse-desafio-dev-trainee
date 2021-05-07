@@ -34,13 +34,15 @@ const Respostas = () => {
         if (resposta === 202) { info("Marcação foi editada!"); }
         if (resposta === 203) { info("Marcação foi excluida!"); }
         if (resposta === 204) { info("Cliente foi cadastrado!"); }
-        if (resposta === 205) { info("Cliente foi cadastrado!"); }
-        if (resposta === 206) { info("Cliente foi editado!"); }
-        if (resposta === 207) { info("Cliente foi excluido!"); }
-        if (resposta === 208) { info("Pesquisa concluída!"); }
+        if (resposta === 205) { info("Cliente foi editado!"); }
+        if (resposta === 206) { info("Cliente foi excluido!"); }
+        if (resposta === 207) { info("Pesquisa concluída!"); }
         if (resposta === 401) { erro("Marcação não foi cadastrada!"); }
         if (resposta === 402) { erro("Marcação não foi editada!"); }
         if (resposta === 403) { erro("Marcação não foi excluida!"); }
+        if (resposta === 404) { erro("Cliente não foi cadastrado! (CPF já cadastrado)"); }
+        if (resposta === 405) { erro("Cliente não foi editado! (CPF já cadastrado)"); }
+        if (resposta === 406) { erro("Cliente não foi excluido!"); }
 
         //VALIDAÇÕES COMPONENTS
         if (resposta === 901) { erro("Cliente não é valido!"); }

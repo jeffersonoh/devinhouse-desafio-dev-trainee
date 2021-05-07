@@ -76,7 +76,7 @@ const AgendaExames = () => {
                                 itemPagina.map((linha) => (
                                     <TableRow key={linha.id}>
                                         <TableCell align="center" component="th" scope="row">{linha.id}</TableCell>
-                                        <TableCell align="center">{linha.exame}</TableCell>
+                                        <TableCell align="center">{linha.nome}</TableCell>
                                     </TableRow>
                                 ))
                             }

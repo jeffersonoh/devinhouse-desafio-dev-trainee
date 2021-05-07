@@ -29,8 +29,11 @@ public class ClienteService {
 
     private Boolean validadorDeCadastro(ClienteDTO cliente) {
         List<ClienteDTO> clientesCadastrados = new ArrayList<ClienteDTO>();
-        for (int x = 0; x < repository.count(); x++) {
-            clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
+
+        for (int x = 0; x < this.repository.count(); x++) {
+            if (this.repository.existsById(x + 1)) {
+                clientesCadastrados.add(ClienteDTO.converter(this.repository.getOne(x + 1)));
+            }
         }
         for (ClienteDTO clienteDTO : clientesCadastrados) {
             if (clienteDTO.getCpf().intern() == cliente.getCpf().intern()) {
@@ -61,7 +64,7 @@ public class ClienteService {
                 }
                 this.repository.flush();
             } else {
-                throw new EntityNotFoundException("Não foi possivel cadastrar esse cliente, o CPF "
+                throw new EntityNotFoundException("Não foi possivel editar esse cliente, o CPF "
                         + clienteAtualizado.getCpf() + " já consta em nosso sistema.");
             }
         } else {
@@ -105,7 +108,7 @@ public class ClienteService {
 
     public List<ClienteDTO> listaDeTodosClientesCadastrados() {
         List<ClienteDTO> lista = new ArrayList<ClienteDTO>();
-        int deletados = 0;
+        Integer deletados = 0;
         for (int x = 0; x < this.repository.count(); x++) {
             if (this.repository.existsById(x + 1 + deletados)) {
                 lista.add(ClienteDTO.converter(this.repository.getOne(x + 1 + deletados)));
