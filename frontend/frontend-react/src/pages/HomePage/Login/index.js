@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 
+import { useContextLogin } from "../../../utils/contextLogin";
 import { cpfMask } from "../../../utils/cpfMask";
 import { InputText } from "../../../components/InputText";
-import {Botao} from "../../../components/Button";
+import { Botao } from "../../../components/Button";
 import theme from "./Login.style";
 
 const useStyles = makeStyles({
@@ -14,18 +15,26 @@ const useStyles = makeStyles({
     ...theme.boxInterior,
   },
   boxMargin: {
-    ...theme.boxMargin
-  }
+    ...theme.boxMargin,
+  },
 });
 
 export const Login = (props) => {
+  const { login } = useContextLogin();
   const classes = useStyles();
   const { titulo } = props;
 
   const [stateCpf, setStateCpf] = useState("");
-  const handleCpf = (e) => {
+
+  const handleCpf = async (e) => {
     const { value } = e.target;
-    setStateCpf(cpfMask(value));
+    const cpf = cpfMask(value);
+    await setStateCpf(cpf);
+  };
+
+  const realizarLogin = (cpf) => {
+    login(cpf);
+    setStateCpf(cpf);
   };
 
   return (
@@ -38,8 +47,8 @@ export const Login = (props) => {
             value={stateCpf}
             handlefunction={(e) => handleCpf(e)}
           />
-          </Box>
-          <Botao text="Login" />
+        </Box>
+        <Botao text="Login" onclick={() => realizarLogin(stateCpf)} />
       </Box>
     </Box>
   );

@@ -9,6 +9,7 @@ import theme from "./Agendamento.style";
 import { InputText } from "../../components/InputText";
 import { DropdownHorario } from "./DropdownHorario";
 import { Botao } from "../../components/Button";
+import { useContextLogin } from "../../utils/contextLogin";
 
 const useStyles = makeStyles({
   boxExterior: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 });
 
 export function Agendamento(props) {
+  const { usuarioState: {cpf} } = useContextLogin();
   const {
     titulo,
     valueIdAgendamento,
@@ -77,7 +79,7 @@ export function Agendamento(props) {
   const handlePost = async () => {
     await RequestBackendAgendamento.postAgendamento({
       cliente: {
-        cpf: "555",
+        cpf: cpf,
       },
       exame: {
         nome: nomeExame,
@@ -94,7 +96,7 @@ export function Agendamento(props) {
   const handlePut = async () => {
     await RequestBackendAgendamento.putAgendamento(stateIdAgendamento, {
       cliente: {
-        cpf: "555",
+        cpf: cpf,
       },
       exame: {
         nome: nomeExame,

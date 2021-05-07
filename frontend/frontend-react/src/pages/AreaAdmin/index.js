@@ -12,8 +12,11 @@ import ListagemExames from "./ListagemAdmin/ListagemExames";
 import { CustomModal } from "../../components/CustomModal";
 import { Pesquisa } from "./Pesquisa";
 import { cpfMask } from "../../utils/cpfMask";
+import { useContextLogin } from "../../utils/contextLogin";
 
 export function AreaAdmin() {
+  const { usuarioState: {loginStatus} } = useContextLogin();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [showExames, setShowExames] = useState(false);
   const [showListaClientes, setShowListaClientes] = useState(false);
@@ -86,7 +89,7 @@ export function AreaAdmin() {
 
   return (
     <>
-      <BarraPrincipal drawyerEvent={handleOpenMenu} />
+      <BarraPrincipal showOptions={loginStatus} drawyerEvent={handleOpenMenu} />
       <Drawer anchor="right" open={openMenu} onClose={handleCloseMenu}>
         <Botao
           text="Pesquisar cliente"

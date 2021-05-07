@@ -8,6 +8,7 @@ import { InputText } from "../../components/InputText";
 import {Botao} from "../Button";
 import theme from "./CadastroCliente.style";
 import RequestBackendCliente from "../../services/ClienteRequest";
+import { useContextLogin } from "../../utils/contextLogin";
 
 const useStyles = makeStyles({
   boxExterior: {
@@ -25,51 +26,48 @@ const useStyles = makeStyles({
 });
 
 export const CadastroCliente = (props) => {
+  const { usuarioState: {cpf, loginStatus} } = useContextLogin();
   const {
     titulo,
     labelNome,
     labelCpf,
     labelNascimento,
-    valueCpf,
     valueNome,
     valueNascimento,
     showDeleteButton,
+    closeModal,
   } = props;
   const classes = useStyles();
   const [stateCpf, setStateCpf] = useState("");
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
 
-  const handlePost = async () => {
+  const handlePost = async (cpf) => {
     const [ano, mes, dia] = dataNascimento.split("-");
 
     await RequestBackendCliente.postCliente({
-      cpf: stateCpf,
+      cpf: cpf,
       nome: nome,
-      dataNascimento: `${dia}/${mes}/${ano}`,
+      /* dataNascimento: `${dia}/${mes}/${ano}`, */
+      dataNascimento: dataNascimento
     });
-    setStateCpf("");
     setNome("");
     setDataNascimento("");
+    closeModal();
   };
 
-  const handlePut = async (cpf) => {
-    
-    await RequestBackendCliente.putCliente("555",{
-      cpf: stateCpf,
+  const handlePut = async () => {
+    await RequestBackendCliente.putCliente(cpf, {
+      cpf: cpf,
       nome: nome,
       dataNascimento: dataNascimento
     });
-    setStateCpf("");
     setNome("");
     setDataNascimento("");
   };
 
-  const handleDelete = async (cpf) => {
-    await RequestBackendCliente.deleteClientePorCpf("555");
-    setStateCpf("");
-    setNome("");
-    setDataNascimento("");
+  const handleDelete = async () => {
+    await RequestBackendCliente.deleteClientePorCpf(cpf);
   };
 
   const handleCpf = (e) => {
@@ -78,27 +76,32 @@ export const CadastroCliente = (props) => {
   };
 
   useEffect(() => {
-    if (valueCpf !== undefined) {
-      setStateCpf(valueCpf);
-    } 
     if (valueNome !== undefined) {
       setNome(valueNome);
     }
     if (valueNascimento !== undefined) {
       setDataNascimento(valueNascimento);
     }
-  }, [valueCpf, valueNome, valueNascimento]);
+  }, [valueNome, valueNascimento]);
 
   return (
     <Box className={classes.boxExterior}>
       <Box className={classes.boxInterior} component={Paper} elevation={2}>
         <Typography variant="h6">{titulo}</Typography>
         <Box className={classes.boxForms}>
+          {loginStatus === false ?
           <InputText
             label={labelCpf}
             value={stateCpf}
             handlefunction={(e) => handleCpf(e)}
           />
+          :
+          <InputText
+            label={labelCpf}
+            value={cpf}
+            handlefunction={(e) => handleCpf(e)}
+          />
+        }
           <InputText
             label={labelNome}
             value={nome}
@@ -111,7 +114,6 @@ export const CadastroCliente = (props) => {
             type="date"
           />
         </Box>
-        {/* <Box className={classes.botao}> */}
           {showDeleteButton === true ? (
             <>
             <Box className={classes.botao}>
@@ -120,9 +122,8 @@ export const CadastroCliente = (props) => {
             </Box>
             </>
           ) : (
-            <Botao text="Enviar" onclick={() => handlePost()} />
+            <Botao text="Enviar" onclick={() => handlePost(stateCpf)} />
           )}
-        {/* </Box> */}
       </Box>
     </Box>
   );

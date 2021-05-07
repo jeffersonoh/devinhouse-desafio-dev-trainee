@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import { Box, Drawer, makeStyles, Typography } from "@material-ui/core";
 
+import { useContextLogin } from "../../utils/contextLogin";
 import RequestBackendCliente from "../../services/ClienteRequest";
 import RequestBasckendAgendamento from "../../services/AgendamentoRequest";
 import { Listagem } from "./listagem";
 import { CustomModal } from "../../components/CustomModal";
-import {BarraPrincipal} from "../../components/Header";
-import {Botao} from "../../components/Button";
+import { BarraPrincipal } from "../../components/Header";
+import { Botao } from "../../components/Button";
 import { CadastroCliente } from "../../components/CadastroCliente";
 import { Agendamento } from "../../components/Agendamento";
 import theme from "./AreaPrincipal.style";
@@ -29,18 +30,21 @@ const useStyles = makeStyles({
 
 export function AreaPrincipalCliente() {
   const classes = useStyles();
+  const {
+    usuarioState: { cpf },
+  } = useContextLogin();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [openModalPerfil, setOpenModalPerfil] = useState(false);
   const [openModalAgendamento, setOpenModalAgendamento] = useState(false);
   const [openModalPutAgendamento, setOpenModalPutAgendamento] = useState(false);
   const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
   const [nascimento, setNascimento] = useState("");
   const [idAgendamento, setIdAgendamento] = useState("");
   const [exame, setExame] = useState("");
   const [dataAgendamento, setDataAgendamento] = useState("");
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
-  
+  const [controlador, setControlador] = useState(false);
   const handleOpenMenu = () => {
     setOpenMenu(true);
   };
@@ -49,9 +53,8 @@ export function AreaPrincipalCliente() {
   };
 
   const handleOpenModalPerfil = async (cpf) => {
-    const infosCliente = await RequestBackendCliente.getClientePorCpf("555");
+    const infosCliente = await RequestBackendCliente.getClientePorCpf(cpf);
     setNome(infosCliente.nome);
-    setCpf(infosCliente.cpf);
     setNascimento(infosCliente.dataNascimento);
     setOpenModalPerfil(true);
   };
@@ -74,26 +77,30 @@ export function AreaPrincipalCliente() {
     setDataAgendamento(data);
     setHorarioAgendamento(horario);
     setOpenModalPutAgendamento(true);
+    setControlador(!controlador);
   };
   const handleDeleteAgendamento = async (id) => {
     await RequestBasckendAgendamento.deleteAgendamentoPorId(id);
-  }
+    setControlador(!controlador);
+  };
 
   const handleCloseModalPutAgendamento = () => {
     setOpenModalPutAgendamento(false);
     setOpenMenu(false);
+    setControlador(!controlador);
   };
 
   const [listaAgendamento, setListaAgendamento] = useState([]);
   useEffect(() => {
+    console.log("cpf: ", cpf)
     const handleLista = async () => {
       const listaAgendamentoDoCliente = await RequestBackendCliente.getClienteAgendamentoPorCpf(
-        "555"
+        cpf
       );
       setListaAgendamento(listaAgendamentoDoCliente);
     };
     handleLista();
-  }, [listaAgendamento]);
+  }, [controlador, openMenu]);
 
   return (
     <>
@@ -109,10 +116,9 @@ export function AreaPrincipalCliente() {
           text="Editar cadastro"
           variante="text"
           cor="menuLateral"
-          onclick={() => handleOpenModalPerfil()}
+          onclick={() => handleOpenModalPerfil(cpf)}
         />
         <Botao text="Logout" variante="text" cor="menuLateral" />
-
       </Drawer>
       <Box className={classes.agendamentoList}>
         <Typography variant="h4">Meus exames agendados</Typography>
@@ -136,7 +142,6 @@ export function AreaPrincipalCliente() {
             labelNome="Altere seu nome"
             labelNascimento="Altere sua data de nascimento"
             valueNome={nome}
-            valueCpf={cpf}
             valueNascimento={nascimento}
             showDeleteButton={true}
           />

@@ -8,7 +8,6 @@ export const CustomModal = (props) => {
             <Box className={classNameBox}>
                 {child}
             </Box>
-            
         </Modal>
     );
 };

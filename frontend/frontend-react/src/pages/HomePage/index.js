@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { Typography } from "@material-ui/core";
 
 import {BarraPrincipal} from "../../components/Header";
 import { CustomModal } from "../../components/CustomModal";
 import { CadastroCliente } from "../../components/CadastroCliente";
 import { Login } from "./Login";
-import { Typography } from "@material-ui/core";
 
 export function HomePage() {
   const [openModalCadastro, setOpenModalCadastro] = useState(false);
@@ -60,6 +60,7 @@ export function HomePage() {
               labelNome="Digite seu nome"
               labelNascimento="Digite sua data de nascimento"
               showDeleteButton={false}
+              closeModal={handleCloseModalCadastro}
             />
           }
         />
@@ -75,7 +76,6 @@ export function HomePage() {
               labelCpf="Digite seu CPF"
               labelNome="Digite seu nome"
               labelNascimento="Digite sua data de nascimento"
-              showDeleteButton={false}
             />
           }
         />
