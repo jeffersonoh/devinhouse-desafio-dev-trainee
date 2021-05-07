@@ -1,5 +1,6 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -20,13 +21,14 @@ const useStyles = makeStyles(theme => ({
 
 const PageHeader = ({ titulo, tituloBotao, endpoint, abreNovo }) => {
   const classes = useStyles();
+  const { width } = useWindowDimensions();
 
   return (
     <div className={classes.header}>
         <Typography
           variant="h3"
           component="h1"
-          paragraph
+          paragraph={width <= 575 ? true : false}
           className={classes.titulo}
         >
           {titulo}
