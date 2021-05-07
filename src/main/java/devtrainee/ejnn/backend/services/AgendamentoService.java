@@ -35,7 +35,7 @@ public class AgendamentoService {
     }
 
     public List<AgendamentoOutputDTO> findAll() {
-	List<Agendamento> agendamentos = agendamentoRepository.findAll();
+	List<Agendamento> agendamentos = agendamentoRepository.findAllByOrderByTimestampAsc();
 	return agendamentos.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
 
