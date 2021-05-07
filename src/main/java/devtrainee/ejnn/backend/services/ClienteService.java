@@ -50,7 +50,7 @@ public class ClienteService {
     }
 
     public List<ClienteOutputDTO> searchByCpf(String cpf) {
-	List<Cliente> searchResults = clienteRepository.findClienteByCpfLike(cpf);
+	List<Cliente> searchResults = clienteRepository.findClienteByCpfContaining(cpf);
 	return searchResults.stream().map(this::mapToOutputDTO).collect(Collectors.toList());
     }
 

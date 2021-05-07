@@ -56,7 +56,7 @@ public class ClienteTests {
 	mockedClienteJson = "{"
 	    + "\"nome\": \"Muad\","
 	    + "\"sobrenome\": \"'dib\","
-	    + "\"dataDeNascimento\": \"2021-04-01\","
+	    + "\"dataDeNascimento\": \"2021-04-01T03:39:31.463Z\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
     }
@@ -76,7 +76,7 @@ public class ClienteTests {
 	String mockedClienteJsonB = "{"
 	    + "\"nome\": \"Paul\","
 	    + "\"sobrenome\": \"Atreides\","
-	    + "\"dataDeNascimento\": \"2021-01-04\","
+	    + "\"dataDeNascimento\": \"2021-04-01T03:39:31.463Z\","
 	    + "\"cpf\": \"99999999999\""
 	    + "}";
 	

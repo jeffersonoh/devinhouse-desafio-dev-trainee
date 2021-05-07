@@ -10,5 +10,5 @@ import devtrainee.ejnn.backend.domain.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    List<Cliente> findClienteByCpfLike(String cpf);
+    List<Cliente> findClienteByCpfContaining(String cpf);
 }
