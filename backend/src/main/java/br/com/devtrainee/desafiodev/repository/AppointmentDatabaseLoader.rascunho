@@ -1,0 +1,43 @@
+package br.com.devtrainee.desafiodev.repository;
+
+// import java.time.OffsetDateTime;
+// import java.time.ZoneId;
+// import java.util.Date;
+
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.CommandLineRunner;
+// import org.springframework.stereotype.Component;
+
+// import br.com.devtrainee.desafiodev.model.Appointment;
+// import br.com.devtrainee.desafiodev.model.ExamEnum;
+// import br.com.devtrainee.desafiodev.service.ClientService;
+// import br.com.devtrainee.desafiodev.service.ExamService;
+
+// @Component
+public class AppointmentDatabaseLoader implements CommandLineRunner {
+	
+//   private final AppointmentRepository repository;
+
+//   @Autowired
+//   ExamService examService;
+
+  // @Autowired
+  // ClientService clientService;
+
+//   @Autowired
+//   ClientRepository clientRepository;
+
+// 	@Autowired
+// 	public AppointmentDatabaseLoader(AppointmentRepository repository) {
+// 		this.repository = repository;
+// 	}
+// 	@Override
+// 	public void run(String... strings) throws Exception {
+//     // if (!repository.findAll().isEmpty()) return;
+// 		this.repository.save(Appointment.builder().scheduledTime(OffsetDateTime.now(ZoneId.of("EST"))).exam(examService.obtainAnExamByEnum(ExamEnum.DESINTOMETRIA)).client(clientRepository.findById(17L).get()).build());
+// 		// this.repository.save(Appointment.builder()..build());
+// 		// this.repository.save(Appointment.builder()..build());
+// 		// this.repository.save(Appointment.builder()..build());
+// 		// this.repository.save(Appointment.builder()..build());
+// 	}
+// }
