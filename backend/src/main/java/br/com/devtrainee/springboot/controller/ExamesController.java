@@ -18,10 +18,7 @@ public class ExamesController {
 
 	@Autowired
 	private ExamesService examesService;
-	
-	
-	//Deverá haver um endpoint para listagem dos exames disponíveis para agendamento, exibindo apenas nome do exame e id;
-	
+		
 	@RequestMapping(value = "", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<ExamesDTO> listarExames() {

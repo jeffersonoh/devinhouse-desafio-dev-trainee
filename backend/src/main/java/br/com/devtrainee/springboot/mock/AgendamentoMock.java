@@ -16,7 +16,7 @@ import br.com.devtrainee.springboot.dto.ExamesDTO;
 @Component
 public class AgendamentoMock {
 
-	public AgendamentoMock() { // constructor
+	public AgendamentoMock() { 
 		if (agendamentos == null) 
 			agendamentos = new ArrayList<AgendamentoDTO>();
 	}
@@ -37,7 +37,7 @@ public class AgendamentoMock {
 		List<ExamesDTO> exames = exameMock.criarMock();
 		List<ClienteDTO> clientes = clienteMock.criarMock();
 
-		for (int i = 0; i < 10; i++) { // para - inteiro i começando em 0 , onde o i deve ser < que 10, para cada interação some 1 no inteiro i (i = indice)
+		for (int i = 0; i < 10; i++) { 
 			AgendamentoDTO dto = new AgendamentoDTO();
 			dto.setId(i+1);
 			dto.setDataHora(criarDataRandomica());

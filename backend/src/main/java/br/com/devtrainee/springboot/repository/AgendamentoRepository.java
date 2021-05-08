@@ -20,7 +20,7 @@ public class AgendamentoRepository {
 	
 	public AgendamentoDTO carregar(Integer id) {
 		List<AgendamentoDTO> todosOsAgendamentos = agendamentoMock.obterMock();
-		for (AgendamentoDTO agendamento : todosOsAgendamentos) {  // para cada agendamento  de todosOsAgendamentos
+		for (AgendamentoDTO agendamento : todosOsAgendamentos) {  
 			if (agendamento.getId().equals(id)) { 
 				return agendamento;
 			}

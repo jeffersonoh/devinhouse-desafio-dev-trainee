@@ -28,7 +28,6 @@ public class AgendamentoController {
 		return agendamentoService.listar();
 	}
 	
-	// Para edição de um agendamento realizado, apenas dia e hora poderão ser editados; PUT = 
 	@RequestMapping(value = "/{id}" , method = RequestMethod.PUT , consumes = MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public AgendamentoDTO alterarAgendamento(@PathVariable Integer id, @RequestBody AgendamentoDTO agendamentoDTO ) {
@@ -41,7 +40,7 @@ public class AgendamentoController {
 		return agendamentoService.criarAgendamento(agendamento);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // ver sobre consumes e produces
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) 
 	public void deletar(@PathVariable Integer id) {
 		agendamentoService.deletar(id);
 	}
