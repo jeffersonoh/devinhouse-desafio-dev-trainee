@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.21.1",
+    "react-router-dom": "^5.2.0",
     "yarn": "^1.22.10"
   }
 }

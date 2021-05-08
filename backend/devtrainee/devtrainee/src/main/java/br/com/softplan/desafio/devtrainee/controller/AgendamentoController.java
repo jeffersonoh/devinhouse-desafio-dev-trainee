@@ -2,7 +2,6 @@ package br.com.softplan.desafio.devtrainee.controller;
 
 import br.com.softplan.desafio.devtrainee.dto.AgendamentoDTO;
 import br.com.softplan.desafio.devtrainee.entity.Agendamento;
-
 import br.com.softplan.desafio.devtrainee.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/agendamentos")
+@CrossOrigin("*")
 public class AgendamentoController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class AgendamentoController {
     public List<Agendamento> buscaAgendamento() {
         return agendamentoService.getAgendamentos();
     }
-
+    
     @GetMapping(path = "{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Agendamento buscaAgendamentoPorId(@PathVariable Long id) {
@@ -45,7 +45,7 @@ public class AgendamentoController {
     	agendamentoService.atualizarExame(id, dataAgendamento);
     }
     
-    @DeleteMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluirAgendamento(@PathVariable Long id) {
     	agendamentoService.excluirAgendamento(id);

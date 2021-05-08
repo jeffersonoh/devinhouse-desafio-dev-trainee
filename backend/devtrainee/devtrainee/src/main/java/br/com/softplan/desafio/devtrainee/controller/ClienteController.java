@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/clientes")
+@CrossOrigin("*")
 public class ClienteController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class ClienteController {
         clienteService.atualizarCliente(id, cliente);
     }
 
-    @DeleteMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarCliente(@PathVariable("id") Long id) {
         clienteService.deletarCliente(id);

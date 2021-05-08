@@ -34,9 +34,9 @@ public class AgendamentoService {
 
     public void criarAgendamento(AgendamentoDTO agendamentoDTO) {
 
-        Cliente cliente = clienteRepository.findById(agendamentoDTO.getCliente_id()).get();
+        Cliente cliente = clienteRepository.findByCPF(agendamentoDTO.getClienteCPF()).get();
         
-        Exame exame = exameRepository.findById(agendamentoDTO.getExame_id()).get();
+        Exame exame = exameRepository.findExameByNomeDoExame(agendamentoDTO.getExameNome()).get();
         
         Agendamento agendamento = new Agendamento(cliente, exame, agendamentoDTO.getDataEHoraDoAgendamento());
         
@@ -53,5 +53,6 @@ public class AgendamentoService {
 		agendamentoRepository.deleteById(id);
 		
 	}
+
     
 }

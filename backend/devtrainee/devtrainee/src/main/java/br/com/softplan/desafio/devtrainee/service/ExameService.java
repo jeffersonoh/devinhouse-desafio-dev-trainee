@@ -22,6 +22,10 @@ public class ExameService {
 		return exameRepository.findById(id).get();
 	}
 
+	public Exame getExameByNome(String nomeDoExame) {
+		return exameRepository.findExameByNomeDoExame(nomeDoExame).get();
+	}
+	
 	public void novoExame(Exame exame) {
 		Optional<Exame> exameExistente = exameRepository.findExameByNomeDoExame(exame.getNomeDoExame());
 		if (exameExistente.isPresent()) {

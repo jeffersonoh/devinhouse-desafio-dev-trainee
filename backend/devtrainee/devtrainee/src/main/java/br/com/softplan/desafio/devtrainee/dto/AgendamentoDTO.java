@@ -6,24 +6,24 @@ import java.time.LocalDateTime;
 
 public class AgendamentoDTO{
     private Long id;
-    private Long cliente_id;
-    private Long exame_id;
+    private String clienteCPF;
+    private String exameNome;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataEHoraDoAgendamento;
 
     public AgendamentoDTO() {
     }
 
-    public AgendamentoDTO(Long cliente_id, Long exame_id, LocalDateTime dataEHoraDoAgendamento) {
-        this.cliente_id = cliente_id;
-        this.exame_id = exame_id;
+    public AgendamentoDTO(String clienteCPF, String exameNome, LocalDateTime dataEHoraDoAgendamento) {
+        this.clienteCPF = clienteCPF;
+        this.exameNome = exameNome;
         this.dataEHoraDoAgendamento = dataEHoraDoAgendamento;
     }
 
-    public AgendamentoDTO(Long id, Long cliente_id, Long exame_id, LocalDateTime dataEHoraDoAgendamento) {
+    public AgendamentoDTO(Long id, String clienteCPF, String exameNome, LocalDateTime dataEHoraDoAgendamento) {
         this.id = id;
-        this.cliente_id = cliente_id;
-        this.exame_id = exame_id;
+        this.clienteCPF = clienteCPF;
+        this.exameNome = exameNome;
         this.dataEHoraDoAgendamento = dataEHoraDoAgendamento;
     }
 
@@ -37,20 +37,20 @@ public class AgendamentoDTO{
         this.id = id;
     }
 
-    public Long getCliente_id() {
-        return cliente_id;
+    public String getClienteCPF() {
+        return clienteCPF;
     }
 
-    public void setCliente_id(Long cliente_id) {
-        this.cliente_id = cliente_id;
+    public void setCliente_id(String clienteCPF) {
+        this.clienteCPF = clienteCPF;
     }
 
-    public Long getExame_id() {
-        return exame_id;
+    public String getExameNome() {
+        return exameNome;
     }
 
-    public void setExame_id(Long exame_id) {
-        this.exame_id = exame_id;
+    public void setExame(String exameNome) {
+        this.exameNome = exameNome;
     }
 
     public LocalDateTime getDataEHoraDoAgendamento() {
