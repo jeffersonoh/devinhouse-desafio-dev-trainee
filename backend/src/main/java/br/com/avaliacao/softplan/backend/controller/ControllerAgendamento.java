@@ -24,23 +24,23 @@ public class ControllerAgendamento {
 	@Autowired
 	private ServiceAgendamento service;
 	
-	@GetMapping(path = "/agendamento/{nome-exame}")
+	@GetMapping(path = "/v1/agendamento/{nome-exame}")
 	public List<String> listarExamesIndisponíveis(@PathVariable("nome-exame") String exame, 
 			@RequestParam String data) {
 		return service.listarExamesIndisponíveis(exame, data);
 	}
 	
-	@PostMapping(path = "/agendamento", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/v1/agendamento", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> agendarAtendimento(@RequestBody Agendamento agendamento) {
 		return service.agendarAtendimento(agendamento);
 	}
 
-	@PutMapping(path = "agendamento/{id}", consumes = APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/v1/agendamento/{id}", consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> atualizarAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamento){
 		return service.atualizarAgendamento(id, agendamento);
 	}
 
-	@DeleteMapping(path = "agendamento/{id}")
+	@DeleteMapping(path = "/v1/agendamento/{id}")
 	public ResponseEntity<?> deletarAgendamento(@PathVariable Long id) {
 		return service.deletarAgendamento(id);
 	}

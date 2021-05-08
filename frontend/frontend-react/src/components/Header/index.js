@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 
-import { AppBar, Toolbar, Menu, MenuItem, Box, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Menu,
+  MenuItem,
+  Box,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useContextLogin } from "../../utils/contextLogin";
 import Botao from "./BotoesHeader/Botao";
-import BotaoMenu from "./BotoesHeader/BotaoMenu"; 
+import BotaoMenu from "./BotoesHeader/BotaoMenu";
 import BotaoLogo from "./BotoesHeader/BotaoLogo";
 import theme from "./BarraPrincipal.style";
 
@@ -15,9 +22,8 @@ const useStyles = makeStyles({
     ...theme.appBar,
   },
   toolBarPosition: {
-    ...theme.toolBarPosition
-  }
-
+    ...theme.toolBarPosition,
+  },
 });
 
 export function BarraPrincipal(props) {
@@ -39,10 +45,12 @@ export function BarraPrincipal(props) {
   return (
     <AppBar className={classes.appBar} position="static">
       <Toolbar variant="regular" className={classes.toolBarPosition}>
-        <Box >
+        <Box>
           <BotaoLogo />
         </Box>
-        <Typography style={{color: "white"}} variant="h5">{tituloNavBar}</Typography>
+        <Typography style={{ color: "white" }} variant="h5">
+          {tituloNavBar}
+        </Typography>
         {loginStatus === false ? (
           <>
             <Botao
@@ -65,7 +73,7 @@ export function BarraPrincipal(props) {
         ) : (
           <Box>
             <BotaoMenu
-              icone={<MenuIcon style={{color: "#e1f5fe"}}/>}
+              icone={<MenuIcon style={{ color: "#e1f5fe" }} />}
               tamanho="large"
               variante="text"
               onclick={drawyerEvent}

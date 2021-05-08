@@ -13,7 +13,7 @@ import br.com.avaliacao.softplan.backend.entity.Cliente;
 
 @Repository
 public interface RepositoryCliente extends JpaRepository<Cliente, Long> {
-	// isto vem do jpa, que permite derivar metodos que leem, atualiza e deleta
+
 	Optional<Cliente> findByCpf(String cpf);
 
 	Optional<Cliente> deleteByCpf(String cpf);

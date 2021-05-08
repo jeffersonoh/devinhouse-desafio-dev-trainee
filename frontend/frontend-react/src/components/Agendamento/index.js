@@ -55,31 +55,6 @@ export function Agendamento(props) {
   const [horarioAgendamento, setHorarioAgendamento] = useState("");
   const [listaExames, setListaExames] = useState([]);
 
-  useEffect(() => {
-    const handleListaExames = async () => {
-      const listaExames = await RequestBackendExame.getTodosExames();
-      setListaExames(listaExames);
-    };
-    handleListaExames();
-  }, []);
-
-  const [listaHorariosIndisponiveis, setListaHorariosIndisponiveis] = useState(
-    []
-  );
-  
-  useEffect(() => {
-    if (nomeExame !== "" && dataAgendamento !== "") {
-      const handleListaHorariosIndisponiveis = async () => {
-        const listaHorarios = await RequestBackendAgendamento.getAgendamentosIndisponiveis(
-          nomeExame,
-          dataAgendamento
-        );
-        setListaHorariosIndisponiveis(listaHorarios);
-      };
-      handleListaHorariosIndisponiveis();
-    }
-  }, [nomeExame, dataAgendamento]);
-
   const handlePost = async () => {
     await RequestBackendAgendamento.postAgendamento({
       cliente: {
@@ -96,6 +71,31 @@ export function Agendamento(props) {
     setHorarioAgendamento("");
     closePostModal();
   };
+
+  useEffect(() => {
+    const handleListaExames = async () => {
+      const listaExames = await RequestBackendExame.getTodosExames();
+      setListaExames(listaExames);
+    };
+    handleListaExames();
+  }, []);
+
+  const [listaHorariosIndisponiveis, setListaHorariosIndisponiveis] = useState(
+    []
+  );
+
+  useEffect(() => {
+    if (nomeExame !== "" && dataAgendamento !== "") {
+      const handleListaHorariosIndisponiveis = async () => {
+        const listaHorarios = await RequestBackendAgendamento.getAgendamentosIndisponiveis(
+          nomeExame,
+          dataAgendamento
+        );
+        setListaHorariosIndisponiveis(listaHorarios);
+      };
+      handleListaHorariosIndisponiveis();
+    }
+  }, [nomeExame, dataAgendamento]);
 
   const handlePut = async () => {
     await RequestBackendAgendamento.putAgendamento(stateIdAgendamento, {

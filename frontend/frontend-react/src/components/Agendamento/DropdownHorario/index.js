@@ -15,7 +15,7 @@ const handleDisponivel = (horariosIndisponiveis, horarioPossivel) => {
   let disponibilidade = false;
   horariosIndisponiveis?.map((horariosIndisponiveis) => {
     if (horarioPossivel === horariosIndisponiveis) {
-      return disponibilidade = true;
+      return (disponibilidade = true);
     } else {
       return disponibilidade;
     }

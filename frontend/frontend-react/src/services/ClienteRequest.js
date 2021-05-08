@@ -6,7 +6,7 @@ import {
   successClienteDelete
 } from "../utils/alertas";
 
-const URL = "http://localhost:9090/backend";
+const URL = "http://localhost:9090/backend/v1";
 
 class RequestBackendCliente {
   getTodosClientes() {

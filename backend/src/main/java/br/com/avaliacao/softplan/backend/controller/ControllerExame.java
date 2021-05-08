@@ -21,27 +21,27 @@ public class ControllerExame {
 	@Autowired
 	private ServiceExame service;
 
-	@PostMapping(path = "/exame", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/v1/exame", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> cadastrarExame(@RequestBody Exame exame) {
 		return service.cadastrarExame(exame);
 	}
 	
-	@GetMapping(path = "/exame/{nome}", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/v1/exame/{nome}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> buscarExamePorNome(@PathVariable String nome) {
 		return service.buscarExamePorNome(nome);
 	}
 	
-	@GetMapping(path = "/exames", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/v1/exames", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> buscarTodosExames() {
 		return service.buscarTodosOsExames();
 	}
 	
-	@PutMapping(path = "/exame/{nome}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/v1/exame/{nome}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> atualizarExame(@PathVariable String nome, @RequestBody Exame exame) {
 		return service.atualizarExame(nome, exame);
 	}
 	
-	@DeleteMapping(path = "/exame/{nome}")
+	@DeleteMapping(path = "/v1/exame/{nome}")
 	public ResponseEntity<?> deletarExame(@PathVariable String nome) {
 		return service.deletarExame(nome);
 	}

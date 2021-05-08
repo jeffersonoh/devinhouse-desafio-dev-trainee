@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "http://localhost:9090/backend";
+const URL = "http://localhost:9090/backend/v1";
 
 class RequestBackendExame {
     getTodosExames() {
@@ -18,7 +18,7 @@ class RequestBackendExame {
     }
 
     getExamePorNome(nomeExame) {
-        return axios.get(`${URL}/${nomeExame}`)
+        return axios.get(`${URL}/exame/${nomeExame}`)
         .then(response => response.data)
         .catch(error => {
             throw error;

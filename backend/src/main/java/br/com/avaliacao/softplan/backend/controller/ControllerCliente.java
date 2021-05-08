@@ -20,32 +20,32 @@ public class ControllerCliente {
 	@Autowired
 	private ServiceCliente service;
 
-	@PostMapping(path = "/cliente", consumes = APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/v1/cliente", consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
 		return service.adicionarCliente(cliente);
 	}
 
-	@PutMapping(path = "/cliente/{cpf}", consumes = APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/v1/cliente/{cpf}", consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> atualizarCliente(@PathVariable String cpf, @RequestBody Cliente clienteAtualizado) {
 		return service.atualizarCliente(cpf, clienteAtualizado);
 	}
 
-	@DeleteMapping(path = "/cliente/{cpf}")
+	@DeleteMapping(path = "/v1/cliente/{cpf}")
 	public ResponseEntity<?> deletarCliente(@PathVariable String cpf) {
 		return service.deletarCliente(cpf);
 	}
 
-	@GetMapping(path = "/cliente/{cpf}", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/v1/cliente/{cpf}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> buscarClientePorCpf(@PathVariable String cpf) {
 		return service.buscarClientePorCpf(cpf);
 	}
 	
-	@GetMapping(path = "/clientes", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/v1/clientes", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> listarClientes() {
 		return service.listarClientes();
 	}
 	
-	@GetMapping(path="cliente-agendamento/{cpf}", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(path="/v1/cliente-agendamento/{cpf}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> listarTodosAgendamentosCliente(@PathVariable String cpf) {
 		return service.listarTodosAgendamentosCliente(cpf);
 	}
