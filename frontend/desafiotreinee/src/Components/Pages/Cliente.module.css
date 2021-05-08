@@ -1,0 +1,29 @@
+.cliente {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  gap: 2rem;
+}
+
+.cliente::before {
+  display: block;
+  content: '';
+  background-size: cover;
+}
+
+.forms {
+  max-width: 30rem;
+  padding: 1rem;
+}
+
+@media (max-width: 40rem) {
+  .cliente {
+    grid-template-columns: 1fr;
+  }
+  .cliente::before {
+    display: none;
+  }
+  .forms {
+    max-width: 100%;
+  }
+}

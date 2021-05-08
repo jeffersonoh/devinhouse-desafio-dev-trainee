@@ -37,8 +37,98 @@ O nosso desafio de backend será em criar uma api **RESTFULL** para realização
 
 * Não é obrigatório o uso dos conceitos de Testes unitários Junit 4.x., mas seu uso será um diferencial;
 
-  
+<br>
 
+# EndPoints 
+
+## Clientes
+
+### `GET` Retorna todos os clientes 
+
+```
+http://localhost:3000/desafiotreinee/clientes/v1/consulta
+```
+
+### `GET` Retorna os dados pelo CPF 
+
+```
+http://localhost:3000/desafiotreinee/clientes/v1/consulta/cpf/71469653338
+```
+
+### `POST` Cria um novo cadastro 
+```
+http://localhost:3000/desafiotreinee/clientes/v1/cadastro/cliente
+```
+
+response 
+```json
+{
+ 	"cpf": "01776808061",
+	"nome": "nome4 ",
+    "sobrenome": "sobreno4 ",
+    "dataNascimento": "13/10/1990"
+}
+```
+
+
+### `PUT` Atualiza cadastro pelo CPF
+
+```
+http://localhost:3000/desafiotreinee/clientes/v1/atualizar/cliente/82533786373
+```
+
+response 
+```json
+{  
+    "nome": "novo nome da Joana 2",
+    "sobrenome": "sobre  44",
+    "dataNascimento": "01/07/2003"
+}
+```
+
+### `DELETE` Deleta cadastro pelo CPF
+
+```
+http://localhost:3000/desafiotreinee/clientes/v1/deletar/cpf/71469653338
+```
+
+
+## Angendamentos 
+
+### `GET` todos os agendamentos
+
+```
+http://localhost:3000/desafiotreinee/agenda/v1/consulta
+```
+
+### `PUT` Atualiza agendamento pelo id
+
+```
+http://localhost:3000/desafiotreinee/agenda/v1/editar/agendamento/3
+```
+
+response 
+```json
+ {
+    
+    "dataAgendada": "10/06/2021",
+    "horaAgendada": "17:15"
+  }
+```
+
+### `DELETE` Deleta agendamento pelo id
+
+```
+http://localhost:3000/desafiotreinee/agenda/v1/deletar/id/1
+```
+
+## Exames 
+
+### `GET` Retorna todos os exames
+
+```
+http://localhost:3000/desafiotreinee/exames/v1/consulta
+```
 
 
 
