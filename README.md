@@ -53,6 +53,8 @@ Para maiores informações sobre os requisitos veja em <a href="https://github.c
 
 ## :gear: Como configurar e executar
 
+Para maiores informações sobre o backend acesse <a href="https://izy-doc.netlify.app/">https://izy-doc.netlify.app/</a>
+
 ```bash
 
     # Clonar o repositório
