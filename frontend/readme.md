@@ -1,46 +1,70 @@
-# Frontend
+# Getting Started with Create React App
 
-## Descrição
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-O nosso desafio de frontend será em criar um CRUD para realização de agendamentos de consultas e exames online.
+## Available Scripts
 
-## Regras de Negócio
+In the project directory, you can run:
 
-- Cliente precisa estar cadastrado para realizar o agendamento;
-- O cadastro de cliente deverá ter os campos: Nome, CPF e Data de Nascimento;
-- Não poderá ser cadastrado mais de um cliente para o mesmo CPF;
+### `npm start`
 
-## Features
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-- Deverá uma tela para listagem dos exames disponíveis para agendamento, exibindo apenas nome do exame e id;
-- Deverá haver uma tela para criação de um cliente;
-- Deverá haver uma tela para atualização de um cliente;
-- Deverá haver uma tela para exclusão de um cliente;
-- Deverá haver uma tela para busca de um cliente baseado no seu cpf;
-- Deverá haver uma tela para listagem de todos os clientes cadastrados;
-- Deverá haver uma tela para edição de um agendamento realizado, apenas dia e hora poderão ser editados;
-- Deverá haver uma tela para exclusão de um agendamento realizado;
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-## Requisitos
+### `npm test`
 
--  Utilizar React para o desenvolvimento do frontend;
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Considerações
+### `npm run build`
 
-* Considere em ultilizar dados mockados ou fictícios para o cumprimento do nosso desafio como por exemplo a listagem de exames disponíveis;
-* É aceitável utilizar algumas respostas estáticas em determinadas porções da aplicação;
-* Considere em utilizar bibliotecas de componentes já consolidadas no mercado como [Material - UI](https://material-ui.com/pt/) ou o [React Bootstrap](https://react-bootstrap.github.io/) .
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Diferenciais
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-* Não é obrigatório o uso dos conceitos de testes unitários, mas seu uso será um diferencial;
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-* Utilização de boas práticas de UX na solução.
+### `npm run eject`
 
-* Adaptar a página para dispositivos móveis (torná-la responsiva).
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-* Não é obrigatória a integração com o backend do desafio, mas sua integração será um diferencial;
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-* Não é obrigatório o gerenciamento de estado da aplicação, mas seu uso será um diferencial;
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-  
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
