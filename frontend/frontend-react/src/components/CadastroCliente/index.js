@@ -4,6 +4,7 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { cpfMask } from "../../utils/cpfMask";
 
+import {errorCpfInvalido} from "../../utils/alertas";
 import { InputText } from "../../components/InputText";
 import {Botao} from "../Button";
 import theme from "./CadastroCliente.style";
@@ -43,14 +44,18 @@ export const CadastroCliente = (props) => {
   const [dataNascimento, setDataNascimento] = useState("");
 
   const handlePost = async (cpf) => {
-    await RequestBackendCliente.postCliente({
-      cpf: cpf,
-      nome: nome,
-      dataNascimento: dataNascimento
-    });
-    setNome("");
-    setDataNascimento("");
-    closeModal();
+    if (cpf.length === 14 ) {
+      await RequestBackendCliente.postCliente({
+        cpf: cpf,
+        nome: nome,
+        dataNascimento: dataNascimento
+      });
+      setNome("");
+      setDataNascimento("");
+      closeModal();
+    } else {
+      errorCpfInvalido();
+    }
   };
 
   const handlePut = async () => {

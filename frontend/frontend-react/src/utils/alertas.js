@@ -1,6 +1,6 @@
 import {toast} from "react-toastify";
 
-const successAgendamentoPut = () => {toast.success("Agendamento Atualizado!", {
+const successAgendamentoPut = () => {toast.success("Agendamento atualizado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -10,7 +10,7 @@ const successAgendamentoPut = () => {toast.success("Agendamento Atualizado!", {
   progress: undefined,
 })};
 
-const successAgendamentoPost = () => {toast.success("Agendamento Realizado!", {
+const successAgendamentoPost = () => {toast.success("Agendamento realizado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -20,7 +20,7 @@ const successAgendamentoPost = () => {toast.success("Agendamento Realizado!", {
   progress: undefined,
 })};
 
-const successAgendamentoDelete = () => {toast.success("Agendamento Deletado!", {
+const successAgendamentoDelete = () => {toast.success("Agendamento deletado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -30,7 +30,7 @@ const successAgendamentoDelete = () => {toast.success("Agendamento Deletado!", {
   progress: undefined,
 })};
 
-const successClientePost = () => {toast.success("Cadastro Realizado!", {
+const successClientePost = () => {toast.success("Cadastro realizado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -40,7 +40,7 @@ const successClientePost = () => {toast.success("Cadastro Realizado!", {
   progress: undefined,
 })};
 
-const successClientePut = () => {toast.success("Cadastro Alterado!", {
+const successClientePut = () => {toast.success("Cadastro alterado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -50,7 +50,7 @@ const successClientePut = () => {toast.success("Cadastro Alterado!", {
   progress: undefined,
 })};
 
-const successClienteDelete = () => {toast.success("Cadastro Deletado!", {
+const successClienteDelete = () => {toast.success("Cadastro deletado!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -60,7 +60,17 @@ const successClienteDelete = () => {toast.success("Cadastro Deletado!", {
   progress: undefined,
 })};
 
-const errorClienteGet = () => {toast.error("CPF não Encontrado!", {
+const errorClienteGet = () => {toast.error("CPF não encontrado!", {
+  position: "top-center",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+})};
+
+const errorCpfInvalido = () => {toast.error("CPF inválido!", {
   position: "top-center",
   autoClose: 3000,
   hideProgressBar: false,
@@ -77,5 +87,6 @@ export {
   successClientePost,
   successClientePut,
   errorClienteGet,
-  successClienteDelete
+  successClienteDelete,
+  errorCpfInvalido,
 };
