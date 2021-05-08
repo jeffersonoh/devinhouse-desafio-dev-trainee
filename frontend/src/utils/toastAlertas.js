@@ -25,4 +25,16 @@ const alertaErro = (mensagem) => {
   });
 };
 
-export {alertaSucesso, alertaErro };
+const alertaCPFeHora = (mensagem) => {
+  toast.info(mensagem, {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
+
+export {alertaSucesso, alertaErro, alertaCPFeHora };

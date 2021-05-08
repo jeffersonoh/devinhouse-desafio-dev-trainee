@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { useLoginContext } from "../../utils/login.context";
 import { useExameContext } from "../../utils/exameSelect.context";
 import AgendamentoAPI from "../../service/agendamentoAPI";
+import {alertaCPFeHora} from "../../utils/toastAlertas";
 import horarios from "./horarios";
 
 const useStyle = makeStyles((theme) => ({
@@ -72,7 +73,7 @@ export default function AgendamentoMenu(props) {
   const {
     exame: { exameDados },
   } = useExameContext();
-  const [dataAge, setDataAge] = useState(new Date());
+  const [dataAge, setDataAge] = useState("");
   const [listaHorasDisponivel, setListaHorasDisponiveis] = useState([]);
   const [horaSelecionada, setHoraSelecionada] = useState("");
   useEffect(() => {
@@ -99,36 +100,40 @@ export default function AgendamentoMenu(props) {
   };
 
   const onClick = () => {
-    if (atualizar === true) {
-      atualizarAgendamento(idAtualizar, {
-        cliente: {
-          idCliente: payload.idCliente,
-          nome: payload.nome,
-          dataDeNascimento: payload.dataDeNascimento,
-          cpf: payload.cpf,
-        },
-        exame: {
-          idExame: exameDados.idExame,
-          nome: exameDados.nome,
-        },
-        data: dataAge,
-        hora: horaSelecionada,
-      });
+    if(horaSelecionada && dataAge){
+      if (atualizar === true) {
+        atualizarAgendamento(idAtualizar, {
+          cliente: {
+            idCliente: payload.idCliente,
+            nome: payload.nome,
+            dataDeNascimento: payload.dataDeNascimento,
+            cpf: payload.cpf,
+          },
+          exame: {
+            idExame: exameDados.idExame,
+            nome: exameDados.nome,
+          },
+          data: dataAge,
+          hora: horaSelecionada,
+        });
+      } else {
+        cadastrarAgendamento({
+          cliente: {
+            idCliente: payload.idCliente,
+            nome: payload.nome,
+            dataDeNascimento: payload.dataDeNascimento,
+            cpf: payload.cpf,
+          },
+          exame: {
+            idExame: exameDados.idExame,
+            nome: exameDados.nome,
+          },
+          data: dataAge,
+          hora: horaSelecionada,
+        });
+      }
     } else {
-      cadastrarAgendamento({
-        cliente: {
-          idCliente: payload.idCliente,
-          nome: payload.nome,
-          dataDeNascimento: payload.dataDeNascimento,
-          cpf: payload.cpf,
-        },
-        exame: {
-          idExame: exameDados.idExame,
-          nome: exameDados.nome,
-        },
-        data: dataAge,
-        hora: horaSelecionada,
-      });
+      alertaCPFeHora("Escolha uma Data e um Hora para o Agendamento!");
     }
   };
 
