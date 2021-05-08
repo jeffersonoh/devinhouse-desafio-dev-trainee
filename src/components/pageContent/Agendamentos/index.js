@@ -6,6 +6,7 @@ import {
   Typography,
   Menu,
   MenuItem,
+  Box,
 } from "@material-ui/core";
 
 import { SButton } from "./styledComponents";
@@ -13,31 +14,50 @@ import { SButton } from "./styledComponents";
 import AgendamentoCard from "components/AgendamentoCard";
 import AgendamentoUpdateForm from "components/AgendamentoUpdateForm";
 
-import { Skeleton } from "@material-ui/lab";
+import {
+	Skeleton,
+	Pagination,
+	PaginationItem,
+} from "@material-ui/lab";
+
+import { useRouteMatch, Link } from "react-router-dom";
 
 import {
-  getAgendamentos as apiGetAgendamentos,
+  getAgendamentosPage as apiGetAgendamentosPage,
   deleteAgendamento as apiDeleteAgendamento,
 } from "utils/api";
 
 
 const Agendamentos = (props) => {
-  
+   
+  const match = useRouteMatch("/agendamentos/:page");
+  const [page, setPage] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
   const [agendamentos, setAgendamentos] = useState(null);
   const [selectedAgendamento, setSelectedAgendamento] = useState(null);
   const [agendamentoFormIsOpen, setAgendamentoFormIsOpen] = useState(false);
   const [agendamentoMenuAnchor, setAgendamentoMenuAnchor] = useState(null);
   
-  const getAgendamentos = () => {
-    apiGetAgendamentos().then(res => setAgendamentos(res.data));
-  };
-  
   useEffect(() => {
-    getAgendamentos();
+          setPage(match ? match.params.page : 1);
   }, []);
+
+  const getAgendamentosPage = () => {
+          if (page !== null) {
+                  setAgendamentos(null)
+              apiGetAgendamentosPage({ page: parseInt(page) - 1, size: 17 })
+                .then(res => {
+                  setAgendamentos(res.data.content);
+                  setTotalPages(res.data.totalPages);
+                })
+          }
+  };
+
+  useEffect(getAgendamentosPage, [page]);
   
+
   const handleSuccessfulAction = () => {
-    getAgendamentos();
+    getAgendamentosPage();
   };
   
   const openAgendamentoForm = () => {
@@ -89,6 +109,26 @@ const Agendamentos = (props) => {
 	  </Grid>
 	))
       }
+
+      <Grid item xs={12}>
+          <Box display="flex"
+          justifyContent="center">
+          <Pagination page={page} count={totalPages}
+          onChange={(_, value) => setPage(value)}
+          variant="outlined"
+          renderItem={(props) => (
+                  <PaginationItem
+                  component={Link}
+                  to={{
+                        pathname: `/agendamentos/${props.page}`,
+                        key: props.page,
+                  }}
+                  {...props}
+                  />
+          )}/>
+          </Box>
+      </Grid>
+
       
       <Menu anchorEl={agendamentoMenuAnchor}
 	    open={Boolean(agendamentoMenuAnchor)}

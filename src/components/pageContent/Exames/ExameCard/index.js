@@ -19,7 +19,7 @@ const ExameCard = (props) => {
 		<Grid container
 		      justify="space-around">
 		    
-		    <Grid item>
+		    <Grid item xs={2}>
 
 			<Box display="flex"
 			     flexDirection="column">
@@ -32,7 +32,7 @@ const ExameCard = (props) => {
 
 		    </Grid>
 		    
-		    <Grid item>
+		    <Grid item xs={10}>
 
 			<Box display="flex"
 			     flexDirection="column">

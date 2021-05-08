@@ -21,13 +21,19 @@ import MinimalClienteCard from "./MinimalClienteCard";
 import DetailedClienteCard from "./DetailedClienteCard";
 import ClienteForm from "./ClienteForm";
 
-import { Skeleton } from "@material-ui/lab";
+import { 
+	Skeleton,
+	Pagination,
+	PaginationItem,
+} from "@material-ui/lab";
+
+import { useRouteMatch, Link } from "react-router-dom";
 
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 
 import {
-  getClientes,
+  getClientesPage as apiGetClientesPage,
   searchClientesByCpf,
   deleteCliente as apiDeleteCliente,
 } from "utils/api";
@@ -59,14 +65,31 @@ const Clientes = () => {
   const xsScreen = useMediaQuery(theme.breakpoints.only("xs"));
   const smDownScreen = useMediaQuery(theme.breakpoints.down("sm"));
   
+  const match = useRouteMatch("/clientes/:page");
+  const [page, setPage] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
   const [clientes, setClientes] = useState(null);
   const [selectedCliente, setSelectedCliente] = useState(null);
   const [cpfQuery, setCpfQuery] = useState("");
   const [clienteFormModalIsOpen, setClienteFormModalIsOpen] = useState(false);
-  
+
   useEffect(() => {
-    getClientes().then(res => setClientes(res.data));
+          setPage(match ? match.params.page : 1);
   }, []);
+
+  const getClientesPage = () => {
+          if (page !== null) {
+                  setClientes(null)
+              apiGetClientesPage({ page: parseInt(page) - 1, size: 17 })
+                .then(res => {
+                  setClientes(res.data.content);
+                  setTotalPages(res.data.totalPages);
+                })
+          }
+  };
+
+  useEffect(getClientesPage, [page]);
+
   
   const openClienteFormModal = () => {
     setClienteFormModalIsOpen(true);
@@ -194,7 +217,26 @@ const Clientes = () => {
 		</Grid>
 	      ))
 	    }
+	        <Grid item xs={12}>
+          <Box display="flex"
+          justifyContent="center">
+          <Pagination page={page} count={totalPages}
+          onChange={(_, value) => setPage(value)}
+          variant="outlined"
+          renderItem={(props) => (
+                  <PaginationItem
+                  component={Link}
+                  to={{
+                        pathname: `/exames/${props.page}`,
+                        key: props.page,
+                  }}
+                  {...props}
+                  />
+          )}/>
+          </Box>
+      </Grid>
 	  </Grid>
+
 	</Grid>
 	
 	{/* detailed cliente card */}

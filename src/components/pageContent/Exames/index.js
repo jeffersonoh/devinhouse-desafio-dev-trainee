@@ -6,27 +6,51 @@ import {
 import {
   Grid,
   Typography,
+  Box,
 } from "@material-ui/core";
+
 
 import ExameCard from "./ExameCard";
 
-import { Skeleton } from "@material-ui/lab";
+import {
+	Skeleton,
+	Pagination,
+	PaginationItem,
+} from "@material-ui/lab";
 
-import { getExames } from "utils/api";
+import { useRouteMatch, Link } from "react-router-dom";
+
+import { getExamesPage as apiGetExamesPage } from "utils/api";
 
 
 const Exames = () => {
   
+  const match = useRouteMatch("/exames/:page");
+  const [page, setPage] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
   const [exames, setExames] = useState(null);
-  
+
   useEffect(() => {
-    getExames().then(res => setExames(res.data));
+	  setPage(match ? parseInt(match.params.page) : 1);
   }, []);
   
+  const getExamesPage = () => {
+	  if (page !== null) {
+		  setExames(null)
+	      apiGetExamesPage({ page: page - 1, size: 17 })
+		.then(res => {
+		  setExames(res.data.content);
+		  setTotalPages(res.data.totalPages);
+		})
+	  }
+  };
+
+  useEffect(getExamesPage, [page]);
+
+
+  
   return (
-    <Grid container
-	  direction="row"
-	  spacing={1}>
+    <Grid container spacing={2}>
       
       <Grid item xs={12}>
 	<Typography variant="h4">Exames</Typography>
@@ -44,6 +68,26 @@ const Exames = () => {
 	  </Grid>
 	))
       }
+
+      <Grid item xs={12}>
+	  <Box display="flex"
+	  justifyContent="center">
+	  <Pagination page={page} count={totalPages}
+	  onChange={(_, value) => setPage(value)}
+	  variant="outlined"
+	  renderItem={(props) => (
+		  <PaginationItem
+		  component={Link}
+		  to={{
+			pathname: `/exames/${props.page}`,
+			key: parseInt(props.page),
+		  }}
+		  {...props}
+		  />
+	  )}/>
+	  </Box>
+      </Grid>
+
     </Grid>
   );
 };

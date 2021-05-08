@@ -19,3 +19,9 @@ export const patchAgendamento = (data) => axios.patch(API_BASE + "/agendamentos/
 export const deleteAgendamento = (data) => axios.delete(API_BASE + "/agendamentos/" + data.id);
 
 export const getAgendamentos = () => axios.get(API_BASE + "/agendamentos");
+
+export const getExamesPage = ({page, size}) => axios.get(API_BASE + "/exames/page?page=" + page + "&size=" + size);
+
+export const getClientesPage = ({page, size}) => axios.get(API_BASE + "/clientes/page?page=" + page + "&size=" + size);
+
+export const getAgendamentosPage = ({page, size}) => axios.get(API_BASE + "/agendamentos/page?page=" + page + "&size=" + size);
