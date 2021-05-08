@@ -114,6 +114,7 @@ export default function AtualizarCliente() {
           <TextField
             className={classes.margin}
             fullWidth
+            disabled
             variant="outlined"
             id="cpf"
             name="cpf"

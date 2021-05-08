@@ -61,7 +61,7 @@ export default function Header() {
           </IconButton>
         </Link>
         <Typography variant="h4" className={classes.titulo}>
-          DevIn Sistema de Agendamento
+          DevIn Agendamento
         </Typography>
         {state === "waiting" ? (
           <>
