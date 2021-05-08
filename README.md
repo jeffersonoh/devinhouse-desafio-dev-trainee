@@ -1,41 +1,49 @@
-# Desafio Dev Trainee Softplan DEV in House
+# DEVinHouse desafio Devtrainee
 
-## Descrição
+## Sobre
+O desafio foi construir um aplicativo fullstack para consulta e controle de cadastros, exames e agendamentos para funcionários de um hospital fictício.
 
-O desafio tem como objetivo construir uma aplicação de formato **front/backend** com os conceitos aprendidos no curso **DEV In House** :
+## Frontend
+Meu frontend foi feito principalmente com [React](https://reactjs.org/) e [Material-UI](https://material-ui.com). Veja a demo clicando [aqui!](https://ejnn.github.io/devinhouse-desafio-devtrainee/)
 
-* Módulo 1 completo (frontend);
-* Módulo 2 até a semana 6 (backend com Spring boot, API REST e padrão de projeto MVC);
+## Backend
+Já o backend foi feito à base de [Spring](https://spring.io) e está exposto em ```https://devtrainee-ejnn-backend.herokuapp.com```!
 
-Este desafio servirá como forma avaliativa para a seleção dos candidatos as vagas de **Dev Trainne** na [Softplan](www.softplan.com.br) de forma para evidenciar se os conceitos passados no curso em formato de apresentações e execicios práticos foram aprendidos e fixados de maneira clara.
+### Entidades e endpoints
 
-Serão testadas as habilidades e qualidade de código ao transformar requisitos limitados em uma aplicação web.
+#### Exame
+```json
+{
+  "id": 1,
+  "nome": "Hemograma"
+}
+```
 
-## Instruções de entrega do desafio
+#### Cliente
+```json
+{
+  "id": 1,
+  "nome": "Eduardo",
+  "sobrenome": "Nicolau",
+  "cpf": "00000000000",
+  "dataDeNascimento": "2000-01-01T12:00:00.000-03:00",
+  "agendamentos": [...]
+}
+```
 
-* Fork esse repositório e faça o desafio numa branch com o seu nome (exemplo: nome- sobrenome);
-* Assim que concluir o seu desafio, abra um **pull request** com suas alterações;
-* Data limite para entrega do desafio é **07/05/2020** até **23:59**;
+#### Agendamento
+```json
+{
+  "id": 1,
+  "timestamp": "2000-01-01T12:00:00.000-03:00",
+  "cliente": {...},
+  "exame": {...}
+}
+```
 
-### Instruções alternativas de entrega do desafio
+#### Endpoints
++ GET/POST /v1/exames
++ GET /v1/exames/page?page=x&size=y
++ GET/DELETE/PUT /v1/exames/{id}
 
-*Esta alternativa é direcionada aos candidatos(as) que não queiram que a submissão seja pública e/ou não saibam usar o Git*
-
-Faça um clone deste repositório. Em seguida, implemente o projeto tal qual descrito abaixo, em seu clone local. Por fim, envie via email com o arquivo patch para:
-
-* [jefferson.henrique@softplan.com.br](jefferson.henrique@softplan.com.br).
-
-Caso você não saiba gerar um patch, não tem problema. Comprima o projeto todo em um arquivo .zip e mande para o email acima.
-
-Caso não saiba nem usar o Git para clonar o repositório e iniciar o projeto, também não tem problema. Clique no botão "Download ZIP" na barra lateral direita nesta página, baixe o .zip do projeto, modifique-o, comprima novamente em um novo arquivo .zip e mande para o email acima.
-
-## Avaliação
-
-Seu projeto será avaliado de acordo com a qualidade do seu código e sua organização com os arquivos utilizados, além do conhecimento e bom uso da semântica das linguagens de programação escolhidas para o desafio. Serão levados em conta de forma principal os conceitos aprendidos no curso **Dev In House** conforme mencionado na descrição deste desafio.
-
-## Desafio backend
-
-O desafio de backend se trata em construir uma estrutura contendo os requisitos relacionados na descrição do seu README [AQUI](./backend/readme.md).
-
-## Desafio frontend
-O desafio de backend se trata em construir uma estrutura contendo os requisitos relacionados na descrição do seu README [AQUI](./frontend/readme.md).
+E o mesmo para as outras entidades! 
