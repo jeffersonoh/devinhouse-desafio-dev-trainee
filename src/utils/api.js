@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:8080/v1";
+const API_BASE = "https://devtrainee-ejnn-backend.herokuapp.com/v1";
 
 export const getExames = () => axios.get(API_BASE + "/exames");
 

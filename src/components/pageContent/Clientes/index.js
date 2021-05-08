@@ -169,6 +169,7 @@ const Clientes = () => {
 	{/* clientes */}
 	<Grid item xs={12} md={selectedCliente ? 6 : 12}
 	      className={clsx(
+		smDownScreen && selectedCliente && classes.hidden,
 		selectedCliente && classes.shortenedList,
 		!selectedCliente && classes.extendedList,
 	      )}>
