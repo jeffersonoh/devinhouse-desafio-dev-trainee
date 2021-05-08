@@ -9,6 +9,7 @@ const LoginProvider = ({ children }) => {
   const [usuarioState, setUsuarioState] = useState({
     loginStatus: false,
     cpf: "",
+    contextNome: ""
   });
 
   const voltarHome = () => {
@@ -18,7 +19,7 @@ const LoginProvider = ({ children }) => {
   const login = async (cpf) => {
     const clienteCpf = await RequestBackendCliente.getClientePorCpf(cpf);
     if(clienteCpf) {
-      setUsuarioState({ loginStatus: true, cpf: cpf });
+      setUsuarioState({ loginStatus: true, cpf: cpf, contextNome: clienteCpf.nome });
       return routerHistory.replace("/area-cliente");
     }
   };

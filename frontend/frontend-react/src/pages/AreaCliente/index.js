@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { Box, Drawer, makeStyles, Typography } from "@material-ui/core";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Box, Drawer, makeStyles, Typography, Card } from "@material-ui/core";
 
 import { useContextLogin } from "../../utils/contextLogin";
 import RequestBackendCliente from "../../services/ClienteRequest";
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
 export function AreaPrincipalCliente() {
   const classes = useStyles();
   const {
-    usuarioState: { cpf },
+    usuarioState: { cpf, contextNome },
     logout,
   } = useContextLogin();
 
@@ -108,6 +109,10 @@ export function AreaPrincipalCliente() {
     <>
       <BarraPrincipal drawyerEvent={handleOpenMenu} tituloNavBar="Área do Cliente"/>
       <Drawer anchor="right" open={openMenu} onClose={handleCloseMenu}>
+        <Card style={{marginBottom: "2rem", marginTop: "0.5rem", display: "flex", flexDirection:"column"}}>
+        <AccountCircleIcon style={{fontSize: "50", alignSelf: "center"}}/>
+          <Typography style={{textAlign: "center"}}>Usuário: {contextNome}</Typography>
+        </Card>
         <Botao
           text="Realizar agendamento"
           variante="text"
