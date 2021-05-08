@@ -116,7 +116,7 @@ const AgendaLista = () => {
                         </IconButton>
                     }
                 </div>
-                <Toolbar className={classes.toolbar} style={{ backgroundColor: linhaSelecionadaAgenda.id !== 0 ? "#ff8a80" : "#fff" }}>
+                <Toolbar className={classes.toolbar} style={{ backgroundColor: linhaSelecionadaAgenda.id !== 0 ? "#ffcdd2" : "#fff" }}>
                     <div>
                         {linhaSelecionadaAgenda.id !== 0
                             ? <Typography>Selecionado</Typography>
@@ -179,7 +179,7 @@ const AgendaLista = () => {
                                                 ? setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 })
                                                 : setLinhaSelecionadaAgenda(linha)}
                                             style={{
-                                                backgroundColor: linhaSelecionadaAgenda.id === linha.id ? "#ff8a80" : "#fff"
+                                                backgroundColor: linhaSelecionadaAgenda.id === linha.id ? "#ffcdd2" : "#fff"
                                             }}
                                         >
                                             <TableCell align="center" component="th" scope="row">{linha.pacienteNome}</TableCell>

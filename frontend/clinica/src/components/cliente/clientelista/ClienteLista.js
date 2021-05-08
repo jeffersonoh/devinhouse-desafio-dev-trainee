@@ -116,7 +116,7 @@ const ClienteLista = () => {
                         </IconButton>
                     }
                 </div>
-                <Toolbar className={classes.toolbar} style={{ backgroundColor: linhaSelecionadaCliente.id !== 0 ? "#ff8a80" : "#fff" }}>
+                <Toolbar className={classes.toolbar} style={{ backgroundColor: linhaSelecionadaCliente.id !== 0 ? "#ffcdd2" : "#fff" }}>
                     <div>
                         {linhaSelecionadaCliente.id !== 0
                             ? <Typography>Selecionado</Typography>
@@ -179,7 +179,7 @@ const ClienteLista = () => {
                                                 ? setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 })
                                                 : setLinhaSelecionadaCliente(linha)}
                                             style={{
-                                                backgroundColor: linhaSelecionadaCliente.id === linha.id ? "#ff8a80" : "#fff"
+                                                backgroundColor: linhaSelecionadaCliente.id === linha.id ? "#ffcdd2" : "#fff"
                                             }}
                                         >
                                             <TableCell align="center" component="th" scope="row">{linha.nome}</TableCell>
