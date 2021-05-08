@@ -80,10 +80,12 @@ export function AreaAdmin() {
       return errorClienteGet();
     }
     const cliente = await RequestBackendCliente.getClientePorCpf(cpf);
-    setCliente(cliente);
-    setCpf("");
-    handleCloseModalPesquisa();
-    handleCloseMenu();
+    if(cliente) {
+      setCliente(cliente);
+      setCpf("");
+      handleCloseModalPesquisa();
+      handleCloseMenu();
+    }
   };
 
   const handleCpf = (e) => {
