@@ -227,7 +227,7 @@ const Clientes = () => {
                   <PaginationItem
                   component={Link}
                   to={{
-                        pathname: `/exames/${props.page}`,
+                        pathname: `/clientes/${props.page}`,
                         key: props.page,
                   }}
                   {...props}
