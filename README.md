@@ -38,7 +38,7 @@ Para maiores informações sobre os requisitos veja em <a href="https://github.c
 ## :iphone: Mobile
 
 <h3 align="center">
-  <img alt="izy_mobile" title="github_explorer" src=".github/mobile.jpeg" />
+  <img alt="izy_mobile" title="github_explorer" src=".github/mobile.png" />
 </h3>
 
 <br/>
