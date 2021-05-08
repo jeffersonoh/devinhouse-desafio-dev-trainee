@@ -34,7 +34,7 @@ const ClienteExcluir = () => {
                 />
                 <TextField
                     name="ddn"
-                    label="Data de nacimento"
+                    label="Data de nascimento"
                     type="date"
                     maxLength='10'
                     defaultValue={new Date()}
@@ -50,7 +50,7 @@ const ClienteExcluir = () => {
                 <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("DELETE_CLIENTE")}>
                     Excluir
                 </Button>
-                <Button variant="contained" color="secondary" className={classes.button} onClick={() => setIndex(1)}>
+                <Button color="secondary" className={classes.button} onClick={() => setIndex(1)}>
                     Cancelar
                 </Button>
           </form>

@@ -32,7 +32,7 @@ const ClienteCadastro = () => {
                     />
                     <TextField
                         name="ddn"
-                        label="Data de nacimento"
+                        label="Data de nascimento"
                         type="date"
                         maxLength='10'
                         defaultValue={new Date()}
@@ -52,7 +52,7 @@ const ClienteCadastro = () => {
                         Cadastrar
                     </Button>
                     <Button
-                        variant="contained"
+
                         color="secondary"
                         className={classes.button}
                         onClick={() => setIndex(1)}

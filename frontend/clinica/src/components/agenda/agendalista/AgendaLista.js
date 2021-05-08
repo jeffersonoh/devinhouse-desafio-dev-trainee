@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import CloseIcon from '@material-ui/icons/Close';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
 import { useStyles } from 'style/Style';
@@ -99,7 +99,7 @@ const AgendaLista = () => {
                         <SearchIcon />
                     </IconButton>
                     <InputBase
-                        placeholder="Pesquisar"
+                        placeholder="Pesquisar por CPF"
                         className={classes.pesquisa}
                         title={"Apenas por CPF"}
                         value={pesquisa}
@@ -112,7 +112,7 @@ const AgendaLista = () => {
                             setPesquisa("");
                             setLinhaSelecionadaAgenda({ ...linhaSelecionadaAgenda, id: 0 });
                         }}>
-                            <RefreshIcon />
+                            <CloseIcon />
                         </IconButton>
                     }
                 </div>

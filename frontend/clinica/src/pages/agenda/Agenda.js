@@ -71,10 +71,11 @@ const PagesAgenda = () => {
           <Tabs
             value={index}
             onChange={onChangeTab}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor="secondary"
+            textColor="secondary"
             variant="scrollable"
             scrollButtons="auto"
+            className={classes.tabs}
           >
             <Link to="/">
               <Tab label={<ArrowBackIosIcon />} />

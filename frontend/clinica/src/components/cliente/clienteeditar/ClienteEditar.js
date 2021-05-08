@@ -32,7 +32,7 @@ const ClienteEditar = () => {
                     />
                     <TextField
                         name="ddn" cl
-                        label="Data de nacimento"
+                        label="Data de nascimento"
                         type="date"
                         defaultValue={new Date()}
                         className={classes.textField}
@@ -45,7 +45,7 @@ const ClienteEditar = () => {
                     <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("PUT_CLIENTE")}>
                         Editar
                 </Button>
-                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => setIndex(1)}>
+                    <Button color="secondary" className={classes.button} onClick={() => setIndex(1)}>
                         Cancelar
                 </Button>
                 </form>

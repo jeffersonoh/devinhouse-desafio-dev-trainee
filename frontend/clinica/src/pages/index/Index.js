@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import { indigo, lightBlue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     buttons: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "top",
         justifyContent: "center",
         padding: 8,
-        backgroundColor: "#e0f2f1",
+        backgroundColor: indigo[50],
         height: "100vh"
     }
 }));

@@ -68,7 +68,7 @@ const AgendaCadastro = () => {
                     <Button variant="contained" color="primary" className={classes.button} onClick={() => setChamadoHTTP("POST_NOVAMARCACAO")}>
                         Cadastrar
                     </Button>
-                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => setIndex(1) }>
+                    <Button color="secondary" className={classes.button} onClick={() => setIndex(1) }>
                         Cancelar
                     </Button>
                 </form>

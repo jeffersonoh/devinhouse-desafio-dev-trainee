@@ -9,16 +9,17 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import PagesCliente from './cliente/Cliente';
 import PagesAgenda from './agenda/Agenda';
 import Respostas from 'components/respostas/Respostas';
+import { indigo } from '@material-ui/core/colors';
 
 const Root = () => {
     const theme = createMuiTheme({
-        palette:{
+        palette: {
             primary: {
-                main: "#b2dfdb"
-            }
+                main: indigo[100]
+            },
         }
     });
-
+    
     return (
         <ThemeProvider theme={theme}>
             <Respostas />

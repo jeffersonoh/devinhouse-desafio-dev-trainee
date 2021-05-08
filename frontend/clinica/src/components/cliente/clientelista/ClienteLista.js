@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import CloseIcon from '@material-ui/icons/Close';
 import { cpfMask } from 'utils/mask';
 import moment from 'moment';
 import { useAuth } from 'providers/auth';
@@ -91,13 +91,15 @@ const ClienteLista = () => {
             <Paper>
                 <div className={classes.divPesquisa}>
                     <IconButton aria-label="Editar" onClick={() => {
-                        procurarCliente();
-                        setRefresh(true);
+                        if (pesquisa.length > 0) {
+                            procurarCliente();
+                            setRefresh(true);
+                        }
                     }}>
                         <SearchIcon />
                     </IconButton>
                     <InputBase
-                        placeholder="Pesquisar"
+                        placeholder="Pesquisar por CPF"
                         className={classes.pesquisa}
                         title={"Apenas por CPF"}
                         value={pesquisa}
@@ -110,7 +112,7 @@ const ClienteLista = () => {
                             setLinhaSelecionadaCliente({ ...linhaSelecionadaCliente, id: 0 });
                             setRefresh(false);
                         }}>
-                            <RefreshIcon />
+                            <CloseIcon />
                         </IconButton>
                     }
                 </div>

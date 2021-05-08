@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import { indigo, lightBlue } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => ({
     body: {
@@ -7,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         paddingTop: 30,
         padding: 8,
-        backgroundColor: "#e0f2f1",
+        backgroundColor: indigo[50],
         height: "100vh",
         
     },
@@ -57,6 +58,9 @@ export const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
         marginTop: theme.spacing(2),
         width: "150px"
+    },
+    tabs: {
+        color: theme.palette.primary.main[700],
     }
 }));
 
